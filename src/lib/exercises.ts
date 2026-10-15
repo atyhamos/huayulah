@@ -11,6 +11,7 @@ export type Exercise =
   | { id: string; kind: 'build'; itemId: string; answer: string[]; tiles: string[] }
   | { id: string; kind: 'match'; itemIds: string[] }
   | { id: string; kind: 'speak'; itemId: string; text: string; en: string }
+  | { id: string; kind: 'sgpick'; itemId: string; options: string[]; answer: string }
 
 export type ExerciseKind = Exercise['kind']
 
@@ -125,6 +126,17 @@ function build(it: Item, pool: Item[], rng: Rng): Exercise | null {
   return { id: uid('build', it.id), kind: 'build', itemId: it.id, answer, tiles }
 }
 
+/** "Which would a Singaporean say?" — the SG term vs the mainland one (plus a decoy). */
+function sgPick(it: Item, pool: Item[], rng: Rng): Exercise | null {
+  if (!it.sg || !it.standard) return null
+  const decoy = shuffle(
+    pool.filter((p) => p.id !== it.id && p.hanzi !== it.standard!.hanzi && hanChars(p.hanzi).length === hanChars(it.hanzi).length),
+    rng,
+  )[0]
+  const options = shuffle([it.hanzi, it.standard.hanzi, ...(decoy ? [decoy.hanzi] : [])], rng)
+  return { id: uid('sgpick', it.id), kind: 'sgpick', itemId: it.id, options, answer: it.hanzi }
+}
+
 function speak(it: Item): Exercise {
   const ex = it.example
   const useSentence = ex && stripPunct(ex.zh).length <= 10
@@ -178,6 +190,11 @@ export function generateLesson(lessonItems: Item[], opts: GenerateOptions): Exer
     out.push(...shuffle(drills, rng))
   }
 
+  for (const it of lessonItems) {
+    const e = sgPick(it, pool, rng)
+    if (e && (opts.mode === 'learn' || rng() < 0.5)) out.push(e)
+  }
+
   if (lessonItems.length >= 3) out.push(match(lessonItems, rng))
 
   const builds = shuffle(lessonItems, rng)
@@ -200,6 +217,7 @@ export function retryOf(ex: Exercise, rng: Rng = Math.random): Exercise {
     case 'en2zh':
     case 'listen':
     case 'tone':
+    case 'sgpick':
       return { ...ex, id, options: shuffle(ex.options, rng) }
     case 'build':
       return { ...ex, id, tiles: shuffle(ex.tiles, rng) }

@@ -3,9 +3,15 @@ import { customPinyin, pinyin } from 'pinyin-pro'
 import type { Item } from '../content/schema'
 import { hanChars, setPinyinEngine, type RubyChar } from './pinyin'
 
+/** Context fixes for polyphones pinyin-pro gets wrong in our sentences. */
+const PHRASE_FIXES: Record<string, string> = {
+  只开: 'zhǐ kāi',
+  只收: 'zhǐ shōu',
+}
+
 /** Make sentence pinyin use our hand-checked readings for multi-character items (e.g. 巴刹 bā shā). */
 export function registerItemPinyin(items: Item[]) {
-  const dict: Record<string, string> = {}
+  const dict: Record<string, string> = { ...PHRASE_FIXES }
   for (const it of items) {
     const chars = hanChars(it.hanzi)
     if (chars.length > 1 && chars.length === it.hanzi.length) dict[it.hanzi] = it.pinyin

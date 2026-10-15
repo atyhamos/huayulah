@@ -2,18 +2,28 @@ import type { Content } from './build'
 import { tokenize } from '../lib/exercises'
 import { convert } from '../lib/pinyinEngine'
 
-/** Every string the UI may show with pinyin: example sentences and their word tiles. Requires the engine. */
+/**
+ * Every string the UI may show with pinyin: example sentences and their word tiles. Requires the engine.
+ * Tile readings are taken from their sentence, so polyphones (只 zhǐ, 还 huán…) keep their in-context reading.
+ */
 export function pinyinTable(content: Content): Record<string, string[]> {
-  const texts = new Set<string>()
-  for (const it of content.items.values()) {
-    if (!it.example) continue
-    texts.add(it.example.zh.replace(/ /g, ''))
-    for (const t of tokenize(it.example.zh)) texts.add(t)
-  }
   const table: Record<string, string[]> = {}
-  for (const t of [...texts].sort()) {
-    const r = convert(t)
-    if (r.length === [...t].length && r.some((c) => c.py)) table[t] = r.map((c) => c.py ?? '')
+  const examples = [...content.items.values()].flatMap((it) => (it.example ? [it.example.zh] : [])).sort()
+  for (const zh of examples) {
+    const sentence = zh.replace(/ /g, '')
+    const ruby = convert(sentence)
+    if (ruby.length !== [...sentence].length) continue
+    table[sentence] = ruby.map((c) => c.py ?? '')
+    // walk the tokens through the sentence to pick up their in-context readings
+    let pos = 0
+    const chars = [...sentence]
+    for (const tok of tokenize(zh)) {
+      const len = [...tok].length
+      while (pos < chars.length && chars.slice(pos, pos + len).join('') !== tok) pos++
+      if (pos >= chars.length) break
+      if (!table[tok]) table[tok] = ruby.slice(pos, pos + len).map((c) => c.py ?? '')
+      pos += len
+    }
   }
-  return table
+  return Object.fromEntries(Object.entries(table).sort(([a], [b]) => (a < b ? -1 : 1)))
 }

@@ -213,6 +213,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
             {fb.score !== undefined && <> · {Math.round(fb.score * 100)}% match</>}
           </p>
         )}
+        {it && ex.kind === 'sgpick' && it.note && <p className="mb-2 text-sm text-slate-700">💡 {it.note}</p>}
         {it && (!correct || ex.kind === 'build' || ex.kind === 'speak') && (
           <div className="mb-3 flex items-center gap-3">
             {sentence ? (

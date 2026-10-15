@@ -3,6 +3,7 @@ import { Intro } from './Intro'
 import { MatchPairs } from './MatchPairs'
 import { MultipleChoice } from './MultipleChoice'
 import { SentenceBuilder } from './SentenceBuilder'
+import { SgPick } from './SgPick'
 import { Speak } from './Speak'
 import { ToneChoice } from './ToneChoice'
 import type { ExerciseResult } from './types'
@@ -25,5 +26,7 @@ export function ExerciseView({ ex, locked, onSubmit }: { ex: Exercise; locked: b
       return <MatchPairs ex={ex} locked={locked} onSubmit={onSubmit} />
     case 'speak':
       return <Speak ex={ex} locked={locked} onSubmit={onSubmit} />
+    case 'sgpick':
+      return <SgPick ex={ex} locked={locked} onSubmit={onSubmit} />
   }
 }
