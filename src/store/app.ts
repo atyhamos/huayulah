@@ -44,6 +44,7 @@ interface AppStore {
   updateSettings(p: Partial<Settings>): void
   completeLesson(input: LessonInput): LessonSummary
   completePractice(input: Omit<LessonInput, 'lessonId' | 'mode'>): LessonSummary
+  completeStory(storyId: string, result: { correct: number; total: number }): LessonSummary
   reviewCard(cardId: string, grade: Grade): void
   resetProgress(): Promise<void>
   replaceState(next: AppState): void
@@ -223,6 +224,12 @@ export const useApp = create<AppStore>((set, get) => {
 
     completePractice(input) {
       const r = actions.completePractice(get().s, input, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
+    },
+
+    completeStory(storyId, result) {
+      const r = actions.completeStory(get().s, storyId, result, content, new Date())
       commit(r.state, r.dirty)
       return r.info
     },

@@ -1,0 +1,232 @@
+[
+  {
+    "id": "story-u01",
+    "unitId": "u01",
+    "title": "Lunch?",
+    "titleZh": "吃饭了吗？",
+    "emoji": "🍱",
+    "speakers": { "A": { "name": "Wei Ming", "emoji": "🧑" }, "B": { "name": "Hui Ling", "emoji": "👩" } },
+    "lines": [
+      { "speaker": "A", "zh": "你好！你吃饭了吗？", "en": "Hi! Have you eaten?" },
+      { "speaker": "B", "zh": "还没有。你呢？", "en": "Not yet. You?" },
+      { "speaker": "A", "zh": "我也没有。我们去吃饭吧！", "en": "Me neither. Let's go eat!" },
+      { "speaker": "B", "zh": "好啊！你要吃什么？", "en": "Sure! What do you want to eat?" },
+      { "speaker": "A", "zh": "我要吃鸡饭。你呢？", "en": "I want chicken rice. You?" },
+      { "speaker": "B", "zh": "我不要鸡饭，我要吃面。", "en": "I don't want chicken rice — I want noodles." },
+      { "speaker": "A", "zh": "没关系，小贩中心什么都有。", "en": "No problem, the hawker centre has everything." },
+      { "speaker": "B", "zh": "好，我们现在去！", "en": "Okay, let's go now!" }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "Has Hui Ling eaten?", "options": ["Not yet", "Yes, already", "She isn't hungry"], "answer": 0 },
+      { "after": 5, "prompt": "What does Hui Ling want?", "options": ["Noodles", "Chicken rice", "Laksa"], "answer": 0 },
+      { "after": 7, "prompt": "Where are they going?", "options": ["A hawker centre", "School", "Home"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u02",
+    "unitId": "u02",
+    "title": "How much, Auntie?",
+    "titleZh": "安娣，多少钱？",
+    "emoji": "🛍️",
+    "speakers": { "A": { "name": "Auntie", "emoji": "👵" }, "B": { "name": "You", "emoji": "🧑" } },
+    "lines": [
+      { "speaker": "A", "zh": "你好，要买什么？", "en": "Hello, what would you like?" },
+      { "speaker": "B", "zh": "安娣，这个多少钱？", "en": "Auntie, how much is this?" },
+      { "speaker": "A", "zh": "这个五块。", "en": "This one is five dollars." },
+      { "speaker": "B", "zh": "太贵了！可以便宜一点吗？", "en": "Too expensive! Can you make it cheaper?" },
+      { "speaker": "A", "zh": "好啦，四块半。", "en": "Okay lah, four fifty." },
+      { "speaker": "B", "zh": "我买两个。", "en": "I'll take two." },
+      { "speaker": "A", "zh": "两个九块。", "en": "Two for nine dollars." },
+      { "speaker": "B", "zh": "我给你十块。", "en": "Here's ten dollars." },
+      { "speaker": "A", "zh": "找你一块。谢谢！", "en": "One dollar change. Thank you!" }
+    ],
+    "questions": [
+      { "after": 2, "prompt": "How much was it at first?", "options": ["$5", "$4.50", "$9"], "answer": 0 },
+      { "after": 5, "prompt": "How many do you buy?", "options": ["Two", "One", "Ten"], "answer": 0 },
+      { "after": 8, "prompt": "How much change do you get?", "options": ["$1", "50 cents", "None"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u03",
+    "unitId": "u03",
+    "title": "Kopi time",
+    "titleZh": "在咖啡店",
+    "emoji": "☕",
+    "speakers": { "A": { "name": "Boss", "emoji": "👨‍🍳" }, "B": { "name": "You", "emoji": "🧑" } },
+    "lines": [
+      { "speaker": "A", "zh": "要喝什么？", "en": "What would you like to drink?" },
+      { "speaker": "B", "zh": "老板，一杯咖啡乌，少糖。", "en": "Boss, one kopi-O, less sugar." },
+      { "speaker": "A", "zh": "热的还是冰的？", "en": "Hot or iced?" },
+      { "speaker": "B", "zh": "冰的。还有，一个咖椰吐司。", "en": "Iced. And one kaya toast." },
+      { "speaker": "A", "zh": "在这里吃还是打包？", "en": "Having here or takeaway?" },
+      { "speaker": "B", "zh": "在这里吃。多少钱？", "en": "Having here. How much?" },
+      { "speaker": "A", "zh": "一共四块八。", "en": "Altogether four eighty." },
+      { "speaker": "B", "zh": "好，谢谢老板！", "en": "Okay, thanks boss!" }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "What did you order to drink?", "options": ["Kopi-O, less sugar", "Teh, no sugar", "Milo"], "answer": 0 },
+      { "after": 3, "prompt": "Hot or iced?", "options": ["Iced", "Hot"], "answer": 0 },
+      { "after": 7, "prompt": "Are you eating there or taking away?", "options": ["Eating there", "Takeaway"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u04",
+    "unitId": "u04",
+    "title": "Which way to the MRT?",
+    "titleZh": "地铁站怎么走？",
+    "emoji": "🚇",
+    "speakers": { "A": { "name": "You", "emoji": "🧑" }, "B": { "name": "Uncle", "emoji": "👴" } },
+    "lines": [
+      { "speaker": "A", "zh": "安哥，请问，地铁站怎么走？", "en": "Uncle, excuse me, how do I get to the MRT station?" },
+      { "speaker": "B", "zh": "你一直直走，然后在红绿灯左转。", "en": "Go straight, then turn left at the traffic light." },
+      { "speaker": "A", "zh": "远不远？", "en": "Is it far?" },
+      { "speaker": "B", "zh": "不远，走路五分钟就到了。", "en": "Not far — five minutes on foot." },
+      { "speaker": "A", "zh": "我要去樟宜机场，要转车吗？", "en": "I'm going to Changi Airport — do I need to transfer?" },
+      { "speaker": "B", "zh": "要，你要转一次车。", "en": "Yes, you need to change trains once." },
+      { "speaker": "A", "zh": "谢谢安哥！", "en": "Thank you, uncle!" },
+      { "speaker": "B", "zh": "不用谢，慢慢走！", "en": "You're welcome, take care!" }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "Where should you turn left?", "options": ["At the traffic light", "At the bus stop", "At the mall"], "answer": 0 },
+      { "after": 3, "prompt": "How long is the walk?", "options": ["Five minutes", "Fifteen minutes", "An hour"], "answer": 0 },
+      { "after": 5, "prompt": "Do you need to transfer?", "options": ["Yes, once", "No"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u05",
+    "unitId": "u05",
+    "title": "Rain's coming!",
+    "titleZh": "快下雨了！",
+    "emoji": "🌧️",
+    "speakers": { "A": { "name": "Mum", "emoji": "👩" }, "B": { "name": "You", "emoji": "🧑" } },
+    "lines": [
+      { "speaker": "A", "zh": "快下雨了！快收衣服！", "en": "It's going to rain! Bring in the laundry, quick!" },
+      { "speaker": "B", "zh": "好，我马上去。", "en": "Okay, going now." },
+      { "speaker": "A", "zh": "你去巴刹的时候带雨伞。", "en": "Take an umbrella when you go to the market." },
+      { "speaker": "B", "zh": "今天还要去巴刹吗？", "en": "We still need to go to the market today?" },
+      { "speaker": "A", "zh": "要，家里没有菜了。", "en": "Yes, there's no food left at home." },
+      { "speaker": "B", "zh": "那我先去倒垃圾，再去巴刹。", "en": "Then I'll take out the rubbish first, then go to the market." },
+      { "speaker": "A", "zh": "好。出门前记得关冷气！", "en": "Okay. Remember to switch off the air-con before you leave!" },
+      { "speaker": "B", "zh": "知道啦！", "en": "I know lah!" }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "What does Mum ask you to do first?", "options": ["Bring in the laundry", "Cook dinner", "Sweep the floor"], "answer": 0 },
+      { "after": 4, "prompt": "Why go to the market?", "options": ["There's no food at home", "To meet a friend", "To buy an umbrella"], "answer": 0 },
+      { "after": 7, "prompt": "What must you remember?", "options": ["Switch off the air-con", "Bring the keys", "Lock the gate"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u06",
+    "unitId": "u06",
+    "title": "Auntie's questions",
+    "titleZh": "阿姨的问题",
+    "emoji": "🍊",
+    "speakers": { "A": { "name": "Auntie", "emoji": "👩‍🦳" }, "B": { "name": "You", "emoji": "🧑" } },
+    "lines": [
+      { "speaker": "A", "zh": "哇，你好高了！", "en": "Wow, you've grown so tall!" },
+      { "speaker": "B", "zh": "阿姨好！新年快乐！", "en": "Hello Auntie! Happy New Year!" },
+      { "speaker": "A", "zh": "你现在做什么工作？", "en": "What do you work as now?" },
+      { "speaker": "B", "zh": "我在银行工作。", "en": "I work at a bank." },
+      { "speaker": "A", "zh": "有女朋友了吗？什么时候结婚？", "en": "Got a girlfriend yet? When are you getting married?" },
+      { "speaker": "B", "zh": "哈哈，还没有啦。", "en": "Haha, not yet lah." },
+      { "speaker": "A", "zh": "不要太挑啦！", "en": "Don't be too picky lah!" },
+      { "speaker": "B", "zh": "阿姨，吃黄梨挞吧！", "en": "Auntie, have a pineapple tart!" }
+    ],
+    "questions": [
+      { "after": 3, "prompt": "Where do you work?", "options": ["At a bank", "At a hospital", "At a school"], "answer": 0 },
+      { "after": 5, "prompt": "Do you have a girlfriend?", "options": ["Not yet", "Yes", "Already married"], "answer": 0 },
+      { "after": 7, "prompt": "What do you offer Auntie?", "options": ["A pineapple tart", "A mandarin orange", "A red packet"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u07",
+    "unitId": "u07",
+    "title": "Taking MC",
+    "titleZh": "请病假",
+    "emoji": "🤒",
+    "speakers": { "A": { "name": "You", "emoji": "🧑" }, "B": { "name": "Manager", "emoji": "👩‍💼" } },
+    "lines": [
+      { "speaker": "A", "zh": "经理，我今天不舒服，想请病假。", "en": "Manager, I'm not feeling well today — I'd like to take sick leave." },
+      { "speaker": "B", "zh": "怎么了？", "en": "What's wrong?" },
+      { "speaker": "A", "zh": "我发烧，还有咳嗽。", "en": "I have a fever and a cough." },
+      { "speaker": "B", "zh": "你去看医生了吗？", "en": "Have you seen a doctor?" },
+      { "speaker": "A", "zh": "看了，医生给我两天病假。", "en": "Yes, the doctor gave me two days' MC." },
+      { "speaker": "B", "zh": "好，你好好休息。今天的会我来开。", "en": "Okay, rest well. I'll run today's meeting." },
+      { "speaker": "A", "zh": "谢谢经理，不好意思。", "en": "Thank you, and sorry about this." },
+      { "speaker": "B", "zh": "没问题，身体最重要。", "en": "No problem — your health comes first." }
+    ],
+    "questions": [
+      { "after": 2, "prompt": "What's wrong with you?", "options": ["Fever and a cough", "A toothache", "A sprained ankle"], "answer": 0 },
+      { "after": 4, "prompt": "How many days of MC?", "options": ["Two", "One", "Five"], "answer": 0 },
+      { "after": 7, "prompt": "Who will run the meeting?", "options": ["The manager", "You", "No one — it's cancelled"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u08",
+    "unitId": "u08",
+    "title": "Spelling test tomorrow",
+    "titleZh": "明天有听写",
+    "emoji": "✏️",
+    "speakers": { "A": { "name": "Mum", "emoji": "👩" }, "B": { "name": "Jun Jie", "emoji": "👦" } },
+    "lines": [
+      { "speaker": "A", "zh": "你的功课做完了吗？", "en": "Have you finished your homework?" },
+      { "speaker": "B", "zh": "还没有，华文好难！", "en": "Not yet — Chinese is so hard!" },
+      { "speaker": "A", "zh": "明天不是有听写吗？", "en": "Isn't there a spelling test tomorrow?" },
+      { "speaker": "B", "zh": "对啊，我还没复习。", "en": "Yeah, I haven't revised yet." },
+      { "speaker": "A", "zh": "来，我帮你。这个字怎么写？", "en": "Come, I'll help you. How do you write this character?" },
+      { "speaker": "B", "zh": "我不懂，可以慢一点吗？", "en": "I don't get it — can you go slower?" },
+      { "speaker": "A", "zh": "慢慢来，你可以的。加油！", "en": "Take your time, you can do it. Jiayou!" },
+      { "speaker": "B", "zh": "谢谢妈妈！", "en": "Thanks, Mum!" }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "Which subject is hard?", "options": ["Chinese", "Maths", "Science"], "answer": 0 },
+      { "after": 3, "prompt": "What's happening tomorrow?", "options": ["A spelling test", "A holiday", "Sports day"], "answer": 0 },
+      { "after": 7, "prompt": "Who helps Jun Jie?", "options": ["Mum", "His teacher", "His brother"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u09",
+    "unitId": "u09",
+    "title": "Reunion dinner",
+    "titleZh": "年夜饭",
+    "emoji": "🧧",
+    "speakers": { "A": { "name": "Grandma", "emoji": "👵" }, "B": { "name": "You", "emoji": "🧑" }, "C": { "name": "Uncle", "emoji": "👨" } },
+    "lines": [
+      { "speaker": "A", "zh": "大家来吃年夜饭啦！", "en": "Everyone, come for reunion dinner!" },
+      { "speaker": "B", "zh": "外婆，新年快乐，身体健康！", "en": "Grandma, Happy New Year and good health!" },
+      { "speaker": "A", "zh": "乖，这是你的红包。", "en": "Good kid — here's your red packet." },
+      { "speaker": "B", "zh": "谢谢外婆！恭喜发财！", "en": "Thank you, Grandma! Gong xi fa cai!" },
+      { "speaker": "C", "zh": "来，我们一起捞鱼生！", "en": "Come, let's toss the yusheng together!" },
+      { "speaker": "B", "zh": "捞得越高越好！", "en": "The higher, the better!" },
+      { "speaker": "A", "zh": "好！祝大家万事如意！", "en": "Wonderful! May everything go well for everyone!" }
+    ],
+    "questions": [
+      { "after": 0, "prompt": "Which meal is this?", "options": ["Reunion dinner", "Breakfast", "A birthday lunch"], "answer": 0 },
+      { "after": 3, "prompt": "What does Grandma give you?", "options": ["A red packet", "A mooncake", "A lantern"], "answer": 0 },
+      { "after": 6, "prompt": "What do they toss?", "options": ["Yusheng", "Mandarin oranges", "Rice"], "answer": 0 }
+    ]
+  },
+  {
+    "id": "story-u10",
+    "unitId": "u10",
+    "title": "Weekend plans",
+    "titleZh": "周末去哪里？",
+    "emoji": "🏖️",
+    "speakers": { "A": { "name": "Daniel", "emoji": "🧑" }, "B": { "name": "Mei", "emoji": "👩" } },
+    "lines": [
+      { "speaker": "A", "zh": "好久不见！最近怎样？", "en": "Long time no see! How've you been?" },
+      { "speaker": "B", "zh": "还好啦，工作很忙。你呢？", "en": "Not bad lah, work's busy. You?" },
+      { "speaker": "A", "zh": "一样咯。周末要不要去圣淘沙？", "en": "Same lor. Want to go to Sentosa this weekend?" },
+      { "speaker": "B", "zh": "好啊！可是会不会下雨？", "en": "Sure! But will it rain?" },
+      { "speaker": "A", "zh": "一般上早上不会下雨，我们早点去。", "en": "Usually it doesn't rain in the morning — let's go early." },
+      { "speaker": "B", "zh": "你真的很怕输，六点就要出门？", "en": "You're so kiasu — leaving at six?" },
+      { "speaker": "A", "zh": "不是啦，早点去比较凉快嘛。", "en": "Not lah, it's cooler if we go early mah." },
+      { "speaker": "B", "zh": "好啦好啦，随便你。", "en": "Okay lah okay lah, whatever you say." }
+    ],
+    "questions": [
+      { "after": 1, "prompt": "How has Mei been?", "options": ["Busy with work", "On holiday", "Sick"], "answer": 0 },
+      { "after": 2, "prompt": "Where does Daniel suggest going?", "options": ["Sentosa", "Orchard Road", "Changi Airport"], "answer": 0 },
+      { "after": 6, "prompt": "Why go early?", "options": ["It's cooler", "It's cheaper", "To get a parking spot"], "answer": 0 }
+    ]
+  }
+]

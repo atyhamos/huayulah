@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { content } from '../content'
-import { dueCardIds, isLessonUnlocked, nextLessonId } from '../data/actions'
+import { content, storyByUnit } from '../content'
+import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
 import type { Lesson, Unit } from '../content/schema'
 import { Button } from '../components/ui'
 import { useApp } from '../store/app'
@@ -95,6 +95,7 @@ function UnitSection({
             nodeRef={l.id === next ? nextRef : undefined}
           />
         ))}
+        <StoryNode unit={unit} open={open === `story-${unit.id}`} onToggle={() => setOpen(open === `story-${unit.id}` ? null : `story-${unit.id}`)} />
       </div>
     </section>
   )
@@ -174,6 +175,44 @@ function LessonNode({
             )}
           </div>
         </div>
+      )}
+    </div>
+  )
+}
+
+function StoryNode({ unit, open, onToggle }: { unit: Unit; open: boolean; onToggle: () => void }) {
+  const s = useApp((st) => st.s)
+  const nav = useNavigate()
+  const story = storyByUnit.get(unit.id)
+  if (!story) return null
+  const unlocked = isStoryUnlocked(s, unit.id, content)
+  const done = !!s.lessons[story.id]
+  return (
+    <div className="relative mt-2">
+      <button
+        type="button"
+        data-testid={`story-${unit.id}`}
+        data-status={done ? 'done' : unlocked ? 'open' : 'locked'}
+        onClick={(e) => {
+          e.stopPropagation()
+          if (unlocked) nav(`/story/${story.id}`)
+          else onToggle()
+        }}
+        className={`flex items-center gap-3 rounded-2xl border-2 border-b-4 px-4 py-3 text-left transition active:translate-y-0.5 ${
+          unlocked ? 'border-amber-300 bg-amber-50' : 'border-slate-200 bg-slate-50 opacity-70'
+        }`}
+      >
+        <span className="text-3xl">{unlocked ? story.emoji : '🔒'}</span>
+        <span>
+          <span className="block text-xs font-bold uppercase tracking-wider text-amber-600">Story {done && '✓'}</span>
+          <span className="block font-bold">{story.title}</span>
+          <span className="font-han text-sm text-slate-500">{story.titleZh}</span>
+        </span>
+      </button>
+      {open && !unlocked && (
+        <p className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 animate-pop rounded-xl bg-slate-700 p-3 text-center text-sm text-white">
+          Finish {STORY_UNLOCK_LESSONS} lessons in this unit to unlock the story.
+        </p>
       )}
     </div>
   )

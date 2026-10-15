@@ -47,6 +47,8 @@ body {
 
 ruby {
   ruby-align: center;
+  /* keep neighbouring pinyin syllables (e.g. háng gōng) from running together */
+  padding: 0 0.06em;
 }
 rt {
   font-family: var(--font-sans);

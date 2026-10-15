@@ -5,7 +5,7 @@ import { pinyin } from 'pinyin-pro'
 import { isDeepStrictEqual } from 'node:util'
 import { buildContent } from '../src/content/build'
 import { pinyinTable } from '../src/content/pinyinTable'
-import { UnitSchema } from '../src/content/schema'
+import { StorySchema, UnitSchema } from '../src/content/schema'
 import { hanChars, looseKey, syllables } from '../src/lib/pinyin'
 import { installPinyinEngine } from '../src/lib/pinyinEngine'
 
@@ -51,16 +51,27 @@ for (const it of content.items.values()) {
   } else warnings.push(`${where}: no example sentence`)
 }
 
+const storiesRaw = JSON.parse(readFileSync(join(import.meta.dirname, '../src/content/stories.json'), 'utf8')) as unknown[]
+const stories = storiesRaw.flatMap((r, i) => {
+  const res = StorySchema.safeParse(r)
+  if (!res.success) {
+    errors.push(`stories[${i}]: ${res.error.issues.map((x) => `${x.path.join('.')}: ${x.message}`).join('; ')}`)
+    return []
+  }
+  if (!content.units.some((u) => u.id === res.data.unitId)) errors.push(`${res.data.id}: unknown unit ${res.data.unitId}`)
+  return [res.data]
+})
+
 installPinyinEngine([...content.items.values()])
 const genPath = join(import.meta.dirname, '../src/content/pinyin.generated.json')
-if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content)))
+if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content, stories)))
   errors.push('src/content/pinyin.generated.json is stale — run `npm run gen:pinyin`')
 
 const verify = [...content.items.values()].filter((i) => i.verify)
 console.log(
   `Units: ${content.units.length}  Lessons: ${content.lessonOrder.length}  Items: ${content.items.size}  SG-specific: ${
     [...content.items.values()].filter((i) => i.sg).length
-  }  Flagged for review: ${verify.length}`,
+  }  Stories: ${stories.length}  Flagged for review: ${verify.length}`,
 )
 for (const w of warnings) console.log('  ⚠', w)
 for (const e of errors) console.log('  ✗', e)

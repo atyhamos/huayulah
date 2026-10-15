@@ -47,6 +47,36 @@ export const UnitSchema = z.object({
   lessons: z.array(LessonSchema).min(1),
 })
 
+export const StorySchema = z
+  .object({
+    id: z.string().regex(/^story-[a-z0-9-]+$/),
+    unitId: z.string().regex(/^u\d{2}$/),
+    title: z.string(),
+    titleZh: z.string(),
+    emoji: z.string(),
+    speakers: z.record(z.string(), z.object({ name: z.string(), emoji: z.string() })),
+    lines: z.array(z.object({ speaker: z.string(), zh: z.string().min(1), en: z.string().min(1) })).min(3),
+    questions: z.array(
+      z.object({
+        /** Index of the line after which the question appears. */
+        after: z.number().int().min(0),
+        prompt: z.string(),
+        options: z.array(z.string()).min(2).max(4),
+        answer: z.number().int().min(0),
+      }),
+    ),
+  })
+  .superRefine((st, ctx) => {
+    st.lines.forEach((l, i) => {
+      if (!st.speakers[l.speaker]) ctx.addIssue({ code: 'custom', message: `line ${i}: unknown speaker ${l.speaker}` })
+    })
+    st.questions.forEach((q, i) => {
+      if (q.after >= st.lines.length) ctx.addIssue({ code: 'custom', message: `question ${i}: after is past the last line` })
+      if (q.answer >= q.options.length) ctx.addIssue({ code: 'custom', message: `question ${i}: answer out of range` })
+    })
+  })
+
+export type Story = z.infer<typeof StorySchema>
 export type Example = z.infer<typeof ExampleSchema>
 export type Item = z.infer<typeof ItemSchema> & { unitId: string }
 export type Lesson = z.infer<typeof LessonSchema> & { unitId: string; index: number }

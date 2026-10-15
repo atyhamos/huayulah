@@ -1,5 +1,6 @@
 import { buildContent } from './build'
-import type { UnitInput } from './schema'
+import type { Story, UnitInput } from './schema'
+import storiesJson from './stories.json'
 import u01 from './units/u01.json'
 import u02 from './units/u02.json'
 import u03 from './units/u03.json'
@@ -15,6 +16,10 @@ export const rawUnits = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10] as Un
 export const content = buildContent(rawUnits)
 
 export const { units, items, lessons, lessonOrder } = content
+
+export const stories = storiesJson as Story[]
+export const storyByUnit = new Map(stories.map((s) => [s.unitId, s]))
+export const getStory = (id: string) => stories.find((s) => s.id === id)
 
 export function getItem(id: string) {
   const it = items.get(id)

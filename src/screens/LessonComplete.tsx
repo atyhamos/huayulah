@@ -8,7 +8,19 @@ export function celebrate() {
   })
 }
 
-export function LessonComplete({ summary, seconds, mode, onDone }: { summary: LessonSummary; seconds: number; mode: 'learn' | 'practice'; onDone: () => void }) {
+export function LessonComplete({
+  summary,
+  seconds,
+  mode,
+  title,
+  onDone,
+}: {
+  summary: LessonSummary
+  seconds: number
+  mode: 'learn' | 'practice'
+  title?: string
+  onDone: () => void
+}) {
   useEffect(() => {
     celebrate()
   }, [])
@@ -17,7 +29,7 @@ export function LessonComplete({ summary, seconds, mode, onDone }: { summary: Le
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col items-center px-6 pb-32 pt-12 text-center" data-testid="lesson-complete">
       <div className="mb-4 animate-pop text-7xl">{accuracy === 1 ? '🏆' : '🎉'}</div>
-      <h1 className="mb-1 text-3xl font-extrabold text-amber-500">{mode === 'learn' ? 'Lesson complete!' : 'Practice complete!'}</h1>
+      <h1 className="mb-1 text-3xl font-extrabold text-amber-500">{title ?? (mode === 'learn' ? 'Lesson complete!' : 'Practice complete!')}</h1>
       {newWords > 0 && <p className="mb-6 text-slate-500">+{newWords} words added to your flashcards</p>}
       <div className="mb-6 grid w-full grid-cols-3 gap-3">
         <Stat label="Total XP" value={`+${xp.total}`} color="border-amber-400 text-amber-500" />

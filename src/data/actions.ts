@@ -148,6 +148,50 @@ export function completePractice(
   }
 }
 
+/** Finishing a story: XP (more the first time), recorded alongside lessons under its story id. */
+export function completeStory(
+  s: AppState,
+  storyId: string,
+  result: { correct: number; total: number },
+  content: Content,
+  now: Date,
+): Result<LessonSummary> {
+  const prev = s.lessons[storyId]
+  const mistakes = result.total - result.correct
+  const xp = lessonXp({ mode: prev ? 'practice' : 'learn', mistakes, maxCombo: 0 })
+  const accuracy = result.total ? result.correct / result.total : 1
+  const { state: afterXp, streak } = addXp(s, xp.total, now)
+  let next: AppState = {
+    ...afterXp,
+    lessons: {
+      ...afterXp.lessons,
+      [storyId]: {
+        completedAt: now.getTime(),
+        timesCompleted: (prev?.timesCompleted ?? 0) + 1,
+        bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, accuracy),
+      },
+    },
+  }
+  next = touchDay(next, dayKey(now), (d) => ({ ...d, lessons: d.lessons + 1 }))
+  const achievements = newlyUnlocked(next, { units: content.units, lastLesson: { mistakes } })
+  if (achievements.length) {
+    next = {
+      ...next,
+      achievements: { ...next.achievements, ...Object.fromEntries(achievements.map((a) => [a.id, now.getTime()])) },
+    }
+  }
+  return { state: next, dirty: { root: true }, info: { xp, accuracy, streak, achievements, newWords: 0 } }
+}
+
+/** A unit's story opens once you've done half of the unit. */
+export const STORY_UNLOCK_LESSONS = 3
+
+export function isStoryUnlocked(s: AppState, unitId: string, content: Content): boolean {
+  const unit = content.units.find((u) => u.id === unitId)
+  if (!unit) return false
+  return unit.lessons.filter((l) => s.lessons[l.id]).length >= Math.min(STORY_UNLOCK_LESSONS, unit.lessons.length)
+}
+
 /** Learned items you're most likely to have forgotten. */
 export function weakestItems(s: AppState, n: number, now: Date, content: Content): string[] {
   const scored: [string, number][] = []

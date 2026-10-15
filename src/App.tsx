@@ -9,6 +9,7 @@ import { Onboarding } from './screens/Onboarding'
 import { ProfileScreen } from './screens/Profile'
 import { ReviewScreen } from './screens/Review'
 import { SettingsScreen } from './screens/Settings'
+import { StoryScreen } from './screens/Story'
 import { WordDetailScreen } from './screens/WordDetail'
 import { WordsScreen } from './screens/Words'
 
@@ -53,6 +54,7 @@ export default function App() {
       <Toasts />
       <Routes>
         <Route path="/lesson/:lessonId" element={<LessonScreen />} />
+        <Route path="/story/:storyId" element={<StoryScreen />} />
         <Route element={<Shell />}>
           <Route path="/" element={<LearnScreen />} />
           <Route path="/review" element={<ReviewScreen />} />

@@ -45,6 +45,7 @@ export function pickVoice(voiceURI: string | null): SpeechSynthesisVoice | undef
 
 export interface SpeakOptions {
   rate?: number
+  pitch?: number
   voiceURI?: string | null
   onEnd?: () => void
 }
@@ -58,6 +59,7 @@ export function speak(text: string, opts: SpeakOptions = {}) {
   if (voice) u.voice = voice
   u.lang = voice?.lang ?? 'zh-CN'
   u.rate = opts.rate ?? 0.9
+  if (opts.pitch) u.pitch = opts.pitch
   if (opts.onEnd) u.onend = opts.onEnd
   synth.speak(u)
 }

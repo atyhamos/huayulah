@@ -65,3 +65,19 @@ test('flashcards come due and can be reviewed', async ({ page }) => {
   // streak: day 1 + day 5 with no freezes → resets to 1
   await expect(page.getByTestId('streak')).toHaveText('🔥 1')
 })
+
+test('a story plays through with questions', async ({ page }) => {
+  await onboard(page)
+  await page.goto('/story/story-u03')
+  await page.getByTestId('start-story').click()
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByTestId('lesson-complete').isVisible()) break
+    const unanswered = page.locator('[data-testid=story-question] button[data-correct=true]:not([disabled])')
+    if (await unanswered.count()) await unanswered.first().click()
+    await page.getByTestId('check').click()
+  }
+  await expect(page.getByTestId('lesson-complete')).toContainText('Story complete!')
+  await expect(page.getByTestId('story-line')).toHaveCount(0)
+  await page.getByTestId('done').click()
+  await expect(page.getByTestId('story-u03')).toHaveAttribute('data-status', 'done')
+})

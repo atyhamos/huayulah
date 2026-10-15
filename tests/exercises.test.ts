@@ -70,6 +70,10 @@ describe('content', () => {
     const { UnitSchema } = await import('../src/content/schema')
     const { rawUnits } = await import('../src/content')
     for (const u of rawUnits) expect(() => UnitSchema.parse(u)).not.toThrow()
+    const { StorySchema } = await import('../src/content/schema')
+    const { stories } = await import('../src/content')
+    expect(stories).toHaveLength(content.units.length)
+    for (const st of stories) expect(() => StorySchema.parse(st)).not.toThrow()
   })
 
   it('has an up-to-date pinyin table covering every example and tile', async () => {
@@ -79,6 +83,7 @@ describe('content', () => {
       import('../src/content/pinyin.generated.json'),
     ])
     installPinyinEngine(pool)
-    expect(pinyinTable(content)).toEqual(gen.default)
+    const { stories } = await import('../src/content')
+    expect(pinyinTable(content, stories)).toEqual(gen.default)
   })
 })

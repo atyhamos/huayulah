@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { content } from '../src/content'
-import { completeLesson, completePractice, dueCardIds, isLessonUnlocked, nextLessonId, reviewCard, weakestItems } from '../src/data/actions'
+import { completeLesson, completePractice, completeStory, dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, reviewCard, weakestItems } from '../src/data/actions'
 import { hasProgress, mergeStates } from '../src/data/merge'
 import { cardId, emptyState, normalizeState } from '../src/data/types'
 import { Rating } from '../src/lib/srs'
@@ -110,5 +110,28 @@ describe('weak-word practice', () => {
     expect(r.state.stats.xp).toBe(s.stats.xp + 10)
     expect(r.state.cards).toBe(s.cards)
     expect(r.state.lessons).toEqual(s.lessons)
+  })
+})
+
+describe('stories', () => {
+  it('unlock after three lessons and award XP once fully', () => {
+    let s = emptyState()
+    for (const l of content.units[0].lessons.slice(0, 2)) {
+      s = completeLesson(s, { lessonId: l.id, mode: 'learn', mistakesByItem: {}, maxCombo: 0, answered: 1, correct: 1 }, content, day(2)).state
+    }
+    expect(isStoryUnlocked(s, 'u01', content)).toBe(false)
+    const l3 = content.units[0].lessons[2]
+    s = completeLesson(s, { lessonId: l3.id, mode: 'learn', mistakesByItem: {}, maxCombo: 0, answered: 1, correct: 1 }, content, day(2)).state
+    expect(isStoryUnlocked(s, 'u01', content)).toBe(true)
+
+    const first = completeStory(s, 'story-u01', { correct: 3, total: 3 }, content, day(2))
+    expect(first.info.xp.total).toBe(15)
+    expect(first.state.lessons['story-u01'].timesCompleted).toBe(1)
+    expect(first.info.achievements.map((a) => a.id)).toContain('story-1')
+    const again = completeStory(first.state, 'story-u01', { correct: 2, total: 3 }, content, day(3))
+    expect(again.info.xp.total).toBe(5)
+    expect(again.state.lessons['story-u01']).toMatchObject({ timesCompleted: 2, bestAccuracy: 1 })
+    // stories don't count as unit lessons
+    expect(nextLessonId(again.state, content)).toBe(content.units[0].lessons[3].id)
   })
 })

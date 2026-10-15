@@ -16,6 +16,7 @@ export interface AchievementContext {
 }
 
 const learnedCount = (s: AppState) => Object.keys(s.cards).filter((k) => k.endsWith('__read')).length
+const storiesDone = (s: AppState) => Object.keys(s.lessons).filter((k) => k.startsWith('story-')).length
 const totalReviews = (s: AppState) => Object.values(s.days).reduce((n, d) => n + d.reviews, 0)
 
 const UNIT_BADGES: Record<string, [string, string]> = {
@@ -43,6 +44,8 @@ const STATIC: Achievement[] = [
   { id: 'streak-100', title: 'Unstoppable', description: 'Reach a 100-day streak', icon: '🏆', check: (s) => s.stats.longestStreak >= 100 },
   { id: 'reviews-100', title: 'Spaced Out', description: 'Do 100 flashcard reviews', icon: '🃏', check: (s) => totalReviews(s) >= 100 },
   { id: 'reviews-1000', title: 'Memory Palace', description: 'Do 1,000 flashcard reviews', icon: '🧠', check: (s) => totalReviews(s) >= 1000 },
+  { id: 'story-1', title: 'Story Time', description: 'Finish your first story', icon: '📖', check: (s) => storiesDone(s) >= 1 },
+  { id: 'stories-all', title: 'Bookworm', description: 'Finish every story', icon: '🐛', check: (s, c) => storiesDone(s) >= c.units.length },
   { id: 'xp-1000', title: 'Grinder', description: 'Earn 1,000 XP', icon: '⚡', check: (s) => s.stats.xp >= 1000 },
 ]
 

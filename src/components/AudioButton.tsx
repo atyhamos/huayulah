@@ -4,8 +4,8 @@ import { Icon } from './ui'
 
 export function useSpeak() {
   const settings = useApp((s) => s.s.settings)
-  return (text: string, slow = false) =>
-    speak(text, { rate: slow ? Math.max(0.5, settings.ttsRate - 0.35) : settings.ttsRate, voiceURI: settings.voiceURI })
+  return (text: string, slow = false, pitch?: number) =>
+    speak(text, { rate: slow ? Math.max(0.5, settings.ttsRate - 0.35) : settings.ttsRate, voiceURI: settings.voiceURI, pitch })
 }
 
 export function AudioButton({ text, size = 'md', slow = true }: { text: string; size?: 'sm' | 'md' | 'lg'; slow?: boolean }) {

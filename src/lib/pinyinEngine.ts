@@ -7,7 +7,12 @@ import { hanChars, setPinyinEngine, type RubyChar } from './pinyin'
 const PHRASE_FIXES: Record<string, string> = {
   只开: 'zhǐ kāi',
   只收: 'zhǐ shōu',
+  捞得: 'lāo de',
+  好啦: 'hǎo la',
 }
+
+/** Sentence-final particles are toneless (pinyin-pro reads 咯 as gē, 啦 as lā…). */
+const PARTICLES: Record<string, string> = { 啦: 'la', 咯: 'lo', 嘛: 'ma', 哦: 'o', 吧: 'ba', 呢: 'ne', 啊: 'a', 呀: 'ya' }
 
 /** Make sentence pinyin use our hand-checked readings for multi-character items (e.g. 巴刹 bā shā). */
 export function registerItemPinyin(items: Item[]) {
@@ -25,6 +30,10 @@ export function convert(text: string): RubyChar[] {
   const hit = cache.get(text)
   if (hit) return hit
   const out = pinyin(text, { type: 'all' }).map((x) => ({ ch: x.origin, py: x.isZh ? x.pinyin : null }))
+  out.forEach((r, i) => {
+    const next = out[i + 1]
+    if (PARTICLES[r.ch] && (!next || !next.py)) r.py = PARTICLES[r.ch]
+  })
   cache.set(text, out)
   return out
 }
