@@ -86,7 +86,7 @@ export function WordsScreen() {
           return (
             <li key={it.id}>
               <Link to={`/words/${it.id}`} className={`flex items-center gap-3 py-3 ${card ? '' : 'opacity-50'}`} data-testid="word-row">
-                <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin className="min-w-20 text-2xl" />
+                <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin={false} className="min-w-20 text-3xl" />
                 <span className="flex-1">
                   <span className="block font-semibold">{it.english}</span>
                   <span className="text-sm text-slate-400">{it.pinyin}</span>

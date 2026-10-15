@@ -58,6 +58,10 @@ npm run e2e               # Playwright end-to-end tests (builds + previews first
    Your app is now live at `https://<project-id>.web.app`. That domain is automatically allowed for Google sign-in;
    if you host elsewhere, add the domain under **Authentication → Settings → Authorized domains**.
 
+   Tip: set `VITE_FIREBASE_AUTH_DOMAIN=<project-id>.web.app` (instead of `…firebaseapp.com`) so sign-in stays on
+   the same domain as the app — this avoids redirect-login problems in browsers that block third-party storage
+   (notably Safari / iOS home-screen apps).
+
 ### Auto-deploy from GitHub (optional)
 
 The workflow in `.github/workflows/ci.yml` tests every push and deploys `main` to Firebase Hosting once you add:

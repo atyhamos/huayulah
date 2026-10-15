@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, getDocs, setDoc, deleteDoc, type Firestore } from 'firebase/firestore'
-import { weekId } from '../lib/dates'
+import { dayKey, weekId } from '../lib/dates'
+import { currentStreak } from '../lib/streak'
 import type { PublicProfile } from './profile'
 
 export type { PublicProfile }
@@ -47,7 +48,7 @@ export async function publishProfile(
     friendCode: s.friendCode,
     weeklyXp: s.stats.weekId === wk ? s.stats.weeklyXp : 0,
     weekId: wk,
-    streak: s.stats.streak,
+    streak: currentStreak(s.stats, dayKey()).streak,
     xp: s.stats.xp,
     updatedAt: Date.now(),
   }

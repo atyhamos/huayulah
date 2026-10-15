@@ -235,7 +235,8 @@ export const useApp = create<AppStore>((set, get) => {
 
     async resetProgress() {
       await repo.clear()
-      const fresh = { ...emptyState(), settings: get().s.settings, stats: { ...emptyState().stats, onboarded: true } }
+      const { settings, friends, friendCode } = get().s
+      const fresh = { ...emptyState(), settings, friends, friendCode, stats: { ...emptyState().stats, onboarded: true } }
       commit(fresh, { root: true })
     },
 
