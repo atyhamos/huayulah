@@ -68,7 +68,7 @@ export function MultipleChoice({ ex, locked, onSubmit }: ExProps<Kind>) {
           const isPicked = picked === id
           const state = locked ? (id === ex.itemId ? 'right' : isPicked ? 'wrong' : 'idle') : isPicked ? 'picked' : 'idle'
           const cls = {
-            idle: 'border-slate-200 bg-white',
+            idle: 'border-slate-200 bg-surface',
             picked: 'border-sky-400 bg-sky-50',
             right: 'border-brand-500 bg-brand-50',
             wrong: 'border-rose-400 bg-rose-50 animate-shake',

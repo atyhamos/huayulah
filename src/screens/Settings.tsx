@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { firebaseEnabled } from '../data/firebase'
-import { normalizeState, type AppState, type PinyinMode } from '../data/types'
+import { normalizeState, type AppState, type PinyinMode, type Theme } from '../data/types'
 import { Button, Card, Icon } from '../components/ui'
 import { chineseVoices, onVoicesChanged, speak } from '../lib/tts'
 import { recognitionSupported } from '../lib/speech'
@@ -89,16 +89,33 @@ export function SettingsScreen() {
       </Card>
 
       <Card>
+        <Label>Appearance</Label>
+        <div className="grid grid-cols-3 gap-2">
+          {(
+            [
+              ['system', 'System'],
+              ['light', '☀️ Light'],
+              ['dark', '🌙 Dark'],
+            ] as [Theme, string][]
+          ).map(([t, label]) => (
+            <Choice key={t} active={set.theme === t} onClick={() => update({ theme: t })}>
+              {label}
+            </Choice>
+          ))}
+        </div>
+      </Card>
+
+      <Card>
         <Label>Voice</Label>
         {voices.length === 0 ? (
-          <p className="text-sm text-rose-600">
+          <p className="text-sm text-rose-600 dark:text-rose-400">
             No Mandarin voice found on this device. On Android, install “Google Speech Services” and add Chinese (Mandarin) in text-to-speech settings.
           </p>
         ) : (
           <select
             value={set.voiceURI ?? ''}
             onChange={(e) => update({ voiceURI: e.target.value || null })}
-            className="mb-3 w-full rounded-xl border-2 border-slate-200 bg-white px-3 py-2"
+            className="mb-3 w-full rounded-xl border-2 border-slate-200 bg-surface px-3 py-2"
           >
             <option value="">Auto ({voices[0]?.name})</option>
             {voices.map((v) => (
@@ -132,7 +149,7 @@ export function SettingsScreen() {
           <select
             value={set.newPerDay}
             onChange={(e) => update({ newPerDay: Number(e.target.value) })}
-            className="rounded-xl border-2 border-slate-200 bg-white px-3 py-1"
+            className="rounded-xl border-2 border-slate-200 bg-surface px-3 py-1"
           >
             {[5, 10, 15, 20, 30, 50].map((n) => (
               <option key={n}>{n}</option>
@@ -205,7 +222,7 @@ function Choice({ active, onClick, children }: { active: boolean; onClick: () =>
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-xl border-2 border-b-4 px-2 py-2 text-sm font-bold ${active ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-slate-200 text-slate-600'}`}
+      className={`rounded-xl border-2 border-b-4 px-2 py-2 text-sm font-bold ${active ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-600'}`}
     >
       {children}
     </button>

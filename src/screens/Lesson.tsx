@@ -176,7 +176,7 @@ export function LessonScreen() {
 
       {confirmQuit && (
         <div className="fixed inset-0 z-20 grid place-items-end bg-black/40 sm:place-items-center" onClick={() => setConfirmQuit(false)}>
-          <div className="safe-bottom w-full max-w-md animate-slide-up rounded-t-3xl bg-white p-6 sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
+          <div className="safe-bottom w-full max-w-md animate-slide-up rounded-t-3xl bg-surface p-6 sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
             <p className="mb-2 text-xl font-bold">Quit this lesson?</p>
             <p className="mb-6 text-slate-500">You'll lose your progress in this lesson.</p>
             <div className="flex flex-col gap-3">
@@ -204,7 +204,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
       data-correct={correct}
     >
       <div className="mx-auto max-w-xl">
-        <p className={`mb-2 text-2xl font-extrabold ${correct ? 'text-brand-700' : 'text-rose-600'}`}>
+        <p className={`mb-2 text-2xl font-extrabold ${correct ? 'text-brand-700 dark:text-brand-400' : 'text-rose-600 dark:text-rose-400'}`}>
           {correct ? praise : ex.kind === 'match' ? 'Keep practising!' : 'Correct answer:'}
         </p>
         {ex.kind === 'speak' && fb.heard !== undefined && (

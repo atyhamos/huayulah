@@ -30,7 +30,7 @@ export function LearnScreen() {
         >
           <span className="text-3xl">🃏</span>
           <span className="flex-1">
-            <span className="block font-bold text-sky-700">{dueCount} flashcards to review</span>
+            <span className="block font-bold text-sky-700 dark:text-sky-300">{dueCount} flashcards to review</span>
             <span className="text-sm text-sky-600">A few minutes keeps the words fresh</span>
           </span>
           <span className="font-bold text-sky-600">Go →</span>
@@ -126,7 +126,7 @@ function LessonNode({
   return (
     <div className="relative" style={{ transform: `translateX(${offset}px)` }} ref={nodeRef}>
       {isNext && !open && (
-        <div className="absolute -top-9 left-1/2 z-[1] -translate-x-1/2 animate-bounce whitespace-nowrap rounded-xl border-2 border-slate-200 bg-white px-3 py-1 text-sm font-extrabold uppercase" style={{ color: unit.color }}>
+        <div className="absolute -top-9 left-1/2 z-[1] -translate-x-1/2 animate-bounce whitespace-nowrap rounded-xl border-2 border-slate-200 bg-surface px-3 py-1 text-sm font-extrabold uppercase" style={{ color: unit.color }}>
           Start
         </div>
       )}
@@ -141,7 +141,7 @@ function LessonNode({
         className="grid h-[72px] w-[72px] place-items-center rounded-full border-b-[6px] text-3xl font-black text-white transition active:translate-y-1 active:border-b-2"
         style={
           status === 'locked'
-            ? { backgroundColor: '#e2e8f0', borderColor: '#cbd5e1' }
+            ? { backgroundColor: 'var(--color-slate-200)', borderColor: 'var(--color-slate-300)' }
             : { backgroundColor: unit.color, borderColor: '#0003' }
         }
         aria-label={lesson.title}
@@ -210,7 +210,7 @@ function StoryNode({ unit, open, onToggle }: { unit: Unit; open: boolean; onTogg
         </span>
       </button>
       {open && !unlocked && (
-        <p className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 animate-pop rounded-xl bg-slate-700 p-3 text-center text-sm text-white">
+        <p className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 animate-pop rounded-xl bg-black/80 p-3 text-center text-sm text-white">
           Finish {STORY_UNLOCK_LESSONS} lessons in this unit to unlock the story.
         </p>
       )}

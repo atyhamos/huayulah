@@ -52,7 +52,7 @@ export function LessonComplete({
           </div>
         </div>
       ))}
-      <div className="safe-bottom fixed inset-x-0 bottom-0 bg-white px-4 pt-3">
+      <div className="safe-bottom fixed inset-x-0 bottom-0 bg-surface px-4 pt-3">
         <Button className="mx-auto block w-full max-w-md" onClick={onDone} data-testid="done">
           Continue
         </Button>

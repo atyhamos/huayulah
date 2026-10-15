@@ -59,7 +59,7 @@ export function WordsScreen() {
             key={f}
             type="button"
             onClick={() => setFilter(f)}
-            className={`rounded-full border-2 px-3 py-1 text-sm font-bold ${filter === f ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-slate-200 text-slate-500'}`}
+            className={`rounded-full border-2 px-3 py-1 text-sm font-bold ${filter === f ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-500'}`}
           >
             {label}
           </button>
@@ -67,7 +67,7 @@ export function WordsScreen() {
         <select
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
-          className="rounded-full border-2 border-slate-200 bg-white px-3 py-1 text-sm font-bold text-slate-500"
+          className="rounded-full border-2 border-slate-200 bg-surface px-3 py-1 text-sm font-bold text-slate-500"
         >
           <option value="all">All units</option>
           {content.units.map((u, i) => (

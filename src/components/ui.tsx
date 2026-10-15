@@ -6,7 +6,7 @@ const VARIANTS: Record<Variant, string> = {
   primary: 'bg-brand-500 text-white border-brand-700 hover:bg-brand-400',
   blue: 'bg-sky-500 text-white border-sky-700 hover:bg-sky-400',
   danger: 'bg-rose-500 text-white border-rose-700 hover:bg-rose-400',
-  secondary: 'bg-white text-slate-700 border-slate-300 border-2 hover:bg-slate-50',
+  secondary: 'bg-surface text-slate-700 border-slate-300 border-2 hover:bg-slate-50',
   ghost: 'bg-transparent text-slate-500 border-transparent hover:bg-slate-100',
 }
 
@@ -33,7 +33,7 @@ export function ProgressBar({ value, className = '', color = 'bg-brand-500' }: {
         className={`h-full rounded-full ${color} transition-all duration-500`}
         style={{ width: `${Math.max(0, Math.min(1, value)) * 100}%` }}
       >
-        <div className="mx-2 mt-1 h-1 rounded-full bg-white/30" />
+        <div className="mx-2 mt-1 h-1 rounded-full bg-surface/30" />
       </div>
     </div>
   )
@@ -46,7 +46,7 @@ export function Ring({ value, size = 36, stroke = 4, children, color = '#f59e0b'
   return (
     <div className="relative inline-grid place-items-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e2e8f0" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--color-slate-200)" strokeWidth={stroke} />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -66,7 +66,7 @@ export function Ring({ value, size = 36, stroke = 4, children, color = '#f59e0b'
 }
 
 export function Card({ className = '', children }: { className?: string; children: ReactNode }) {
-  return <div className={`rounded-2xl border-2 border-slate-200 bg-white p-4 ${className}`}>{children}</div>
+  return <div className={`rounded-2xl border-2 border-slate-200 bg-surface p-4 ${className}`}>{children}</div>
 }
 
 export function SgBadge({ className = '' }: { className?: string }) {

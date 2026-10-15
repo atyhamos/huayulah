@@ -27,7 +27,7 @@ export function Intro({ ex, locked, onSubmit }: ExProps<'intro'>) {
             Elsewhere: <Hanzi text={it.standard.hanzi} pinyin={it.standard.pinyin} showPinyin={false} className="text-base" /> ({it.standard.pinyin})
           </p>
         )}
-        {it.note && <p className="max-w-md rounded-xl bg-amber-50 p-3 text-left text-sm text-amber-900">💡 {it.note}</p>}
+        {it.note && <p className="max-w-md rounded-xl bg-amber-50 p-3 text-left text-sm text-amber-900 dark:text-amber-200">💡 {it.note}</p>}
         {it.example && (
           <div className="w-full max-w-md rounded-2xl border-2 border-slate-200 p-4 text-left">
             <div className="flex items-start justify-between gap-2">

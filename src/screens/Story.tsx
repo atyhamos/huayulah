@@ -134,7 +134,7 @@ export function StoryScreen() {
 
   return (
     <div className="mx-auto flex min-h-full max-w-xl flex-col px-4 pb-48 pt-4">
-      <div className="sticky top-0 z-10 -mx-4 mb-4 flex items-center gap-3 bg-white px-4 py-2">
+      <div className="sticky top-0 z-10 -mx-4 mb-4 flex items-center gap-3 bg-surface px-4 py-2">
         <button type="button" aria-label="Quit story" onClick={() => nav('/', { replace: true })} className="text-slate-400">
           {Icon.close()}
         </button>
@@ -142,14 +142,14 @@ export function StoryScreen() {
         <button
           type="button"
           onClick={() => setPinyin((p) => !p)}
-          className={`whitespace-nowrap rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${pinyin ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-slate-200 text-slate-400'}`}
+          className={`whitespace-nowrap rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${pinyin ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-400'}`}
         >
           拼音
         </button>
         <button
           type="button"
           onClick={() => setEnglish((e) => !e)}
-          className={`rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${english ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-slate-200 text-slate-400'}`}
+          className={`rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${english ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-400'}`}
         >
           EN
         </button>
@@ -170,7 +170,7 @@ export function StoryScreen() {
                 <button
                   type="button"
                   onClick={() => playLine(i)}
-                  className={`max-w-[80%] rounded-2xl border-2 px-3 py-2 text-left ${right ? 'rounded-br-sm border-sky-200 bg-sky-50' : 'rounded-bl-sm border-slate-200 bg-white'}`}
+                  className={`max-w-[80%] rounded-2xl border-2 px-3 py-2 text-left ${right ? 'rounded-br-sm border-sky-200 bg-sky-50' : 'rounded-bl-sm border-slate-200 bg-surface'}`}
                 >
                   <Hanzi text={line.zh} showPinyin={pinyin} revealable className="text-xl leading-loose" />
                   {english && <span className="block text-sm text-slate-500">{line.en}</span>}
@@ -208,7 +208,7 @@ function QuestionCard({ q, picked, onPick, locked = false }: { q: Q; picked: num
         {q.order.map((i) => {
           const state = locked ? (i === q.answer ? 'right' : i === picked ? 'wrong' : 'idle') : i === picked ? 'picked' : 'idle'
           const cls = {
-            idle: 'border-slate-200 bg-white',
+            idle: 'border-slate-200 bg-surface',
             picked: 'border-sky-400 bg-sky-50',
             right: 'border-brand-500 bg-brand-50',
             wrong: 'border-rose-400 bg-rose-50',

@@ -1,4 +1,5 @@
 export type PinyinMode = 'always' | 'auto' | 'never'
+export type Theme = 'system' | 'light' | 'dark'
 export type CardDir = 'read' | 'say'
 
 export interface Settings {
@@ -9,6 +10,7 @@ export interface Settings {
   newPerDay: number
   sound: boolean
   speaking: boolean
+  theme: Theme
 }
 
 export interface Stats {
@@ -70,6 +72,7 @@ export const DEFAULT_SETTINGS: Settings = {
   newPerDay: 10,
   sound: true,
   speaking: true,
+  theme: 'system',
 }
 
 export function emptyState(): AppState {

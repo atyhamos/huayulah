@@ -48,7 +48,7 @@ export function Onboarding() {
                 key={g.xp}
                 type="button"
                 onClick={() => setGoal(g.xp)}
-                className={`flex justify-between rounded-2xl border-2 border-b-4 px-5 py-4 font-bold ${goal === g.xp ? 'border-sky-400 bg-sky-50 text-sky-700' : 'border-slate-200'}`}
+                className={`flex justify-between rounded-2xl border-2 border-b-4 px-5 py-4 font-bold ${goal === g.xp ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200'}`}
               >
                 <span>{g.label}</span>
                 <span className="text-slate-500">{g.xp} XP / day</span>

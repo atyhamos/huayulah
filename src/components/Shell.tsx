@@ -14,7 +14,7 @@ export function TopBar() {
   const todayXp = s.days[today]?.xp ?? 0
   const lvl = levelInfo(s.stats.xp)
   return (
-    <header className="sticky top-0 z-10 border-b-2 border-slate-100 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-10 border-b-2 border-slate-100 bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-xl items-center justify-between px-4 py-2">
         <span className="font-han text-xl font-black text-brand-600">
           华语 <span className="font-sans text-sg">Lah!</span>
@@ -67,11 +67,11 @@ export function Shell() {
   return (
     <div className="flex min-h-full flex-col">
       <TopBar />
-      {syncError && <div className="bg-amber-100 px-4 py-1 text-center text-xs text-amber-800">⚠️ {syncError}</div>}
+      {syncError && <div className="bg-amber-100 px-4 py-1 text-center text-xs text-amber-800 dark:text-amber-200">⚠️ {syncError}</div>}
       <main className="mx-auto w-full max-w-xl flex-1 px-4 pb-28 pt-4">
         <Outlet />
       </main>
-      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-10 border-t-2 border-slate-100 bg-white px-2 pt-1.5">
+      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-10 border-t-2 border-slate-100 bg-surface px-2 pt-1.5">
         <div className="mx-auto flex max-w-xl gap-1">
           <Tab to="/" icon="🏠" label="Learn" />
           <Tab to="/review" icon="🃏" label="Review" badge={due.review.length + due.fresh.length} />
@@ -93,7 +93,7 @@ export function Toasts() {
           key={t.id}
           type="button"
           onClick={() => dismiss(t.id)}
-          className="pointer-events-auto flex w-full max-w-sm animate-pop items-center gap-3 rounded-2xl border-2 border-slate-200 bg-white p-3 text-left shadow-lg"
+          className="pointer-events-auto flex w-full max-w-sm animate-pop items-center gap-3 rounded-2xl border-2 border-slate-200 bg-surface p-3 text-left shadow-lg"
         >
           <span className="text-3xl">{t.icon}</span>
           <span>

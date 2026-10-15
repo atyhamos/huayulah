@@ -136,7 +136,7 @@ export function FriendsScreen() {
             Add
           </Button>
         </form>
-        {msg && <p className={`mt-2 text-sm ${msg.ok ? 'text-brand-600' : 'text-rose-600'}`}>{msg.text}</p>}
+        {msg && <p className={`mt-2 text-sm ${msg.ok ? 'text-brand-600' : 'text-rose-600 dark:text-rose-400'}`}>{msg.text}</p>}
       </Card>
 
       <div>

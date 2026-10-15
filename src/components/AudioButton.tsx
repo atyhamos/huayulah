@@ -34,7 +34,7 @@ export function AudioButton({ text, size = 'md', slow = true }: { text: string; 
             e.stopPropagation()
             say(text, true)
           }}
-          className={`${size === 'lg' ? 'h-12 w-12 text-2xl' : 'h-9 w-9 text-lg'} grid place-items-center rounded-xl border-2 border-b-4 border-slate-200 bg-white transition active:translate-y-0.5 active:border-b-2`}
+          className={`${size === 'lg' ? 'h-12 w-12 text-2xl' : 'h-9 w-9 text-lg'} grid place-items-center rounded-xl border-2 border-b-4 border-slate-200 bg-surface transition active:translate-y-0.5 active:border-b-2`}
         >
           🐢
         </button>

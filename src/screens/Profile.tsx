@@ -38,8 +38,8 @@ export function ProfileScreen() {
 
       {!user && firebaseEnabled && (
         <Card className="border-sky-200 bg-sky-50">
-          <p className="mb-1 font-bold text-sky-800">Sync across devices</p>
-          <p className="mb-3 text-sm text-sky-700">Sign in with Google to back up progress and add friends. Your guest progress comes with you.</p>
+          <p className="mb-1 font-bold text-sky-800 dark:text-sky-200">Sync across devices</p>
+          <p className="mb-3 text-sm text-sky-700 dark:text-sky-300">Sign in with Google to back up progress and add friends. Your guest progress comes with you.</p>
           <Button variant="blue" className="w-full" onClick={() => signIn().catch((e) => alert(e.message))}>
             Sign in with Google
           </Button>

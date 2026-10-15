@@ -66,7 +66,7 @@ export function MatchPairs({ ex, locked, onSubmit }: ExProps<'match'>) {
               ? 'animate-shake border-rose-400 bg-rose-50'
               : isSel
                 ? 'border-sky-400 bg-sky-50'
-                : 'border-slate-200 bg-white'
+                : 'border-slate-200 bg-surface'
         }`}
       >
         {side === 'zh' ? (

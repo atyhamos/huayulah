@@ -78,13 +78,13 @@ export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
             {Icon.mic('h-10 w-10')}
           </button>
           <p className="h-6 text-slate-500">{listening ? interim || 'Listening…' : 'Tap and speak'}</p>
-          {error && <p className="text-sm text-rose-600">{error}</p>}
+          {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}
         </div>
       )}
 
       {!locked && selfCheck && (
         <div className="flex flex-col items-center gap-4 text-center">
-          {error && <p className="text-sm text-rose-600">{error}</p>}
+          {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}
           {!revealed ? (
             <Button variant="blue" onClick={() => setRevealed(true)}>
               I said it — compare

@@ -49,7 +49,7 @@ export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
             say(word)
           }
         }}
-        className="font-han flex flex-col items-center rounded-xl border-2 border-b-4 border-slate-200 bg-white px-3 py-1.5 text-2xl transition active:translate-y-0.5"
+        className="font-han flex flex-col items-center rounded-xl border-2 border-b-4 border-slate-200 bg-surface px-3 py-1.5 text-2xl transition active:translate-y-0.5"
       >
         {hint && <span className="font-sans text-xs text-slate-400">{py}</span>}
         {word}

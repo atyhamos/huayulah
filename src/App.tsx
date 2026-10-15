@@ -19,6 +19,18 @@ export default function App() {
   const init = useApp((s) => s.init)
   const refresh = useApp((s) => s.refresh)
   const loc = useLocation()
+  const theme = useApp((s) => s.s.settings.theme)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => {
+      const dark = theme === 'dark' || (theme === 'system' && mq.matches)
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+    }
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [theme])
 
   useEffect(() => {
     void init()

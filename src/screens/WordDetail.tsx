@@ -45,7 +45,7 @@ export function WordDetailScreen() {
           </div>
         </Card>
       )}
-      {it.note && <p className="mb-4 rounded-2xl bg-amber-50 p-4 text-amber-900">💡 {it.note}</p>}
+      {it.note && <p className="mb-4 rounded-2xl bg-amber-50 p-4 text-amber-900 dark:text-amber-200">💡 {it.note}</p>}
       {it.example && (
         <Card className="mb-4">
           <p className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">Example</p>
@@ -108,6 +108,9 @@ export function WordDetailScreen() {
   )
 }
 
+const cssVar = (name: string, fallback: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback
+
 function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const writer = useRef<{ animateCharacter: () => void; quiz: (o?: object) => unknown } | null>(null)
@@ -123,16 +126,18 @@ function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
       if (cancelled) return
       el.innerHTML = ''
       const size = quiz ? 140 : 96
+      const ink = cssVar('--color-slate-800', '#0f172a')
       writer.current = HanziWriter.create(el, ch, {
         width: size,
         height: size,
         padding: 4,
         showOutline: true,
         showCharacter: !quiz,
-        strokeColor: '#0f172a',
+        strokeColor: ink,
         radicalColor: '#16a34a',
         highlightColor: '#0ea5e9',
-        drawingColor: '#0f172a',
+        drawingColor: ink,
+        outlineColor: cssVar('--color-slate-200', '#ddd'),
         strokeAnimationSpeed: 1.2,
         delayBetweenStrokes: 150,
         showHintAfterMisses: 2,
