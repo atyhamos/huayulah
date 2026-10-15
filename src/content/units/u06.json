@@ -20,7 +20,7 @@
     { "id": "jiujiu", "hanzi": "舅舅", "pinyin": "jiù jiu", "english": "uncle (mum's brother)", "example": { "zh": "舅舅 给 我 红包。", "en": "My uncle gave me a red packet." } },
     { "id": "ayi", "hanzi": "阿姨", "pinyin": "ā yí", "english": "aunt (mum's sister) / auntie", "note": "Also a polite way to address any woman of your parents' age.", "example": { "zh": "阿姨， 你 好！", "en": "Hello, auntie!" } },
 
-    { "id": "ange", "hanzi": "安哥", "pinyin": "ān gē", "english": "uncle (any older man)", "sg": true, "note": "A sound-loan from English \"uncle\" — the kopi uncle, the taxi uncle…", "example": { "zh": "那个 安哥 很 好人。", "en": "That uncle is really nice." } },
+    { "id": "ange", "hanzi": "安哥", "pinyin": "ān gē", "english": "uncle (any older man)", "sg": true, "note": "A sound-loan from English \"uncle\" — the kopi uncle, the taxi uncle…", "example": { "zh": "那个 安哥 人 很 好。", "en": "That uncle is really nice." } },
     { "id": "andi", "hanzi": "安娣", "pinyin": "ān dì", "english": "auntie (any older woman)", "sg": true, "note": "A sound-loan from English \"auntie\".", "example": { "zh": "安娣， 我 要 一碗 面。", "en": "Auntie, one bowl of noodles please." } },
     { "id": "pengyou", "hanzi": "朋友", "pinyin": "péng you", "english": "friend", "example": { "zh": "他 是 我 的 好 朋友。", "en": "He's my good friend." } },
     { "id": "tongshi", "hanzi": "同事", "pinyin": "tóng shì", "english": "colleague", "example": { "zh": "我 和 同事 去 吃 午餐。", "en": "I'm going for lunch with colleagues." } },
