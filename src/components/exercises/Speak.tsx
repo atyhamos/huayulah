@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getItem } from '../../content'
+import { loadPinyinEngine } from '../../content/pinyinLoader'
 import { bestSpeechScore, SPEECH_PASS } from '../../lib/answer'
 import { listen, recognitionSupported } from '../../lib/speech'
 import { AudioButton } from '../AudioButton'
@@ -19,7 +20,10 @@ export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
   const [revealed, setRevealed] = useState(false)
   const stopRef = useRef<() => void>(() => {})
 
-  useEffect(() => () => stopRef.current(), [])
+  useEffect(() => {
+    void loadPinyinEngine() // needed to compare what you said by sound, not just characters
+    return () => stopRef.current()
+  }, [])
 
   const start = useCallback(() => {
     setError(null)

@@ -1,5 +1,4 @@
-import { customPinyin, pinyin } from 'pinyin-pro'
-import type { Item } from '../content/schema'
+import table from '../content/pinyin.generated.json'
 
 const TONE_MARKS: Record<string, string[]> = {
   a: ['ā', 'á', 'ǎ', 'à'],
@@ -57,46 +56,38 @@ export function setTone(syl: string, tone: number): string {
   return base.slice(0, idx) + TONE_MARKS[v][tone - 1] + base.slice(idx + 1)
 }
 
-/** Make sentence pinyin use our hand-checked readings for multi-character items (e.g. 巴刹 bā shā). */
-export function registerItemPinyin(items: Item[]) {
-  const dict: Record<string, string> = {}
-  for (const it of items) {
-    const chars = hanChars(it.hanzi)
-    if (chars.length > 1 && chars.length === it.hanzi.length) dict[it.hanzi] = it.pinyin
-  }
-  customPinyin(dict)
-}
-
 export interface RubyChar {
   ch: string
   py: string | null
 }
 
-const cache = new Map<string, RubyChar[]>()
+type Converter = (text: string) => RubyChar[]
+let engine: Converter | null = null
 
-/** Per-character pinyin for any text. Non-Chinese characters get null. */
+/** Plug in the full converter (pinyin-pro) — see pinyinEngine.ts. */
+export function setPinyinEngine(fn: Converter) {
+  engine = fn
+}
+export const pinyinEngineReady = () => engine !== null
+
+const precomputed = table as Record<string, string[]>
+
+/**
+ * Per-character pinyin for any text. Non-Chinese characters get null.
+ * Uses (1) the item's own hand-checked pinyin, (2) the build-time table for all course text,
+ * (3) the lazily-loaded engine for anything else.
+ */
 export function rubyFor(text: string, known?: string): RubyChar[] {
+  const chars = [...text]
   if (known) {
     const syl = syllables(known)
-    const chars = [...text]
     if (hanChars(text).length === syl.length) {
       let i = 0
       return chars.map((ch) => ({ ch, py: isHan(ch) ? syl[i++] : null }))
     }
   }
-  const hit = cache.get(text)
-  if (hit) return hit
-  const out = pinyin(text, { type: 'all' }).map((x) => ({
-    ch: x.origin,
-    py: x.isZh ? x.pinyin : null,
-  }))
-  cache.set(text, out)
-  return out
-}
-
-export function sentencePinyin(text: string): string {
-  return rubyFor(text)
-    .map((r) => r.py)
-    .filter(Boolean)
-    .join(' ')
+  const hit = precomputed[text]
+  if (hit && hit.length === chars.length) return chars.map((ch, i) => ({ ch, py: hit[i] || null }))
+  if (engine) return engine(text)
+  return chars.map((ch) => ({ ch, py: null }))
 }

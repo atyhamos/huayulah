@@ -2,8 +2,12 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pinyin } from 'pinyin-pro'
+import { isDeepStrictEqual } from 'node:util'
 import { buildContent } from '../src/content/build'
+import { pinyinTable } from '../src/content/pinyinTable'
+import { UnitSchema } from '../src/content/schema'
 import { hanChars, looseKey, syllables } from '../src/lib/pinyin'
+import { installPinyinEngine } from '../src/lib/pinyinEngine'
 
 const dir = join(import.meta.dirname, '../src/content/units')
 const files = readdirSync(dir).filter((f) => f.endsWith('.json')).sort()
@@ -13,7 +17,11 @@ const errors: string[] = []
 const warnings: string[] = []
 let content
 try {
-  content = buildContent(raw)
+  content = buildContent(raw.map((r, i) => {
+    const res = UnitSchema.safeParse(r)
+    if (!res.success) throw new Error(`${files[i]}: ${res.error.issues.map((x) => `${x.path.join('.')}: ${x.message}`).join('; ')}`)
+    return r
+  }))
 } catch (e) {
   console.error('✗ Schema/reference error:', e instanceof Error ? e.message : e)
   process.exit(1)
@@ -42,6 +50,11 @@ for (const it of content.items.values()) {
     if (!joined.includes(it.hanzi)) warnings.push(`${where}: example doesn't contain the item`)
   } else warnings.push(`${where}: no example sentence`)
 }
+
+installPinyinEngine([...content.items.values()])
+const genPath = join(import.meta.dirname, '../src/content/pinyin.generated.json')
+if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content)))
+  errors.push('src/content/pinyin.generated.json is stale — run `npm run gen:pinyin`')
 
 const verify = [...content.items.values()].filter((i) => i.verify)
 console.log(

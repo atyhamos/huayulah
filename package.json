@@ -4,13 +4,16 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run gen:pinyin",
     "dev": "vite",
+    "prebuild": "npm run gen:pinyin",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "validate:content": "tsx scripts/validate-content.ts",
     "e2e": "playwright test",
-    "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project demo-huayu \"vitest run --config vitest.rules.config.ts\""
+    "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project demo-huayu \"vitest run --config vitest.rules.config.ts\"",
+    "gen:pinyin": "tsx scripts/gen-pinyin.ts"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

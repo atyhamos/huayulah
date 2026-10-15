@@ -57,6 +57,7 @@ const syllablesOf = (text: string) =>
 
 /**
  * How close a spoken transcript is to the target text, 0–1.
+ * Pinyin comparison needs the pinyin engine loaded (see loadPinyinEngine); without it, characters only.
  * Takes the better of character match and pinyin match, since the recogniser often
  * picks a homophone (e.g. 他 vs 她) that was pronounced perfectly. Pinyin match is
  * mostly toneless, with a small weight on tones so the right tone still wins ties.
@@ -67,7 +68,7 @@ export function speechScore(transcript: string, target: string): number {
   const charSim = similarity([...t], [...g])
   const ts = syllablesOf(t)
   const gs = syllablesOf(g)
-  const pySim = 0.9 * similarity(ts.map(looseKey), gs.map(looseKey)) + 0.1 * similarity(ts, gs)
+  const pySim = ts.length && gs.length ? 0.9 * similarity(ts.map(looseKey), gs.map(looseKey)) + 0.1 * similarity(ts, gs) : 0
   return Math.max(charSim, pySim)
 }
 

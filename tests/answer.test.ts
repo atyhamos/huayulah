@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import '../src/content'
+import { content } from '../src/content'
+import { installPinyinEngine } from '../src/lib/pinyinEngine'
 import { bestSpeechScore, normalizeTranscript, numberToChinese, sameTokens, speechScore, SPEECH_PASS } from '../src/lib/answer'
 import { looseKey, setTone, stripTone, toneOf } from '../src/lib/pinyin'
+
+installPinyinEngine([...content.items.values()])
 
 describe('pinyin helpers', () => {
   it('reads and sets tones', () => {

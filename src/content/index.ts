@@ -1,5 +1,5 @@
 import { buildContent } from './build'
-import { registerItemPinyin } from '../lib/pinyin'
+import type { UnitInput } from './schema'
 import u01 from './units/u01.json'
 import u02 from './units/u02.json'
 import u03 from './units/u03.json'
@@ -11,8 +11,8 @@ import u08 from './units/u08.json'
 import u09 from './units/u09.json'
 import u10 from './units/u10.json'
 
-export const content = buildContent([u01, u02, u03, u04, u05, u06, u07, u08, u09, u10])
-registerItemPinyin([...content.items.values()])
+export const rawUnits = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10] as UnitInput[]
+export const content = buildContent(rawUnits)
 
 export const { units, items, lessons, lessonOrder } = content
 

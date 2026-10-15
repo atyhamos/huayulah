@@ -1,4 +1,4 @@
-import { UnitSchema, type Item, type Lesson, type Unit } from './schema'
+import type { Item, Lesson, Unit, UnitInput } from './schema'
 
 export interface Content {
   units: Unit[]
@@ -8,16 +8,18 @@ export interface Content {
   lessonOrder: Lesson[]
 }
 
-/** Parse raw unit JSON into typed content. Throws on schema or reference errors. */
-export function buildContent(raw: unknown[]): Content {
+/**
+ * Assemble unit JSON into typed content and check cross-references.
+ * Schema validation (zod) runs in the validator and tests, not in the app bundle.
+ */
+export function buildContent(raw: UnitInput[]): Content {
   const units: Unit[] = []
   const items = new Map<string, Item>()
   const lessons = new Map<string, Lesson>()
   const lessonOrder: Lesson[] = []
 
-  for (const r of raw) {
-    const u = UnitSchema.parse(r)
-    const unitItems: Item[] = u.items.map((it) => ({ ...it, unitId: u.id }))
+  for (const u of raw) {
+    const unitItems: Item[] = u.items.map((it) => ({ ...it, type: it.type ?? 'word', unitId: u.id }))
     for (const it of unitItems) {
       if (items.has(it.id)) throw new Error(`Duplicate item id "${it.id}" in ${u.id}`)
       items.set(it.id, it)

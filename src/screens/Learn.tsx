@@ -149,28 +149,30 @@ function LessonNode({
       </button>
       {open && (
         <div
-          className="absolute left-1/2 top-[84px] z-20 w-64 -translate-x-1/2 animate-pop rounded-2xl p-4 text-white shadow-lg"
-          style={{ backgroundColor: status === 'locked' ? '#94a3b8' : unit.color, transform: `translateX(calc(-50% - ${offset}px))` }}
+          className="absolute left-1/2 top-[84px] z-20 w-64"
+          style={{ transform: `translateX(calc(-50% - ${offset}px))` }}
           onClick={(e) => e.stopPropagation()}
         >
-          <p className="font-extrabold">{lesson.title}</p>
-          <p className="mb-3 text-sm opacity-90">
-            {status === 'done'
-              ? `Completed ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
-              : status === 'open'
-                ? `Lesson ${lesson.index + 1} of ${unit.lessons.length} · ${lesson.items.length} new words`
-                : 'Finish the previous lesson to unlock this one.'}
-          </p>
-          {status !== 'locked' && (
-            <Button
-              variant="secondary"
-              className="w-full !border-white/40 !text-slate-700"
-              data-testid="start-lesson"
-              onClick={() => nav(`/lesson/${lesson.id}${status === 'done' ? '?mode=practice' : ''}`)}
-            >
-              {status === 'done' ? 'Practice +5 XP' : 'Start +10 XP'}
-            </Button>
-          )}
+          <div className="animate-pop rounded-2xl p-4 text-white shadow-lg" style={{ backgroundColor: status === 'locked' ? '#94a3b8' : unit.color }}>
+            <p className="font-extrabold">{lesson.title}</p>
+            <p className="mb-3 text-sm opacity-90">
+              {status === 'done'
+                ? `Completed ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
+                : status === 'open'
+                  ? `Lesson ${lesson.index + 1} of ${unit.lessons.length} · ${lesson.items.length} new words`
+                  : 'Finish the previous lesson to unlock this one.'}
+            </p>
+            {status !== 'locked' && (
+              <Button
+                variant="secondary"
+                className="w-full !border-white/40 !text-slate-700"
+                data-testid="start-lesson"
+                onClick={() => nav(`/lesson/${lesson.id}${status === 'done' ? '?mode=practice' : ''}`)}
+              >
+                {status === 'done' ? 'Practice +5 XP' : 'Start +10 XP'}
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>

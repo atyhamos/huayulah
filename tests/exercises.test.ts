@@ -63,3 +63,21 @@ describe('lesson generation', () => {
     expect(itemsOf(again)).toEqual(itemsOf(mc))
   })
 })
+
+describe('content', () => {
+  it('passes the schema', async () => {
+    const { UnitSchema } = await import('../src/content/schema')
+    const { rawUnits } = await import('../src/content')
+    for (const u of rawUnits) expect(() => UnitSchema.parse(u)).not.toThrow()
+  })
+
+  it('has an up-to-date pinyin table covering every example and tile', async () => {
+    const [{ pinyinTable }, { installPinyinEngine }, gen] = await Promise.all([
+      import('../src/content/pinyinTable'),
+      import('../src/lib/pinyinEngine'),
+      import('../src/content/pinyin.generated.json'),
+    ])
+    installPinyinEngine(pool)
+    expect(pinyinTable(content)).toEqual(gen.default)
+  })
+})
