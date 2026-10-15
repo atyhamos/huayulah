@@ -8,3 +8,4 @@ playwright-report
 .firebase
 *.log
 public/strokes
+dist-emu

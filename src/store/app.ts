@@ -38,6 +38,7 @@ interface AppStore {
   init(): Promise<void>
   signIn(): Promise<void>
   signOut(): Promise<void>
+  signInForTests(email: string, name: string): Promise<void>
   refresh(): Promise<void>
 
   finishOnboarding(dailyGoal: number): void
@@ -110,6 +111,10 @@ export const useApp = create<AppStore>((set, get) => {
       await cloud.save(state, { root: true, cards: Object.keys(state.cards) })
       await guestRepo.clear()
       get().toast({ icon: '☁️', title: 'Progress synced', body: 'Your guest progress was added to your account.' })
+    } else if (guest.stats.onboarded && !state.stats.onboarded) {
+      // finished onboarding as a guest but hadn't earned XP yet — don't onboard again
+      state = { ...state, settings: guest.settings, stats: { ...state.stats, onboarded: true } }
+      await cloud.save(state, { root: true })
     }
     if (!state.friendCode) {
       try {
@@ -149,8 +154,15 @@ export const useApp = create<AppStore>((set, get) => {
             if (u) {
               await loadAccount({ uid: u.uid, displayName: u.displayName, email: u.email, photoURL: u.photoURL })
             } else if (get().mode === 'cloud') {
+              // signed out: start a fresh guest session but keep preferences
               repo = guestRepo
-              set({ mode: 'guest', user: null, s: await guestRepo.load() })
+              const { settings } = get().s
+              let guest = await guestRepo.load()
+              if (!hasProgress(guest)) {
+                guest = { ...guest, settings, stats: { ...guest.stats, onboarded: true } }
+                await guestRepo.save(guest)
+              }
+              set({ mode: 'guest', user: null, s: guest })
             }
           } catch (e) {
             console.error(e)
@@ -183,6 +195,15 @@ export const useApp = create<AppStore>((set, get) => {
           throw e
         }
       }
+    },
+
+    async signInForTests(email: string, name: string) {
+      // Only in emulator builds: the Auth emulator accepts an unsigned Google ID token.
+      if (import.meta.env.VITE_FIREBASE_EMULATORS !== 'true') throw new Error('emulator only')
+      const { auth } = await getFirebase()
+      const { GoogleAuthProvider, signInWithCredential } = await import('firebase/auth')
+      const token = JSON.stringify({ sub: email, email, email_verified: true, name })
+      await signInWithCredential(auth, GoogleAuthProvider.credential(token))
     },
 
     async signOut() {

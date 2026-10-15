@@ -40,6 +40,7 @@ npm run validate:content  # check lesson JSON (schema, ids, pinyin)
 npm run build             # production build → dist/
 npm run e2e               # Playwright end-to-end tests (builds + previews first)
 npm run test:rules        # Firestore security rules + sync tests on the emulator (needs Java)
+npm run e2e:cloud         # sign-in → merge → second device → friends, on the Auth + Firestore emulators
 ```
 
 ## Turning on Google login + cloud sync (Firebase)

@@ -40,6 +40,11 @@ export function getFirebase(): Promise<FirebaseHandles> {
       ignoreUndefinedProperties: true,
       localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() }),
     })
+    // Local testing against `firebase emulators:start` (see e2e-cloud/)
+    if (import.meta.env.VITE_FIREBASE_EMULATORS === 'true') {
+      authMod.connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true })
+      fs.connectFirestoreEmulator(db, '127.0.0.1', 8080)
+    }
     return { app, auth, db }
   })()
   return handles
