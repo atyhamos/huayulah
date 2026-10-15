@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "validate:content": "tsx scripts/validate-content.ts",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project demo-huayu \"vitest run --config vitest.rules.config.ts\""
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
@@ -24,6 +25,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/canvas-confetti": "^1.9.0",

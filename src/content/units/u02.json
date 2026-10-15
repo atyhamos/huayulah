@@ -46,7 +46,7 @@
     { "id": "xianjin", "hanzi": "现金", "pinyin": "xiàn jīn", "english": "cash", "example": { "zh": "这里 只 收 现金。", "en": "Cash only here." } },
     { "id": "fuqian", "hanzi": "付钱", "pinyin": "fù qián", "english": "to pay", "example": { "zh": "我 来 付钱。", "en": "Let me pay." } },
     { "id": "zhaoqian", "hanzi": "找钱", "pinyin": "zhǎo qián", "english": "to give change", "example": { "zh": "老板， 找钱 不 对。", "en": "Boss, the change is wrong." } },
-    { "id": "dazhe", "hanzi": "打折", "pinyin": "dǎ zhé", "english": "discount / on sale", "example": { "zh": "今天 打 八折。", "en": "20% off today." }, "note": "打八折 means you pay 80% — i.e. 20% off. Don't read it as 80% off!" }
+    { "id": "dazhe", "hanzi": "打折", "pinyin": "dǎ zhé", "english": "discount / on sale", "example": { "zh": "这些 衣服 打折 吗？", "en": "Are these clothes on sale?" }, "note": "打八折 means you pay 80% — i.e. 20% off. Don't read it as 80% off!" }
   ],
   "lessons": [
     { "id": "u02-l1", "title": "One to six", "items": ["yi", "er", "san", "si", "wu", "liu"] },

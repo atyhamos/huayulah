@@ -1,0 +1,59 @@
+{
+  "id": "u04",
+  "title": "Getting Around",
+  "titleZh": "出行",
+  "description": "MRT, buses, taxis and asking the way — plus the place names you already know.",
+  "emoji": "🚇",
+  "color": "#8b5cf6",
+  "items": [
+    { "id": "ditie", "hanzi": "地铁", "pinyin": "dì tiě", "english": "MRT / subway", "note": "The LRT is 轻轨 (qīng guǐ), \"light rail\".", "example": { "zh": "我 每天 坐 地铁 上班。", "en": "I take the MRT to work every day." } },
+    { "id": "bashi", "hanzi": "巴士", "pinyin": "bā shì", "english": "bus", "sg": true, "standard": { "hanzi": "公交车", "pinyin": "gōng jiāo chē" }, "note": "A sound-loan from English \"bus\".", "example": { "zh": "这 辆 巴士 去 哪里？", "en": "Where does this bus go?" } },
+    { "id": "deshi", "hanzi": "德士", "pinyin": "dé shì", "english": "taxi", "sg": true, "standard": { "hanzi": "出租车", "pinyin": "chū zū chē" }, "note": "A sound-loan from English \"taxi\".", "example": { "zh": "下雨 了， 我们 坐 德士 吧。", "en": "It's raining — let's take a taxi." } },
+    { "id": "ditiezhan", "hanzi": "地铁站", "pinyin": "dì tiě zhàn", "english": "MRT station", "example": { "zh": "最近 的 地铁站 在 哪里？", "en": "Where's the nearest MRT station?" } },
+    { "id": "bashizhan", "hanzi": "巴士站", "pinyin": "bā shì zhàn", "english": "bus stop", "sg": true, "standard": { "hanzi": "公交车站", "pinyin": "gōng jiāo chē zhàn" }, "example": { "zh": "我 在 巴士站 等 你。", "en": "I'll wait for you at the bus stop." } },
+    { "id": "yitongka", "hanzi": "易通卡", "pinyin": "yì tōng kǎ", "english": "EZ-Link card", "sg": true, "verify": true, "note": "Your fare card — or just tap your bank card these days.", "example": { "zh": "我的 易通卡 没有 钱 了。", "en": "My EZ-Link card has no money left." } },
+
+    { "id": "jiaoche", "hanzi": "叫车", "pinyin": "jiào chē", "english": "to book a ride (call a car)", "example": { "zh": "我 用 手机 叫车。", "en": "I'll book a ride on my phone." } },
+    { "id": "siji", "hanzi": "司机", "pinyin": "sī jī", "english": "driver", "example": { "zh": "司机， 前面 停 就 好。", "en": "Driver, just stop up ahead." } },
+    { "id": "shangche", "hanzi": "上车", "pinyin": "shàng chē", "english": "to get on / board", "example": { "zh": "快 上车！", "en": "Get in, quick!" } },
+    { "id": "xiache", "hanzi": "下车", "pinyin": "xià chē", "english": "to get off / alight", "example": { "zh": "我 下 一站 下车。", "en": "I'm getting off at the next stop." } },
+    { "id": "zhuanche", "hanzi": "转车", "pinyin": "zhuǎn chē", "english": "to transfer (change trains / buses)", "example": { "zh": "你 要 在 这里 转车。", "en": "You need to transfer here." } },
+    { "id": "saiche", "hanzi": "塞车", "pinyin": "sāi chē", "english": "traffic jam", "sg": true, "standard": { "hanzi": "堵车", "pinyin": "dǔ chē" }, "note": "Singapore and Malaysia say 塞车; in China it's 堵车.", "example": { "zh": "高速公路 又 塞车 了。", "en": "The expressway is jammed again." } },
+
+    { "id": "zuobian", "hanzi": "左边", "pinyin": "zuǒ biān", "english": "left (side)", "example": { "zh": "厕所 在 左边。", "en": "The toilet is on the left." } },
+    { "id": "youbian", "hanzi": "右边", "pinyin": "yòu biān", "english": "right (side)", "example": { "zh": "银行 在 你 的 右边。", "en": "The bank is on your right." } },
+    { "id": "qianmian", "hanzi": "前面", "pinyin": "qián miàn", "english": "in front / ahead", "example": { "zh": "前面 有 一个 巴士站。", "en": "There's a bus stop ahead." } },
+    { "id": "houmian", "hanzi": "后面", "pinyin": "hòu miàn", "english": "behind / at the back", "example": { "zh": "停车场 在 后面。", "en": "The carpark is at the back." } },
+    { "id": "zhizou", "hanzi": "直走", "pinyin": "zhí zǒu", "english": "go straight", "example": { "zh": "一直 直走 就 到 了。", "en": "Keep going straight and you're there." } },
+    { "id": "zhuanwan", "hanzi": "转弯", "pinyin": "zhuǎn wān", "english": "to turn (a corner)", "example": { "zh": "在 红绿灯 转弯。", "en": "Turn at the traffic light." } },
+
+    { "id": "jichang", "hanzi": "机场", "pinyin": "jī chǎng", "english": "airport", "example": { "zh": "我 去 机场 接 妈妈。", "en": "I'm going to the airport to pick up Mum." } },
+    { "id": "yiyuan", "hanzi": "医院", "pinyin": "yī yuàn", "english": "hospital", "example": { "zh": "他 在 医院 工作。", "en": "He works at the hospital." } },
+    { "id": "yinhang", "hanzi": "银行", "pinyin": "yín háng", "english": "bank", "example": { "zh": "银行 几点 关门？", "en": "What time does the bank close?" } },
+    { "id": "shangchang", "hanzi": "商场", "pinyin": "shāng chǎng", "english": "shopping mall", "example": { "zh": "周末 商场 人 很 多。", "en": "Malls are crowded on weekends." } },
+    { "id": "youju", "hanzi": "邮局", "pinyin": "yóu jú", "english": "post office", "example": { "zh": "附近 有 邮局 吗？", "en": "Is there a post office nearby?" } },
+    { "id": "tushuguan", "hanzi": "图书馆", "pinyin": "tú shū guǎn", "english": "library", "example": { "zh": "我们 在 图书馆 温习。", "en": "We study at the library." } },
+
+    { "id": "niucheshui", "hanzi": "牛车水", "pinyin": "niú chē shuǐ", "english": "Chinatown", "sg": true, "note": "Literally \"bullock-cart water\" — ox carts once brought water to the area.", "example": { "zh": "新年 前 牛车水 很 热闹。", "en": "Chinatown is buzzing before Chinese New Year." } },
+    { "id": "wujielu", "hanzi": "乌节路", "pinyin": "wū jié lù", "english": "Orchard Road", "sg": true, "note": "乌节 is a sound-loan of \"Orchard\".", "example": { "zh": "圣诞节 的 乌节路 很 漂亮。", "en": "Orchard Road is pretty at Christmas." } },
+    { "id": "zhangyi", "hanzi": "樟宜", "pinyin": "zhāng yí", "english": "Changi", "sg": true, "example": { "zh": "樟宜 机场 很 大。", "en": "Changi Airport is huge." } },
+    { "id": "shengtaosha", "hanzi": "圣淘沙", "pinyin": "shèng táo shā", "english": "Sentosa", "sg": true, "example": { "zh": "周末 去 圣淘沙 玩。", "en": "Let's go to Sentosa this weekend." } },
+    { "id": "yulang", "hanzi": "裕廊", "pinyin": "yù láng", "english": "Jurong", "sg": true, "example": { "zh": "我 住 在 裕廊 西。", "en": "I live in Jurong West." } },
+    { "id": "wulan", "hanzi": "兀兰", "pinyin": "wù lán", "english": "Woodlands", "sg": true, "example": { "zh": "从 兀兰 过 长堤 去 新山。", "en": "Go from Woodlands across the Causeway to JB." } },
+
+    { "id": "zenmezou", "hanzi": "怎么走", "pinyin": "zěn me zǒu", "english": "how do I get there?", "type": "phrase", "example": { "zh": "去 地铁站 怎么走？", "en": "How do I get to the MRT station?" } },
+    { "id": "yuanbuyuan", "hanzi": "远不远", "pinyin": "yuǎn bu yuǎn", "english": "is it far?", "type": "phrase", "example": { "zh": "从 这里 走 过去 远不远？", "en": "Is it far to walk from here?" } },
+    { "id": "fujin", "hanzi": "附近", "pinyin": "fù jìn", "english": "nearby", "example": { "zh": "附近 有 小贩中心 吗？", "en": "Is there a hawker centre nearby?" } },
+    { "id": "daole", "hanzi": "到了", "pinyin": "dào le", "english": "(we've) arrived", "type": "phrase", "example": { "zh": "到了， 下车 吧！", "en": "We're here — let's get off!" } },
+    { "id": "chidao", "hanzi": "迟到", "pinyin": "chí dào", "english": "to be late", "example": { "zh": "地铁 坏 了， 我 会 迟到。", "en": "The MRT broke down — I'll be late." } },
+    { "id": "zoulu", "hanzi": "走路", "pinyin": "zǒu lù", "english": "to walk", "example": { "zh": "走路 去 只要 五 分钟。", "en": "It's only five minutes on foot." } }
+  ],
+  "lessons": [
+    { "id": "u04-l1", "title": "Public transport", "items": ["ditie", "bashi", "deshi", "ditiezhan", "bashizhan", "yitongka"] },
+    { "id": "u04-l2", "title": "On the road", "items": ["jiaoche", "siji", "shangche", "xiache", "zhuanche", "saiche"] },
+    { "id": "u04-l3", "title": "Directions", "items": ["zuobian", "youbian", "qianmian", "houmian", "zhizou", "zhuanwan"] },
+    { "id": "u04-l4", "title": "Around town", "items": ["jichang", "yiyuan", "yinhang", "shangchang", "youju", "tushuguan"] },
+    { "id": "u04-l5", "title": "SG place names", "items": ["niucheshui", "wujielu", "zhangyi", "shengtaosha", "yulang", "wulan"] },
+    { "id": "u04-l6", "title": "Asking the way", "items": ["zenmezou", "yuanbuyuan", "fujin", "daole", "chidao", "zoulu"] }
+  ]
+}

@@ -105,6 +105,8 @@ function mc(kind: 'zh2en' | 'en2zh' | 'listen', it: Item, pool: Item[], lessonId
 function tone(it: Item, rng: Rng): Exercise | null {
   const n = hanChars(it.hanzi).length
   if (n < 1 || n > 3) return null
+  // all-neutral-tone particles (啦, 吗…) make for a meaningless tone quiz
+  if (syllables(it.pinyin).every((s) => toneOf(s) === 5)) return null
   const wrong = toneDistractors(it.pinyin, 3, rng)
   if (wrong.length < 2) return null
   return { id: uid('tone', it.id), kind: 'tone', itemId: it.id, answer: it.pinyin, options: shuffle([it.pinyin, ...wrong], rng) }

@@ -1,0 +1,59 @@
+{
+  "id": "u06",
+  "title": "Family & People",
+  "titleZh": "家人和朋友",
+  "description": "Talk to (and about) your relatives at the next family dinner.",
+  "emoji": "👨‍👩‍👧",
+  "color": "#db2777",
+  "items": [
+    { "id": "baba", "hanzi": "爸爸", "pinyin": "bà ba", "english": "dad", "example": { "zh": "爸爸 在 看 报纸。", "en": "Dad is reading the newspaper." } },
+    { "id": "mama", "hanzi": "妈妈", "pinyin": "mā ma", "english": "mum", "example": { "zh": "妈妈 煮 的 菜 最 好吃。", "en": "Mum's cooking is the best." } },
+    { "id": "gege", "hanzi": "哥哥", "pinyin": "gē ge", "english": "older brother", "example": { "zh": "我 哥哥 在 当兵。", "en": "My older brother is doing NS." } },
+    { "id": "jiejie", "hanzi": "姐姐", "pinyin": "jiě jie", "english": "older sister", "example": { "zh": "姐姐 下个月 结婚。", "en": "My older sister is getting married next month." } },
+    { "id": "didi", "hanzi": "弟弟", "pinyin": "dì di", "english": "younger brother", "example": { "zh": "弟弟 还 在 读 小学。", "en": "My younger brother is still in primary school." } },
+    { "id": "meimei", "hanzi": "妹妹", "pinyin": "mèi mei", "english": "younger sister", "example": { "zh": "我 妹妹 很 会 唱歌。", "en": "My younger sister sings really well." } },
+
+    { "id": "yeye", "hanzi": "爷爷", "pinyin": "yé ye", "english": "grandpa (dad's dad)", "example": { "zh": "爷爷 每天 早上 去 公园。", "en": "Grandpa goes to the park every morning." } },
+    { "id": "nainai", "hanzi": "奶奶", "pinyin": "nǎi nai", "english": "grandma (dad's mum)", "example": { "zh": "奶奶 会 说 福建话。", "en": "Grandma speaks Hokkien." } },
+    { "id": "waigong", "hanzi": "外公", "pinyin": "wài gōng", "english": "grandpa (mum's dad)", "example": { "zh": "外公 今年 八十 岁。", "en": "Grandpa is eighty this year." } },
+    { "id": "waipo", "hanzi": "外婆", "pinyin": "wài pó", "english": "grandma (mum's mum)", "example": { "zh": "我们 星期天 去 外婆 家。", "en": "We go to Grandma's on Sundays." } },
+    { "id": "jiujiu", "hanzi": "舅舅", "pinyin": "jiù jiu", "english": "uncle (mum's brother)", "example": { "zh": "舅舅 给 我 红包。", "en": "My uncle gave me a red packet." } },
+    { "id": "ayi", "hanzi": "阿姨", "pinyin": "ā yí", "english": "aunt (mum's sister) / auntie", "note": "Also a polite way to address any woman of your parents' age.", "example": { "zh": "阿姨， 你 好！", "en": "Hello, auntie!" } },
+
+    { "id": "ange", "hanzi": "安哥", "pinyin": "ān gē", "english": "uncle (any older man)", "sg": true, "note": "A sound-loan from English \"uncle\" — the kopi uncle, the taxi uncle…", "example": { "zh": "那个 安哥 很 好人。", "en": "That uncle is really nice." } },
+    { "id": "andi", "hanzi": "安娣", "pinyin": "ān dì", "english": "auntie (any older woman)", "sg": true, "note": "A sound-loan from English \"auntie\".", "example": { "zh": "安娣， 我 要 一碗 面。", "en": "Auntie, one bowl of noodles please." } },
+    { "id": "pengyou", "hanzi": "朋友", "pinyin": "péng you", "english": "friend", "example": { "zh": "他 是 我 的 好 朋友。", "en": "He's my good friend." } },
+    { "id": "tongshi", "hanzi": "同事", "pinyin": "tóng shì", "english": "colleague", "example": { "zh": "我 和 同事 去 吃 午餐。", "en": "I'm going for lunch with colleagues." } },
+    { "id": "tongxue", "hanzi": "同学", "pinyin": "tóng xué", "english": "classmate", "example": { "zh": "我们 是 中学 同学。", "en": "We were secondary school classmates." } },
+    { "id": "laorenjia", "hanzi": "老人家", "pinyin": "lǎo rén jia", "english": "elderly person (respectful)", "example": { "zh": "让 座 给 老人家。", "en": "Give your seat to the elderly." } },
+
+    { "id": "gao", "hanzi": "高", "pinyin": "gāo", "english": "tall / high", "example": { "zh": "你 弟弟 好 高！", "en": "Your brother is so tall!" } },
+    { "id": "ai", "hanzi": "矮", "pinyin": "ǎi", "english": "short (height)", "example": { "zh": "我 比 我 姐姐 矮。", "en": "I'm shorter than my sister." } },
+    { "id": "pang", "hanzi": "胖", "pinyin": "pàng", "english": "fat", "example": { "zh": "过年 吃 太 多， 胖 了。", "en": "Ate too much over CNY — I've put on weight." } },
+    { "id": "shou", "hanzi": "瘦", "pinyin": "shòu", "english": "thin", "example": { "zh": "你 瘦 了 很 多！", "en": "You've lost a lot of weight!" } },
+    { "id": "nianqing", "hanzi": "年轻", "pinyin": "nián qīng", "english": "young", "example": { "zh": "你 妈妈 看 起来 很 年轻。", "en": "Your mum looks very young." } },
+    { "id": "lao", "hanzi": "老", "pinyin": "lǎo", "english": "old", "example": { "zh": "我 老 了， 走 不 动 了。", "en": "I'm old — my legs can't go on." } },
+
+    { "id": "jiehun", "hanzi": "结婚", "pinyin": "jié hūn", "english": "to get married", "example": { "zh": "你 什么 时候 结婚？", "en": "When are you getting married?" }, "note": "The question every relative asks at CNY." },
+    { "id": "nanpengyou", "hanzi": "男朋友", "pinyin": "nán péng you", "english": "boyfriend", "example": { "zh": "她 有 男朋友 了。", "en": "She has a boyfriend now." } },
+    { "id": "nvpengyou", "hanzi": "女朋友", "pinyin": "nǚ péng you", "english": "girlfriend", "example": { "zh": "你 有 女朋友 吗？", "en": "Do you have a girlfriend?" } },
+    { "id": "haizi", "hanzi": "孩子", "pinyin": "hái zi", "english": "child / kids", "example": { "zh": "他们 有 两个 孩子。", "en": "They have two kids." } },
+    { "id": "laogong", "hanzi": "老公", "pinyin": "lǎo gōng", "english": "husband (casual)", "example": { "zh": "我 老公 在 煮饭。", "en": "My husband is cooking." } },
+    { "id": "laopo", "hanzi": "老婆", "pinyin": "lǎo pó", "english": "wife (casual)", "example": { "zh": "我 要 问 我 老婆。", "en": "I need to ask my wife." } },
+
+    { "id": "leling", "hanzi": "乐龄", "pinyin": "lè líng", "english": "senior citizen / seniors", "sg": true, "standard": { "hanzi": "老年人", "pinyin": "lǎo nián rén" }, "note": "A Singapore coinage — literally \"joyful age\". You'll see 乐龄 on signs for seniors' activities.", "example": { "zh": "这 是 乐龄 活动 中心。", "en": "This is a seniors' activity centre." } },
+    { "id": "nvyong", "hanzi": "女佣", "pinyin": "nǚ yōng", "english": "domestic helper (maid)", "example": { "zh": "他们 家 请 了 女佣。", "en": "Their family hired a helper." } },
+    { "id": "jucan", "hanzi": "聚餐", "pinyin": "jù cān", "english": "to have a meal together", "example": { "zh": "我们 一家人 每个 星期 聚餐。", "en": "Our family eats together every week." } },
+    { "id": "baifang", "hanzi": "拜访", "pinyin": "bài fǎng", "english": "to visit (someone)", "example": { "zh": "明天 去 拜访 亲戚。", "en": "Tomorrow we're visiting relatives." } },
+    { "id": "zhaogu", "hanzi": "照顾", "pinyin": "zhào gù", "english": "to take care of", "example": { "zh": "我 要 照顾 外婆。", "en": "I need to take care of Grandma." } },
+    { "id": "xiangnian", "hanzi": "想念", "pinyin": "xiǎng niàn", "english": "to miss (someone)", "example": { "zh": "我 很 想念 你们。", "en": "I really miss you all." } }
+  ],
+  "lessons": [
+    { "id": "u06-l1", "title": "Parents & siblings", "items": ["baba", "mama", "gege", "jiejie", "didi", "meimei"] },
+    { "id": "u06-l2", "title": "Grandparents & relatives", "items": ["yeye", "nainai", "waigong", "waipo", "jiujiu", "ayi"] },
+    { "id": "u06-l3", "title": "People around you", "items": ["ange", "andi", "pengyou", "tongshi", "tongxue", "laorenjia"] },
+    { "id": "u06-l4", "title": "Describing people", "items": ["gao", "ai", "pang", "shou", "nianqing", "lao"] },
+    { "id": "u06-l5", "title": "Relationships", "items": ["jiehun", "nanpengyou", "nvpengyou", "haizi", "laogong", "laopo"] },
+    { "id": "u06-l6", "title": "Family time", "items": ["leling", "nvyong", "jucan", "baifang", "zhaogu", "xiangnian"] }
+  ]
+}

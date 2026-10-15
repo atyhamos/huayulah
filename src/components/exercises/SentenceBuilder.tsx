@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { getItem } from '../../content'
 import { sameTokens } from '../../lib/answer'
 import { rubyFor } from '../../lib/pinyin'
@@ -14,6 +14,15 @@ export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
   const always = useApp((s) => s.s.settings.pinyinMode === 'always')
   const [hint, setHint] = useState(always)
   const say = useSpeak()
+  // position of each tile in the answer (-1 for distractors); used by end-to-end tests
+  const pos = useMemo(() => {
+    const used = new Set<number>()
+    return ex.tiles.map((t) => {
+      const i = ex.answer.findIndex((a, k) => a === t && !used.has(k))
+      if (i >= 0) used.add(i)
+      return i
+    })
+  }, [ex])
 
   const check = useCallback(
     () => onSubmit({ correct: sameTokens(picked.map((i) => ex.tiles[i]), ex.answer) }),
@@ -32,6 +41,7 @@ export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
         type="button"
         disabled={locked}
         data-testid={inAnswer ? 'answer-tile' : 'tile'}
+        data-pos={pos[i]}
         onClick={() => {
           if (inAnswer) setPicked((p) => p.filter((x) => x !== i))
           else {

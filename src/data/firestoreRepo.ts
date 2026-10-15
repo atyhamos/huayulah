@@ -31,7 +31,12 @@ export class FirestoreRepo implements Repo {
 
   async load(): Promise<AppState> {
     const [user, cards] = await Promise.all([getDoc(this.userRef()), getDocs(this.cardsRef())])
-    const root = (user.data() ?? null) as Partial<AppState> | null
+    const raw = user.data()
+    let root: Partial<AppState> | null = null
+    if (raw) {
+      const { updatedAt: _updatedAt, ...rest } = raw
+      root = rest as Partial<AppState>
+    }
     const cardMap: Record<string, StoredCard> = {}
     cards.forEach((d) => (cardMap[d.id] = d.data() as StoredCard))
     return normalizeState(root ? { ...root, cards: cardMap } : Object.keys(cardMap).length ? { cards: cardMap } : null)
@@ -64,6 +69,7 @@ export class FirestoreRepo implements Repo {
       for (const id of ids.slice(i, i + 450)) batch.delete(doc(this.cardsRef(), id))
       await batch.commit()
     }
-    await setDoc(this.userRef(), { ...normalizeState(null), cards: undefined, updatedAt: Date.now() })
+    const { cards: _cards, ...root } = normalizeState(null)
+    await setDoc(this.userRef(), { ...root, updatedAt: Date.now() })
   }
 }

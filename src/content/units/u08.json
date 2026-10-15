@@ -1,0 +1,59 @@
+{
+  "id": "u08",
+  "title": "School & NS",
+  "titleZh": "学校与国民服役",
+  "description": "From 听写 to BMT — the words of growing up in Singapore.",
+  "emoji": "🎓",
+  "color": "#2563eb",
+  "items": [
+    { "id": "xuexiao", "hanzi": "学校", "pinyin": "xué xiào", "english": "school", "example": { "zh": "我的 学校 离 家 很 近。", "en": "My school is near home." } },
+    { "id": "laoshi", "hanzi": "老师", "pinyin": "lǎo shī", "english": "teacher", "example": { "zh": "老师， 我 有 问题。", "en": "Teacher, I have a question." } },
+    { "id": "xuesheng", "hanzi": "学生", "pinyin": "xué sheng", "english": "student", "example": { "zh": "这里 的 学生 很 用功。", "en": "The students here are hardworking." } },
+    { "id": "shangke", "hanzi": "上课", "pinyin": "shàng kè", "english": "to have class", "example": { "zh": "八点 开始 上课。", "en": "Class starts at eight." } },
+    { "id": "kaoshi", "hanzi": "考试", "pinyin": "kǎo shì", "english": "exam / test", "example": { "zh": "明天 有 华文 考试。", "en": "There's a Chinese exam tomorrow." } },
+    { "id": "gongke", "hanzi": "功课", "pinyin": "gōng kè", "english": "homework", "sg": true, "standard": { "hanzi": "作业", "pinyin": "zuò yè" }, "note": "Singaporeans usually say 功课; in China it's 作业.", "example": { "zh": "做 完 功课 才 可以 玩。", "en": "Finish your homework before you play." } },
+
+    { "id": "huawen", "hanzi": "华文", "pinyin": "huá wén", "english": "Chinese (the school subject / written)", "sg": true, "standard": { "hanzi": "中文", "pinyin": "zhōng wén" }, "note": "Singapore calls the written language and school subject 华文, and the spoken language 华语.", "example": { "zh": "我的 华文 不 好。", "en": "My Chinese isn't good." } },
+    { "id": "huayu", "hanzi": "华语", "pinyin": "huá yǔ", "english": "Mandarin (spoken)", "sg": true, "standard": { "hanzi": "普通话", "pinyin": "pǔ tōng huà" }, "note": "As in the Speak Mandarin Campaign: 讲华语运动.", "example": { "zh": "多 讲 华语！", "en": "Speak more Mandarin!" } },
+    { "id": "buxi", "hanzi": "补习", "pinyin": "bǔ xí", "english": "tuition (extra classes)", "note": "Tuition is practically a Singapore institution.", "example": { "zh": "他 每个 星期六 去 补习。", "en": "He goes for tuition every Saturday." } },
+    { "id": "xiaoxue", "hanzi": "小学", "pinyin": "xiǎo xué", "english": "primary school", "example": { "zh": "我 小学 的 时候 很 调皮。", "en": "I was naughty in primary school." } },
+    { "id": "zhongxue", "hanzi": "中学", "pinyin": "zhōng xué", "english": "secondary school", "example": { "zh": "我们 是 中学 的 好 朋友。", "en": "We're good friends from secondary school." } },
+    { "id": "chujixueyuan", "hanzi": "初级学院", "pinyin": "chū jí xué yuàn", "english": "junior college (JC)", "sg": true, "note": "Often shortened to 初院.", "example": { "zh": "她 在 初级学院 读书。", "en": "She studies at a junior college." } },
+
+    { "id": "xuexi", "hanzi": "学习", "pinyin": "xué xí", "english": "to study / learn", "example": { "zh": "学习 华语 不 难。", "en": "Learning Mandarin isn't hard." } },
+    { "id": "fuxi", "hanzi": "复习", "pinyin": "fù xí", "english": "to revise", "example": { "zh": "考试 前 要 复习。", "en": "You need to revise before the exam." }, "note": "Singaporeans also say 温习 (wēn xí)." },
+    { "id": "xiezi", "hanzi": "写字", "pinyin": "xiě zì", "english": "to write (characters)", "example": { "zh": "我 很 久 没有 写字 了。", "en": "I haven't written characters in ages." } },
+    { "id": "nianshu", "hanzi": "念书", "pinyin": "niàn shū", "english": "to study (be in school)", "example": { "zh": "他 还 在 念书。", "en": "He's still studying." } },
+    { "id": "tingxie", "hanzi": "听写", "pinyin": "tīng xiě", "english": "spelling test (dictation)", "note": "The dreaded weekly Chinese 听写: the teacher reads, you write the characters.", "example": { "zh": "明天 有 听写， 快 复习！", "en": "Spelling test tomorrow — go revise!" } },
+    { "id": "bei", "hanzi": "背", "pinyin": "bèi", "english": "to memorise / recite", "example": { "zh": "我 要 背 这些 生字。", "en": "I have to memorise these new words." } },
+
+    { "id": "guominfuyi", "hanzi": "国民服役", "pinyin": "guó mín fú yì", "english": "National Service (NS)", "sg": true, "example": { "zh": "男生 十八 岁 要 国民服役。", "en": "Guys do NS at eighteen." } },
+    { "id": "dangbing", "hanzi": "当兵", "pinyin": "dāng bīng", "english": "to serve in the army", "example": { "zh": "我 哥哥 在 当兵。", "en": "My brother is serving in the army." } },
+    { "id": "junying", "hanzi": "军营", "pinyin": "jūn yíng", "english": "army camp", "example": { "zh": "他 星期天 晚上 回 军营。", "en": "He goes back to camp on Sunday night." } },
+    { "id": "tuiwu", "hanzi": "退伍", "pinyin": "tuì wǔ", "english": "to finish service (ORD)", "note": "The day every NSF counts down to.", "example": { "zh": "还有 一个 月 就 退伍 了！", "en": "One more month to ORD!" } },
+    { "id": "budui", "hanzi": "部队", "pinyin": "bù duì", "english": "(army) unit / troops", "example": { "zh": "他 的 部队 在 樟宜。", "en": "His unit is in Changi." } },
+    { "id": "xinbing", "hanzi": "新兵", "pinyin": "xīn bīng", "english": "recruit (BMT)", "example": { "zh": "新兵 训练 很 辛苦。", "en": "Basic training is tough." } },
+
+    { "id": "lei", "hanzi": "累", "pinyin": "lèi", "english": "tired", "example": { "zh": "今天 好 累。", "en": "So tired today." } },
+    { "id": "mang", "hanzi": "忙", "pinyin": "máng", "english": "busy", "example": { "zh": "你 最近 忙 吗？", "en": "Are you busy lately?" } },
+    { "id": "jinzhang", "hanzi": "紧张", "pinyin": "jǐn zhāng", "english": "nervous", "example": { "zh": "考试 前 我 很 紧张。", "en": "I get nervous before exams." } },
+    { "id": "fangxin", "hanzi": "放心", "pinyin": "fàng xīn", "english": "don't worry / rest assured", "example": { "zh": "放心， 我 会 帮 你。", "en": "Don't worry, I'll help you." } },
+    { "id": "wuliao", "hanzi": "无聊", "pinyin": "wú liáo", "english": "bored / boring", "example": { "zh": "这个 课 好 无聊。", "en": "This class is so boring." } },
+    { "id": "kaixin", "hanzi": "开心", "pinyin": "kāi xīn", "english": "happy", "example": { "zh": "见到 你 很 开心。", "en": "So happy to see you." } },
+
+    { "id": "wobudong", "hanzi": "我不懂", "pinyin": "wǒ bù dǒng", "english": "I don't understand", "type": "phrase", "example": { "zh": "对不起， 我不懂。", "en": "Sorry, I don't understand." } },
+    { "id": "zaishuoyici", "hanzi": "再说一次", "pinyin": "zài shuō yí cì", "english": "say it again", "type": "phrase", "example": { "zh": "请 你 再说一次。", "en": "Could you say that again?" } },
+    { "id": "manyidian", "hanzi": "慢一点", "pinyin": "màn yì diǎn", "english": "slower, please", "type": "phrase", "example": { "zh": "可以 说 慢一点 吗？", "en": "Could you speak a bit slower?" } },
+    { "id": "shenmeyisi", "hanzi": "什么意思", "pinyin": "shén me yì si", "english": "what does it mean?", "type": "phrase", "example": { "zh": "这个 字 是 什么意思？", "en": "What does this character mean?" } },
+    { "id": "zenmexie", "hanzi": "怎么写", "pinyin": "zěn me xiě", "english": "how do you write it?", "type": "phrase", "example": { "zh": "你 的 名字 怎么写？", "en": "How do you write your name?" } },
+    { "id": "jushou", "hanzi": "举手", "pinyin": "jǔ shǒu", "english": "to raise your hand", "example": { "zh": "有 问题 请 举手。", "en": "Raise your hand if you have a question." } }
+  ],
+  "lessons": [
+    { "id": "u08-l1", "title": "At school", "items": ["xuexiao", "laoshi", "xuesheng", "shangke", "kaoshi", "gongke"] },
+    { "id": "u08-l2", "title": "SG schooling", "items": ["huawen", "huayu", "buxi", "xiaoxue", "zhongxue", "chujixueyuan"] },
+    { "id": "u08-l3", "title": "Studying", "items": ["xuexi", "fuxi", "xiezi", "nianshu", "tingxie", "bei"] },
+    { "id": "u08-l4", "title": "National Service", "items": ["guominfuyi", "dangbing", "junying", "tuiwu", "budui", "xinbing"] },
+    { "id": "u08-l5", "title": "How you feel", "items": ["lei", "mang", "jinzhang", "fangxin", "wuliao", "kaixin"] },
+    { "id": "u08-l6", "title": "Classroom survival", "items": ["wobudong", "zaishuoyici", "manyidian", "shenmeyisi", "zenmexie", "jushou"] }
+  ]
+}

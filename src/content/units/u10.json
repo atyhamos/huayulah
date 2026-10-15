@@ -1,0 +1,59 @@
+{
+  "id": "u10",
+  "title": "Talk Like a Local",
+  "titleZh": "本地口语",
+  "description": "Lah, lor, kiasu and shiok — the particles and phrases that make it sound Singaporean.",
+  "emoji": "😎",
+  "color": "#ca8a04",
+  "items": [
+    { "id": "la-particle", "hanzi": "啦", "pinyin": "la", "english": "lah (softens or emphasises)", "sg": true, "note": "Yes, \"lah\" has a character! Used at the end of a sentence to soften or emphasise.", "example": { "zh": "好 啦， 我 去 啦！", "en": "Okay lah, I'll go lah!" } },
+    { "id": "lo-particle", "hanzi": "咯", "pinyin": "lo", "english": "lor (resigned \"that's how it is\")", "sg": true, "note": "Singapore \"lor\" — a shrug in word form.", "example": { "zh": "没 办法 咯。", "en": "No choice lor." } },
+    { "id": "ma-question", "hanzi": "吗", "pinyin": "ma", "english": "(yes/no question particle)", "example": { "zh": "你 吃饭 了 吗？", "en": "Have you eaten?" } },
+    { "id": "ba-particle", "hanzi": "吧", "pinyin": "ba", "english": "(suggestion: \"let's…\" / \"right?\")", "example": { "zh": "我们 走 吧。", "en": "Let's go." } },
+    { "id": "ma-obvious", "hanzi": "嘛", "pinyin": "ma", "english": "(it's obvious, mah)", "sg": true, "note": "Singlish \"mah\": 他是老板嘛 = \"he's the boss mah\".", "example": { "zh": "他 是 老板 嘛。", "en": "He's the boss mah." } },
+    { "id": "o-particle", "hanzi": "哦", "pinyin": "o", "english": "oh / (gentle reminder)", "example": { "zh": "记得 带 伞 哦。", "en": "Remember to bring an umbrella, okay." } },
+
+    { "id": "jiang", "hanzi": "酱", "pinyin": "jiàng", "english": "like this / like that (colloquial)", "sg": true, "verify": true, "standard": { "hanzi": "这样", "pinyin": "zhè yàng" }, "note": "这样 said fast becomes 酱 — very common in Singapore and Malaysia.", "example": { "zh": "不 要 酱 啦！", "en": "Don't be like that lah!" } },
+    { "id": "yibanshang", "hanzi": "一般上", "pinyin": "yì bān shàng", "english": "generally / usually", "sg": true, "smd": "normally", "standard": { "hanzi": "一般来说", "pinyin": "yì bān lái shuō" }, "note": "Possibly influenced by Cantonese. Common in Singapore speech and writing.", "example": { "zh": "一般上 我 七点 起床。", "en": "Usually I wake up at seven." } },
+    { "id": "pashu", "hanzi": "怕输", "pinyin": "pà shū", "english": "kiasu (afraid of losing out)", "sg": true, "note": "The Mandarin version of Hokkien \"kiasu\" — 怕 (afraid) 输 (lose).", "example": { "zh": "他 很 怕输， 六点 就 去 排队。", "en": "He's so kiasu, he queued from 6am." } },
+    { "id": "haocai", "hanzi": "好彩", "pinyin": "hǎo cǎi", "english": "luckily / lucky", "sg": true, "smd": "luckily", "standard": { "hanzi": "幸好", "pinyin": "xìng hǎo" }, "note": "From Cantonese — Singaporeans say it all the time.", "example": { "zh": "好彩 我 有 带 伞。", "en": "Luckily I brought an umbrella." } },
+    { "id": "meiwenti", "hanzi": "没问题", "pinyin": "méi wèn tí", "english": "no problem", "type": "phrase", "example": { "zh": "没问题， 交 给 我！", "en": "No problem, leave it to me!" } },
+    { "id": "suibian", "hanzi": "随便", "pinyin": "suí biàn", "english": "anything / whatever (you like)", "example": { "zh": "吃 什么？ 随便 啦。", "en": "What to eat? Anything lah." } },
+
+    { "id": "shuang", "hanzi": "爽", "pinyin": "shuǎng", "english": "shiok (feels great)", "example": { "zh": "吹 冷气 好 爽！", "en": "The air-con feels so shiok!" } },
+    { "id": "fan", "hanzi": "烦", "pinyin": "fán", "english": "annoyed / annoying", "example": { "zh": "好 烦 啊！", "en": "So annoying!" } },
+    { "id": "can", "hanzi": "惨", "pinyin": "cǎn", "english": "jialat (terrible, in trouble)", "note": "惨了！ is like \"die liao!\"", "example": { "zh": "惨 了， 我 忘 了 带 钱包。", "en": "Die liao, I forgot my wallet." } },
+    { "id": "qiguai", "hanzi": "奇怪", "pinyin": "qí guài", "english": "weird / strange", "example": { "zh": "这个 人 好 奇怪。", "en": "This person is so weird." } },
+    { "id": "lihai", "hanzi": "厉害", "pinyin": "lì hai", "english": "impressive / power", "example": { "zh": "你 好 厉害！", "en": "You're so good!" } },
+    { "id": "kelian", "hanzi": "可怜", "pinyin": "kě lián", "english": "poor thing / pitiful", "example": { "zh": "他 好 可怜， 要 加班 到 半夜。", "en": "Poor thing, he has to work till midnight." } },
+
+    { "id": "zhendema", "hanzi": "真的吗", "pinyin": "zhēn de ma", "english": "really?", "type": "phrase", "example": { "zh": "真的吗？ 我 不 相信。", "en": "Really? I don't believe it." } },
+    { "id": "duia", "hanzi": "对啊", "pinyin": "duì a", "english": "yes, that's right", "type": "phrase", "example": { "zh": "对啊， 我 也 这样 想。", "en": "Yeah, I think so too." } },
+    { "id": "bushila", "hanzi": "不是啦", "pinyin": "bú shì la", "english": "no lah (it's not like that)", "type": "phrase", "example": { "zh": "不是啦， 你 误会 了。", "en": "No lah, you misunderstood." } },
+    { "id": "dangran", "hanzi": "当然", "pinyin": "dāng rán", "english": "of course", "example": { "zh": "当然 可以！", "en": "Of course you can!" } },
+    { "id": "suanle", "hanzi": "算了", "pinyin": "suàn le", "english": "forget it / never mind", "type": "phrase", "example": { "zh": "算了， 不 要 吵 了。", "en": "Forget it, stop arguing." } },
+    { "id": "jiayou", "hanzi": "加油", "pinyin": "jiā yóu", "english": "you can do it! / add oil", "note": "Literally \"add oil\" — the universal cheer.", "example": { "zh": "考试 加油！", "en": "Good luck for your exam!" } },
+
+    { "id": "ranhou", "hanzi": "然后", "pinyin": "rán hòu", "english": "and then", "example": { "zh": "我们 先 吃饭， 然后 看 电影。", "en": "We'll eat first, then watch a movie." } },
+    { "id": "suoyi", "hanzi": "所以", "pinyin": "suǒ yǐ", "english": "so / therefore", "example": { "zh": "下雨， 所以 我 没 去。", "en": "It rained, so I didn't go." } },
+    { "id": "keshi", "hanzi": "可是", "pinyin": "kě shì", "english": "but", "example": { "zh": "我 想 去， 可是 没 时间。", "en": "I want to go, but I've no time." } },
+    { "id": "yinwei", "hanzi": "因为", "pinyin": "yīn wèi", "english": "because", "example": { "zh": "因为 塞车， 我 迟到 了。", "en": "I was late because of the jam." } },
+    { "id": "qishi", "hanzi": "其实", "pinyin": "qí shí", "english": "actually", "example": { "zh": "其实 我 不 喜欢 榴莲。", "en": "Actually, I don't like durian." } },
+    { "id": "nage", "hanzi": "那个", "pinyin": "nà ge", "english": "that one / um… (filler)", "example": { "zh": "那个… 我 忘 了 他 的 名字。", "en": "Um… I forgot his name." } },
+
+    { "id": "chibaolema", "hanzi": "吃饱了吗", "pinyin": "chī bǎo le ma", "english": "have you eaten (your fill)?", "type": "phrase", "note": "A greeting more than a question.", "example": { "zh": "安娣， 吃饱了吗？", "en": "Auntie, have you eaten?" } },
+    { "id": "zuijinzenyang", "hanzi": "最近怎样", "pinyin": "zuì jìn zěn yàng", "english": "how have you been?", "type": "phrase", "example": { "zh": "好久 不见， 最近怎样？", "en": "Long time no see — how've you been?" } },
+    { "id": "haojiubujian", "hanzi": "好久不见", "pinyin": "hǎo jiǔ bú jiàn", "english": "long time no see", "type": "phrase", "example": { "zh": "哇， 好久不见！", "en": "Wah, long time no see!" } },
+    { "id": "qunali", "hanzi": "去哪里", "pinyin": "qù nǎ lǐ", "english": "where are you going?", "type": "phrase", "example": { "zh": "这么 晚， 你 去哪里？", "en": "So late — where are you going?" } },
+    { "id": "manmanlai", "hanzi": "慢慢来", "pinyin": "màn màn lái", "english": "take your time", "type": "phrase", "example": { "zh": "不 急， 慢慢来。", "en": "No rush, take your time." } },
+    { "id": "xiacijian", "hanzi": "下次见", "pinyin": "xià cì jiàn", "english": "see you next time", "type": "phrase", "example": { "zh": "今天 很 开心， 下次见！", "en": "Today was fun — see you next time!" } }
+  ],
+  "lessons": [
+    { "id": "u10-l1", "title": "Lah, lor, mah", "items": ["la-particle", "lo-particle", "ma-question", "ba-particle", "ma-obvious", "o-particle"] },
+    { "id": "u10-l2", "title": "Local expressions", "items": ["jiang", "yibanshang", "pashu", "haocai", "meiwenti", "suibian"] },
+    { "id": "u10-l3", "title": "Feelings", "items": ["shuang", "fan", "can", "qiguai", "lihai", "kelian"] },
+    { "id": "u10-l4", "title": "Reactions", "items": ["zhendema", "duia", "bushila", "dangran", "suanle", "jiayou"] },
+    { "id": "u10-l5", "title": "Joining ideas", "items": ["ranhou", "suoyi", "keshi", "yinwei", "qishi", "nage"] },
+    { "id": "u10-l6", "title": "Small talk", "items": ["chibaolema", "zuijinzenyang", "haojiubujian", "qunali", "manmanlai", "xiacijian"] }
+  ]
+}
