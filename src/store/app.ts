@@ -9,6 +9,7 @@ import type { Repo } from '../data/repo'
 import { emptyState, type AppState, type Settings } from '../data/types'
 import type { Achievement } from '../lib/achievements'
 import { dayKey } from '../lib/dates'
+import { QUEST_BONUS_XP } from '../lib/quests'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
 
@@ -64,6 +65,12 @@ let publishTimer: ReturnType<typeof setTimeout> | undefined
 export const useApp = create<AppStore>((set, get) => {
   function commit(state: AppState, dirty: Dirty) {
     const before = get().s
+    const bonus = actions.claimQuestBonus(state, new Date())
+    if (bonus.claimed) {
+      state = bonus.state
+      dirty = { ...dirty, root: true }
+      setTimeout(() => get().toast({ icon: '🎁', title: 'Daily quests complete!', body: `+${QUEST_BONUS_XP} bonus XP` }), 1200)
+    }
     set({ s: state })
     const today = dayKey()
     const goal = state.settings.dailyGoal

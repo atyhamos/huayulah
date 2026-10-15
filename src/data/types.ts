@@ -50,6 +50,8 @@ export interface DayLog {
   reviews: number
   newCards: number
   frozen?: boolean
+  /** Daily-quest chest already claimed. */
+  questBonus?: boolean
 }
 
 export interface AppState {

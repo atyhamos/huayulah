@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { content, storyByUnit } from '../content'
 import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
 import type { Lesson, Unit } from '../content/schema'
+import { DailyQuests } from '../components/Quests'
 import { Button } from '../components/ui'
 import { useApp } from '../store/app'
 
@@ -36,6 +37,8 @@ export function LearnScreen() {
           <span className="font-bold text-sky-600">Go →</span>
         </Link>
       )}
+
+      {Object.keys(s.lessons).length > 0 && <DailyQuests />}
 
       {content.units.map((u, ui) => (
         <UnitSection

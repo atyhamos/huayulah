@@ -3,6 +3,7 @@ import type { Content } from '../content/build'
 import { newlyUnlocked, type Achievement } from '../lib/achievements'
 import { dayKey, weekId } from '../lib/dates'
 import { newCard, Rating, retrievability, review, State, type Grade } from '../lib/srs'
+import { allQuestsDone, dailyQuests, QUEST_BONUS_XP } from '../lib/quests'
 import { applyActivity, type StreakUpdate } from '../lib/streak'
 import { lessonXp } from '../lib/xp'
 import { cardId, parseCardId, type AppState, type DayLog, type StoredCard } from './types'
@@ -121,6 +122,14 @@ export function completeLesson(s: AppState, input: LessonInput, content: Content
     dirty: { root: true, cards: dirtyCards },
     info: { xp, accuracy, streak, achievements, newWords },
   }
+}
+
+/** If today's quests are all done and the chest isn't claimed, add the bonus. */
+export function claimQuestBonus(s: AppState, now: Date): { state: AppState; claimed: boolean } {
+  const today = dayKey(now)
+  if (s.days[today]?.questBonus || !allQuestsDone(dailyQuests(s, today))) return { state: s, claimed: false }
+  const { state } = addXp(s, QUEST_BONUS_XP, now)
+  return { state: touchDay(state, today, (d) => ({ ...d, questBonus: true })), claimed: true }
 }
 
 /** Free practice (e.g. weak words): XP and streak only, no lesson or flashcard changes. */

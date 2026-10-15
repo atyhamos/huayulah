@@ -32,6 +32,7 @@ export function mergeStates(account: AppState, guest: AppState): AppState {
           reviews: a.reviews + d.reviews,
           newCards: a.newCards + d.newCards,
           ...(a.frozen || d.frozen ? { frozen: true } : {}),
+          ...(a.questBonus || d.questBonus ? { questBonus: true } : {}),
         }
       : d
   }

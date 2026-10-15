@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { content } from '../src/content'
-import { completeLesson, completePractice, completeStory, dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, reviewCard, weakestItems } from '../src/data/actions'
+import { claimQuestBonus, completeLesson, completePractice, completeStory, dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, reviewCard, weakestItems } from '../src/data/actions'
 import { hasProgress, mergeStates } from '../src/data/merge'
 import { cardId, emptyState, normalizeState } from '../src/data/types'
 import { Rating } from '../src/lib/srs'
@@ -133,5 +133,19 @@ describe('stories', () => {
     expect(again.state.lessons['story-u01']).toMatchObject({ timesCompleted: 2, bestAccuracy: 1 })
     // stories don't count as unit lessons
     expect(nextLessonId(again.state, content)).toBe(content.units[0].lessons[3].id)
+  })
+})
+
+describe('daily quests', () => {
+  it('awards the chest once when all three are done', () => {
+    let s = finishFirst(day(2)).state // 17 XP, 1 lesson
+    expect(claimQuestBonus(s, day(2)).claimed).toBe(false)
+    s = completeLesson(s, { lessonId: content.lessonOrder[1].id, mode: 'learn', mistakesByItem: {}, maxCombo: 0, answered: 1, correct: 1 }, content, day(2)).state
+    expect(claimQuestBonus(s, day(2)).claimed).toBe(false) // no reviews yet
+    s = { ...s, days: { ...s.days, '2026-03-02': { ...s.days['2026-03-02'], reviews: 10 } } }
+    const r = claimQuestBonus(s, day(2))
+    expect(r.claimed).toBe(true)
+    expect(r.state.stats.xp).toBe(s.stats.xp + 10)
+    expect(claimQuestBonus(r.state, day(2)).claimed).toBe(false)
   })
 })
