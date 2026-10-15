@@ -99,6 +99,9 @@ firestore.rules, firebase.json, .github/workflows/deploy.yml (Firebase Hosting a
 ```
 
 ## 6. Build order
+
+Status: all six steps are built and tested (unit, emulator and end-to-end tests). Later additions: stories, listening and "which would a Singaporean say?" exercises, weak-word practice, daily quests, writing practice, dark mode.
+
 1. **Scaffold:** content schema and validator, units 1–3, lesson player with exercise types 1–7, TTS, guest persistence, learn path. You can use it locally from here.
 2. **SRS:** Review tab, word bank, word detail with stroke order, pinyin fade.
 3. **Firebase:** auth, FirestoreRepo with offline cache, guest → account merge, security rules, PWA install and offline support, deploy workflow.
