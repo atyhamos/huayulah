@@ -6,6 +6,7 @@ import { allAchievements } from '../lib/achievements'
 import { addDays, dayKey, parseDay } from '../lib/dates'
 import { currentStreak } from '../lib/streak'
 import { levelInfo } from '../lib/xp'
+import { IS_ARTIFACT } from '../env'
 import { useApp } from '../store/app'
 
 export function ProfileScreen() {
@@ -36,11 +37,20 @@ export function ProfileScreen() {
         </Link>
       </div>
 
+      {IS_ARTIFACT && (
+        <Card className="border-amber-300 bg-amber-50">
+          <p className="mb-1 font-bold">Demo version</p>
+          <p className="text-sm text-slate-600">
+            Progress is saved in this browser only. The full app adds Google sign-in, sync across devices and a friends leaderboard.
+          </p>
+        </Card>
+      )}
+
       {!user && firebaseEnabled && (
         <Card className="border-sky-200 bg-sky-50">
           <p className="mb-1 font-bold text-sky-800 dark:text-sky-200">Sync across devices</p>
           <p className="mb-3 text-sm text-sky-700 dark:text-sky-300">Sign in with Google to back up progress and add friends. Your guest progress comes with you.</p>
-          <Button variant="blue" className="w-full" onClick={() => signIn().catch((e) => alert(e.message))}>
+          <Button variant="blue" className="w-full" onClick={() => void signIn()}>
             Sign in with Google
           </Button>
         </Card>

@@ -1,11 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import { registerSW } from 'virtual:pwa-register'
 import App from './App'
+import { IS_ARTIFACT } from './env'
 import './index.css'
 
-registerSW({ immediate: true })
+if (!IS_ARTIFACT) registerSW({ immediate: true })
 
 if (import.meta.env.VITE_FIREBASE_EMULATORS === 'true') {
   // test hook for e2e-cloud (emulator builds only)
@@ -17,8 +18,14 @@ if (import.meta.env.VITE_FIREBASE_EMULATORS === 'true') {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    {IS_ARTIFACT ? (
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    ) : (
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    )}
   </StrictMode>,
 )

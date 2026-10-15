@@ -7,6 +7,7 @@ import { Hanzi } from '../components/Hanzi'
 import { Card, Icon, SgBadge, StrengthBars } from '../components/ui'
 import { hanChars } from '../lib/pinyin'
 import { formatInterval, retrievability, strength } from '../lib/srs'
+import { IS_ARTIFACT } from '../env'
 import { useApp } from '../store/app'
 
 export function WordDetailScreen() {
@@ -108,8 +109,21 @@ export function WordDetailScreen() {
   )
 }
 
-const cssVar = (name: string, fallback: string) =>
-  getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback
+// artifact demo: one combined file instead of hundreds of small ones
+let allStrokes: Promise<Record<string, never>> | null = null
+
+/** Resolve a theme color to rgb() — hanzi-writer can't parse Tailwind's oklch() values. */
+function cssVar(name: string, fallback: string): string {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+  if (!value) return fallback
+  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+  if (!ctx) return fallback
+  ctx.fillStyle = fallback
+  ctx.fillStyle = value
+  ctx.fillRect(0, 0, 1, 1)
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+  return `rgb(${r}, ${g}, ${b})`
+}
 
 function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -143,6 +157,11 @@ function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
         showHintAfterMisses: 2,
         // course characters are served locally (works offline); anything else falls back to the CDN
         charDataLoader: (c, onLoad, onError) => {
+          if (IS_ARTIFACT) {
+            allStrokes ??= fetch('strokes.json').then((r) => r.json())
+            allStrokes.then((all) => (all[c] ? onLoad(all[c]) : onError()), onError)
+            return
+          }
           fetch(`/strokes/${encodeURIComponent(c)}.json`)
             .then((r) => (r.ok && r.headers.get('content-type')?.includes('json') ? r.json() : fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${c}.json`).then((r2) => r2.json())))
             .then(onLoad, onError)

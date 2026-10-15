@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Shell, Toasts } from './components/Shell'
+import { HOST_THEME } from './env'
 import { useApp } from './store/app'
 import { FriendsScreen } from './screens/Friends'
 import { LearnScreen } from './screens/Learn'
@@ -24,7 +25,8 @@ export default function App() {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     const apply = () => {
-      const dark = theme === 'dark' || (theme === 'system' && mq.matches)
+      const system = HOST_THEME === 'dark' || HOST_THEME === 'light' ? HOST_THEME === 'dark' : mq.matches
+      const dark = theme === 'dark' || (theme === 'system' && system)
       document.documentElement.dataset.theme = dark ? 'dark' : 'light'
     }
     apply()

@@ -19,6 +19,7 @@ export function FriendsScreen() {
   const [board, setBoard] = useState<PublicProfile[] | null>(null)
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
+  const [removing, setRemoving] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     if (!user) return
@@ -77,7 +78,7 @@ export function FriendsScreen() {
         <div className="mb-4 text-6xl">👫</div>
         <h1 className="mb-2 text-2xl font-extrabold">Learn with friends</h1>
         <p className="mb-6 text-slate-500">{invite ? 'Sign in to accept the invite and see the weekly leaderboard.' : 'Sign in to add friends and compete on a weekly XP leaderboard.'}</p>
-        <Button variant="blue" onClick={() => signIn().catch((e) => alert(e.message))}>
+        <Button variant="blue" onClick={() => void signIn()}>
           Sign in with Google
         </Button>
         {invite && !s.stats.onboarded && (
@@ -174,13 +175,16 @@ export function FriendsScreen() {
                   className="text-slate-300 hover:text-rose-500"
                   aria-label="Remove friend"
                   onClick={async () => {
-                    if (confirm(`Remove ${p.displayName}?`)) {
-                      await removeFriend(p.uid)
-                      await load()
+                    if (removing !== p.uid) {
+                      setRemoving(p.uid)
+                      return
                     }
+                    setRemoving(null)
+                    await removeFriend(p.uid)
+                    await load()
                   }}
                 >
-                  {Icon.close('h-4 w-4')}
+                  {removing === p.uid ? <span className="text-xs font-bold text-rose-500">Remove?</span> : Icon.close('h-4 w-4')}
                 </button>
               )}
             </li>

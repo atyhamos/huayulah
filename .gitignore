@@ -9,3 +9,4 @@ playwright-report
 *.log
 public/strokes
 dist-emu
+dist-artifact

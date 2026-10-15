@@ -15,7 +15,8 @@
     "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project demo-huayu \"vitest run --config vitest.rules.config.ts\"",
     "gen:pinyin": "tsx scripts/gen-pinyin.ts",
     "gen": "npm run gen:pinyin && tsx scripts/copy-strokes.ts",
-    "e2e:cloud": "npx -y firebase-tools@latest emulators:exec --only auth,firestore --project demo-huayu \"playwright test -c playwright.cloud.config.ts\""
+    "e2e:cloud": "npx -y firebase-tools@latest emulators:exec --only auth,firestore --project demo-huayu \"playwright test -c playwright.cloud.config.ts\"",
+    "build:artifact": "npm run gen && tsx scripts/build-artifact.ts"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

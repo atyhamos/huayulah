@@ -32,7 +32,7 @@ export function Onboarding() {
             Get started
           </Button>
           {firebaseEnabled && !user && (
-            <Button variant="secondary" className="w-full" onClick={() => signIn().catch((e) => alert(e.message))}>
+            <Button variant="secondary" className="w-full" onClick={() => void signIn()}>
               I already have an account
             </Button>
           )}
@@ -73,7 +73,7 @@ export function Onboarding() {
             </Button>
           ) : (
             <>
-              <Button className="mb-3 w-full" onClick={() => signIn().catch((e) => alert(e.message))}>
+              <Button className="mb-3 w-full" onClick={() => void signIn()}>
                 Sign in with Google
               </Button>
               <Button variant="ghost" className="w-full" onClick={done}>

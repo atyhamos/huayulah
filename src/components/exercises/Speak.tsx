@@ -42,7 +42,7 @@ export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
       },
       onError: (e) => {
         setListening(false)
-        if (e === 'not-allowed' || e === 'service-not-allowed') {
+        if (e === 'not-allowed' || e === 'service-not-allowed' || e === 'audio-capture') {
           setError('Microphone blocked. You can still practise by checking yourself.')
           setSelfCheck(true)
         } else if (e === 'network') {

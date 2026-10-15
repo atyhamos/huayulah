@@ -199,7 +199,7 @@ export const useApp = create<AppStore>((set, get) => {
         if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment') {
           await signInWithRedirect(auth, provider)
         } else if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
-          throw e
+          get().toast({ icon: '⚠️', title: "Couldn't sign in", body: e instanceof Error ? e.message : String(e) })
         }
       }
     },

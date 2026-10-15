@@ -4,7 +4,9 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
+// `--mode artifact` builds a self-contained guest-mode demo (relative paths, no service worker)
+export default defineConfig(({ mode }) => ({
+  base: mode === 'artifact' ? './' : '/',
   plugins: [
     react(),
     tailwindcss(),
@@ -59,4 +61,4 @@ export default defineConfig({
     include: ['tests/**/*.test.ts'],
     exclude: ['tests/rules/**', 'node_modules/**'],
   },
-})
+}))

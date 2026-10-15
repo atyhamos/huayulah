@@ -6,6 +6,7 @@ import { Button, Card, Icon } from '../components/ui'
 import { chineseVoices, onVoicesChanged, speak } from '../lib/tts'
 import { recognitionSupported } from '../lib/speech'
 import { GOAL_OPTIONS } from '../lib/xp'
+import { IS_ARTIFACT } from '../env'
 import { useApp } from '../store/app'
 
 export function SettingsScreen() {
@@ -16,6 +17,8 @@ export function SettingsScreen() {
   const signIn = useApp((st) => st.signIn)
   const reset = useApp((st) => st.resetProgress)
   const replace = useApp((st) => st.replaceState)
+  const toast = useApp((st) => st.toast)
+  const [confirmReset, setConfirmReset] = useState(false)
   const nav = useNavigate()
   const [voices, setVoices] = useState(chineseVoices())
   const fileRef = useRef<HTMLInputElement>(null)
@@ -40,12 +43,11 @@ export function SettingsScreen() {
   const importData = async (f: File) => {
     try {
       const parsed = JSON.parse(await f.text()) as Partial<AppState>
-      if (!parsed || typeof parsed !== 'object' || !parsed.stats) throw new Error('Not a 华语 Lah! backup file')
-      if (!confirm('Replace your current progress with this backup?')) return
+      if (!parsed || typeof parsed !== 'object' || !parsed.stats) throw new Error('This isn’t a 华语 Lah! backup file.')
       replace(normalizeState(parsed))
-      alert('Backup restored.')
+      toast({ icon: '📥', title: 'Backup restored' })
     } catch (e) {
-      alert(`Import failed: ${e instanceof Error ? e.message : e}`)
+      toast({ icon: '⚠️', title: 'Import failed', body: e instanceof Error ? e.message : String(e) })
     }
   }
 
@@ -176,7 +178,7 @@ export function SettingsScreen() {
               Sign out ({user.email})
             </Button>
           ) : (
-            <Button variant="blue" className="w-full" onClick={() => signIn().catch((e) => alert(e.message))}>
+            <Button variant="blue" className="w-full" onClick={() => void signIn()}>
               Sign in with Google
             </Button>
           )
@@ -184,9 +186,11 @@ export function SettingsScreen() {
           <p className="text-sm text-slate-500">Cloud sync isn't configured for this copy of the app — progress is saved in this browser.</p>
         )}
         <div className="grid grid-cols-2 gap-2">
-          <Button variant="secondary" onClick={exportData}>
-            Export
-          </Button>
+          {!IS_ARTIFACT && (
+            <Button variant="secondary" onClick={exportData}>
+              Export
+            </Button>
+          )}
           <Button variant="secondary" onClick={() => fileRef.current?.click()}>
             Import
           </Button>
@@ -198,15 +202,29 @@ export function SettingsScreen() {
             onChange={(e) => e.target.files?.[0] && importData(e.target.files[0])}
           />
         </div>
-        <Button
-          variant="ghost"
-          className="w-full text-rose-500"
-          onClick={() => {
-            if (confirm('Erase all progress, flashcards and streaks? This cannot be undone.')) void reset()
-          }}
-        >
-          Reset all progress
-        </Button>
+        {confirmReset ? (
+          <div className="rounded-xl bg-rose-50 p-3 text-center">
+            <p className="mb-2 text-sm text-rose-600 dark:text-rose-400">Erase all progress, flashcards and streaks? This can't be undone.</p>
+            <div className="grid grid-cols-2 gap-2">
+              <Button variant="secondary" onClick={() => setConfirmReset(false)}>
+                Keep
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  setConfirmReset(false)
+                  void reset().then(() => toast({ icon: '🧹', title: 'Progress reset' }))
+                }}
+              >
+                Erase
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Button variant="ghost" className="w-full text-rose-500" onClick={() => setConfirmReset(true)}>
+            Reset all progress
+          </Button>
+        )}
       </Card>
       <p className="pb-4 text-center text-xs text-slate-400">华语 Lah! · made for practising Singaporean Mandarin</p>
     </div>

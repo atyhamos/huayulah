@@ -1,0 +1,31 @@
+/* Build the guest-mode demo for hosting as a claude.ai artifact: dist-artifact/ + page.html + strokes.json. */
+import { execSync } from 'node:child_process'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+
+const root = join(import.meta.dirname, '..')
+const out = join(root, 'dist-artifact')
+execSync('npx vite build --mode artifact --outDir dist-artifact --emptyOutDir', { cwd: root, stdio: 'inherit' })
+
+// one combined stroke file (the artifact host limits file counts)
+const strokesDir = join(root, 'public/strokes')
+const strokes: Record<string, unknown> = {}
+for (const f of readdirSync(strokesDir)) if (f.endsWith('.json')) strokes[f.slice(0, -5)] = JSON.parse(readFileSync(join(strokesDir, f), 'utf8'))
+writeFileSync(join(out, 'strokes.json'), JSON.stringify(strokes))
+
+// the artifact host supplies <html>/<head>/<body>; keep only our tags
+const html = readFileSync(join(out, 'index.html'), 'utf8')
+const tags = [...html.matchAll(/<(script|link)\b[^>]*>(<\/script>)?/g)]
+  .map((m) => m[0])
+  .filter((t) => /assets\//.test(t))
+const page = [
+  '<title>华语 Lah!</title>',
+  '<meta name="theme-color" content="#16a34a">',
+  ...tags,
+  '<div id="root"></div>',
+].join('\n')
+writeFileSync(join(out, 'page.html'), page + '\n')
+
+const assets = readdirSync(join(out, 'assets'))
+console.log(`artifact: page.html + strokes.json + ${assets.length} assets`)
+console.log(JSON.stringify(Object.fromEntries(assets.map((a) => [`assets/${a}`, `dist-artifact/assets/${a}`])), null, 1))
