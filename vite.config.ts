@@ -32,6 +32,15 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/__/],
         runtimeCaching: [
           {
+            // stroke data copied into public/strokes at build time
+            urlPattern: ({ url }) => url.pathname.startsWith('/strokes/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'strokes',
+              expiration: { maxEntries: 1000, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
             // hanzi-writer stroke data
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/npm\/hanzi-writer-data/,
             handler: 'CacheFirst',

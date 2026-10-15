@@ -14,6 +14,7 @@ export function WordDetailScreen() {
   const nav = useNavigate()
   const it = content.items.get(itemId)
   const cards = useApp((st) => st.s.cards)
+  const [writing, setWriting] = useState(false)
   if (!it) return <p className="p-6">Word not found.</p>
   const read = cards[cardId(it.id, 'read')]
   const sayCard = cards[cardId(it.id, 'say')]
@@ -57,10 +58,17 @@ export function WordDetailScreen() {
       )}
 
       <Card className="mb-4">
-        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Stroke order · tap to replay</p>
+        <div className="mb-2 flex items-center justify-between">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            {writing ? 'Write it — trace each stroke' : 'Stroke order · tap to replay'}
+          </p>
+          <button type="button" className="text-sm font-bold text-sky-600" onClick={() => setWriting((w) => !w)} data-testid="toggle-writing">
+            {writing ? 'Watch' : '✍️ Practise writing'}
+          </button>
+        </div>
         <div className="flex flex-wrap gap-3">
           {hanChars(it.hanzi).map((ch, i) => (
-            <StrokeChar key={ch + i} ch={ch} />
+            <StrokeChar key={ch + i + String(writing)} ch={ch} quiz={writing} />
           ))}
         </div>
       </Card>
@@ -100,10 +108,12 @@ export function WordDetailScreen() {
   )
 }
 
-function StrokeChar({ ch }: { ch: string }) {
+function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
-  const writer = useRef<{ animateCharacter: () => void } | null>(null)
+  const writer = useRef<{ animateCharacter: () => void; quiz: (o?: object) => unknown } | null>(null)
   const [failed, setFailed] = useState(false)
+  const [done, setDone] = useState(false)
+  const [mistakes, setMistakes] = useState(0)
 
   useEffect(() => {
     let cancelled = false
@@ -112,24 +122,59 @@ function StrokeChar({ ch }: { ch: string }) {
     void import('hanzi-writer').then(({ default: HanziWriter }) => {
       if (cancelled) return
       el.innerHTML = ''
+      const size = quiz ? 140 : 96
       writer.current = HanziWriter.create(el, ch, {
-        width: 96,
-        height: 96,
+        width: size,
+        height: size,
         padding: 4,
         showOutline: true,
+        showCharacter: !quiz,
         strokeColor: '#0f172a',
         radicalColor: '#16a34a',
+        highlightColor: '#0ea5e9',
+        drawingColor: '#0f172a',
         strokeAnimationSpeed: 1.2,
         delayBetweenStrokes: 150,
+        showHintAfterMisses: 2,
+        // course characters are served locally (works offline); anything else falls back to the CDN
+        charDataLoader: (c, onLoad, onError) => {
+          fetch(`/strokes/${encodeURIComponent(c)}.json`)
+            .then((r) => (r.ok && r.headers.get('content-type')?.includes('json') ? r.json() : fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${c}.json`).then((r2) => r2.json())))
+            .then(onLoad, onError)
+        },
         onLoadCharDataError: () => setFailed(true),
       })
-      writer.current.animateCharacter()
+      if (quiz)
+        writer.current.quiz({
+          onMistake: () => setMistakes((m) => m + 1),
+          onComplete: () => setDone(true),
+        })
+      else writer.current.animateCharacter()
     })
     return () => {
       cancelled = true
     }
-  }, [ch])
+  }, [ch, quiz])
 
+  if (failed) {
+    return (
+      <div className="grid h-24 w-24 place-items-center rounded-xl border-2 border-dashed border-slate-200">
+        <span className="font-han text-6xl">{ch}</span>
+      </div>
+    )
+  }
+  if (quiz) {
+    return (
+      <div className="flex flex-col items-center gap-1">
+        <div
+          ref={ref}
+          className={`rounded-xl border-2 ${done ? 'border-brand-400 bg-brand-50' : 'border-dashed border-slate-300'}`}
+          style={{ touchAction: 'none' }}
+        />
+        <span className="text-xs text-slate-400">{done ? (mistakes ? `✓ ${mistakes} slip${mistakes > 1 ? 's' : ''}` : '✓ perfect') : ' '}</span>
+      </div>
+    )
+  }
   return (
     <button
       type="button"
@@ -137,7 +182,7 @@ function StrokeChar({ ch }: { ch: string }) {
       className="grid h-24 w-24 place-items-center rounded-xl border-2 border-dashed border-slate-200"
       aria-label={`Stroke order for ${ch}`}
     >
-      {failed ? <span className="font-han text-6xl">{ch}</span> : <div ref={ref} />}
+      <div ref={ref} />
     </button>
   )
 }
