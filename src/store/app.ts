@@ -8,6 +8,7 @@ import { hasProgress, mergeStates } from '../data/merge'
 import type { Repo } from '../data/repo'
 import { emptyState, type AppState, type Settings } from '../data/types'
 import type { Achievement } from '../lib/achievements'
+import { dayKey } from '../lib/dates'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
 
@@ -42,6 +43,7 @@ interface AppStore {
   finishOnboarding(dailyGoal: number): void
   updateSettings(p: Partial<Settings>): void
   completeLesson(input: LessonInput): LessonSummary
+  completePractice(input: Omit<LessonInput, 'lessonId' | 'mode'>): LessonSummary
   reviewCard(cardId: string, grade: Grade): void
   resetProgress(): Promise<void>
   replaceState(next: AppState): void
@@ -59,7 +61,13 @@ let publishTimer: ReturnType<typeof setTimeout> | undefined
 
 export const useApp = create<AppStore>((set, get) => {
   function commit(state: AppState, dirty: Dirty) {
+    const before = get().s
     set({ s: state })
+    const today = dayKey()
+    const goal = state.settings.dailyGoal
+    if ((before.days[today]?.xp ?? 0) < goal && (state.days[today]?.xp ?? 0) >= goal) {
+      setTimeout(() => get().toast({ icon: '🎯', title: 'Daily goal reached!', body: `${goal} XP today — 好棒！` }), 600)
+    }
     repo.save(state, dirty).then(
       () => get().syncError && set({ syncError: null }),
       (e: unknown) => {
@@ -210,6 +218,12 @@ export const useApp = create<AppStore>((set, get) => {
       // achievements are shown on the lesson-complete screen
       if (r.info.streak.earnedFreeze)
         get().toast({ icon: '🧊', title: 'Streak freeze earned', body: 'It will protect your streak if you miss a day.' })
+      return r.info
+    },
+
+    completePractice(input) {
+      const r = actions.completePractice(get().s, input, content, new Date())
+      commit(r.state, r.dirty)
       return r.info
     },
 

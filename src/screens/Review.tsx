@@ -69,7 +69,21 @@ export function ReviewScreen() {
           <p className="text-slate-500">{nextDue ? `Next card due in ${formatInterval(nextDue - Date.now())}.` : ''}</p>
         </>
       )}
-      <div className="mt-10 w-full rounded-2xl bg-slate-50 p-4 text-left text-sm text-slate-600">
+      {learned >= 4 && (
+        <Link
+          to="/lesson/weak"
+          className="mt-8 flex w-full items-center gap-3 rounded-2xl border-2 border-b-4 border-slate-200 p-4 text-left"
+          data-testid="practice-weak"
+        >
+          <span className="text-3xl">💪</span>
+          <span className="flex-1">
+            <span className="block font-bold">Practise weak words</span>
+            <span className="text-sm text-slate-500">A quick lesson with the words you're most likely to forget</span>
+          </span>
+          <span className="text-slate-400">→</span>
+        </Link>
+      )}
+      <div className="mt-6 w-full rounded-2xl bg-slate-50 p-4 text-left text-sm text-slate-600">
         <p className="mb-1 font-bold">Two kinds of cards</p>
         <p>
           <b>📖 Read</b> — see the characters, recall the sound and meaning.

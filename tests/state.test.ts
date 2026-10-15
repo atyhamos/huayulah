@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { content } from '../src/content'
-import { completeLesson, dueCardIds, isLessonUnlocked, nextLessonId, reviewCard } from '../src/data/actions'
+import { completeLesson, completePractice, dueCardIds, isLessonUnlocked, nextLessonId, reviewCard, weakestItems } from '../src/data/actions'
 import { hasProgress, mergeStates } from '../src/data/merge'
 import { cardId, emptyState, normalizeState } from '../src/data/types'
 import { Rating } from '../src/lib/srs'
@@ -97,5 +97,18 @@ describe('guest → account merge', () => {
     expect(s.stats.xp).toBe(5)
     expect(s.settings.dailyGoal).toBe(20)
     expect(s.cards).toEqual({})
+  })
+})
+
+describe('weak-word practice', () => {
+  it('picks the most-forgotten words and only awards XP', () => {
+    const missed = lesson1.items[2]
+    const s = finishFirst(day(2), { [missed]: 1 }).state
+    const weak = weakestItems(s, 3, day(6), content)
+    expect(weak[0]).toBe(missed)
+    const r = completePractice(s, { mistakesByItem: {}, maxCombo: 0, answered: 5, correct: 5 }, content, day(6))
+    expect(r.state.stats.xp).toBe(s.stats.xp + 10)
+    expect(r.state.cards).toBe(s.cards)
+    expect(r.state.lessons).toEqual(s.lessons)
   })
 })

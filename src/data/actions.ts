@@ -2,7 +2,7 @@
 import type { Content } from '../content/build'
 import { newlyUnlocked, type Achievement } from '../lib/achievements'
 import { dayKey, weekId } from '../lib/dates'
-import { newCard, Rating, review, State, type Grade } from '../lib/srs'
+import { newCard, Rating, retrievability, review, State, type Grade } from '../lib/srs'
 import { applyActivity, type StreakUpdate } from '../lib/streak'
 import { lessonXp } from '../lib/xp'
 import { cardId, parseCardId, type AppState, type DayLog, type StoredCard } from './types'
@@ -121,6 +121,43 @@ export function completeLesson(s: AppState, input: LessonInput, content: Content
     dirty: { root: true, cards: dirtyCards },
     info: { xp, accuracy, streak, achievements, newWords },
   }
+}
+
+/** Free practice (e.g. weak words): XP and streak only, no lesson or flashcard changes. */
+export function completePractice(
+  s: AppState,
+  input: Pick<LessonInput, 'mistakesByItem' | 'maxCombo' | 'answered' | 'correct'>,
+  content: Content,
+  now: Date,
+): Result<LessonSummary> {
+  const mistakes = Object.values(input.mistakesByItem).reduce((a, b) => a + b, 0)
+  const xp = lessonXp({ mode: 'practice', mistakes, maxCombo: input.maxCombo })
+  const { state: afterXp, streak } = addXp(s, xp.total, now)
+  let next = touchDay(afterXp, dayKey(now), (d) => ({ ...d, lessons: d.lessons + 1 }))
+  const achievements = newlyUnlocked(next, { units: content.units, lastLesson: { mistakes } })
+  if (achievements.length) {
+    next = {
+      ...next,
+      achievements: { ...next.achievements, ...Object.fromEntries(achievements.map((a) => [a.id, now.getTime()])) },
+    }
+  }
+  return {
+    state: next,
+    dirty: { root: true },
+    info: { xp, accuracy: input.answered ? input.correct / input.answered : 1, streak, achievements, newWords: 0 },
+  }
+}
+
+/** Learned items you're most likely to have forgotten. */
+export function weakestItems(s: AppState, n: number, now: Date, content: Content): string[] {
+  const scored: [string, number][] = []
+  for (const [id, c] of Object.entries(s.cards)) {
+    const { itemId, dir } = parseCardId(id)
+    if (dir !== 'read' || !content.items.has(itemId)) continue
+    scored.push([itemId, retrievability(c, now) - c.lapses * 0.05])
+  }
+  scored.sort((a, b) => a[1] - b[1])
+  return scored.slice(0, n).map(([id]) => id)
 }
 
 export function reviewCard(

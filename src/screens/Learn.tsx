@@ -48,7 +48,7 @@ export function LearnScreen() {
           nextRef={nextRef}
         />
       ))}
-      <p className="py-8 text-center text-slate-400">More units coming soon 🚧</p>
+      <p className="py-8 text-center text-slate-400">That's the whole course for now — keep your flashcards fresh! 🇸🇬</p>
     </div>
   )
 }

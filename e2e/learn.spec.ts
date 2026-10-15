@@ -57,6 +57,11 @@ test('flashcards come due and can be reviewed', async ({ page }) => {
   await expect(page.getByTestId('review-done')).toBeVisible()
   await page.getByRole('button', { name: 'Done' }).click()
   await expect(page.getByText('All caught up!')).toBeVisible()
+
+  await page.getByTestId('practice-weak').click()
+  await playLesson(page)
+  await expect(page.getByTestId('lesson-complete')).toContainText('Practice complete')
+  await page.getByTestId('done').click()
   // streak: day 1 + day 5 with no freezes → resets to 1
   await expect(page.getByTestId('streak')).toHaveText('🔥 1')
 })

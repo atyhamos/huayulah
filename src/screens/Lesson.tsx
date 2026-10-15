@@ -7,9 +7,12 @@ import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
 import { Button, Icon, ProgressBar } from '../components/ui'
 import { generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
+import { weakestItems } from '../data/actions'
 import { sfx } from '../lib/sfx'
 import { useApp } from '../store/app'
 import { LessonComplete } from './LessonComplete'
+
+export const WEAK_LESSON = 'weak'
 
 const PRAISE = ['好棒！', '太好了！', 'Steady!', '厉害！', 'Power lah!', '对了！', 'Shiok!']
 
@@ -21,12 +24,17 @@ export function LessonScreen() {
   const { lessonId = '' } = useParams()
   const [params] = useSearchParams()
   const nav = useNavigate()
-  const lesson = content.lessons.get(lessonId)
   const s = useApp((st) => st.s)
   const completeLesson = useApp((st) => st.completeLesson)
+  const completePractice = useApp((st) => st.completePractice)
+  // "weak" is a virtual lesson built from the words you're most likely to have forgotten
+  const isWeak = lessonId === WEAK_LESSON
+  const [lesson] = useState(() =>
+    isWeak ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) } : content.lessons.get(lessonId),
+  )
 
   const [mode] = useState<'learn' | 'practice'>(() =>
-    params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn',
+    isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn',
   )
   // Speaking works everywhere: browsers without recognition fall back to self-checking.
   const speaking = s.settings.speaking
@@ -59,17 +67,11 @@ export function LessonScreen() {
 
   const finish = useCallback(() => {
     const st = stats.current
-    const r = completeLesson({
-      lessonId,
-      mode,
-      mistakesByItem: st.mistakes,
-      maxCombo: st.maxCombo,
-      answered: st.answered,
-      correct: st.correct,
-    })
+    const result = { mistakesByItem: st.mistakes, maxCombo: st.maxCombo, answered: st.answered, correct: st.correct }
+    const r = isWeak ? completePractice(result) : completeLesson({ lessonId, mode, ...result })
     if (s.settings.sound) sfx.complete()
     setSummary(r)
-  }, [completeLesson, lessonId, mode, s.settings.sound])
+  }, [completeLesson, completePractice, isWeak, lessonId, mode, s.settings.sound])
 
   const advance = useCallback(() => {
     setFeedback(null)
@@ -136,10 +138,10 @@ export function LessonScreen() {
     }
   }, [feedback, advance])
 
-  if (!lesson) {
+  if (!lesson || lesson.items.length < 3) {
     return (
       <div className="p-8 text-center">
-        <p className="mb-4">Lesson not found.</p>
+        <p className="mb-4">{isWeak ? 'Learn a few more words first!' : 'Lesson not found.'}</p>
         <Link to="/" className="text-sky-600 underline">
           Back home
         </Link>
