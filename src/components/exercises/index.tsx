@@ -1,4 +1,5 @@
 import type { Exercise } from '../../lib/exercises'
+import { Hear } from './Hear'
 import { Intro } from './Intro'
 import { MatchPairs } from './MatchPairs'
 import { MultipleChoice } from './MultipleChoice'
@@ -28,5 +29,7 @@ export function ExerciseView({ ex, locked, onSubmit }: { ex: Exercise; locked: b
       return <Speak ex={ex} locked={locked} onSubmit={onSubmit} />
     case 'sgpick':
       return <SgPick ex={ex} locked={locked} onSubmit={onSubmit} />
+    case 'hear':
+      return <Hear ex={ex} locked={locked} onSubmit={onSubmit} />
   }
 }

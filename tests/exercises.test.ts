@@ -19,6 +19,7 @@ describe('lesson generation', () => {
           if (e.kind === 'tone' || e.kind === 'sgpick') expect(e.options).toContain(e.answer)
           else expect(e.options).toContain(e.itemId)
           if (e.kind === 'sgpick') expect(e.options).toContain(getItem(e.itemId).standard!.hanzi)
+          if (e.kind === 'hear') for (const o of e.options) expect(getItem(o).example).toBeDefined()
         }
         if (e.kind === 'build') {
           for (const t of e.answer) expect(e.tiles).toContain(t)

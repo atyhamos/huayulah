@@ -196,7 +196,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
   const { ex, correct } = fb
   const [praise] = useState(() => PRAISE[Math.floor(Math.random() * PRAISE.length)])
   const it = ex.kind === 'match' ? null : getItem(ex.itemId)
-  const sentence = ex.kind === 'build' ? it?.example : null
+  const sentence = ex.kind === 'build' || ex.kind === 'hear' ? it?.example : null
   return (
     <div
       className={`safe-bottom fixed inset-x-0 bottom-0 z-10 animate-slide-up px-4 pt-4 ${correct ? 'bg-brand-100' : 'bg-rose-100'}`}
@@ -214,7 +214,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
           </p>
         )}
         {it && ex.kind === 'sgpick' && it.note && <p className="mb-2 text-sm text-slate-700">💡 {it.note}</p>}
-        {it && (!correct || ex.kind === 'build' || ex.kind === 'speak') && (
+        {it && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear') && (
           <div className="mb-3 flex items-center gap-3">
             {sentence ? (
               <>

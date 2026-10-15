@@ -12,6 +12,8 @@ export type Exercise =
   | { id: string; kind: 'match'; itemIds: string[] }
   | { id: string; kind: 'speak'; itemId: string; text: string; en: string }
   | { id: string; kind: 'sgpick'; itemId: string; options: string[]; answer: string }
+  /** Hear a whole example sentence, pick its meaning. Options are item ids (their example.en is shown). */
+  | { id: string; kind: 'hear'; itemId: string; options: string[] }
 
 export type ExerciseKind = Exercise['kind']
 
@@ -154,12 +156,27 @@ function match(items: Item[], rng: Rng): Exercise {
 }
 
 /** One varied recall exercise for an item that's already been introduced. */
+function hear(it: Item, pool: Item[], lessonIds: Set<string>, rng: Rng): Exercise | null {
+  if (!it.example) return null
+  const others = shuffle(
+    pool.filter((p) => p.id !== it.id && p.example && p.example.en !== it.example!.en),
+    rng,
+  ).sort((a, b) => Number(lessonIds.has(b.id) || b.unitId === it.unitId) - Number(lessonIds.has(a.id) || a.unitId === it.unitId))
+  const options = shuffle([it, ...others.slice(0, 3)], rng).map((o) => o.id)
+  return { id: uid('hear', it.id), kind: 'hear', itemId: it.id, options }
+}
+
 function recall(it: Item, pool: Item[], lessonIds: Set<string>, rng: Rng, avoid?: ExerciseKind): Exercise {
-  const kinds: ExerciseKind[] = shuffle(['en2zh', 'listen', 'tone', 'zh2en'] as ExerciseKind[], rng).filter((k) => k !== avoid)
+  const kinds: ExerciseKind[] = shuffle(['en2zh', 'listen', 'tone', 'zh2en', 'hear'] as ExerciseKind[], rng).filter((k) => k !== avoid)
   for (const k of kinds) {
     if (k === 'tone') {
       const t = tone(it, rng)
       if (t) return t
+      continue
+    }
+    if (k === 'hear') {
+      const h = hear(it, pool, lessonIds, rng)
+      if (h) return h
       continue
     }
     return mc(k as 'zh2en' | 'en2zh' | 'listen', it, pool, lessonIds, rng)
@@ -218,6 +235,7 @@ export function retryOf(ex: Exercise, rng: Rng = Math.random): Exercise {
     case 'listen':
     case 'tone':
     case 'sgpick':
+    case 'hear':
       return { ...ex, id, options: shuffle(ex.options, rng) }
     case 'build':
       return { ...ex, id, tiles: shuffle(ex.tiles, rng) }
