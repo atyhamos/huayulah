@@ -1,0 +1,59 @@
+{
+  "id": "u02",
+  "title": "Numbers, Money & Time",
+  "titleZh": "数字、钱和时间",
+  "description": "Prices at the stall, bus timings and dates — read them without guessing.",
+  "emoji": "💰",
+  "color": "#0ea5e9",
+  "items": [
+    { "id": "yi", "hanzi": "一", "pinyin": "yī", "english": "one", "example": { "zh": "我 要 一个。", "en": "I want one." }, "note": "Tone changes with what follows: 一个 (yí gè), 一杯 (yì bēi). Alone it's yī." },
+    { "id": "er", "hanzi": "二", "pinyin": "èr", "english": "two (the number)", "example": { "zh": "我 住 二楼。", "en": "I live on the 2nd floor." } },
+    { "id": "san", "hanzi": "三", "pinyin": "sān", "english": "three", "example": { "zh": "我们 有 三个 人。", "en": "There are three of us." } },
+    { "id": "si", "hanzi": "四", "pinyin": "sì", "english": "four", "example": { "zh": "现在 四点。", "en": "It's four o'clock now." } },
+    { "id": "wu", "hanzi": "五", "pinyin": "wǔ", "english": "five", "example": { "zh": "五块 钱。", "en": "Five dollars." } },
+    { "id": "liu", "hanzi": "六", "pinyin": "liù", "english": "six", "example": { "zh": "我 六点 起床。", "en": "I wake up at six." } },
+
+    { "id": "qi-seven", "hanzi": "七", "pinyin": "qī", "english": "seven", "example": { "zh": "一个 星期 有 七天。", "en": "A week has seven days." } },
+    { "id": "ba", "hanzi": "八", "pinyin": "bā", "english": "eight", "example": { "zh": "八 是 好 数字。", "en": "Eight is a lucky number." }, "note": "八 (bā) sounds like 发 (fā, to prosper) — that's why 8 is lucky." },
+    { "id": "jiu", "hanzi": "九", "pinyin": "jiǔ", "english": "nine", "example": { "zh": "我 九点 上班。", "en": "I start work at nine." } },
+    { "id": "shi-ten", "hanzi": "十", "pinyin": "shí", "english": "ten", "example": { "zh": "十块 钱 够 吗？", "en": "Is ten dollars enough?" } },
+    { "id": "yibai", "hanzi": "一百", "pinyin": "yì bǎi", "english": "one hundred", "example": { "zh": "这个 一百块。", "en": "This is a hundred dollars." } },
+    { "id": "liang", "hanzi": "两", "pinyin": "liǎng", "english": "two (of something)", "example": { "zh": "两杯 咖啡。", "en": "Two cups of coffee." }, "note": "Use 两 before a measure word (两杯, 两个); use 二 when counting or in numbers like 十二." },
+
+    { "id": "qian-money", "hanzi": "钱", "pinyin": "qián", "english": "money", "example": { "zh": "我 没有 钱 了。", "en": "I'm out of money." } },
+    { "id": "kuai", "hanzi": "块", "pinyin": "kuài", "english": "dollar (spoken)", "example": { "zh": "一杯 咖啡 两块。", "en": "A cup of coffee is two dollars." }, "note": "块 is how everyone says \"dollar\" out loud. 元 (yuán) is the written form you see on signs." },
+    { "id": "mao", "hanzi": "毛", "pinyin": "máo", "english": "ten cents (spoken)", "example": { "zh": "一块 五毛。", "en": "A dollar fifty." }, "note": "In speech the last 毛 is usually dropped: 一块五 = $1.50." },
+    { "id": "duoshaoqian", "hanzi": "多少钱", "pinyin": "duō shǎo qián", "english": "how much (does it cost)?", "type": "phrase", "example": { "zh": "这个 多少钱？", "en": "How much is this?" } },
+    { "id": "pianyi", "hanzi": "便宜", "pinyin": "pián yi", "english": "cheap", "example": { "zh": "这里 的 东西 很 便宜。", "en": "Things here are cheap." } },
+    { "id": "gui", "hanzi": "贵", "pinyin": "guì", "english": "expensive", "example": { "zh": "太 贵 了！", "en": "Too expensive!" } },
+
+    { "id": "dian", "hanzi": "点", "pinyin": "diǎn", "english": "o'clock", "example": { "zh": "我们 七点 见。", "en": "Let's meet at seven." } },
+    { "id": "ban", "hanzi": "半", "pinyin": "bàn", "english": "half", "example": { "zh": "现在 三点 半。", "en": "It's half past three." } },
+    { "id": "fenzhong", "hanzi": "分钟", "pinyin": "fēn zhōng", "english": "minute(s)", "example": { "zh": "巴士 还有 五 分钟 到。", "en": "The bus arrives in five minutes." } },
+    { "id": "xiaoshi", "hanzi": "小时", "pinyin": "xiǎo shí", "english": "hour(s)", "example": { "zh": "我 等 了 一个 小时。", "en": "I waited for an hour." } },
+    { "id": "jidian", "hanzi": "几点", "pinyin": "jǐ diǎn", "english": "what time?", "type": "phrase", "example": { "zh": "你 几点 下班？", "en": "What time do you finish work?" } },
+    { "id": "dengyixia", "hanzi": "等一下", "pinyin": "děng yí xià", "english": "wait a moment", "type": "phrase", "example": { "zh": "等一下， 我 马上 来。", "en": "Wait a moment, I'm coming." } },
+
+    { "id": "xingqi", "hanzi": "星期", "pinyin": "xīng qī", "english": "week", "example": { "zh": "下个 星期 见。", "en": "See you next week." }, "note": "Days are 星期 + number: 星期一 is Monday, 星期二 Tuesday… 礼拜 (lǐ bài) is also common in Singapore." },
+    { "id": "xingqitian", "hanzi": "星期天", "pinyin": "xīng qī tiān", "english": "Sunday", "example": { "zh": "星期天 我们 去 吃 点心。", "en": "On Sunday we go for dim sum." } },
+    { "id": "zhoumo", "hanzi": "周末", "pinyin": "zhōu mò", "english": "weekend", "example": { "zh": "周末 你 做 什么？", "en": "What are you doing this weekend?" } },
+    { "id": "hao-date", "hanzi": "号", "pinyin": "hào", "english": "date (day of the month) / number", "example": { "zh": "今天 几号？", "en": "What's the date today?" } },
+    { "id": "yue", "hanzi": "月", "pinyin": "yuè", "english": "month / moon", "example": { "zh": "八月 九号 是 国庆日。", "en": "9 August is National Day." } },
+    { "id": "nian", "hanzi": "年", "pinyin": "nián", "english": "year", "example": { "zh": "新年 快乐！", "en": "Happy New Year!" } },
+
+    { "id": "qian-thousand", "hanzi": "千", "pinyin": "qiān", "english": "thousand", "example": { "zh": "租金 两千块。", "en": "The rent is two thousand dollars." } },
+    { "id": "wan", "hanzi": "万", "pinyin": "wàn", "english": "ten thousand", "example": { "zh": "这 辆 车 十万块。", "en": "This car is a hundred thousand dollars." }, "note": "Chinese counts in 万 (10,000), not thousands: 100,000 is 十万, \"ten ten-thousands\"." },
+    { "id": "xianjin", "hanzi": "现金", "pinyin": "xiàn jīn", "english": "cash", "example": { "zh": "这里 只 收 现金。", "en": "Cash only here." } },
+    { "id": "fuqian", "hanzi": "付钱", "pinyin": "fù qián", "english": "to pay", "example": { "zh": "我 来 付钱。", "en": "Let me pay." } },
+    { "id": "zhaoqian", "hanzi": "找钱", "pinyin": "zhǎo qián", "english": "to give change", "example": { "zh": "老板， 找钱 不 对。", "en": "Boss, the change is wrong." } },
+    { "id": "dazhe", "hanzi": "打折", "pinyin": "dǎ zhé", "english": "discount / on sale", "example": { "zh": "今天 打 八折。", "en": "20% off today." }, "note": "打八折 means you pay 80% — i.e. 20% off. Don't read it as 80% off!" }
+  ],
+  "lessons": [
+    { "id": "u02-l1", "title": "One to six", "items": ["yi", "er", "san", "si", "wu", "liu"] },
+    { "id": "u02-l2", "title": "Seven to a hundred", "items": ["qi-seven", "ba", "jiu", "shi-ten", "yibai", "liang"] },
+    { "id": "u02-l3", "title": "How much?", "items": ["qian-money", "kuai", "mao", "duoshaoqian", "pianyi", "gui"] },
+    { "id": "u02-l4", "title": "Telling time", "items": ["dian", "ban", "fenzhong", "xiaoshi", "jidian", "dengyixia"] },
+    { "id": "u02-l5", "title": "Days & dates", "items": ["xingqi", "xingqitian", "zhoumo", "hao-date", "yue", "nian"] },
+    { "id": "u02-l6", "title": "Paying up", "items": ["qian-thousand", "wan", "xianjin", "fuqian", "zhaoqian", "dazhe"] }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "u01",
+  "title": "Reading Bootcamp",
+  "titleZh": "读字入门",
+  "description": "Put faces to the words you already say every day.",
+  "emoji": "📖",
+  "color": "#16a34a",
+  "items": [
+    { "id": "wo", "hanzi": "我", "pinyin": "wǒ", "english": "I / me", "example": { "zh": "我 是 新加坡人。", "en": "I am Singaporean." } },
+    { "id": "ni", "hanzi": "你", "pinyin": "nǐ", "english": "you", "example": { "zh": "你 吃饭 了 吗？", "en": "Have you eaten?" }, "note": "\"吃饭了吗？\" is a very common Singaporean greeting — it just means \"how are you?\"" },
+    { "id": "ta-he", "hanzi": "他", "pinyin": "tā", "english": "he / him", "example": { "zh": "他 是 我 的 朋友。", "en": "He is my friend." } },
+    { "id": "ta-she", "hanzi": "她", "pinyin": "tā", "english": "she / her", "example": { "zh": "她 是 我 的 妈妈。", "en": "She is my mum." }, "note": "Sounds exactly like 他 — only the written form (女 = woman) is different." },
+    { "id": "women", "hanzi": "我们", "pinyin": "wǒ men", "english": "we / us", "type": "word", "example": { "zh": "我们 去 喝 咖啡 吧。", "en": "Let's go and drink coffee." } },
+    { "id": "nimen", "hanzi": "你们", "pinyin": "nǐ men", "english": "you (plural)", "example": { "zh": "你们 要 去 哪里？", "en": "Where are you all going?" } },
+
+    { "id": "shi", "hanzi": "是", "pinyin": "shì", "english": "to be (am / is / are)", "example": { "zh": "这 是 我 的 手机。", "en": "This is my phone." } },
+    { "id": "bu", "hanzi": "不", "pinyin": "bù", "english": "not / no", "example": { "zh": "我 不 要 辣。", "en": "I don't want it spicy." } },
+    { "id": "hao", "hanzi": "好", "pinyin": "hǎo", "english": "good / well", "example": { "zh": "今天 天气 很 好。", "en": "The weather is good today." } },
+    { "id": "you", "hanzi": "有", "pinyin": "yǒu", "english": "to have / there is", "example": { "zh": "你 有 时间 吗？", "en": "Do you have time?" } },
+    { "id": "meiyou", "hanzi": "没有", "pinyin": "méi yǒu", "english": "don't have / didn't", "example": { "zh": "我 没有 钱。", "en": "I don't have money." } },
+    { "id": "yao", "hanzi": "要", "pinyin": "yào", "english": "to want / need", "example": { "zh": "我 要 一杯 美禄。", "en": "I want a cup of Milo." } },
+
+    { "id": "qu", "hanzi": "去", "pinyin": "qù", "english": "to go", "example": { "zh": "我 明天 去 学校。", "en": "I'm going to school tomorrow." } },
+    { "id": "lai", "hanzi": "来", "pinyin": "lái", "english": "to come", "example": { "zh": "你 什么 时候 来？", "en": "When are you coming?" } },
+    { "id": "chi", "hanzi": "吃", "pinyin": "chī", "english": "to eat", "example": { "zh": "我们 去 吃 鸡饭。", "en": "Let's go eat chicken rice." } },
+    { "id": "he", "hanzi": "喝", "pinyin": "hē", "english": "to drink", "example": { "zh": "你 要 喝 什么？", "en": "What do you want to drink?" } },
+    { "id": "kan", "hanzi": "看", "pinyin": "kàn", "english": "to look / watch / read", "example": { "zh": "我 在 看 电视。", "en": "I'm watching TV." } },
+    { "id": "mai", "hanzi": "买", "pinyin": "mǎi", "english": "to buy", "example": { "zh": "我 去 买 早餐。", "en": "I'm going to buy breakfast." }, "note": "Don't mix it up with 卖 (mài, to sell) — the extra 十 on top means \"sell\"." },
+
+    { "id": "shenme", "hanzi": "什么", "pinyin": "shén me", "english": "what", "example": { "zh": "这 是 什么？", "en": "What is this?" } },
+    { "id": "shei", "hanzi": "谁", "pinyin": "shéi", "english": "who", "example": { "zh": "他 是 谁？", "en": "Who is he?" } },
+    { "id": "nali", "hanzi": "哪里", "pinyin": "nǎ lǐ", "english": "where", "example": { "zh": "厕所 在 哪里？", "en": "Where is the toilet?" } },
+    { "id": "ji", "hanzi": "几", "pinyin": "jǐ", "english": "how many (small number)", "example": { "zh": "你 有 几个 孩子？", "en": "How many kids do you have?" } },
+    { "id": "zenme", "hanzi": "怎么", "pinyin": "zěn me", "english": "how", "example": { "zh": "这个 怎么 说？", "en": "How do you say this?" } },
+    { "id": "weishenme", "hanzi": "为什么", "pinyin": "wèi shén me", "english": "why", "example": { "zh": "你 为什么 不 来？", "en": "Why aren't you coming?" } },
+
+    { "id": "jintian", "hanzi": "今天", "pinyin": "jīn tiān", "english": "today", "example": { "zh": "今天 是 星期一。", "en": "Today is Monday." } },
+    { "id": "mingtian", "hanzi": "明天", "pinyin": "míng tiān", "english": "tomorrow", "example": { "zh": "明天 见！", "en": "See you tomorrow!" } },
+    { "id": "zuotian", "hanzi": "昨天", "pinyin": "zuó tiān", "english": "yesterday", "example": { "zh": "昨天 我 很 忙。", "en": "I was busy yesterday." } },
+    { "id": "xianzai", "hanzi": "现在", "pinyin": "xiàn zài", "english": "now", "example": { "zh": "现在 几点？", "en": "What time is it now?" } },
+    { "id": "zaoshang", "hanzi": "早上", "pinyin": "zǎo shang", "english": "morning", "example": { "zh": "早上 好！", "en": "Good morning!" } },
+    { "id": "wanshang", "hanzi": "晚上", "pinyin": "wǎn shang", "english": "evening / night", "example": { "zh": "晚上 我 在 家。", "en": "I'm at home in the evening." } },
+
+    { "id": "nihao", "hanzi": "你好", "pinyin": "nǐ hǎo", "english": "hello", "type": "phrase", "example": { "zh": "你好， 你 叫 什么 名字？", "en": "Hello, what's your name?" } },
+    { "id": "xiexie", "hanzi": "谢谢", "pinyin": "xiè xie", "english": "thank you", "type": "phrase", "example": { "zh": "谢谢 你！", "en": "Thank you!" } },
+    { "id": "duibuqi", "hanzi": "对不起", "pinyin": "duì bu qǐ", "english": "sorry", "type": "phrase", "example": { "zh": "对不起， 我 迟到 了。", "en": "Sorry, I'm late." } },
+    { "id": "meiguanxi", "hanzi": "没关系", "pinyin": "méi guān xi", "english": "it's okay / never mind", "type": "phrase", "example": { "zh": "没关系， 慢慢 来。", "en": "It's okay, take your time." } },
+    { "id": "zaijian", "hanzi": "再见", "pinyin": "zài jiàn", "english": "goodbye", "type": "phrase", "example": { "zh": "再见， 明天 见！", "en": "Bye, see you tomorrow!" } },
+    { "id": "qing", "hanzi": "请", "pinyin": "qǐng", "english": "please / to invite", "example": { "zh": "请 坐。", "en": "Please sit." } }
+  ],
+  "lessons": [
+    { "id": "u01-l1", "title": "People", "items": ["wo", "ni", "ta-he", "ta-she", "women", "nimen"] },
+    { "id": "u01-l2", "title": "Core verbs", "items": ["shi", "bu", "hao", "you", "meiyou", "yao"] },
+    { "id": "u01-l3", "title": "Doing things", "items": ["qu", "lai", "chi", "he", "kan", "mai"] },
+    { "id": "u01-l4", "title": "Questions", "items": ["shenme", "shei", "nali", "ji", "zenme", "weishenme"] },
+    { "id": "u01-l5", "title": "When", "items": ["jintian", "mingtian", "zuotian", "xianzai", "zaoshang", "wanshang"] },
+    { "id": "u01-l6", "title": "Manners", "items": ["nihao", "xiexie", "duibuqi", "meiguanxi", "zaijian", "qing"] }
+  ]
+}
