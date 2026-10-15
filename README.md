@@ -15,13 +15,15 @@ See [SPEC.md](SPEC.md) for the full product spec.
 | | |
 |---|---|
 | 🛤️ Learn path | Units → lessons → ~15 exercises each, unlock in order (every unit's first lesson is open) |
-| ✍️ Exercises | New-word cards, 汉字→English, English→汉字, listen→汉字, pick-the-tones, sentence builder, match pairs, read-aloud with speech recognition |
+| ✍️ Exercises | New-word cards, 汉字→English, English→汉字, listen→汉字, pick-the-tones, sentence builder, match pairs, "which would a Singaporean say?", read-aloud with speech recognition |
+| 💬 Stories | One Singapore-life dialogue per unit (kopitiam order, CNY relatives, MC day…) with audio and comprehension questions |
 | 🃏 Flashcards | FSRS spaced repetition (`ts-fsrs`). Every word gets a **📖 read** card and a **🗣️ say** card |
 | 🙈 Pinyin fade | Pinyin hides on words you know well, so you actually learn the characters (tap to peek) |
 | 🇸🇬 SG flavour | Local terms flagged with mainland equivalents, origin notes and links to the [Singaporean Mandarin Database](https://www.languagecouncils.sg/mandarin/en/learning-resources/singaporean-mandarin-database) |
 | 🔥 Gamification | XP, levels, daily goal ring, streaks + streak freezes, achievements, confetti |
 | 👫 Friends | Friend codes / invite links and a weekly XP leaderboard |
 | 📚 Word bank | Search by 汉字 / pinyin / English, strength meters, stroke-order animations (`hanzi-writer`) |
+| 💪 Weak words | A practice lesson built from the words you're most likely to have forgotten |
 
 ## Quick start (local)
 
@@ -37,6 +39,7 @@ npm test                  # unit tests (Vitest)
 npm run validate:content  # check lesson JSON (schema, ids, pinyin)
 npm run build             # production build → dist/
 npm run e2e               # Playwright end-to-end tests (builds + previews first)
+npm run test:rules        # Firestore security rules + sync tests on the emulator (needs Java)
 ```
 
 ## Turning on Google login + cloud sync (Firebase)
@@ -93,7 +96,9 @@ Lessons live in `src/content/units/uNN.json` and are registered in `src/content/
 }
 ```
 
-Each lesson lists 3–8 item ids. Run `npm run validate:content` — it fails on structural problems and warns when
+Each lesson lists 3–8 item ids. Stories live in `src/content/stories.json` (lines + questions; `after` is the line
+index a question follows). After editing content run `npm run gen:pinyin` (also runs automatically before
+`dev`/`build`) to refresh the precomputed pinyin, then `npm run validate:content` — it fails on structural problems and warns when
 pinyin differs from the `pinyin-pro` dictionary (expected for some SG readings like 巴刹 *bā shā*).
 
 ## Project layout

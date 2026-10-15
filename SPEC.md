@@ -34,6 +34,11 @@ Decisions made: **PWA web app** (installs to the Android home screen, friends jo
 6. Sentence builder: arrange word tiles to match an English sentence (tokens come from the content, plus distractors)
 7. Match pairs: 5 汉字 ↔ English
 8. Speak it: say the phrase; the Web Speech API transcript is fuzzy-matched on characters and toneless pinyin, and ≥ 0.8 passes. If the browser doesn't support it, you grade yourself.
+9. Which would a Singaporean say? — SG term vs. the mainland term (e.g. 德士 vs 出租车), with the origin note as feedback.
+
+**Stories (added during build):** one dialogue per unit (8–9 lines, 3 comprehension questions), unlocked after 3 lessons in the unit. Lines play with per-speaker voice pitch; pinyin and English can be toggled.
+
+**Weak-word practice (added during build):** a practice lesson from the 6 learned words with the lowest recall probability.
 - Feedback sheet (green/red) with the correct answer and audio. Wrong answers come back again at the end of the lesson.
 
 **SRS / flashcards:** `ts-fsrs` (FSRS algorithm).
