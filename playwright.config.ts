@@ -4,6 +4,8 @@ export default defineConfig({
   testDir: 'e2e',
   timeout: 60_000,
   retries: process.env.CI ? 1 : 0,
+  // on CI, failures also show up as annotations on the run (readable without downloading logs)
+  reporter: process.env.CI ? [['github'], ['list']] : 'list',
   use: {
     ...devices['Pixel 7'],
     baseURL: 'http://localhost:4173',
