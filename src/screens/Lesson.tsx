@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { content, getItem } from '../content'
 import type { LessonSummary } from '../data/actions'
 import { ExerciseView, type ExerciseResult } from '../components/exercises'
+import { partMnemonic } from '../content/chars'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
 import { Icon } from '../components/icons'
@@ -47,7 +48,7 @@ export function LessonScreen() {
       lesson
         ? generateLesson(
             lesson.items.map(getItem),
-            { mode, speaking, pool: [...content.items.values()] },
+            { mode, speaking, writing: s.settings.writing, pool: [...content.items.values()] },
           )
         : [],
     // generate once per lesson visit
@@ -93,10 +94,11 @@ export function LessonScreen() {
         return
       }
       if (r.skipped) {
-        setSkipSpeaking(true)
+        // "can't speak/write now": drop the rest of that kind of exercise for this lesson
+        if (ex.kind === 'speak') setSkipSpeaking(true)
         setFeedback(null)
         let next = idx + 1
-        while (queue[next]?.kind === 'speak') next++
+        while (queue[next]?.kind === ex.kind) next++
         if (next >= queue.length) finish()
         else setIdx(next)
         return
@@ -114,7 +116,7 @@ export function LessonScreen() {
         for (const id of wrong) st.mistakes[id] = (st.mistakes[id] ?? 0) + 1
         if (s.settings.sound) sfx.wrong()
         // try it again at the end (once per exercise; matching already self-corrects)
-        if (ex.kind !== 'match' && ex.kind !== 'speak' && !st.retried.has(ex.id)) {
+        if (ex.kind !== 'match' && ex.kind !== 'speak' && ex.kind !== 'write' && !st.retried.has(ex.id)) {
           const again = retryOf(ex)
           st.retried.add(again.id)
           setQueue((q) => [...q, again])
@@ -215,7 +217,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
   const [praise] = useState(() => (correct ? PRAISE : OOPS)[Math.floor(Math.random() * (correct ? PRAISE : OOPS).length)])
   const it = ex.kind === 'match' ? null : getItem(ex.itemId)
   const sentence = ex.kind === 'build' || ex.kind === 'hear' ? it?.example : null
-  const showAnswer = it && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear')
+  const showAnswer = it && ex.kind !== 'parts' && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear')
   return (
     <div
       className="safe-bottom fixed inset-x-0 bottom-0 z-10 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6"
@@ -241,6 +243,12 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
               <p className="mt-1 text-sm text-slate-600">
                 Heard: <span className="font-han text-base">{fb.heard || '—'}</span>
                 {fb.score !== undefined && <> · {Math.round(fb.score * 100)}% match</>}
+              </p>
+            )}
+            {ex.kind === 'parts' && (
+              <p className="mt-1 text-sm text-slate-700">
+                <span className="font-han text-base">{ex.part}</span> means <b>{ex.answer}</b>
+                {partMnemonic(ex.part) && <> — {partMnemonic(ex.part)}</>}
               </p>
             )}
             {it && ex.kind === 'sgpick' && it.note && (

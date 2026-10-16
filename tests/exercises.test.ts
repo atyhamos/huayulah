@@ -16,7 +16,7 @@ describe('lesson generation', () => {
         if ('options' in e) {
           expect(new Set(e.options).size).toBe(e.options.length)
           expect(e.options.length).toBeGreaterThanOrEqual(3)
-          if (e.kind === 'tone' || e.kind === 'sgpick') expect(e.options).toContain(e.answer)
+          if (e.kind === 'tone' || e.kind === 'sgpick' || e.kind === 'parts') expect(e.options).toContain(e.answer)
           else expect(e.options).toContain(e.itemId)
           if (e.kind === 'sgpick') expect(e.options).toContain(getItem(e.itemId).standard!.hanzi)
           if (e.kind === 'hear') for (const o of e.options) expect(getItem(o).example).toBeDefined()

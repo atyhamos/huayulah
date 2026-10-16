@@ -63,6 +63,14 @@ const stories = storiesRaw.flatMap((r, i) => {
 })
 
 installPinyinEngine([...content.items.values()])
+// character building blocks: every course character should have parts data (re-run scripts/gen-chars.ts)
+{
+  const chars = JSON.parse(readFileSync(join(import.meta.dirname, '../src/content/chars.generated.json'), 'utf8')) as Record<string, unknown>
+  const missing = new Set<string>()
+  for (const it of content.items.values()) for (const c of hanChars(it.hanzi)) if (!chars[c]) missing.add(c)
+  if (missing.size) warnings.push(`no building-blocks data for: ${[...missing].join('')} (scripts/gen-chars.ts)`)
+}
+
 const genPath = join(import.meta.dirname, '../src/content/pinyin.generated.json')
 if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content, stories)))
   errors.push('src/content/pinyin.generated.json is stale — run `npm run gen:pinyin`')
