@@ -27,6 +27,14 @@ const page = [
 ].join('\n')
 writeFileSync(join(out, 'page.html'), page + '\n')
 
+// the artifact host rejects a literal U+FFFD (it appears in a template string in the Claude SDK); escape it
+for (const f of readdirSync(join(out, 'assets'))) {
+  if (!f.endsWith('.js')) continue
+  const path = join(out, 'assets', f)
+  const js = readFileSync(path, 'utf8')
+  if (js.includes('\uFFFD')) writeFileSync(path, js.replaceAll('\uFFFD', '\\uFFFD'))
+}
+
 const assets = readdirSync(join(out, 'assets'))
 console.log(`artifact: page.html + strokes.json + ${assets.length} assets`)
 console.log(JSON.stringify(Object.fromEntries(assets.map((a) => [`assets/${a}`, `dist-artifact/assets/${a}`])), null, 1))
