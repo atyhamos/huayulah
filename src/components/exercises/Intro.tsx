@@ -10,12 +10,13 @@ import type { ExProps } from './types'
 export function Intro({ ex, locked, onSubmit }: ExProps<'intro'>) {
   const it = getItem(ex.itemId)
   const say = useSpeak()
+  const example = it.example?.zh.replace(/ /g, '')
+  // hear the new word in context: the example sentence if there is one (the word's own button plays it alone)
   useEffect(() => {
-    const t = setTimeout(() => say(it.hanzi), 300)
+    const t = setTimeout(() => say(example ?? it.hanzi), 300)
     return () => clearTimeout(t)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [it.id])
-  const example = it.example?.zh.replace(/ /g, '')
   return (
     <div className="animate-pop">
       <p className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-amber-800">

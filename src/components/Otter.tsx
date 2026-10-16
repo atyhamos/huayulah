@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useApp } from '../store/app'
 import { speak } from '../lib/tts'
 import { OtterSvg, type OtterMood } from './OtterSvg'
@@ -50,9 +51,13 @@ export function Otter({
   }
 
   const bubble = reaction ?? say
+  const shown = bubble && (bubble.zh || bubble.en) ? bubble : null
+  const anchor = useRef<HTMLButtonElement>(null)
+  const pos = useBubblePosition(anchor, shown ? `${shown.zh ?? ''}|${shown.en ?? ''}` : '', bubbleSide)
   return (
     <div className={`relative inline-block ${className}`}>
       <button
+        ref={anchor}
         type="button"
         onClick={tap}
         disabled={!interactive}
@@ -62,16 +67,68 @@ export function Otter({
       >
         <OtterSvg mood={reaction ? 'happy' : mood} size={size} key={reaction ? reaction.zh : mood} />
       </button>
-      {bubble && (bubble.zh || bubble.en) && (
-        <div
-          className={`pointer-events-none absolute z-10 w-max max-w-44 animate-pop rounded-2xl border-2 border-slate-200 bg-surface px-3 py-1.5 text-left shadow-sm ${
-            bubbleSide === 'top' ? 'bottom-full left-1/2 mb-1 -translate-x-1/2' : bubbleSide === 'left' ? 'right-[80%] top-0' : 'left-[85%] top-1'
-          }`}
-        >
-          {bubble.zh && <span className="font-han block text-base font-bold leading-tight">{bubble.zh}</span>}
-          {bubble.en && <span className="block text-xs text-slate-500">{bubble.en}</span>}
-        </div>
-      )}
+      {shown &&
+        // portalled + fixed so a parent's overflow-hidden (cards) can't clip it
+        createPortal(
+          <div
+            ref={pos.ref}
+            data-testid="otter-bubble"
+            style={{ position: 'fixed', left: pos.left, top: pos.top, visibility: pos.ready ? 'visible' : 'hidden' }}
+            className="pointer-events-none z-[60] w-max max-w-44 animate-pop rounded-2xl border-2 border-slate-200 bg-surface px-3 py-1.5 text-left shadow-sm"
+          >
+            {shown.zh && <span className="font-han block text-base font-bold leading-tight">{shown.zh}</span>}
+            {shown.en && <span className="block text-xs text-slate-500">{shown.en}</span>}
+          </div>,
+          document.body,
+        )}
     </div>
   )
+}
+
+const MARGIN = 8
+
+/**
+ * Where to put the speech bubble: the preferred side of the otter if it fits on screen, otherwise
+ * the first side that does, then nudged inside the viewport.
+ */
+function useBubblePosition(anchor: React.RefObject<HTMLElement | null>, key: string, prefer: 'right' | 'left' | 'top') {
+  const ref = useRef<HTMLDivElement>(null)
+  const [pos, setPos] = useState({ left: 0, top: 0, ready: false })
+  useLayoutEffect(() => {
+    if (!key) {
+      setPos((p) => (p.ready ? { ...p, ready: false } : p))
+      return
+    }
+    const place = () => {
+      const a = anchor.current?.getBoundingClientRect()
+      const el = ref.current
+      if (!a || !el) return
+      // layout size, not the (pop-animated, scaled) visual box
+      const b = { width: el.offsetWidth, height: el.offsetHeight }
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const spots = {
+        right: { left: a.right - a.width * 0.15, top: a.top + 4 },
+        left: { left: a.left + a.width * 0.2 - b.width, top: a.top },
+        top: { left: a.left + a.width / 2 - b.width / 2, top: a.top - b.height - 4 },
+      }
+      const fits = (s: { left: number; top: number }) =>
+        s.left >= MARGIN && s.left + b.width <= vw - MARGIN && s.top >= MARGIN && s.top + b.height <= vh - MARGIN
+      const order = [prefer, ...(['right', 'left', 'top'] as const).filter((x) => x !== prefer)]
+      const spot = order.map((k) => spots[k]).find(fits) ?? spots[prefer]
+      setPos({
+        left: Math.min(Math.max(spot.left, MARGIN), vw - b.width - MARGIN),
+        top: Math.min(Math.max(spot.top, MARGIN), vh - b.height - MARGIN),
+        ready: true,
+      })
+    }
+    place()
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    return () => {
+      window.removeEventListener('resize', place)
+      window.removeEventListener('scroll', place, true)
+    }
+  }, [anchor, key, prefer])
+  return { ...pos, ref }
 }

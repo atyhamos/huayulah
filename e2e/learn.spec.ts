@@ -94,3 +94,52 @@ test('explains when the browser has no Mandarin voice', async ({ page }) => {
   await expect(page.getByTestId('no-voice')).toBeVisible()
   await expect(page.getByTestId('voice-count')).toHaveText('Mandarin voices found: 0')
 })
+
+test("Ah Tat's speech bubble is never clipped by the card he sits in", async ({ page }) => {
+  await onboard(page)
+  await page.goto('/review')
+  await page.getByTestId('otter').click()
+  const bubble = page.getByTestId('otter-bubble')
+  await expect(bubble).toBeVisible()
+  await page.waitForTimeout(400) // let the pop animation settle
+  const box = (await bubble.boundingBox())!
+  const vp = page.viewportSize()!
+  expect(box.x).toBeGreaterThanOrEqual(0)
+  expect(box.y).toBeGreaterThanOrEqual(0)
+  expect(box.x + box.width).toBeLessThanOrEqual(vp.width)
+  expect(box.y + box.height).toBeLessThanOrEqual(vp.height)
+  // no ancestor can clip it (it lives directly under <body>, above the page)
+  const clippable = await bubble.evaluate((el) => {
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      if (getComputedStyle(p).overflow !== 'visible') return true
+    }
+    return false
+  })
+  expect(clippable).toBe(false)
+})
+
+test('new-word cards play the example sentence', async ({ page }) => {
+  await page.addInitScript(() => {
+    const zh = [{ name: 'Test Mandarin', lang: 'zh-CN', voiceURI: 'test-zh', default: false, localService: true }]
+    Object.defineProperty(window.speechSynthesis, 'getVoices', { value: () => zh })
+    const spoken: string[] = []
+    Object.assign(window, { __spoken: spoken })
+    Object.defineProperty(window.speechSynthesis, 'speak', { value: (u: SpeechSynthesisUtterance) => spoken.push(u.text) })
+    // the stub voice isn't a real SpeechSynthesisVoice, so use a plain utterance object too
+    Object.assign(window, {
+      SpeechSynthesisUtterance: class {
+        text: string
+        voice: unknown = null
+        lang = ''
+        rate = 1
+        pitch = 1
+        onend: (() => void) | null = null
+        constructor(text: string) {
+          this.text = text
+        }
+      },
+    })
+  })
+  await onboard(page)
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __spoken: string[] }).__spoken[0])).toBe('我是新加坡人。')
+})
