@@ -271,6 +271,17 @@ export function generateLesson(lessonItems: Item[], opts: GenerateOptions): Exer
   return out
 }
 
+/** Express train: a reading-heavy test over a whole line (no intros), to skip what you already know. */
+export function generateExpress(unitItems: Item[], pool: Item[], n = 12, rng: Rng = Math.random): Exercise[] {
+  const ids = new Set(unitItems.map((i) => i.id))
+  return sample(unitItems, n, rng).map((it) => {
+    const r = rng()
+    const sg = r < 0.25 ? sgPick(it, pool, rng) : null
+    if (sg) return sg
+    return mc(r < 0.6 ? 'zh2en' : r < 0.85 ? 'en2zh' : 'listen', it, pool, ids, rng)
+  })
+}
+
 /** A fresh copy of an exercise (new id, reshuffled options) to retry at the end of a lesson. */
 export function retryOf(ex: Exercise, rng: Rng = Math.random): Exercise {
   const id = uid(ex.kind, 'retry')

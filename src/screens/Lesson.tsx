@@ -10,14 +10,15 @@ import { Hanzi } from '../components/Hanzi'
 import { Icon } from '../components/icons'
 import { OtterSvg } from '../components/OtterSvg'
 import { Button, TrainTrack } from '../components/ui'
-import { generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
-import { myWordsLessonItems, weakestItems } from '../data/actions'
+import { generateExpress, generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
+import { EXPRESS_PASS, myWordsLessonItems, weakestItems } from '../data/actions'
 import { sfx } from '../lib/sfx'
 import { useApp } from '../store/app'
 import { LessonComplete } from './LessonComplete'
 
 export const WEAK_LESSON = 'weak'
 export const MINE_LESSON = 'mine'
+export const EXPRESS_PREFIX = 'express-'
 
 const PRAISE = ['好棒！', '太好了！', 'Steady lah!', '厉害！', 'Power!', '对了！', 'Shiok!']
 const OOPS = ['Aiyo, almost!', '差一点！', 'Not quite lah', 'Close!']
@@ -37,15 +38,23 @@ export function LessonScreen() {
   // virtual lessons: "weak" (words you're most likely to have forgotten) and "mine" (My words)
   const isWeak = lessonId === WEAK_LESSON
   const isMine = lessonId === MINE_LESSON
+  // "express-u03": a placement test over a whole line
+  const expressUnit = lessonId.startsWith(EXPRESS_PREFIX) ? content.units.find((u) => u.id === lessonId.slice(EXPRESS_PREFIX.length)) : undefined
+  const isExpress = !!expressUnit
+  const completeExpress = useApp((st) => st.completeExpress)
   const [lesson] = useState(() =>
     isWeak
       ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) }
       : isMine
         ? { id: MINE_LESSON, items: myWordsLessonItems(s, 6, new Date()) }
-        : content.lessons.get(lessonId),
+        : expressUnit
+          ? { id: lessonId, items: expressUnit.items.map((i) => i.id) }
+          : content.lessons.get(lessonId),
   )
+  const [passed, setPassed] = useState<boolean | null>(null)
 
   const [mode] = useState<'learn' | 'practice'>(() => {
+    if (isExpress) return 'practice'
     if (isMine) return lesson?.items.some((id) => !s.cards[cardId(id, 'read')]) ? 'learn' : 'practice'
     return isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn'
   })
@@ -54,7 +63,9 @@ export function LessonScreen() {
 
   const initial = useMemo(
     () =>
-      lesson
+      lesson && expressUnit
+        ? generateExpress(expressUnit.items, [...content.items.values()])
+        : lesson
         ? generateLesson(
             lesson.items.map(getItem),
             { mode, speaking, writing: s.settings.writing, pool: [...content.items.values()] },
@@ -81,6 +92,13 @@ export function LessonScreen() {
   const finish = useCallback(() => {
     const st = stats.current
     const result = { mistakesByItem: st.mistakes, maxCombo: st.maxCombo, answered: st.answered, correct: st.correct }
+    if (expressUnit) {
+      const r = completeExpress(expressUnit.id, { correct: st.correct, total: st.answered })
+      if (s.settings.sound) sfx.complete()
+      setPassed(r.passed)
+      setSummary(r)
+      return
+    }
     const r = isMine
       ? completeMyWords({ ...result, itemIds: lesson!.items })
       : isWeak
@@ -88,7 +106,7 @@ export function LessonScreen() {
         : completeLesson({ lessonId, mode, ...result })
     if (s.settings.sound) sfx.complete()
     setSummary(r)
-  }, [completeLesson, completePractice, completeMyWords, isWeak, isMine, lesson, lessonId, mode, s.settings.sound])
+  }, [completeLesson, completePractice, completeMyWords, completeExpress, expressUnit, isWeak, isMine, lesson, lessonId, mode, s.settings.sound])
 
   const advance = useCallback(() => {
     setFeedback(null)
@@ -129,7 +147,7 @@ export function LessonScreen() {
         for (const id of wrong) st.mistakes[id] = (st.mistakes[id] ?? 0) + 1
         if (s.settings.sound) sfx.wrong()
         // try it again at the end (once per exercise; matching already self-corrects)
-        if (ex.kind !== 'match' && ex.kind !== 'speak' && ex.kind !== 'write' && !st.retried.has(ex.id)) {
+        if (!isExpress && ex.kind !== 'match' && ex.kind !== 'speak' && ex.kind !== 'write' && !st.retried.has(ex.id)) {
           const again = retryOf(ex)
           st.retried.add(again.id)
           setQueue((q) => [...q, again])
@@ -137,7 +155,7 @@ export function LessonScreen() {
       }
       setFeedback({ ...r, ex })
     },
-    [ex, advance, idx, queue, finish, s.settings.sound],
+    [ex, advance, idx, queue, finish, s.settings.sound, isExpress],
   )
 
   useEffect(() => {
@@ -173,6 +191,14 @@ export function LessonScreen() {
         summary={summary}
         seconds={Math.round((Date.now() - started.current) / 1000)}
         mode={mode}
+        title={passed === null ? undefined : passed ? 'Express train: line cleared!' : 'Not this time'}
+        note={
+          passed === null
+            ? undefined
+            : passed
+              ? `The stops on ${expressUnit?.title} are done and their words are in your flashcards.`
+              : `You need ${Math.round(EXPRESS_PASS * 100)}% to skip a line — ride it stop by stop instead.`
+        }
         onDone={() => nav('/', { replace: true })}
       />
     )

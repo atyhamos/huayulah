@@ -8,6 +8,7 @@ import { sfx } from '../lib/sfx'
 import { chineseVoices, onVoicesChanged, speak, voiceHelp, voiceStatus } from '../lib/tts'
 import { recognitionSupported } from '../lib/speech'
 import { GOAL_OPTIONS } from '../lib/xp'
+import { downloadIcs, googleCalendarUrl } from '../lib/reminder'
 import { IS_ARTIFACT } from '../env'
 import { useApp } from '../store/app'
 
@@ -25,6 +26,7 @@ export function SettingsScreen() {
   const status = voices.length ? 'ok' : voiceStatus()
   const fileRef = useRef<HTMLInputElement>(null)
   const set = s.settings
+  const appUrl = IS_ARTIFACT ? 'https://huayu-lah.web.app' : location.origin
 
   useEffect(() => {
     const off = onVoicesChanged(() => setVoices(chineseVoices()))
@@ -203,6 +205,31 @@ export function SettingsScreen() {
           checked={set.writing}
           onChange={(v) => update({ writing: v })}
         />
+      </Card>
+
+      <Card data-testid="reminder-card">
+        <Label>Daily reminder</Label>
+        <p className="mb-3 text-sm text-slate-500">Add a repeating 10-minute event to your calendar, so your phone nudges you to practise.</p>
+        <div className="mb-3 flex items-center gap-3">
+          <Icon name="calendar" className="h-6 w-6 text-sky-500" />
+          <input
+            type="time"
+            value={set.reminderTime ?? '20:00'}
+            onChange={(e) => update({ reminderTime: e.target.value || null })}
+            className="rounded-full bg-surface px-4 py-2 font-display font-bold outline-none ring-2 ring-inset ring-slate-200 focus:ring-sky-400"
+            data-testid="reminder-time"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Button variant="secondary" className="!px-3 !py-2.5 text-sm" onClick={() => downloadIcs(set.reminderTime ?? '20:00', appUrl)} data-testid="reminder-ics">
+            <Icon name="download" className="h-5 w-5" /> Calendar file
+          </Button>
+          <a href={googleCalendarUrl(set.reminderTime ?? '20:00', appUrl)} target="_blank" rel="noreferrer" className="block" data-testid="reminder-google">
+            <Button variant="secondary" className="!px-3 !py-2.5 w-full text-sm">
+              Google Calendar
+            </Button>
+          </a>
+        </div>
       </Card>
 
       <AiKeyCard />

@@ -179,6 +179,15 @@ function Line({
         </span>
       </header>
       <p className="mb-1 mt-2 text-sm text-slate-500">{unit.description}</p>
+      {done < unit.lessons.length && (
+        <Link
+          to={`/lesson/express-${unit.id}`}
+          className="mb-1 inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200"
+          data-testid={`express-${unit.id}`}
+        >
+          <Icon name="train" className="h-4 w-4" /> Know this already? Take the express test
+        </Link>
+      )}
       <ol>
         {unit.lessons.map((l, i) => (
           <Station
@@ -285,7 +294,9 @@ function Station({
               {isNext
                 ? 'You are here · tap to board'
                 : status === 'done'
-                  ? `Done ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
+                  ? progress!.tested && !progress!.timesCompleted
+                    ? 'Cleared by express train'
+                    : `Done ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
                   : status === 'open'
                     ? `${lesson.items.length} new words`
                     : 'Finish the stop before this one'}

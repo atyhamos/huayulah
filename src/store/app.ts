@@ -54,6 +54,7 @@ interface AppStore {
   completePractice(input: Omit<LessonInput, 'lessonId' | 'mode'>): LessonSummary
   completeStory(storyId: string, result: { correct: number; total: number }): LessonSummary
   completeMyWords(input: Omit<LessonInput, 'lessonId' | 'mode'> & { itemIds: string[] }): LessonSummary
+  completeExpress(unitId: string, result: { correct: number; total: number }): LessonSummary & { passed: boolean }
   /** Save a word to My words; returns its id (existing id if already saved). */
   addCustomItem(word: { hanzi: string; pinyin: string; english: string; note?: string }): string
   removeCustomItem(id: string): void
@@ -262,6 +263,12 @@ export const useApp = create<AppStore>((set, get) => {
 
     completePractice(input) {
       const r = actions.completePractice(get().s, input, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
+    },
+
+    completeExpress(unitId, result) {
+      const r = actions.completeExpress(get().s, unitId, result, content, new Date())
       commit(r.state, r.dirty)
       return r.info
     },

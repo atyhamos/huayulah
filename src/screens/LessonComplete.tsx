@@ -15,12 +15,15 @@ export function LessonComplete({
   seconds,
   mode,
   title,
+  note,
   onDone,
 }: {
   summary: LessonSummary
   seconds: number
   mode: 'learn' | 'practice'
   title?: string
+  /** Extra line under the title (e.g. the Express train result). */
+  note?: string
   onDone: () => void
 }) {
   useEffect(() => {
@@ -33,6 +36,11 @@ export function LessonComplete({
       <OtterSvg mood="cheer" size={132} className="animate-pop" />
       <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight">{title ?? (mode === 'learn' ? 'Lesson complete!' : 'Practice complete!')}</h1>
       <p className="mb-6 mt-1 font-brush text-2xl text-brand-600">{accuracy === 1 ? '满分！' : '做得好！'}</p>
+      {note && (
+        <p className="-mt-3 mb-5 text-slate-500" data-testid="complete-note">
+          {note}
+        </p>
+      )}
 
       {/* loyalty card */}
       <div className="relative mb-5 w-full overflow-hidden rounded-3xl bg-surface p-4 shadow-[0_10px_28px_-20px_rgb(30_60_45/0.6)] ring-1 ring-slate-200">

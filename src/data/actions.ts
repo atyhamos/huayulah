@@ -170,6 +170,56 @@ export function completeMyWords(
   }
 }
 
+export const EXPRESS_PASS = 0.85
+export const EXPRESS_XP = { pass: 20, fail: 5 }
+
+/**
+ * Express train result. Passing marks every unfinished stop on the line as done (tested) and adds
+ * its words to the deck as already known, so reviews confirm them over the next days.
+ */
+export function completeExpress(
+  s: AppState,
+  unitId: string,
+  result: { correct: number; total: number },
+  content: Content,
+  now: Date,
+): Result<LessonSummary & { passed: boolean }> {
+  const unit = content.units.find((u) => u.id === unitId)
+  if (!unit) throw new Error(`Unknown unit ${unitId}`)
+  const accuracy = result.total ? result.correct / result.total : 0
+  const passed = accuracy >= EXPRESS_PASS
+  const amount = passed ? EXPRESS_XP.pass : EXPRESS_XP.fail
+  const { state: afterXp, streak } = addXp(s, amount, now)
+  let next = touchDay(afterXp, dayKey(now), (d) => ({ ...d, lessons: d.lessons + 1 }))
+  const dirty: Dirty = { root: true, cards: [] }
+  let newWords = 0
+  if (passed) {
+    const lessons = { ...next.lessons }
+    const itemIds: string[] = []
+    for (const l of unit.lessons) {
+      if (lessons[l.id]) continue
+      lessons[l.id] = { completedAt: now.getTime(), timesCompleted: 0, bestAccuracy: accuracy, tested: true }
+      itemIds.push(...l.items)
+    }
+    const added = addItemCards(next.cards, itemIds, {}, now)
+    next = { ...next, lessons, cards: added.cards }
+    dirty.cards = added.dirty
+    newWords = added.newWords
+  }
+  const achievements = newlyUnlocked(next, { units: content.units })
+  if (achievements.length) {
+    next = {
+      ...next,
+      achievements: { ...next.achievements, ...Object.fromEntries(achievements.map((a) => [a.id, now.getTime()])) },
+    }
+  }
+  return {
+    state: next,
+    dirty,
+    info: { xp: { total: amount, base: amount, perfect: 0, combo: 0 }, accuracy, streak, achievements, newWords, passed },
+  }
+}
+
 /** If today's quests are all done and the chest isn't claimed, add the bonus. */
 export function claimQuestBonus(s: AppState, now: Date): { state: AppState; claimed: boolean } {
   const today = dayKey(now)
