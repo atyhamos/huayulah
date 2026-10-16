@@ -18,6 +18,7 @@ export function mergeStates(account: AppState, guest: AppState): AppState {
           completedAt: Math.max(a.completedAt, l.completedAt),
           timesCompleted: a.timesCompleted + l.timesCompleted,
           bestAccuracy: Math.max(a.bestAccuracy, l.bestAccuracy),
+          ...(a.tested && l.tested ? { tested: true } : {}),
         }
       : l
   }
@@ -65,6 +66,7 @@ export function mergeStates(account: AppState, guest: AppState): AppState {
     cards,
     friends: [...new Set([...account.friends, ...guest.friends])],
     friendCode: account.friendCode ?? guest.friendCode,
+    customItems: { ...guest.customItems, ...account.customItems },
   }
 }
 

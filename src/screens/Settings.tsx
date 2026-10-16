@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { firebaseEnabled } from '../data/firebase'
 import { normalizeState, type AppState, type PinyinMode, type Theme } from '../data/types'
 import { Icon, type IconName } from '../components/icons'
+import { AiKeyCard } from '../components/AiKeyCard'
 import { BackButton, Button, Card, KopiCup } from '../components/ui'
 import { sfx } from '../lib/sfx'
 import { chineseVoices, onVoicesChanged, speak, voiceHelp, voiceStatus } from '../lib/tts'
@@ -196,7 +197,15 @@ export function SettingsScreen() {
           checked={set.speaking}
           onChange={(v) => update({ speaking: v })}
         />
+        <Toggle
+          label="Writing exercises"
+          hint="Trace characters stroke by stroke in lessons."
+          checked={set.writing}
+          onChange={(v) => update({ writing: v })}
+        />
       </Card>
+
+      <AiKeyCard />
 
       <Card className="space-y-3">
         <Label>Account & data</Label>

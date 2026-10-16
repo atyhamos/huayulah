@@ -11,6 +11,7 @@ import type { Achievement } from '../lib/achievements'
 import { dayKey } from '../lib/dates'
 import { QUEST_BONUS_XP } from '../lib/quests'
 import { onMissingVoice } from '../lib/tts'
+import { syncCustomItems } from '../content/custom'
 import type { IconName } from '../components/icons'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
@@ -334,4 +335,9 @@ onMissingVoice(() => {
   if (warnedNoVoice) return
   warnedNoVoice = true
   useApp.getState().toast({ icon: 'mute', title: 'No Mandarin voice in this browser', body: 'Settings → Voice shows how to add one.' })
+})
+
+// Learner-added words join the shared item map whenever they change (load, sign-in, edits).
+useApp.subscribe((st, prev) => {
+  if (st.s.customItems !== prev.s.customItems) syncCustomItems(st.s.customItems)
 })

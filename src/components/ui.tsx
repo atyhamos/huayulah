@@ -1,4 +1,4 @@
-import { useId, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { useId, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon, SgFlag, type IconName } from './icons'
 import { OtterSvg } from './OtterSvg'
@@ -38,9 +38,9 @@ export function ProgressBar({ value, className = '', color = 'bg-brand-500' }: {
   )
 }
 
-export function Card({ className = '', children }: { className?: string; children: ReactNode }) {
+export function Card({ className = '', children, ...rest }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
   return (
-    <div className={`rounded-3xl border border-slate-200/80 bg-surface p-4 shadow-[0_10px_28px_-20px_rgb(30_60_45/0.45)] ${className}`}>
+    <div {...rest} className={`rounded-3xl border border-slate-200/80 bg-surface p-4 shadow-[0_10px_28px_-20px_rgb(30_60_45/0.45)] ${className}`}>
       {children}
     </div>
   )

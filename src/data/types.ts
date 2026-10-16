@@ -11,6 +11,10 @@ export interface Settings {
   sound: boolean
   speaking: boolean
   theme: Theme
+  /** Stroke-tracing exercises in lessons. */
+  writing: boolean
+  /** Daily practice reminder time, "HH:MM" (used for the calendar invite). */
+  reminderTime: string | null
 }
 
 export interface Stats {
@@ -42,6 +46,18 @@ export interface LessonProgress {
   completedAt: number
   timesCompleted: number
   bestAccuracy: number
+  /** Skipped by passing the line's Express train test rather than played. */
+  tested?: boolean
+}
+
+/** A word the learner added themselves (e.g. from the Reader). Studied like course words. */
+export interface CustomItem {
+  id: string
+  hanzi: string
+  pinyin: string
+  english: string
+  note?: string
+  addedAt: number
 }
 
 export interface DayLog {
@@ -64,6 +80,7 @@ export interface AppState {
   cards: Record<string, StoredCard>
   friends: string[]
   friendCode: string | null
+  customItems: Record<string, CustomItem>
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -75,6 +92,8 @@ export const DEFAULT_SETTINGS: Settings = {
   sound: true,
   speaking: true,
   theme: 'system',
+  writing: true,
+  reminderTime: null,
 }
 
 export function emptyState(): AppState {
@@ -97,6 +116,7 @@ export function emptyState(): AppState {
     cards: {},
     friends: [],
     friendCode: null,
+    customItems: {},
   }
 }
 
@@ -115,6 +135,7 @@ export function normalizeState(s: Partial<AppState> | null | undefined): AppStat
     cards: s.cards ?? {},
     friends: s.friends ?? [],
     friendCode: s.friendCode ?? null,
+    customItems: s.customItems ?? {},
     version: 1,
   }
 }
