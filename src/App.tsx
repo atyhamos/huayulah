@@ -11,12 +11,14 @@ import { Onboarding } from './screens/Onboarding'
 import { ProfileScreen } from './screens/Profile'
 import { ReviewScreen } from './screens/Review'
 import { SettingsScreen } from './screens/Settings'
+import { ShadowScreen } from './screens/Shadow'
 import { StoryScreen } from './screens/Story'
 import { WordDetailScreen } from './screens/WordDetail'
 import { WordsScreen } from './screens/Words'
 
 // the Reader pulls in zod + the Claude client, so it loads on first visit
 const ReaderScreen = lazy(() => import('./screens/Reader').then((m) => ({ default: m.ReaderScreen })))
+const TalkScreen = lazy(() => import('./screens/Talk').then((m) => ({ default: m.TalkScreen })))
 
 export default function App() {
   const status = useApp((s) => s.status)
@@ -76,6 +78,15 @@ export default function App() {
       <Routes>
         <Route path="/lesson/:lessonId" element={<LessonScreen />} />
         <Route path="/story/:storyId" element={<StoryScreen />} />
+        <Route path="/shadow/:storyId" element={<ShadowScreen />} />
+        <Route
+          path="/talk/:unitId"
+          element={
+            <Suspense fallback={null}>
+              <TalkScreen />
+            </Suspense>
+          }
+        />
         <Route element={<Shell />}>
           <Route path="/" element={<LearnScreen />} />
           <Route path="/review" element={<ReviewScreen />} />

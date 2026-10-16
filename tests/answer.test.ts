@@ -52,3 +52,17 @@ describe('speech scoring', () => {
     expect(sameTokens(['要', '我', '一杯'], ['我', '要', '一杯'])).toBe(false)
   })
 })
+
+describe('diffChars (shadowing feedback)', () => {
+  it('marks heard characters, accepts homophones and flags missed ones', async () => {
+    const { installPinyinEngine } = await import('../src/lib/pinyinEngine')
+    const { content } = await import('../src/content')
+    installPinyinEngine([...content.items.values()])
+    const { diffChars } = await import('../src/lib/answer')
+    const ok = (marks: { ch: string; ok: boolean }[]) => marks.filter((m) => m.ok).map((m) => m.ch).join('')
+    expect(ok(diffChars('我要一杯咖啡', '我要一杯咖啡乌。'))).toBe('我要一杯咖啡。')
+    // 他 for 她 sounds the same
+    expect(diffChars('他是我妈妈', '她是我妈妈').every((m) => m.ok)).toBe(true)
+    expect(ok(diffChars('', '你好'))).toBe('')
+  })
+})
