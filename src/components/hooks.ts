@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from 'react'
+import { getAiKey, onAiKeyChange } from '../lib/ai'
 import { useApp } from '../store/app'
 import { cardId } from '../data/types'
 
@@ -13,4 +15,9 @@ export function usePinyinVisible() {
     const c = cards[cardId(itemId, 'read')]
     return !c || c.stability < PINYIN_FADE_STABILITY
   }
+}
+
+/** The learner's own Claude API key (this browser only), or null. */
+export function useAiKey(): string | null {
+  return useSyncExternalStore(onAiKeyChange, getAiKey, () => null)
 }

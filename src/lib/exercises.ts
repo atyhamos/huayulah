@@ -1,4 +1,5 @@
 import type { Item } from '../content/schema'
+import { charInfo, componentName, familyOf, meaningParts, partMnemonic, shownParts } from '../content/chars'
 import { hanChars, looseKey, setTone, syllables, toneOf } from './pinyin'
 import { sample, shuffle, type Rng } from './random'
 
@@ -14,12 +15,18 @@ export type Exercise =
   | { id: string; kind: 'sgpick'; itemId: string; options: string[]; answer: string }
   /** Hear a whole example sentence, pick its meaning. Options are item ids (their example.en is shown). */
   | { id: string; kind: 'hear'; itemId: string; options: string[] }
+  /** "饭 and 饮 share 饣 — what's it about?" Options are part meanings. */
+  | { id: string; kind: 'parts'; itemId: string; char: string; part: string; peers: string[]; options: string[]; answer: string }
+  /** Trace one character stroke by stroke. */
+  | { id: string; kind: 'write'; itemId: string; char: string }
 
 export type ExerciseKind = Exercise['kind']
 
 export interface GenerateOptions {
   mode: 'learn' | 'practice'
   speaking: boolean
+  /** Include stroke-tracing exercises. */
+  writing?: boolean
   /** Every item in the course — used for distractors. */
   pool: Item[]
   rng?: Rng
@@ -155,6 +162,36 @@ function match(items: Item[], rng: Rng): Exercise {
   return { id: uid('match', items.map((i) => i.id).join('.')), kind: 'match', itemIds: sample(items, 5, rng).map((i) => i.id) }
 }
 
+/** A part-meaning question for one of the item's characters, if any has a named part shared with others. */
+function parts(it: Item, rng: Rng): Exercise | null {
+  for (const char of shuffle(hanChars(it.hanzi), rng)) {
+    const info = charInfo(char)
+    if (!info) continue
+    // quiz the part that carries the meaning (the semantic part, else the radical), if it's one we can name
+    const part = info.e?.s && partMnemonic(info.e.s) ? info.e.s : info.r
+    const answer = componentName(part)
+    if (!answer || !partMnemonic(part) || !shownParts(char).includes(part)) continue
+    const carries = (c: string) => charInfo(c)?.r === part || charInfo(c)?.e?.s === part
+    const peers = familyOf(part)
+      .filter((c) => c !== char && carries(c))
+      .slice(0, 2)
+    if (!peers.length) continue
+    const others = shuffle(
+      [...new Set(meaningParts().map((p) => componentName(p)!).filter((n) => n !== answer))],
+      rng,
+    ).slice(0, 3)
+    return { id: uid('parts', it.id), kind: 'parts', itemId: it.id, char, part, peers, answer, options: shuffle([answer, ...others], rng) }
+  }
+  return null
+}
+
+/** Trace a character from a short word (long words would make tracing a chore). */
+function write(it: Item, rng: Rng): Exercise | null {
+  const chars = hanChars(it.hanzi).filter((c) => charInfo(c))
+  if (!chars.length || hanChars(it.hanzi).length > 2) return null
+  return { id: uid('write', it.id), kind: 'write', itemId: it.id, char: chars[Math.floor(rng() * chars.length)] }
+}
+
 /** One varied recall exercise for an item that's already been introduced. */
 function hear(it: Item, pool: Item[], lessonIds: Set<string>, rng: Rng): Exercise | null {
   if (!it.example) return null
@@ -207,6 +244,18 @@ export function generateLesson(lessonItems: Item[], opts: GenerateOptions): Exer
     out.push(...shuffle(drills, rng))
   }
 
+  // building blocks: one part-meaning question, and one character to trace
+  const partsEx = shuffle(lessonItems, rng)
+    .map((it) => parts(it, rng))
+    .find((e) => e)
+  if (partsEx && (opts.mode === 'learn' || rng() < 0.5)) out.push(partsEx)
+  if (opts.writing) {
+    const w = shuffle(lessonItems, rng)
+      .map((it) => write(it, rng))
+      .find((e) => e)
+    if (w && (opts.mode === 'learn' || rng() < 0.5)) out.push(w)
+  }
+
   for (const it of lessonItems) {
     const e = sgPick(it, pool, rng)
     if (e && (opts.mode === 'learn' || rng() < 0.5)) out.push(e)
@@ -226,6 +275,17 @@ export function generateLesson(lessonItems: Item[], opts: GenerateOptions): Exer
   return out
 }
 
+/** Express train: a reading-heavy test over a whole line (no intros), to skip what you already know. */
+export function generateExpress(unitItems: Item[], pool: Item[], n = 12, rng: Rng = Math.random): Exercise[] {
+  const ids = new Set(unitItems.map((i) => i.id))
+  return sample(unitItems, n, rng).map((it) => {
+    const r = rng()
+    const sg = r < 0.25 ? sgPick(it, pool, rng) : null
+    if (sg) return sg
+    return mc(r < 0.6 ? 'zh2en' : r < 0.85 ? 'en2zh' : 'listen', it, pool, ids, rng)
+  })
+}
+
 /** A fresh copy of an exercise (new id, reshuffled options) to retry at the end of a lesson. */
 export function retryOf(ex: Exercise, rng: Rng = Math.random): Exercise {
   const id = uid(ex.kind, 'retry')
@@ -236,6 +296,7 @@ export function retryOf(ex: Exercise, rng: Rng = Math.random): Exercise {
     case 'tone':
     case 'sgpick':
     case 'hear':
+    case 'parts':
       return { ...ex, id, options: shuffle(ex.options, rng) }
     case 'build':
       return { ...ex, id, tiles: shuffle(ex.tiles, rng) }

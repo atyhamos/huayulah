@@ -68,6 +68,12 @@ Decisions made: **PWA web app** (installs to the Android home screen, friends jo
 
 **Visual identity (redesign):** Ah Tat 阿獭 the otter mascot (7 moods, CSS animations, tap to hear a line); custom icon set; mahjong-tile answers; kopi-cup daily goal (Kopi po → Kopi di lo); lantern streak; ang bao quest bonus; hanzi medals for achievements; a floating dock instead of a tab bar; fonts Bricolage Grotesque, Figtree and Ma Shan Zheng (brush).
 
+**Milestone 2 (Oct 2026):**
+- *Building blocks* — part breakdowns on word pages, part families (Words → Characters), `parts` and `write` lesson exercises.
+- *Reader + My words* — offline paste-and-read with longest-match segmentation; photo/text reading via Claude (bring-your-own key); saved words get flashcards after a My words session.
+- *Speaking* — shadowing story lines with per-character feedback; role-play chats per line via Claude.
+- *Habit* — Express train placement test per line (85% clears it); daily reminder as a calendar event (no push server, free tier).
+
 ## 3. Tech stack
 Vite + React + TypeScript, Tailwind CSS, React Router, Zustand, `vite-plugin-pwa`, Firebase JS SDK (Auth, Firestore), `ts-fsrs`, `pinyin-pro`, `hanzi-writer`, `canvas-confetti`, `zod` (content schema), Vitest, and Playwright (using the preinstalled Chromium).
 

@@ -11,6 +11,7 @@ import type { Achievement } from '../lib/achievements'
 import { dayKey } from '../lib/dates'
 import { QUEST_BONUS_XP } from '../lib/quests'
 import { onMissingVoice } from '../lib/tts'
+import { customItemId, syncCustomItems } from '../content/custom'
 import type { IconName } from '../components/icons'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
@@ -52,6 +53,11 @@ interface AppStore {
   completeLesson(input: LessonInput): LessonSummary
   completePractice(input: Omit<LessonInput, 'lessonId' | 'mode'>): LessonSummary
   completeStory(storyId: string, result: { correct: number; total: number }): LessonSummary
+  completeMyWords(input: Omit<LessonInput, 'lessonId' | 'mode'> & { itemIds: string[] }): LessonSummary
+  completeExpress(unitId: string, result: { correct: number; total: number }): LessonSummary & { passed: boolean }
+  /** Save a word to My words; returns its id (existing id if already saved). */
+  addCustomItem(word: { hanzi: string; pinyin: string; english: string; note?: string }): string
+  removeCustomItem(id: string): void
   reviewCard(cardId: string, grade: Grade): void
   resetProgress(): Promise<void>
   replaceState(next: AppState): void
@@ -261,6 +267,34 @@ export const useApp = create<AppStore>((set, get) => {
       return r.info
     },
 
+    completeExpress(unitId, result) {
+      const r = actions.completeExpress(get().s, unitId, result, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
+    },
+
+    completeMyWords(input) {
+      const r = actions.completeMyWords(get().s, input, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
+    },
+
+    addCustomItem(word) {
+      const id = customItemId(word.hanzi)
+      const s = get().s
+      if (!s.customItems[id]) {
+        const item = { id, hanzi: word.hanzi, pinyin: word.pinyin, english: word.english, addedAt: Date.now(), ...(word.note ? { note: word.note } : {}) }
+        const r = actions.addCustomItem(s, item)
+        commit(r.state, r.dirty)
+      }
+      return id
+    },
+
+    removeCustomItem(id) {
+      const r = actions.removeCustomItem(get().s, id)
+      commit(r.state, r.dirty)
+    },
+
     completeStory(storyId, result) {
       const r = actions.completeStory(get().s, storyId, result, content, new Date())
       commit(r.state, r.dirty)
@@ -334,4 +368,9 @@ onMissingVoice(() => {
   if (warnedNoVoice) return
   warnedNoVoice = true
   useApp.getState().toast({ icon: 'mute', title: 'No Mandarin voice in this browser', body: 'Settings → Voice shows how to add one.' })
+})
+
+// Learner-added words join the shared item map whenever they change (load, sign-in, edits).
+useApp.subscribe((st, prev) => {
+  if (st.s.customItems !== prev.s.customItems) syncCustomItems(st.s.customItems)
 })

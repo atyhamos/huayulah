@@ -4,6 +4,7 @@ import { content, getItem, storyByUnit } from '../content'
 import type { Lesson, Unit } from '../content/schema'
 import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
 import { Icon, unitMeta } from '../components/icons'
+import { scenarioFor } from '../content/roleplay'
 import { Otter, type OtterMood } from '../components/Otter'
 import { OtterSvg } from '../components/OtterSvg'
 import { DailyQuests } from '../components/Quests'
@@ -178,6 +179,15 @@ function Line({
         </span>
       </header>
       <p className="mb-1 mt-2 text-sm text-slate-500">{unit.description}</p>
+      {done < unit.lessons.length && (
+        <Link
+          to={`/lesson/express-${unit.id}`}
+          className="mb-1 inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1 text-xs font-bold text-slate-500 ring-1 ring-slate-200"
+          data-testid={`express-${unit.id}`}
+        >
+          <Icon name="train" className="h-4 w-4" /> Know this already? Take the express test
+        </Link>
+      )}
       <ol>
         {unit.lessons.map((l, i) => (
           <Station
@@ -284,7 +294,9 @@ function Station({
               {isNext
                 ? 'You are here · tap to board'
                 : status === 'done'
-                  ? `Done ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
+                  ? progress!.tested && !progress!.timesCompleted
+                    ? 'Cleared by express train'
+                    : `Done ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
                   : status === 'open'
                     ? `${lesson.items.length} new words`
                     : 'Finish the stop before this one'}
@@ -370,6 +382,26 @@ function StoryStop({ unit, expanded, onToggle }: { unit: Unit; expanded: boolean
           <p className="mt-1 animate-pop px-3 text-sm text-slate-500">
             Finish {STORY_UNLOCK_LESSONS} stops on this line to unlock the story.
           </p>
+        )}
+        {done && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            <Link
+              to={`/shadow/${story.id}`}
+              className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1.5 text-sm font-bold text-sky-600 ring-1 ring-slate-200"
+              data-testid={`shadow-${unit.id}`}
+            >
+              <Icon name="mic" className="h-4 w-4" /> Shadow it
+            </Link>
+            {scenarioFor(unit.id) && (
+              <Link
+                to={`/talk/${unit.id}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1.5 text-sm font-bold text-nyonya-500 ring-1 ring-slate-200"
+                data-testid={`talk-${unit.id}`}
+              >
+                <Icon name="chat" className="h-4 w-4" /> Role-play: {scenarioFor(unit.id)!.title}
+              </Link>
+            )}
+          </div>
         )}
       </div>
     </li>

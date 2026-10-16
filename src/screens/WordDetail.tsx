@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { content, SMD_BASE } from '../content'
 import { cardId } from '../data/types'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
+import { StrokeChar } from '../components/StrokeChar'
+import { CharBreakdown } from '../components/CharParts'
+import { charInfo } from '../content/chars'
 import { Icon } from '../components/icons'
-import { BackButton, Card, SgBadge, StrengthBars } from '../components/ui'
+import { BackButton, Button, Card, SgBadge, StrengthBars } from '../components/ui'
+import { isCustomItem } from '../content/custom'
 import { hanChars } from '../lib/pinyin'
 import { formatInterval, retrievability, strength } from '../lib/srs'
-import { IS_ARTIFACT } from '../env'
 import { useApp } from '../store/app'
 
 export function WordDetailScreen() {
@@ -19,8 +22,9 @@ export function WordDetailScreen() {
   if (!it) return <p className="p-6">Word not found.</p>
   const read = cards[cardId(it.id, 'read')]
   const sayCard = cards[cardId(it.id, 'say')]
-  const unit = content.units.find((u) => u.id === it.unitId)!
-  const lesson = unit.lessons.find((l) => l.items.includes(it.id))!
+  const unit = content.units.find((u) => u.id === it.unitId)
+  const lesson = unit?.lessons.find((l) => l.items.includes(it.id))
+  const mine = isCustomItem(it)
 
   return (
     <div>
@@ -65,6 +69,17 @@ export function WordDetailScreen() {
         </Card>
       )}
 
+      {hanChars(it.hanzi).some((c) => charInfo(c)) && (
+        <Card className="mb-4 space-y-4" data-testid="building-blocks">
+          <p className="flex items-baseline justify-between font-display text-sm font-extrabold text-slate-500">
+            Building blocks <span className="font-han font-normal text-slate-400">部件</span>
+          </p>
+          {[...new Set(hanChars(it.hanzi))].map((c) => (
+            <CharBreakdown key={c} ch={c} />
+          ))}
+        </Card>
+      )}
+
       <Card className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <p className="font-display text-sm font-extrabold text-slate-500">
@@ -98,16 +113,26 @@ export function WordDetailScreen() {
               </p>
             )}
           </div>
+        ) : mine ? (
+          <p className="text-slate-500">
+            Not practised yet —{' '}
+            <Link to="/lesson/mine" className="font-bold text-sky-600">
+              practise My words
+            </Link>{' '}
+            to add it to your flashcards.
+          </p>
         ) : (
           <p className="text-slate-500">
             Not learned yet — it's in{' '}
             <Link to="/" className="font-bold text-sky-600">
-              {unit.title} › {lesson.title}
+              {unit?.title} › {lesson?.title}
             </Link>
             .
           </p>
         )}
       </Card>
+
+      {mine && <RemoveMine id={it.id} />}
 
       <a
         href={it.smd ? `${SMD_BASE}/terms/${it.smd}` : SMD_BASE}
@@ -122,104 +147,33 @@ export function WordDetailScreen() {
   )
 }
 
-// artifact demo: one combined file instead of hundreds of small ones
-let allStrokes: Promise<Record<string, never>> | null = null
-
-/** Resolve a theme color to rgb() — hanzi-writer can't parse Tailwind's oklch() values. */
-function cssVar(name: string, fallback: string): string {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
-  if (!value) return fallback
-  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
-  if (!ctx) return fallback
-  ctx.fillStyle = fallback
-  ctx.fillStyle = value
-  ctx.fillRect(0, 0, 1, 1)
-  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
-  return `rgb(${r}, ${g}, ${b})`
-}
-
-function StrokeChar({ ch, quiz }: { ch: string; quiz: boolean }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const writer = useRef<{ animateCharacter: () => void; quiz: (o?: object) => unknown } | null>(null)
-  const [failed, setFailed] = useState(false)
-  const [done, setDone] = useState(false)
-  const [mistakes, setMistakes] = useState(0)
-
-  useEffect(() => {
-    let cancelled = false
-    const el = ref.current
-    if (!el) return
-    void import('hanzi-writer').then(({ default: HanziWriter }) => {
-      if (cancelled) return
-      el.innerHTML = ''
-      const size = quiz ? 140 : 96
-      const ink = cssVar('--color-slate-800', '#0f172a')
-      writer.current = HanziWriter.create(el, ch, {
-        width: size,
-        height: size,
-        padding: 4,
-        showOutline: true,
-        showCharacter: !quiz,
-        strokeColor: ink,
-        radicalColor: '#16a34a',
-        highlightColor: '#0ea5e9',
-        drawingColor: ink,
-        outlineColor: cssVar('--color-slate-200', '#ddd'),
-        strokeAnimationSpeed: 1.2,
-        delayBetweenStrokes: 150,
-        showHintAfterMisses: 2,
-        // course characters are served locally (works offline); anything else falls back to the CDN
-        charDataLoader: (c, onLoad, onError) => {
-          if (IS_ARTIFACT) {
-            allStrokes ??= fetch('strokes.json').then((r) => r.json())
-            allStrokes.then((all) => (all[c] ? onLoad(all[c]) : onError()), onError)
-            return
-          }
-          fetch(`/strokes/${encodeURIComponent(c)}.json`)
-            .then((r) => (r.ok && r.headers.get('content-type')?.includes('json') ? r.json() : fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${c}.json`).then((r2) => r2.json())))
-            .then(onLoad, onError)
-        },
-        onLoadCharDataError: () => setFailed(true),
-      })
-      if (quiz)
-        writer.current.quiz({
-          onMistake: () => setMistakes((m) => m + 1),
-          onComplete: () => setDone(true),
-        })
-      else writer.current.animateCharacter()
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [ch, quiz])
-
-  if (failed) {
-    return (
-      <div className="grid h-24 w-24 place-items-center rounded-xl border-2 border-dashed border-slate-200">
-        <span className="font-han text-6xl">{ch}</span>
+/** My words can be removed (with their flashcards); confirm inline first. */
+function RemoveMine({ id }: { id: string }) {
+  const remove = useApp((st) => st.removeCustomItem)
+  const nav = useNavigate()
+  const [confirm, setConfirm] = useState(false)
+  return confirm ? (
+    <div className="mb-4 rounded-3xl bg-rose-50 p-3 text-center">
+      <p className="mb-2 text-sm text-rose-700 dark:text-rose-300">Remove this word and its flashcards?</p>
+      <div className="grid grid-cols-2 gap-2">
+        <Button variant="secondary" onClick={() => setConfirm(false)}>
+          Keep
+        </Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            remove(id)
+            nav('/words', { replace: true })
+          }}
+          data-testid="remove-mine-confirm"
+        >
+          Remove
+        </Button>
       </div>
-    )
-  }
-  if (quiz) {
-    return (
-      <div className="flex flex-col items-center gap-1">
-        <div
-          ref={ref}
-          className={`rounded-xl border-2 ${done ? 'border-brand-400 bg-brand-50' : 'border-dashed border-slate-300'}`}
-          style={{ touchAction: 'none' }}
-        />
-        <span className="text-xs text-slate-400">{done ? (mistakes ? `✓ ${mistakes} slip${mistakes > 1 ? 's' : ''}` : '✓ perfect') : ' '}</span>
-      </div>
-    )
-  }
-  return (
-    <button
-      type="button"
-      onClick={() => writer.current?.animateCharacter()}
-      className="grid h-24 w-24 place-items-center rounded-xl border-2 border-dashed border-slate-200"
-      aria-label={`Stroke order for ${ch}`}
-    >
-      <div ref={ref} />
-    </button>
+    </div>
+  ) : (
+    <Button variant="ghost" className="mb-4 w-full text-rose-500" onClick={() => setConfirm(true)} data-testid="remove-mine">
+      Remove from My words
+    </Button>
   )
 }

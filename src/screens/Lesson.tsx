@@ -2,19 +2,23 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { content, getItem } from '../content'
 import type { LessonSummary } from '../data/actions'
+import { cardId } from '../data/types'
 import { ExerciseView, type ExerciseResult } from '../components/exercises'
+import { partMnemonic } from '../content/chars'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
 import { Icon } from '../components/icons'
 import { OtterSvg } from '../components/OtterSvg'
 import { Button, TrainTrack } from '../components/ui'
-import { generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
-import { weakestItems } from '../data/actions'
+import { generateExpress, generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
+import { EXPRESS_PASS, myWordsLessonItems, weakestItems } from '../data/actions'
 import { sfx } from '../lib/sfx'
 import { useApp } from '../store/app'
 import { LessonComplete } from './LessonComplete'
 
 export const WEAK_LESSON = 'weak'
+export const MINE_LESSON = 'mine'
+export const EXPRESS_PREFIX = 'express-'
 
 const PRAISE = ['好棒！', '太好了！', 'Steady lah!', '厉害！', 'Power!', '对了！', 'Shiok!']
 const OOPS = ['Aiyo, almost!', '差一点！', 'Not quite lah', 'Close!']
@@ -30,24 +34,41 @@ export function LessonScreen() {
   const s = useApp((st) => st.s)
   const completeLesson = useApp((st) => st.completeLesson)
   const completePractice = useApp((st) => st.completePractice)
-  // "weak" is a virtual lesson built from the words you're most likely to have forgotten
+  const completeMyWords = useApp((st) => st.completeMyWords)
+  // virtual lessons: "weak" (words you're most likely to have forgotten) and "mine" (My words)
   const isWeak = lessonId === WEAK_LESSON
+  const isMine = lessonId === MINE_LESSON
+  // "express-u03": a placement test over a whole line
+  const expressUnit = lessonId.startsWith(EXPRESS_PREFIX) ? content.units.find((u) => u.id === lessonId.slice(EXPRESS_PREFIX.length)) : undefined
+  const isExpress = !!expressUnit
+  const completeExpress = useApp((st) => st.completeExpress)
   const [lesson] = useState(() =>
-    isWeak ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) } : content.lessons.get(lessonId),
+    isWeak
+      ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) }
+      : isMine
+        ? { id: MINE_LESSON, items: myWordsLessonItems(s, 6, new Date()) }
+        : expressUnit
+          ? { id: lessonId, items: expressUnit.items.map((i) => i.id) }
+          : content.lessons.get(lessonId),
   )
+  const [passed, setPassed] = useState<boolean | null>(null)
 
-  const [mode] = useState<'learn' | 'practice'>(() =>
-    isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn',
-  )
+  const [mode] = useState<'learn' | 'practice'>(() => {
+    if (isExpress) return 'practice'
+    if (isMine) return lesson?.items.some((id) => !s.cards[cardId(id, 'read')]) ? 'learn' : 'practice'
+    return isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn'
+  })
   // Speaking works everywhere: browsers without recognition fall back to self-checking.
   const speaking = s.settings.speaking
 
   const initial = useMemo(
     () =>
-      lesson
+      lesson && expressUnit
+        ? generateExpress(expressUnit.items, [...content.items.values()])
+        : lesson
         ? generateLesson(
             lesson.items.map(getItem),
-            { mode, speaking, pool: [...content.items.values()] },
+            { mode, speaking, writing: s.settings.writing, pool: [...content.items.values()] },
           )
         : [],
     // generate once per lesson visit
@@ -71,10 +92,21 @@ export function LessonScreen() {
   const finish = useCallback(() => {
     const st = stats.current
     const result = { mistakesByItem: st.mistakes, maxCombo: st.maxCombo, answered: st.answered, correct: st.correct }
-    const r = isWeak ? completePractice(result) : completeLesson({ lessonId, mode, ...result })
+    if (expressUnit) {
+      const r = completeExpress(expressUnit.id, { correct: st.correct, total: st.answered })
+      if (s.settings.sound) sfx.complete()
+      setPassed(r.passed)
+      setSummary(r)
+      return
+    }
+    const r = isMine
+      ? completeMyWords({ ...result, itemIds: lesson!.items })
+      : isWeak
+        ? completePractice(result)
+        : completeLesson({ lessonId, mode, ...result })
     if (s.settings.sound) sfx.complete()
     setSummary(r)
-  }, [completeLesson, completePractice, isWeak, lessonId, mode, s.settings.sound])
+  }, [completeLesson, completePractice, completeMyWords, completeExpress, expressUnit, isWeak, isMine, lesson, lessonId, mode, s.settings.sound])
 
   const advance = useCallback(() => {
     setFeedback(null)
@@ -93,10 +125,11 @@ export function LessonScreen() {
         return
       }
       if (r.skipped) {
-        setSkipSpeaking(true)
+        // "can't speak/write now": drop the rest of that kind of exercise for this lesson
+        if (ex.kind === 'speak') setSkipSpeaking(true)
         setFeedback(null)
         let next = idx + 1
-        while (queue[next]?.kind === 'speak') next++
+        while (queue[next]?.kind === ex.kind) next++
         if (next >= queue.length) finish()
         else setIdx(next)
         return
@@ -114,7 +147,7 @@ export function LessonScreen() {
         for (const id of wrong) st.mistakes[id] = (st.mistakes[id] ?? 0) + 1
         if (s.settings.sound) sfx.wrong()
         // try it again at the end (once per exercise; matching already self-corrects)
-        if (ex.kind !== 'match' && ex.kind !== 'speak' && !st.retried.has(ex.id)) {
+        if (!isExpress && ex.kind !== 'match' && ex.kind !== 'speak' && ex.kind !== 'write' && !st.retried.has(ex.id)) {
           const again = retryOf(ex)
           st.retried.add(again.id)
           setQueue((q) => [...q, again])
@@ -122,7 +155,7 @@ export function LessonScreen() {
       }
       setFeedback({ ...r, ex })
     },
-    [ex, advance, idx, queue, finish, s.settings.sound],
+    [ex, advance, idx, queue, finish, s.settings.sound, isExpress],
   )
 
   useEffect(() => {
@@ -144,7 +177,7 @@ export function LessonScreen() {
   if (!lesson || lesson.items.length < 3) {
     return (
       <div className="p-8 text-center">
-        <p className="mb-4">{isWeak ? 'Learn a few more words first!' : 'Lesson not found.'}</p>
+        <p className="mb-4">{isWeak ? 'Learn a few more words first!' : isMine ? 'Save at least 3 words in the Reader first!' : 'Lesson not found.'}</p>
         <Link to="/" className="text-sky-600 underline">
           Back home
         </Link>
@@ -158,6 +191,14 @@ export function LessonScreen() {
         summary={summary}
         seconds={Math.round((Date.now() - started.current) / 1000)}
         mode={mode}
+        title={passed === null ? undefined : passed ? 'Express train: line cleared!' : 'Not this time'}
+        note={
+          passed === null
+            ? undefined
+            : passed
+              ? `The stops on ${expressUnit?.title} are done and their words are in your flashcards.`
+              : `You need ${Math.round(EXPRESS_PASS * 100)}% to skip a line — ride it stop by stop instead.`
+        }
         onDone={() => nav('/', { replace: true })}
       />
     )
@@ -215,7 +256,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
   const [praise] = useState(() => (correct ? PRAISE : OOPS)[Math.floor(Math.random() * (correct ? PRAISE : OOPS).length)])
   const it = ex.kind === 'match' ? null : getItem(ex.itemId)
   const sentence = ex.kind === 'build' || ex.kind === 'hear' ? it?.example : null
-  const showAnswer = it && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear')
+  const showAnswer = it && ex.kind !== 'parts' && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear')
   return (
     <div
       className="safe-bottom fixed inset-x-0 bottom-0 z-10 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6"
@@ -241,6 +282,12 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
               <p className="mt-1 text-sm text-slate-600">
                 Heard: <span className="font-han text-base">{fb.heard || '—'}</span>
                 {fb.score !== undefined && <> · {Math.round(fb.score * 100)}% match</>}
+              </p>
+            )}
+            {ex.kind === 'parts' && (
+              <p className="mt-1 text-sm text-slate-700">
+                <span className="font-han text-base">{ex.part}</span> means <b>{ex.answer}</b>
+                {partMnemonic(ex.part) && <> — {partMnemonic(ex.part)}</>}
               </p>
             )}
             {it && ex.kind === 'sgpick' && it.note && (

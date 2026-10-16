@@ -36,6 +36,11 @@ export async function playLesson(page: Page, opts: { wrongFirst?: boolean } = {}
       await check.click()
       continue
     }
+    const skipWrite = page.getByTestId('skip-write')
+    if (await skipWrite.isVisible()) {
+      await skipWrite.click()
+      continue
+    }
     const skip = page.getByText("Can't speak now")
     if (await skip.isVisible()) {
       await skip.click()

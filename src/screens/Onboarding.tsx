@@ -70,6 +70,17 @@ export function Onboarding() {
             <Button className="w-full" onClick={() => (firebaseEnabled && !user ? setStep(2) : done())} data-testid="goal-continue">
               Continue
             </Button>
+            <button
+              type="button"
+              className="mt-3 w-full text-sm font-bold text-sky-600"
+              onClick={() => {
+                finish(goal)
+                nav('/lesson/express-u01', { replace: true })
+              }}
+              data-testid="onboard-express"
+            >
+              I can read a bit already — test out of the first line
+            </button>
           </div>
         </div>
       )}
