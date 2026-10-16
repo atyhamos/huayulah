@@ -1,0 +1,59 @@
+{
+  "id": "u14",
+  "title": "Around Singapore",
+  "titleZh": "狮城走走",
+  "description": "Read the MRT map and the calendar: towns, landmarks and national days in Chinese.",
+  "emoji": "🦁",
+  "color": "#047857",
+  "items": [
+    { "id": "hongmaoqiao", "hanzi": "宏茂桥", "pinyin": "hóng mào qiáo", "english": "Ang Mo Kio", "sg": true, "example": { "zh": "宏茂桥 有 很 多 小贩中心。", "en": "Ang Mo Kio has lots of hawker centres." } },
+    { "id": "dabayao", "hanzi": "大巴窑", "pinyin": "dà bā yáo", "english": "Toa Payoh", "sg": true, "example": { "zh": "大巴窑 有 一个 大 巴士转换站。", "en": "Toa Payoh has a big bus interchange." } },
+    { "id": "bishan", "hanzi": "碧山", "pinyin": "bì shān", "english": "Bishan", "sg": true, "example": { "zh": "碧山 公园 很 大。", "en": "Bishan Park is huge." } },
+    { "id": "hougang", "hanzi": "后港", "pinyin": "hòu gǎng", "english": "Hougang", "sg": true, "example": { "zh": "我 住 在 后港。", "en": "I live in Hougang." } },
+    { "id": "shenggang", "hanzi": "盛港", "pinyin": "shèng gǎng", "english": "Sengkang", "sg": true, "example": { "zh": "盛港 有 很 多 新 组屋。", "en": "Sengkang has lots of new HDB flats." } },
+    { "id": "wuluo", "hanzi": "勿洛", "pinyin": "wù luò", "english": "Bedok", "sg": true, "example": { "zh": "我们 去 勿洛 码头 钓鱼。", "en": "Let's go fishing at Bedok Jetty." } },
+
+    { "id": "nvhuangzhen", "hanzi": "女皇镇", "pinyin": "nǚ huáng zhèn", "english": "Queenstown", "sg": true, "note": "Singapore's first satellite town.", "example": { "zh": "女皇镇 是 一 个 老 区。", "en": "Queenstown is an old estate." } },
+    { "id": "caicuogang", "hanzi": "蔡厝港", "pinyin": "cài cuò gǎng", "english": "Choa Chu Kang", "sg": true, "example": { "zh": "蔡厝港 离 市区 很 远。", "en": "Choa Chu Kang is far from the city." } },
+    { "id": "sanbawang", "hanzi": "三巴旺", "pinyin": "sān bā wàng", "english": "Sembawang", "sg": true, "example": { "zh": "三巴旺 有 一个 海滩。", "en": "Sembawang has a beach." } },
+    { "id": "wanguo", "hanzi": "万国", "pinyin": "wàn guó", "english": "Buangkok", "sg": true, "example": { "zh": "万国 地铁站 在 盛港 旁边。", "en": "Buangkok MRT station is next to Sengkang." } },
+    { "id": "huangpu", "hanzi": "黄埔", "pinyin": "huáng pǔ", "english": "Whampoa", "sg": true, "example": { "zh": "黄埔 的 巴刹 很 热闹。", "en": "Whampoa market is very lively." } },
+    { "id": "hongshan", "hanzi": "红山", "pinyin": "hóng shān", "english": "Redhill", "sg": true, "example": { "zh": "红山 地铁站 离 这里 不 远。", "en": "Redhill MRT station isn't far from here." } },
+
+    { "id": "yalong", "hanzi": "芽笼", "pinyin": "yá lóng", "english": "Geylang", "sg": true, "example": { "zh": "芽笼 的 榴梿 很 有名。", "en": "Geylang is famous for durians." } },
+    { "id": "zhongbalu", "hanzi": "中峇鲁", "pinyin": "zhōng bā lǔ", "english": "Tiong Bahru", "sg": true, "example": { "zh": "中峇鲁 有 很 多 咖啡馆。", "en": "Tiong Bahru has lots of cafés." } },
+    { "id": "ruqie", "hanzi": "如切", "pinyin": "rú qiè", "english": "Joo Chiat", "sg": true, "example": { "zh": "如切 的 老 房子 很 漂亮。", "en": "The old shophouses in Joo Chiat are beautiful." } },
+    { "id": "xiaoyindu", "hanzi": "小印度", "pinyin": "xiǎo yìn dù", "english": "Little India", "sg": true, "example": { "zh": "屠妖节 去 小印度 看 灯饰。", "en": "Go to Little India for the Deepavali lights." } },
+    { "id": "baishafu", "hanzi": "白沙浮", "pinyin": "bái shā fú", "english": "Bugis", "sg": true, "note": "The older Chinese name for the Bugis area.", "example": { "zh": "白沙浮 一带 很 热闹。", "en": "The Bugis area is always buzzing." } },
+    { "id": "helancun", "hanzi": "荷兰村", "pinyin": "hé lán cūn", "english": "Holland Village", "sg": true, "example": { "zh": "周末 在 荷兰村 吃 早午餐。", "en": "Brunch at Holland Village this weekend." } },
+
+    { "id": "yuweishi", "hanzi": "鱼尾狮", "pinyin": "yú wěi shī", "english": "Merlion", "sg": true, "example": { "zh": "游客 都 喜欢 和 鱼尾狮 拍照。", "en": "Tourists all love taking photos with the Merlion." } },
+    { "id": "binhaiwanhuayuan", "hanzi": "滨海湾花园", "pinyin": "bīn hǎi wān huā yuán", "english": "Gardens by the Bay", "sg": true, "example": { "zh": "晚上 去 滨海湾花园 看 灯光秀。", "en": "Go to Gardens by the Bay at night for the light show." } },
+    { "id": "xingyaozhangyi", "hanzi": "星耀樟宜", "pinyin": "xīng yào zhāng yí", "english": "Jewel Changi Airport", "sg": true, "example": { "zh": "星耀樟宜 有 一个 室内 瀑布。", "en": "Jewel has an indoor waterfall." } },
+    { "id": "wumindao", "hanzi": "乌敏岛", "pinyin": "wū mín dǎo", "english": "Pulau Ubin", "sg": true, "example": { "zh": "去 乌敏岛 要 坐 船。", "en": "You take a boat to Pulau Ubin." } },
+    { "id": "xinrouchangdi", "hanzi": "新柔长堤", "pinyin": "xīn róu cháng dī", "english": "the Causeway (Singapore–Johor)", "sg": true, "example": { "zh": "周末 新柔长堤 很 塞车。", "en": "The Causeway is jammed on weekends." } },
+    { "id": "xinshan", "hanzi": "新山", "pinyin": "xīn shān", "english": "Johor Bahru (JB)", "sg": true, "example": { "zh": "我们 去 新山 加油。", "en": "We're going to JB to pump petrol." } },
+
+    { "id": "shicheng", "hanzi": "狮城", "pinyin": "shī chéng", "english": "the Lion City (Singapore)", "sg": true, "example": { "zh": "欢迎 来到 狮城！", "en": "Welcome to the Lion City!" } },
+    { "id": "danmaxi", "hanzi": "淡马锡", "pinyin": "dàn mǎ xī", "english": "Temasek", "sg": true, "note": "An old name for Singapore — and now a state investment company.", "example": { "zh": "新加坡 以前 叫 淡马锡。", "en": "Singapore used to be called Temasek." } },
+    { "id": "xinjiapohuayu", "hanzi": "新加坡华语", "pinyin": "xīn jiā pō huá yǔ", "english": "Singaporean Mandarin", "sg": true, "example": { "zh": "我 在 学 新加坡华语。", "en": "I'm learning Singaporean Mandarin." } },
+    { "id": "jianghuayuyundong", "hanzi": "讲华语运动", "pinyin": "jiǎng huá yǔ yùn dòng", "english": "Speak Mandarin Campaign", "sg": true, "note": "Started in 1979.", "example": { "zh": "讲华语运动 已经 有 四十 多 年 了。", "en": "The Speak Mandarin Campaign has run for over forty years." } },
+    { "id": "xinshengshui", "hanzi": "新生水", "pinyin": "xīn shēng shuǐ", "english": "NEWater", "sg": true, "example": { "zh": "新生水 是 再循环 的 水。", "en": "NEWater is recycled water." } },
+    { "id": "huji", "hanzi": "胡姬", "pinyin": "hú jī", "english": "orchid", "sg": true, "standard": { "hanzi": "兰花", "pinyin": "lán huā" }, "note": "Singapore's national flower, Vanda Miss Joaquim, is an orchid.", "example": { "zh": "新加坡 的 国花 是 一 种 胡姬。", "en": "Singapore's national flower is an orchid." } },
+
+    { "id": "zhongzuhexieri", "hanzi": "种族和谐日", "pinyin": "zhǒng zú hé xié rì", "english": "Racial Harmony Day", "sg": true, "example": { "zh": "种族和谐日 学生 穿 传统 服装。", "en": "On Racial Harmony Day, students wear traditional clothes." } },
+    { "id": "quanmianfangweiri", "hanzi": "全面防卫日", "pinyin": "quán miàn fáng wèi rì", "english": "Total Defence Day", "sg": true, "note": "15 February — the day Singapore fell in 1942.", "example": { "zh": "全面防卫日 是 二月 十五 日。", "en": "Total Defence Day is 15 February." } },
+    { "id": "zhuangyidayouxing", "hanzi": "妆艺大游行", "pinyin": "zhuāng yì dà yóu xíng", "english": "Chingay Parade", "sg": true, "example": { "zh": "我们 去 看 妆艺大游行。", "en": "Let's go watch the Chingay Parade." } },
+    { "id": "dabaosenjie", "hanzi": "大宝森节", "pinyin": "dà bǎo sēn jié", "english": "Thaipusam", "sg": true, "example": { "zh": "大宝森节 的 游行 很 特别。", "en": "The Thaipusam procession is really special." } },
+    { "id": "hazhijie", "hanzi": "哈芝节", "pinyin": "hā zhī jié", "english": "Hari Raya Haji", "sg": true, "example": { "zh": "哈芝节 是 公共假日。", "en": "Hari Raya Haji is a public holiday." } },
+    { "id": "weisaijie", "hanzi": "卫塞节", "pinyin": "wèi sài jié", "english": "Vesak Day", "sg": true, "example": { "zh": "卫塞节 很 多 人 去 寺庙。", "en": "Many people go to temples on Vesak Day." } }
+  ],
+  "lessons": [
+    { "id": "u14-l1", "title": "Heartland towns", "items": ["hongmaoqiao", "dabayao", "bishan", "hougang", "shenggang", "wuluo"] },
+    { "id": "u14-l2", "title": "More towns", "items": ["nvhuangzhen", "caicuogang", "sanbawang", "wanguo", "huangpu", "hongshan"] },
+    { "id": "u14-l3", "title": "Neighbourhoods", "items": ["yalong", "zhongbalu", "ruqie", "xiaoyindu", "baishafu", "helancun"] },
+    { "id": "u14-l4", "title": "Landmarks", "items": ["yuweishi", "binhaiwanhuayuan", "xingyaozhangyi", "wumindao", "xinrouchangdi", "xinshan"] },
+    { "id": "u14-l5", "title": "Singapore, Singapore", "items": ["shicheng", "danmaxi", "xinjiapohuayu", "jianghuayuyundong", "xinshengshui", "huji"] },
+    { "id": "u14-l6", "title": "Days to mark", "items": ["zhongzuhexieri", "quanmianfangweiri", "zhuangyidayouxing", "dabaosenjie", "hazhijie", "weisaijie"] }
+  ]
+}

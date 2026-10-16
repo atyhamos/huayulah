@@ -19,6 +19,7 @@ See [SPEC.md](SPEC.md) for the full product spec.
 | 💬 Stories | One Singapore-life dialogue per unit (kopitiam order, CNY relatives, MC day…) with audio and comprehension questions |
 | 🃏 Flashcards | FSRS spaced repetition (`ts-fsrs`). Every word gets a **📖 read** card and a **🗣️ say** card |
 | 🙈 Pinyin fade | Pinyin hides on words you know well, so you actually learn the characters (tap to peek) |
+| 📚 Course | 14 units, 84 lessons, 504 words and phrases — 200 of them Singapore-specific, with 175 checked against the Singaporean Mandarin Database |
 | 🇸🇬 SG flavour | Local terms flagged with mainland equivalents, origin notes and links to the [Singaporean Mandarin Database](https://www.languagecouncils.sg/mandarin/en/learning-resources/singaporean-mandarin-database) |
 | 🔥 Gamification | XP, levels, daily goal ring, streaks + streak freezes, achievements, confetti |
 | 👫 Friends | Friend codes / invite links and a weekly XP leaderboard |

@@ -9,6 +9,9 @@ const PHRASE_FIXES: Record<string, string> = {
   只收: 'zhǐ shōu',
   捞得: 'lāo de',
   好啦: 'hǎo la',
+  长大: 'zhǎng dà',
+  打扮得: 'dǎ ban de',
+  拿锁匙: 'ná suǒ shí',
 }
 
 /** Sentence-final particles are toneless (pinyin-pro reads 咯 as gē, 啦 as lā…). */

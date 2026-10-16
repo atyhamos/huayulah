@@ -1,0 +1,59 @@
+{
+  "id": "u12",
+  "title": "Heartland Living",
+  "titleZh": "邻里生活",
+  "description": "Block numbers, BTOs, polyclinics and P-plates — the words of everyday Singapore admin.",
+  "emoji": "🏘️",
+  "color": "#0891b2",
+  "items": [
+    { "id": "zuwuqu", "hanzi": "组屋区", "pinyin": "zǔ wū qū", "english": "HDB estate", "sg": true, "example": { "zh": "我 在 组屋区 长大。", "en": "I grew up in an HDB estate." } },
+    { "id": "dapai", "hanzi": "大牌", "pinyin": "dà pái", "english": "block number", "sg": true, "note": "\"你住几号大牌？\" is how you ask which block someone lives in.", "example": { "zh": "你 住 几 号 大牌？", "en": "Which block do you live in?" } },
+    { "id": "youquhaoma", "hanzi": "邮区号码", "pinyin": "yóu qū hào mǎ", "english": "postal code", "sg": true, "standard": { "hanzi": "邮政编码", "pinyin": "yóu zhèng biān mǎ" }, "example": { "zh": "请 写 你 的 邮区号码。", "en": "Please write your postal code." } },
+    { "id": "yougaizoudao", "hanzi": "有盖走道", "pinyin": "yǒu gài zǒu dào", "english": "covered walkway", "sg": true, "example": { "zh": "下雨 了， 走 有盖走道 吧。", "en": "It's raining — take the covered walkway." } },
+    { "id": "lajifang", "hanzi": "垃圾房", "pinyin": "lā jī fáng", "english": "bin centre", "sg": true, "example": { "zh": "垃圾房 在 停车场 旁边。", "en": "The bin centre is next to the carpark." } },
+    { "id": "houxiang", "hanzi": "后巷", "pinyin": "hòu xiàng", "english": "back alley", "sg": true, "example": { "zh": "猫 在 后巷 睡觉。", "en": "The cat is sleeping in the back alley." } },
+
+    { "id": "louding", "hanzi": "楼顶", "pinyin": "lóu dǐng", "english": "upstairs (lau deng)", "sg": true, "standard": { "hanzi": "楼上", "pinyin": "lóu shàng" }, "note": "In Singapore 楼顶 often just means \"upstairs\", not only the rooftop.", "example": { "zh": "我 去 楼顶 拿 东西。", "en": "I'm going upstairs to get something." } },
+    { "id": "suoshi", "hanzi": "锁匙", "pinyin": "suǒ shí", "english": "keys", "sg": true, "standard": { "hanzi": "钥匙", "pinyin": "yào shi" }, "example": { "zh": "我 的 锁匙 不 见 了！", "en": "My keys are gone!" } },
+    { "id": "cheshi", "hanzi": "车匙", "pinyin": "chē shí", "english": "car keys", "sg": true, "example": { "zh": "车匙 在 桌子 上。", "en": "The car keys are on the table." } },
+    { "id": "chongliang", "hanzi": "冲凉", "pinyin": "chōng liáng", "english": "to take a shower", "sg": true, "standard": { "hanzi": "洗澡", "pinyin": "xǐ zǎo" }, "note": "Literally \"rinse cool\" — very fitting for Singapore weather.", "example": { "zh": "天气 热， 一天 冲凉 两 次。", "en": "It's so hot I shower twice a day." } },
+    { "id": "langdao", "hanzi": "廊道", "pinyin": "láng dào", "english": "corridor", "sg": true, "smd": "corridor", "standard": { "hanzi": "走廊", "pinyin": "zǒu láng" }, "example": { "zh": "廊道 上 不 要 放 太 多 东西。", "en": "Don't leave too much stuff in the corridor." } },
+    { "id": "wujiaoji", "hanzi": "五脚基", "pinyin": "wǔ jiǎo jī", "english": "five-foot-way (shophouse walkway)", "sg": true, "note": "The covered walkway in front of shophouses — five feet wide, by colonial-era rule.", "example": { "zh": "我们 在 五脚基 下 躲雨。", "en": "We sheltered from the rain under the five-foot-way." } },
+
+    { "id": "yugouzuwu", "hanzi": "预购组屋", "pinyin": "yù gòu zǔ wū", "english": "BTO flat", "sg": true, "note": "From 预购组屋制度, the Build-To-Order scheme.", "example": { "zh": "我们 申请 了 预购组屋。", "en": "We applied for a BTO." } },
+    { "id": "shifandanwei", "hanzi": "示范单位", "pinyin": "shì fàn dān wèi", "english": "showflat", "sg": true, "example": { "zh": "周末 去 看 示范单位。", "en": "Let's go see the showflat this weekend." } },
+    { "id": "yongjiujumin", "hanzi": "永久居民", "pinyin": "yǒng jiǔ jū mín", "english": "Permanent Resident (PR)", "sg": true, "example": { "zh": "她 是 新加坡 的 永久居民。", "en": "She's a Singapore PR." } },
+    { "id": "xiaofeishui", "hanzi": "消费税", "pinyin": "xiāo fèi shuì", "english": "GST", "sg": true, "example": { "zh": "价钱 已经 包括 消费税。", "en": "The price already includes GST." } },
+    { "id": "zonghezhenliaosuo", "hanzi": "综合诊疗所", "pinyin": "zōng hé zhěn liáo suǒ", "english": "polyclinic", "sg": true, "example": { "zh": "我 去 综合诊疗所 看 医生。", "en": "I'm seeing a doctor at the polyclinic." } },
+    { "id": "sanqian", "hanzi": "散钱", "pinyin": "sǎn qián", "english": "small change", "sg": true, "standard": { "hanzi": "零钱", "pinyin": "líng qián" }, "example": { "zh": "你 有 散钱 吗？", "en": "Do you have small change?" } },
+
+    { "id": "bashizhuanhuanzhan", "hanzi": "巴士转换站", "pinyin": "bā shì zhuǎn huàn zhàn", "english": "bus interchange", "sg": true, "example": { "zh": "我们 在 巴士转换站 见。", "en": "Let's meet at the bus interchange." } },
+    { "id": "qingguilieche", "hanzi": "轻轨列车", "pinyin": "qīng guǐ liè chē", "english": "LRT", "sg": true, "example": { "zh": "盛港 有 轻轨列车。", "en": "Sengkang has the LRT." } },
+    { "id": "kuaisugonglu", "hanzi": "快速公路", "pinyin": "kuài sù gōng lù", "english": "expressway", "sg": true, "standard": { "hanzi": "高速公路", "pinyin": "gāo sù gōng lù" }, "example": { "zh": "快速公路 上 发生 车祸。", "en": "There's an accident on the expressway." } },
+    { "id": "gongludianzishoufei", "hanzi": "公路电子收费", "pinyin": "gōng lù diàn zǐ shōu fèi", "english": "ERP (road pricing)", "sg": true, "note": "Most people just say \"ERP\", even in Mandarin.", "example": { "zh": "这里 有 公路电子收费。", "en": "There's ERP here." } },
+    { "id": "pingmen", "hanzi": "屏门", "pinyin": "píng mén", "english": "platform screen door", "sg": true, "example": { "zh": "请 不 要 靠 在 屏门 上。", "en": "Please don't lean on the platform screen doors." } },
+    { "id": "dake", "hanzi": "搭客", "pinyin": "dā kè", "english": "passenger", "sg": true, "standard": { "hanzi": "乘客", "pinyin": "chéng kè" }, "example": { "zh": "搭客 请 往 里面 走。", "en": "Passengers, please move further in." } },
+
+    { "id": "luoli", "hanzi": "罗厘", "pinyin": "luó lí", "english": "lorry", "sg": true, "standard": { "hanzi": "卡车", "pinyin": "kǎ chē" }, "note": "A sound-loan from English \"lorry\".", "example": { "zh": "罗厘 后面 坐 了 很 多 工人。", "en": "Lots of workers are sitting in the back of the lorry." } },
+    { "id": "motuoche", "hanzi": "摩托车", "pinyin": "mó tuō chē", "english": "motorcycle", "example": { "zh": "他 骑 摩托车 上班。", "en": "He rides a motorcycle to work." } },
+    { "id": "diaotou", "hanzi": "调头", "pinyin": "diào tóu", "english": "to make a U-turn", "sg": true, "example": { "zh": "前面 可以 调头。", "en": "You can make a U-turn up ahead." } },
+    { "id": "geche", "hanzi": "割车", "pinyin": "gē chē", "english": "to overtake / cut in", "sg": true, "note": "Literally \"cut the car\".", "example": { "zh": "不 要 随便 割车， 很 危险！", "en": "Don't cut in like that — it's dangerous!" } },
+    { "id": "lulong", "hanzi": "路隆", "pinyin": "lù lóng", "english": "road hump", "sg": true, "example": { "zh": "前面 有 路隆， 开 慢 一点。", "en": "There's a road hump ahead — slow down." } },
+    { "id": "sanjiaopai", "hanzi": "三角牌", "pinyin": "sān jiǎo pái", "english": "P-plate (new driver)", "sg": true, "note": "The triangular probation plate on a new driver's car.", "example": { "zh": "他 的 车 还 有 三角牌。", "en": "His car still has a P-plate." } },
+
+    { "id": "youzhiyuan", "hanzi": "幼稚园", "pinyin": "yòu zhì yuán", "english": "kindergarten", "sg": true, "standard": { "hanzi": "幼儿园", "pinyin": "yòu ér yuán" }, "example": { "zh": "妹妹 在 读 幼稚园。", "en": "My little sister is in kindergarten." } },
+    { "id": "linlixuexiao", "hanzi": "邻里学校", "pinyin": "lín lǐ xué xiào", "english": "neighbourhood school", "sg": true, "example": { "zh": "我 读 的 是 邻里学校。", "en": "I went to a neighbourhood school." } },
+    { "id": "ligongxueyuan", "hanzi": "理工学院", "pinyin": "lǐ gōng xué yuàn", "english": "polytechnic (poly)", "sg": true, "example": { "zh": "她 在 理工学院 读 设计。", "en": "She's studying design at poly." } },
+    { "id": "gongyijiaoyuxueyuan", "hanzi": "工艺教育学院", "pinyin": "gōng yì jiào yù xué yuàn", "english": "ITE", "sg": true, "example": { "zh": "我 弟弟 在 工艺教育学院 读书。", "en": "My younger brother studies at ITE." } },
+    { "id": "kechengfuzhuhuodong", "hanzi": "课程辅助活动", "pinyin": "kè chéng fǔ zhù huó dòng", "english": "CCA (co-curricular activity)", "sg": true, "note": "Everyone just says \"CCA\".", "example": { "zh": "你 中学 的 课程辅助活动 是 什么？", "en": "What was your CCA in secondary school?" } },
+    { "id": "gonggongjiari", "hanzi": "公共假日", "pinyin": "gōng gòng jià rì", "english": "public holiday", "sg": true, "example": { "zh": "明天 是 公共假日， 不 用 上班。", "en": "Tomorrow's a public holiday — no work." } }
+  ],
+  "lessons": [
+    { "id": "u12-l1", "title": "Around the estate", "items": ["zuwuqu", "dapai", "youquhaoma", "yougaizoudao", "lajifang", "houxiang"] },
+    { "id": "u12-l2", "title": "At home", "items": ["louding", "suoshi", "cheshi", "chongliang", "langdao", "wujiaoji"] },
+    { "id": "u12-l3", "title": "Adulting admin", "items": ["yugouzuwu", "shifandanwei", "yongjiujumin", "xiaofeishui", "zonghezhenliaosuo", "sanqian"] },
+    { "id": "u12-l4", "title": "Transport", "items": ["bashizhuanhuanzhan", "qingguilieche", "kuaisugonglu", "gongludianzishoufei", "pingmen", "dake"] },
+    { "id": "u12-l5", "title": "On the road", "items": ["luoli", "motuoche", "diaotou", "geche", "lulong", "sanjiaopai"] },
+    { "id": "u12-l6", "title": "School system", "items": ["youzhiyuan", "linlixuexiao", "ligongxueyuan", "gongyijiaoyuxueyuan", "kechengfuzhuhuodong", "gonggongjiari"] }
+  ]
+}

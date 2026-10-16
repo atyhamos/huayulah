@@ -1,0 +1,59 @@
+{
+  "id": "u13",
+  "title": "Kopitiam Talk",
+  "titleZh": "本地俚语",
+  "description": "Kaypoh, suaku, chope-level kiasu — the slang that makes your Mandarin sound homegrown.",
+  "emoji": "🗣️",
+  "color": "#9333ea",
+  "items": [
+    { "id": "toujia", "hanzi": "头家", "pinyin": "tóu jiā", "english": "boss (towkay)", "sg": true, "standard": { "hanzi": "老板", "pinyin": "lǎo bǎn" }, "note": "Hokkien \"towkay\" — the business owner.", "example": { "zh": "头家 今天 请 大家 吃饭。", "en": "The boss is treating everyone to a meal today." } },
+    { "id": "abingge", "hanzi": "阿兵哥", "pinyin": "ā bīng gē", "english": "soldier (army boy)", "sg": true, "example": { "zh": "阿兵哥 星期五 回家。", "en": "The army boys go home on Friday." } },
+    { "id": "jipo", "hanzi": "鸡婆", "pinyin": "jī pó", "english": "busybody (kaypoh)", "sg": true, "note": "From Hokkien \"kaypoh\".", "example": { "zh": "不 要 那么 鸡婆！", "en": "Don't be so kaypoh!" } },
+    { "id": "shangui", "hanzi": "山龟", "pinyin": "shān guī", "english": "country bumpkin (suaku)", "sg": true, "note": "Literally \"mountain tortoise\" — someone who hasn't seen the world.", "example": { "zh": "你 没 去 过 星耀樟宜？ 真 山龟！", "en": "You've never been to Jewel? So suaku!" } },
+    { "id": "amingalian", "hanzi": "阿明阿莲", "pinyin": "ā míng ā lián", "english": "Ah Beng and Ah Lian", "sg": true, "note": "The stereotypical flashy, loud guy and girl.", "example": { "zh": "他们 打扮 得 像 阿明阿莲。", "en": "They're dressed like Ah Beng and Ah Lian." } },
+    { "id": "daerlong", "hanzi": "大耳窿", "pinyin": "dà ěr lóng", "english": "loan shark (ah long)", "sg": true, "note": "Also just 阿窿 (ā lóng).", "example": { "zh": "千万 不 要 跟 大耳窿 借钱！", "en": "Never borrow from a loan shark!" } },
+
+    { "id": "gaodian", "hanzi": "搞掂", "pinyin": "gǎo diān", "english": "to get it done (gao dim)", "sg": true, "standard": { "hanzi": "搞定", "pinyin": "gǎo dìng" }, "note": "From Cantonese.", "example": { "zh": "放心， 我 明天 搞掂。", "en": "Don't worry, I'll get it done tomorrow." } },
+    { "id": "chishe", "hanzi": "吃蛇", "pinyin": "chī shé", "english": "to skive off (eat snake)", "sg": true, "note": "Classic NS and office slang.", "example": { "zh": "他 又 在 吃蛇 了。", "en": "He's skiving again." } },
+    { "id": "chifeng", "hanzi": "吃风", "pinyin": "chī fēng", "english": "to go on holiday (overseas)", "sg": true, "note": "Literally \"eat wind\".", "example": { "zh": "年底 我们 去 日本 吃风。", "en": "We're holidaying in Japan at the end of the year." } },
+    { "id": "paituo", "hanzi": "拍拖", "pinyin": "pāi tuō", "english": "to date (paktor)", "sg": true, "example": { "zh": "他们 拍拖 三 年 了。", "en": "They've been dating for three years." } },
+    { "id": "zuogong", "hanzi": "做工", "pinyin": "zuò gōng", "english": "to work", "sg": true, "example": { "zh": "你 在 哪里 做工？", "en": "Where do you work?" } },
+    { "id": "longbang", "hanzi": "隆帮", "pinyin": "lóng bāng", "english": "to hitch a ride (tumpang)", "sg": true, "note": "From Malay \"tumpang\".", "example": { "zh": "我 可以 隆帮 你 的 车 吗？", "en": "Can I hitch a ride in your car?" } },
+
+    { "id": "yijibang", "hanzi": "一级棒", "pinyin": "yī jí bàng", "english": "excellent / first-class", "sg": true, "example": { "zh": "你 的 华语 一级棒！", "en": "Your Mandarin is first-class!" } },
+    { "id": "haoming", "hanzi": "好命", "pinyin": "hǎo mìng", "english": "to have it good (lucky in life)", "sg": true, "example": { "zh": "他 真 好命， 不 用 加班。", "en": "He's so lucky — no overtime." } },
+    { "id": "wulong", "hanzi": "乌龙", "pinyin": "wū lóng", "english": "blunder / blur (a mix-up)", "sg": true, "note": "Like the tea, but here it means a muddle.", "example": { "zh": "我 搞 乌龙 了， 去 错 地方。", "en": "I messed up and went to the wrong place." } },
+    { "id": "chousuan", "hanzi": "臭酸", "pinyin": "chòu suān", "english": "gone sour / spoiled", "sg": true, "example": { "zh": "这个 饭 臭酸 了， 不 要 吃。", "en": "This rice has gone sour — don't eat it." } },
+    { "id": "pianhua", "hanzi": "骗话", "pinyin": "piàn huà", "english": "lies / tall tales", "sg": true, "example": { "zh": "不 要 听 他 的 骗话。", "en": "Don't listen to his lies." } },
+    { "id": "gangan", "hanzi": "敢敢", "pinyin": "gǎn gǎn", "english": "boldly / just go for it", "sg": true, "example": { "zh": "敢敢 去 问 她！", "en": "Just go and ask her!" } },
+
+    { "id": "baxian", "hanzi": "巴仙", "pinyin": "bā xiān", "english": "percent", "sg": true, "standard": { "hanzi": "百分之", "pinyin": "bǎi fēn zhī" }, "note": "A sound-loan from English \"percent\". Note the order: 二十巴仙 = 20%.", "example": { "zh": "今天 打折 二十 巴仙。", "en": "20 percent off today." } },
+    { "id": "dadi", "hanzi": "打底", "pinyin": "dǎ dǐ", "english": "at least", "sg": true, "example": { "zh": "打底 要 等 一个 小时。", "en": "We'll have to wait an hour at least." } },
+    { "id": "yiciguo", "hanzi": "一次过", "pinyin": "yī cì guò", "english": "all at once / one-off", "sg": true, "example": { "zh": "我 一次过 付钱。", "en": "I'll pay it all at once." } },
+    { "id": "yilulai", "hanzi": "一路来", "pinyin": "yī lù lái", "english": "always / all along", "sg": true, "example": { "zh": "他 一路来 都 很 准时。", "en": "He's always been punctual." } },
+    { "id": "touwei", "hanzi": "头尾", "pinyin": "tóu wěi", "english": "start to finish / altogether", "sg": true, "example": { "zh": "这 个 假期 头尾 五天。", "en": "This holiday is five days from start to finish." } },
+    { "id": "wushiduiwushi", "hanzi": "五十对五十", "pinyin": "wǔ shí duì wǔ shí", "english": "fifty-fifty", "sg": true, "example": { "zh": "机会 是 五十对五十。", "en": "The chances are fifty-fifty." } },
+
+    { "id": "darizi", "hanzi": "大日子", "pinyin": "dà rì zi", "english": "big day / special occasion", "sg": true, "example": { "zh": "今天 是 你 的 大日子！", "en": "Today's your big day!" } },
+    { "id": "hongsezhadan", "hanzi": "红色炸弹", "pinyin": "hóng sè zhà dàn", "english": "wedding invitation", "sg": true, "note": "A \"red bomb\" — because it means you'll be giving a big red packet.", "example": { "zh": "这 个 月 收到 三 个 红色炸弹。", "en": "Got three wedding invitations this month." } },
+    { "id": "yinsheng", "hanzi": "饮胜", "pinyin": "yǐn shèng", "english": "cheers! (yum seng)", "sg": true, "note": "Shouted together at wedding dinners — hold the \"seng\" as long as you can.", "example": { "zh": "大家 一起 饮胜！", "en": "Everyone, yum seng!" } },
+    { "id": "shaokaohui", "hanzi": "烧烤会", "pinyin": "shāo kǎo huì", "english": "barbecue (party)", "sg": true, "example": { "zh": "周末 在 公寓 有 烧烤会。", "en": "There's a barbecue at the condo this weekend." } },
+    { "id": "tiaozaoshichang", "hanzi": "跳蚤市场", "pinyin": "tiào zǎo shì chǎng", "english": "flea market", "sg": true, "example": { "zh": "我 在 跳蚤市场 买 了 旧 书。", "en": "I bought old books at the flea market." } },
+    { "id": "ganbangjingshen", "hanzi": "甘榜精神", "pinyin": "gān bǎng jīng shén", "english": "kampung spirit", "sg": true, "note": "The neighbourly, help-each-other spirit of old village life.", "example": { "zh": "邻居 互相 帮忙， 这 就是 甘榜精神。", "en": "Neighbours helping each other — that's kampung spirit." } },
+
+    { "id": "ganbang", "hanzi": "甘榜", "pinyin": "gān bǎng", "english": "village (kampung)", "sg": true, "note": "From Malay \"kampung\".", "example": { "zh": "爷爷 小时候 住 在 甘榜。", "en": "Grandpa lived in a kampung as a child." } },
+    { "id": "hongmao", "hanzi": "红毛", "pinyin": "hóng máo", "english": "Westerner (ang mo)", "sg": true, "note": "Literally \"red hair\". Casual — use with care.", "example": { "zh": "那个 红毛 会 说 华语！", "en": "That ang mo can speak Mandarin!" } },
+    { "id": "tieshi", "hanzi": "贴士", "pinyin": "tiē shì", "english": "tips (advice)", "sg": true, "note": "A sound-loan from English \"tips\".", "example": { "zh": "给 你 一些 学 华语 的 贴士。", "en": "Here are some tips for learning Mandarin." } },
+    { "id": "xiapo", "hanzi": "下坡", "pinyin": "xià pō", "english": "to go to town (downtown)", "sg": true, "note": "Old Singapore Chinese \"went down\" to the town centre, 坡底.", "example": { "zh": "我们 下坡 买 东西。", "en": "We're going to town to shop." } },
+    { "id": "fangdian", "hanzi": "放电", "pinyin": "fàng diàn", "english": "to make eyes at someone (flirt)", "sg": true, "note": "Literally \"discharge electricity\".", "example": { "zh": "她 一直 对 你 放电！", "en": "She keeps making eyes at you!" } },
+    { "id": "chibingqilin", "hanzi": "吃冰淇淋", "pinyin": "chī bīng qí lín", "english": "to check out eye candy", "sg": true, "note": "Literally \"eat ice cream\".", "example": { "zh": "他 去 海边 吃冰淇淋。", "en": "He went to the beach to check out the eye candy." } }
+  ],
+  "lessons": [
+    { "id": "u13-l1", "title": "Characters", "items": ["toujia", "abingge", "jipo", "shangui", "amingalian", "daerlong"] },
+    { "id": "u13-l2", "title": "Doing things", "items": ["gaodian", "chishe", "chifeng", "paituo", "zuogong", "longbang"] },
+    { "id": "u13-l3", "title": "Good & bad", "items": ["yijibang", "haoming", "wulong", "chousuan", "pianhua", "gangan"] },
+    { "id": "u13-l4", "title": "How much, how long", "items": ["baxian", "dadi", "yiciguo", "yilulai", "touwei", "wushiduiwushi"] },
+    { "id": "u13-l5", "title": "Occasions", "items": ["darizi", "hongsezhadan", "yinsheng", "shaokaohui", "tiaozaoshichang", "ganbangjingshen"] },
+    { "id": "u13-l6", "title": "Old-school words", "items": ["ganbang", "hongmao", "tieshi", "xiapo", "fangdian", "chibingqilin"] }
+  ]
+}

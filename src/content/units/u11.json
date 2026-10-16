@@ -1,0 +1,59 @@
+{
+  "id": "u11",
+  "title": "Makan Like a Local",
+  "titleZh": "本地美食",
+  "description": "Teh-O, bak chor mee, kueh and cendol — order the whole hawker menu by name.",
+  "emoji": "🍢",
+  "color": "#b45309",
+  "items": [
+    { "id": "chawu", "hanzi": "茶乌", "pinyin": "chá wū", "english": "teh-O (tea with sugar, no milk)", "sg": true, "note": "Same 乌 as in 咖啡乌: no milk. Teh-O kosong has no sugar either.", "example": { "zh": "老板， 一杯 茶乌 冰。", "en": "Boss, one iced teh-O." } },
+    { "id": "lacha", "hanzi": "拉茶", "pinyin": "lā chá", "english": "teh tarik (pulled tea)", "sg": true, "note": "The tea is \"pulled\" between two cups until it's frothy.", "example": { "zh": "那 个 摊位 的 拉茶 最 好喝。", "en": "That stall's teh tarik is the best." } },
+    { "id": "meilukonglong", "hanzi": "美禄恐龙", "pinyin": "měi lù kǒng lóng", "english": "Milo dinosaur", "sg": true, "note": "Iced Milo buried under a mountain of Milo powder.", "example": { "zh": "我 要 一杯 美禄恐龙！", "en": "I want a Milo dinosaur!" } },
+    { "id": "meiguilujianai", "hanzi": "玫瑰露加奶", "pinyin": "méi guī lù jiā nǎi", "english": "bandung (rose syrup with milk)", "sg": true, "example": { "zh": "玫瑰露加奶 是 粉红色 的。", "en": "Bandung is pink." } },
+    { "id": "yuanyang", "hanzi": "鸳鸯", "pinyin": "yuān yāng", "english": "yuanyang (coffee mixed with tea)", "sg": true, "note": "Named after mandarin ducks, which always come in pairs.", "example": { "zh": "咖啡 加 茶， 就 是 鸳鸯。", "en": "Coffee plus tea is yuanyang." } },
+    { "id": "douhuashui", "hanzi": "豆花水", "pinyin": "dòu huā shuǐ", "english": "soya bean milk", "sg": true, "standard": { "hanzi": "豆浆", "pinyin": "dòu jiāng" }, "example": { "zh": "天气 热， 喝 一杯 冰 豆花水。", "en": "It's hot — have a cold soya bean milk." } },
+
+    { "id": "roucuomian", "hanzi": "肉脞面", "pinyin": "ròu cuǒ miàn", "english": "bak chor mee (minced meat noodles)", "sg": true, "example": { "zh": "肉脞面 要 干 的 还是 汤 的？", "en": "Bak chor mee — dry or soup?" } },
+    { "id": "mianbo", "hanzi": "面薄", "pinyin": "miàn bó", "english": "mee pok (flat egg noodles)", "sg": true, "example": { "zh": "我 要 面薄， 多 辣椒。", "en": "Mee pok for me, extra chilli." } },
+    { "id": "fujianchaoxiamian", "hanzi": "福建炒虾面", "pinyin": "fú jiàn chǎo xiā miàn", "english": "Hokkien prawn mee", "sg": true, "example": { "zh": "这 盘 福建炒虾面 很 香。", "en": "This plate of Hokkien mee smells amazing." } },
+    { "id": "niangdoufu", "hanzi": "酿豆腐", "pinyin": "niàng dòu fu", "english": "yong tau foo", "sg": true, "note": "Pick your pieces — tofu, fishball, vegetables — and the stall cooks them for you.", "example": { "zh": "酿豆腐 你 要 几 样？", "en": "How many pieces of yong tau foo do you want?" } },
+    { "id": "mixian", "hanzi": "米暹", "pinyin": "mǐ xiān", "english": "mee siam", "sg": true, "example": { "zh": "妈妈 早餐 喜欢 吃 米暹。", "en": "Mum likes mee siam for breakfast." } },
+    { "id": "yindujianbing", "hanzi": "印度煎饼", "pinyin": "yìn dù jiān bǐng", "english": "roti prata", "sg": true, "note": "Literally \"Indian fried pancake\".", "example": { "zh": "我们 去 吃 印度煎饼 当 宵夜。", "en": "Let's have roti prata for supper." } },
+
+    { "id": "baobing", "hanzi": "薄饼", "pinyin": "báo bǐng", "english": "popiah (fresh spring roll)", "sg": true, "example": { "zh": "外婆 自己 包 薄饼。", "en": "Grandma wraps her own popiah." } },
+    { "id": "galibo", "hanzi": "咖喱卜", "pinyin": "gā lí bo", "english": "curry puff", "sg": true, "note": "From Hokkien \"ka li pok\".", "example": { "zh": "下午 茶 吃 咖喱卜。", "en": "Curry puffs for afternoon tea." } },
+    { "id": "shuiguo", "hanzi": "水粿", "pinyin": "shuǐ guǒ", "english": "chwee kueh (steamed rice cakes)", "sg": true, "note": "Topped with 菜脯 (cài pú), fried preserved radish.", "example": { "zh": "早餐 来 四个 水粿。", "en": "Four chwee kueh for breakfast." } },
+    { "id": "zhuchangfen", "hanzi": "猪肠粉", "pinyin": "zhū cháng fěn", "english": "chee cheong fun (rice noodle rolls)", "sg": true, "example": { "zh": "猪肠粉 要 加 甜酱 吗？", "en": "Want sweet sauce on your chee cheong fun?" } },
+    { "id": "hongguiguo", "hanzi": "红龟粿", "pinyin": "hóng guī guǒ", "english": "ang ku kueh (red tortoise cake)", "sg": true, "note": "Tortoise-shaped for long life — given out at a baby's full-month celebration.", "example": { "zh": "满月 要 送 红龟粿。", "en": "Ang ku kueh are given out at a baby's full month." } },
+    { "id": "wuda", "hanzi": "乌达", "pinyin": "wū dá", "english": "otah (spiced fish cake)", "sg": true, "note": "From Malay \"otak-otak\".", "example": { "zh": "乌达 用 叶子 包 着 烤。", "en": "Otah is grilled wrapped in leaves." } },
+
+    { "id": "jianglv", "hanzi": "浆绿", "pinyin": "jiāng lǜ", "english": "cendol", "sg": true, "example": { "zh": "浆绿 有 椰浆 和 黑糖。", "en": "Cendol has coconut milk and gula melaka." } },
+    { "id": "qingtang", "hanzi": "清汤", "pinyin": "qīng tāng", "english": "cheng tng (clear dessert soup)", "sg": true, "example": { "zh": "清汤 可以 冷 吃 也 可以 热 吃。", "en": "Cheng tng can be eaten cold or hot." } },
+    { "id": "wentouxue", "hanzi": "文头雪", "pinyin": "wén tóu xuě", "english": "ice jelly", "sg": true, "example": { "zh": "文头雪 很 解渴。", "en": "Ice jelly really quenches your thirst." } },
+    { "id": "liulian", "hanzi": "榴梿", "pinyin": "liú lián", "english": "durian", "sg": true, "standard": { "hanzi": "榴莲", "pinyin": "liú lián" }, "note": "Singapore writes it with 梿. And no, you can't bring one on the MRT.", "example": { "zh": "地铁 上 不 可以 带 榴梿。", "en": "You can't bring durians on the MRT." } },
+    { "id": "hongmaodan", "hanzi": "红毛丹", "pinyin": "hóng máo dān", "english": "rambutan", "sg": true, "note": "Literally \"red hairy fruit\".", "example": { "zh": "红毛丹 外面 有 很 多 毛。", "en": "Rambutans are very hairy on the outside." } },
+    { "id": "shanzhu", "hanzi": "山竹", "pinyin": "shān zhú", "english": "mangosteen", "sg": true, "note": "Folk wisdom: eat it after durian to \"cool\" your body down.", "example": { "zh": "吃 完 榴梿 要 吃 山竹。", "en": "Eat mangosteen after durian." } },
+
+    { "id": "sanba", "hanzi": "参峇", "pinyin": "sān bā", "english": "sambal (chilli paste)", "sg": true, "example": { "zh": "这个 参峇 很 辣。", "en": "This sambal is really spicy." } },
+    { "id": "jiangyuzai", "hanzi": "江鱼仔", "pinyin": "jiāng yú zǎi", "english": "ikan bilis (anchovies)", "sg": true, "example": { "zh": "椰浆饭 有 江鱼仔 和 花生。", "en": "Nasi lemak comes with ikan bilis and peanuts." } },
+    { "id": "yacha", "hanzi": "亚喳", "pinyin": "yà chā", "english": "achar (pickled vegetables)", "sg": true, "example": { "zh": "亚喳 酸酸 甜甜 的。", "en": "Achar is sweet and sour." } },
+    { "id": "zacai", "hanzi": "杂菜", "pinyin": "zá cài", "english": "chap chye (braised mixed vegetables)", "sg": true, "example": { "zh": "过年 奶奶 会 煮 杂菜。", "en": "Grandma cooks chap chye at Chinese New Year." } },
+    { "id": "sancengrou", "hanzi": "三层肉", "pinyin": "sān céng ròu", "english": "pork belly", "sg": true, "standard": { "hanzi": "五花肉", "pinyin": "wǔ huā ròu" }, "note": "Literally \"three-layer meat\".", "example": { "zh": "三层肉 太 肥 了。", "en": "Pork belly is too fatty." } },
+    { "id": "gaolicai", "hanzi": "高丽菜", "pinyin": "gāo lì cài", "english": "cabbage", "sg": true, "standard": { "hanzi": "卷心菜", "pinyin": "juǎn xīn cài" }, "example": { "zh": "我 要 一 份 炒 高丽菜。", "en": "One portion of fried cabbage, please." } },
+
+    { "id": "shushizhongxin", "hanzi": "熟食中心", "pinyin": "shú shí zhōng xīn", "english": "hawker centre (official term)", "sg": true, "note": "What you see on signs and in the news. 小贩中心 means the same thing.", "example": { "zh": "熟食中心 星期一 关门 清洗。", "en": "The hawker centre closes on Monday for cleaning." } },
+    { "id": "shige", "hanzi": "食阁", "pinyin": "shí gé", "english": "food court", "sg": true, "example": { "zh": "商场 楼上 有 一个 食阁。", "en": "There's a food court upstairs in the mall." } },
+    { "id": "kuaishumian", "hanzi": "快熟面", "pinyin": "kuài shú miàn", "english": "instant noodles", "sg": true, "standard": { "hanzi": "方便面", "pinyin": "fāng biàn miàn" }, "example": { "zh": "宵夜 只 有 快熟面。", "en": "There's only instant noodles for supper." } },
+    { "id": "zhuguli", "hanzi": "朱古力", "pinyin": "zhū gǔ lì", "english": "chocolate", "sg": true, "standard": { "hanzi": "巧克力", "pinyin": "qiǎo kè lì" }, "example": { "zh": "小孩 都 喜欢 吃 朱古力。", "en": "Kids all love chocolate." } },
+    { "id": "tangchi", "hanzi": "汤匙", "pinyin": "tāng chí", "english": "spoon", "sg": true, "note": "Singaporeans say tāng chí; elsewhere it's often 勺子 (sháo zi).", "example": { "zh": "老板， 可以 给 我 汤匙 吗？", "en": "Boss, can I have a spoon?" } },
+    { "id": "sujiaodai", "hanzi": "塑胶袋", "pinyin": "sù jiāo dài", "english": "plastic bag", "sg": true, "standard": { "hanzi": "塑料袋", "pinyin": "sù liào dài" }, "example": { "zh": "打包 要 塑胶袋 吗？", "en": "Need a plastic bag for the takeaway?" } }
+  ],
+  "lessons": [
+    { "id": "u11-l1", "title": "Drinks stall", "items": ["chawu", "lacha", "meilukonglong", "meiguilujianai", "yuanyang", "douhuashui"] },
+    { "id": "u11-l2", "title": "Noodles & mains", "items": ["roucuomian", "mianbo", "fujianchaoxiamian", "niangdoufu", "mixian", "yindujianbing"] },
+    { "id": "u11-l3", "title": "Kueh & snacks", "items": ["baobing", "galibo", "shuiguo", "zhuchangfen", "hongguiguo", "wuda"] },
+    { "id": "u11-l4", "title": "Desserts & fruit", "items": ["jianglv", "qingtang", "wentouxue", "liulian", "hongmaodan", "shanzhu"] },
+    { "id": "u11-l5", "title": "On the side", "items": ["sanba", "jiangyuzai", "yacha", "zacai", "sancengrou", "gaolicai"] },
+    { "id": "u11-l6", "title": "Where to eat", "items": ["shushizhongxin", "shige", "kuaishumian", "zhuguli", "tangchi", "sujiaodai"] }
+  ]
+}

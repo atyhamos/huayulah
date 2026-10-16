@@ -11,8 +11,12 @@ import u07 from './units/u07.json'
 import u08 from './units/u08.json'
 import u09 from './units/u09.json'
 import u10 from './units/u10.json'
+import u11 from './units/u11.json'
+import u12 from './units/u12.json'
+import u13 from './units/u13.json'
+import u14 from './units/u14.json'
 
-export const rawUnits = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10] as UnitInput[]
+export const rawUnits = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10, u11, u12, u13, u14] as UnitInput[]
 export const content = buildContent(rawUnits)
 
 export const { units, items, lessons, lessonOrder } = content

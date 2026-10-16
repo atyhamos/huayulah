@@ -30,6 +30,10 @@ const UNIT_BADGES: Record<string, [string, string]> = {
   u08: ['Ah Boy Graduate', '🎓'],
   u09: ['Festive Spirit', '🧧'],
   u10: ['Steady Lah', '😎'],
+  u11: ['Makan Master', '🍢'],
+  u12: ['Estate Expert', '🏘️'],
+  u13: ['Steady Pom Pi Pi', '🗣️'],
+  u14: ['Island Explorer', '🦁'],
 }
 
 const STATIC: Achievement[] = [

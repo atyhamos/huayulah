@@ -100,7 +100,7 @@ firestore.rules, firebase.json, .github/workflows/deploy.yml (Firebase Hosting a
 
 ## 6. Build order
 
-Status: all six steps are built and tested (unit, emulator and end-to-end tests). Later additions: stories, listening and "which would a Singaporean say?" exercises, weak-word practice, daily quests, writing practice, dark mode.
+Status: all six steps are built and tested (unit, emulator and end-to-end tests). Later additions: units 11–14 built from the Singaporean Mandarin Database term list (504 items in total, 175 of them checked against SMD entries), stories, listening and "which would a Singaporean say?" exercises, weak-word practice, daily quests, writing practice, dark mode.
 
 1. **Scaffold:** content schema and validator, units 1–3, lesson player with exercise types 1–7, TTS, guest persistence, learn path. You can use it locally from here.
 2. **SRS:** Review tab, word bank, word detail with stroke order, pinyin fade.
