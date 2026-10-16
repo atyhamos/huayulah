@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { charInfo, families, partName } from '../content/chars'
+import { charInfo, families, partMnemonic, partName } from '../content/chars'
 import { FamilySheet, useCharStrength } from './CharParts'
 
 /** Course characters grouped into families by their shared part. */
 export function CharactersView() {
   const known = useCharStrength()
   const [open, setOpen] = useState<string | null>(null)
-  const fams = [...families()]
+  // only parts that carry a meaning (they have a mnemonic); strokes like 一 or 丿 aren't useful families
+  const fams = [...families()].filter(([part]) => partMnemonic(part))
   const total = new Set(fams.flatMap(([, cs]) => cs))
   const seen = [...total].filter((c) => known(c) !== null).length
   return (

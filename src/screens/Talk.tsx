@@ -262,7 +262,7 @@ export function TalkScreen() {
               <input
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
-                placeholder="Say or type your reply (中文, pinyin or English)"
+                placeholder="Reply in 中文, pinyin or English"
                 className="min-w-0 flex-1 rounded-full bg-surface px-4 py-3 outline-none ring-2 ring-inset ring-slate-200 focus:ring-sky-400"
                 data-testid="talk-input"
               />

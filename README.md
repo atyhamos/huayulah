@@ -26,6 +26,11 @@ See [SPEC.md](SPEC.md) for the full product spec.
 | 👫 Friends | Friend codes / invite links and a weekly XP leaderboard |
 | 📚 Word bank | Search by 汉字 / pinyin / English, strength meters, stroke-order animations (`hanzi-writer`) |
 | 💪 Weak words | A practice lesson built from the words you're most likely to have forgotten |
+| 🧱 Building blocks | Every character broken into its parts (饭 = 饣 food + 反 fǎn for the sound), part families to explore, "what is this part about?" and stroke-tracing exercises in lessons |
+| 📷 Reader + My words | Paste Chinese text (offline) or snap a menu or sign (Claude, your key) to see pinyin and meanings; save any word to **My words** and study it like course words |
+| 🗣️ Shadowing & role-play | Repeat story lines and see which characters came through; chat in character (kopitiam auntie, taxi uncle…) with gentle corrections (Claude, your key) |
+| 🚄 Express train | Test out of a line you already know — 85% clears its stops and adds its words to your flashcards |
+| ⏰ Reminders | A repeating calendar event (.ics or Google Calendar) at your practice time |
 
 ## Look and feel
 
@@ -33,6 +38,13 @@ Local, not a clone: answer choices are ivory **mahjong tiles**, sentences are bu
 progress is a train running between stations, results come as a kopitiam **stamp card**, and the palette
 borrows from pandan, Peranakan tiles, kaya and chilli. Icons are hand-drawn SVGs in one style
 (`src/components/icons.tsx`); the otter is pure SVG + CSS animation (`OtterSvg.tsx`).
+
+## AI features (optional, bring your own key)
+
+Photo reading and role-play call Claude directly from the browser with the learner's **own** Claude API key
+(Settings → AI features). The key is stored in that browser only — never synced to Firestore — and usage is
+billed to the key's owner by Anthropic (roughly 1–3¢ per photo or chat turn). Everything else works without a
+key, offline. The Claude client (`src/lib/ai.ts`) and zod load only when an AI screen opens.
 
 ## Quick start (local)
 
@@ -86,6 +98,12 @@ The workflow in `.github/workflows/ci.yml` tests every push and deploys `main` t
 If a deploy fails, the job's annotations name the service account and the project its key came from.
 
 Firestore rules changes still need `npx firebase-tools deploy --only firestore:rules`.
+
+## Credits
+
+Character decompositions and etymology hints come from [Make Me a Hanzi](https://github.com/skishore/makemeahanzi)
+(Arphic Public License); stroke data from `hanzi-writer-data` (same source). Regenerate the character data with
+`tsx scripts/gen-chars.ts path/to/makemeahanzi/dictionary.txt` after adding new characters.
 
 ## Adding / editing content
 

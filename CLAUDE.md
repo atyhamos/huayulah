@@ -16,6 +16,11 @@ Gamified PWA for learning Singaporean Mandarin. React + Vite + TS + Tailwind v4,
 - `src/data/{localRepo,firestoreRepo}.ts` — persistence; Firestore: `users/{uid}` + `users/{uid}/cards/*`.
 - `src/lib/` — srs, exercises (lesson generator), answer (speech scoring), pinyin (+ lazy `pinyinEngine`), streak, xp, quests, achievements.
 - `src/env.ts` — `IS_ARTIFACT` switches for the artifact build.
+- `src/content/chars.ts` + `chars.generated.json` (from `scripts/gen-chars.ts`, Make Me a Hanzi) + `components.json` (hand-named parts; a mnemonic marks a meaning-bearing part) — building blocks and part families.
+- `src/content/custom.ts` — My words: learner-added items live in `AppState.customItems` and are mirrored into `content.items` (unit id `mine`) by a store subscription, so cards/word pages/lessons treat them like course words.
+- `src/content/roleplay.ts` — one role-play scenario per unit.
+- `src/lib/ai.ts` — optional Claude features on the learner's own key (localStorage only, never synced). `askJson()` = structured output, `claude-opus-5-5`, effort low, `fallbacks: "default"`; check `stop_reason` before parsing. `src/lib/reader.ts` builds on it (photo/text reading + offline segmentation).
+- Virtual lessons in `Lesson.tsx`: `weak`, `mine` (My words), `express-uNN` (placement test).
 
 ## Conventions
 - Item pinyin: tone marks, one syllable per character, space-separated (validator enforces).
@@ -25,3 +30,5 @@ Gamified PWA for learning Singaporean Mandarin. React + Vite + TS + Tailwind v4,
 - UI kit: `src/components/ui.tsx` (Button, Tile, KopiCup, TrainTrack, Medal, Stamp, Avatar, BackButton…), icons via `<Icon name=…>` from `components/icons.tsx` (24×24, 1.8 stroke — keep new icons in that style), mascot `<Otter>` / `<OtterSvg>`. No emoji in the UI.
 - Exercise answer choices: Chinese → `Tile` (mahjong), English → `OptionRow` (`exercises/parts.tsx`).
 - No `alert`/`confirm` — use toasts or inline confirmation (the artifact host blocks dialogs).
+- e2e never calls the real Claude API: mock `https://api.anthropic.com/**` with `page.route` (answer the CORS preflight too). Fake speech recognition with an init script (see `e2e/speaking.spec.ts`).
+- AI screens (Reader, Talk) are lazy routes so zod + the SDK stay out of the main bundle; hide AI features when `!aiSupported` (artifact build).

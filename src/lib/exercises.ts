@@ -1,5 +1,5 @@
 import type { Item } from '../content/schema'
-import { charInfo, componentName, familyOf, meaningParts, shownParts } from '../content/chars'
+import { charInfo, componentName, familyOf, meaningParts, partMnemonic, shownParts } from '../content/chars'
 import { hanChars, looseKey, setTone, syllables, toneOf } from './pinyin'
 import { sample, shuffle, type Rng } from './random'
 
@@ -167,10 +167,14 @@ function parts(it: Item, rng: Rng): Exercise | null {
   for (const char of shuffle(hanChars(it.hanzi), rng)) {
     const info = charInfo(char)
     if (!info) continue
-    const part = info.r
+    // quiz the part that carries the meaning (the semantic part, else the radical), if it's one we can name
+    const part = info.e?.s && partMnemonic(info.e.s) ? info.e.s : info.r
     const answer = componentName(part)
-    if (!answer || !shownParts(char).includes(part)) continue
-    const peers = familyOf(part).filter((c) => c !== char).slice(0, 2)
+    if (!answer || !partMnemonic(part) || !shownParts(char).includes(part)) continue
+    const carries = (c: string) => charInfo(c)?.r === part || charInfo(c)?.e?.s === part
+    const peers = familyOf(part)
+      .filter((c) => c !== char && carries(c))
+      .slice(0, 2)
     if (!peers.length) continue
     const others = shuffle(
       [...new Set(meaningParts().map((p) => componentName(p)!).filter((n) => n !== answer))],
