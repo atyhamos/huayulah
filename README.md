@@ -78,13 +78,12 @@ npm run e2e:cloud         # sign-in → merge → second device → friends, on 
 
 ### Auto-deploy from GitHub (optional)
 
-The workflow in `.github/workflows/ci.yml` tests every push and deploys `main` to Firebase Hosting once you add:
-
-- **Repository variables** (Settings → Secrets and variables → Actions → Variables): `VITE_FIREBASE_API_KEY`,
-  `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`,
-  `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`
-- **Repository secret** `FIREBASE_SERVICE_ACCOUNT` — easiest way: run `npx firebase-tools init hosting:github`,
-  which creates the service account and secret for you.
+The workflow in `.github/workflows/ci.yml` tests every push and deploys `main` to Firebase Hosting
+(https://huayu-lah.web.app). The web config comes from `.env.production`; the only thing to add is the
+**repository secret** `FIREBASE_SERVICE_ACCOUNT`, a JSON key for a service account that lives **in the
+`huayu-lah` project itself** with the roles *Firebase Hosting Admin* and *API Keys Viewer*
+(or run `npx firebase-tools init hosting:github`, which creates both for you).
+If a deploy fails, the job's annotations name the service account and the project its key came from.
 
 Firestore rules changes still need `npx firebase-tools deploy --only firestore:rules`.
 
