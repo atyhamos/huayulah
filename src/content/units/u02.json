@@ -4,7 +4,7 @@
   "titleZh": "数字、钱和时间",
   "description": "Prices at the stall, bus timings and dates — read them without guessing.",
   "emoji": "💰",
-  "color": "#0ea5e9",
+  "color": "#cf4b3a",
   "items": [
     { "id": "yi", "hanzi": "一", "pinyin": "yī", "english": "one", "example": { "zh": "我 要 一个。", "en": "I want one." }, "note": "Tone changes with what follows: 一个 (yí gè), 一杯 (yì bēi). Alone it's yī." },
     { "id": "er", "hanzi": "二", "pinyin": "èr", "english": "two (the number)", "example": { "zh": "我 住 二楼。", "en": "I live on the 2nd floor." } },

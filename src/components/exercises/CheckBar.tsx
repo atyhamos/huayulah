@@ -15,7 +15,7 @@ export function CheckBar({ disabled, onCheck, label = 'Check', extra }: { disabl
     return () => window.removeEventListener('keydown', h)
   }, [disabled, onCheck])
   return createPortal(
-    <div className="safe-bottom fixed inset-x-0 bottom-0 border-t-2 border-slate-100 bg-surface px-4 pt-3">
+    <div className="safe-bottom fixed inset-x-0 bottom-0 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6">
       <div className="mx-auto flex max-w-xl items-center gap-3">
         {extra}
         <Button className="flex-1" disabled={disabled} onClick={onCheck} data-testid="check">

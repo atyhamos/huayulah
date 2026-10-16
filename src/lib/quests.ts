@@ -1,8 +1,9 @@
+import type { IconName } from '../components/icons'
 import type { AppState, DayLog } from '../data/types'
 
 export interface Quest {
   id: string
-  icon: string
+  icon: IconName
   label: string
   target: number
   progress: number
@@ -16,9 +17,9 @@ export function dailyQuests(s: AppState, today: string): Quest[] {
   // quest XP excludes the bonus itself
   const xp = d.xp - (d.questBonus ? QUEST_BONUS_XP : 0)
   return [
-    { id: 'xp', icon: '⚡', label: `Earn ${s.settings.dailyGoal} XP`, target: s.settings.dailyGoal, progress: Math.min(xp, s.settings.dailyGoal) },
-    { id: 'lessons', icon: '📘', label: 'Finish 2 lessons or stories', target: 2, progress: Math.min(d.lessons, 2) },
-    { id: 'reviews', icon: '🃏', label: 'Review 10 flashcards', target: 10, progress: Math.min(d.reviews, 10) },
+    { id: 'xp', icon: 'coin', label: `Earn ${s.settings.dailyGoal} XP`, target: s.settings.dailyGoal, progress: Math.min(xp, s.settings.dailyGoal) },
+    { id: 'lessons', icon: 'train', label: 'Finish 2 lessons or stories', target: 2, progress: Math.min(d.lessons, 2) },
+    { id: 'reviews', icon: 'cards', label: 'Review 10 flashcards', target: 10, progress: Math.min(d.reviews, 10) },
   ]
 }
 

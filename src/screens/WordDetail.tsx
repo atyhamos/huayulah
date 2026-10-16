@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { content, SMD_BASE } from '../content'
 import { cardId } from '../data/types'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
-import { Card, Icon, SgBadge, StrengthBars } from '../components/ui'
+import { Icon } from '../components/icons'
+import { BackButton, Card, SgBadge, StrengthBars } from '../components/ui'
 import { hanChars } from '../lib/pinyin'
 import { formatInterval, retrievability, strength } from '../lib/srs'
 import { IS_ARTIFACT } from '../env'
@@ -12,7 +13,6 @@ import { useApp } from '../store/app'
 
 export function WordDetailScreen() {
   const { itemId = '' } = useParams()
-  const nav = useNavigate()
   const it = content.items.get(itemId)
   const cards = useApp((st) => st.s.cards)
   const [writing, setWriting] = useState(false)
@@ -24,13 +24,15 @@ export function WordDetailScreen() {
 
   return (
     <div>
-      <button type="button" onClick={() => nav(-1)} className="mb-4 flex items-center gap-1 font-bold text-slate-400">
-        {Icon.back('h-5 w-5')} Back
-      </button>
+      <div className="mb-2">
+        <BackButton />
+      </div>
       <div className="mb-6 flex flex-col items-center gap-3 text-center">
-        <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin className="text-6xl" />
+        <div className="tile px-7 pb-4 pt-3">
+          <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin className="text-6xl" />
+        </div>
+        <p className="font-display text-2xl font-extrabold">{it.english}</p>
         <AudioButton text={it.hanzi} />
-        <p className="text-2xl font-bold">{it.english}</p>
         <div className="flex items-center gap-2">
           {it.sg && <SgBadge />}
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold capitalize text-slate-500">{it.type}</span>
@@ -39,17 +41,22 @@ export function WordDetailScreen() {
 
       {it.standard && (
         <Card className="mb-4">
-          <p className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">In China / elsewhere</p>
+          <p className="mb-1 font-display text-sm font-extrabold text-slate-500">In China / elsewhere</p>
           <div className="flex items-center gap-3">
             <Hanzi text={it.standard.hanzi} pinyin={it.standard.pinyin} showPinyin className="text-2xl" />
             <AudioButton text={it.standard.hanzi} size="sm" slow={false} />
           </div>
         </Card>
       )}
-      {it.note && <p className="mb-4 rounded-2xl bg-amber-50 p-4 text-amber-900 dark:text-amber-200">💡 {it.note}</p>}
+      {it.note && (
+        <p className="mb-4 flex gap-2 rounded-3xl bg-amber-50 p-4 text-amber-900 dark:text-amber-200">
+          <Icon name="bulb" className="h-5 w-5 shrink-0 text-amber-500" />
+          {it.note}
+        </p>
+      )}
       {it.example && (
         <Card className="mb-4">
-          <p className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">Example</p>
+          <p className="mb-1 font-display text-sm font-extrabold text-slate-500">Example</p>
           <div className="flex items-start justify-between gap-2">
             <Hanzi text={it.example.zh.replace(/ /g, '')} showPinyin className="text-2xl leading-loose" />
             <AudioButton text={it.example.zh.replace(/ /g, '')} size="sm" />
@@ -60,11 +67,11 @@ export function WordDetailScreen() {
 
       <Card className="mb-4">
         <div className="mb-2 flex items-center justify-between">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p className="font-display text-sm font-extrabold text-slate-500">
             {writing ? 'Write it — trace each stroke' : 'Stroke order · tap to replay'}
           </p>
-          <button type="button" className="text-sm font-bold text-sky-600" onClick={() => setWriting((w) => !w)} data-testid="toggle-writing">
-            {writing ? 'Watch' : '✍️ Practise writing'}
+          <button type="button" className="inline-flex items-center gap-1 text-sm font-bold text-sky-600" onClick={() => setWriting((w) => !w)} data-testid="toggle-writing">
+            {writing ? <><Icon name="play" className="h-4 w-4" /> Watch</> : <><Icon name="brush" className="h-4 w-4" /> Practise writing</>}
           </button>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -75,15 +82,21 @@ export function WordDetailScreen() {
       </Card>
 
       <Card className="mb-4 text-sm">
-        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Your memory</p>
+        <p className="mb-2 font-display text-sm font-extrabold text-slate-500">Your memory</p>
         {read ? (
           <div className="space-y-1 text-slate-600">
             <p className="flex items-center gap-2">
               Strength <StrengthBars value={strength(read)} />
             </p>
             <p>Recall chance now: {Math.round(retrievability(read) * 100)}%</p>
-            <p>📖 Read card due {read.due <= Date.now() ? 'now' : `in ${formatInterval(read.due - Date.now())}`}</p>
-            {sayCard && <p>🗣️ Say card due {sayCard.due <= Date.now() ? 'now' : `in ${formatInterval(sayCard.due - Date.now())}`}</p>}
+            <p className="flex items-center gap-1.5">
+              <Icon name="eye" className="h-4 w-4 text-sky-500" /> Read card due {read.due <= Date.now() ? 'now' : `in ${formatInterval(read.due - Date.now())}`}
+            </p>
+            {sayCard && (
+              <p className="flex items-center gap-1.5">
+                <Icon name="chat" className="h-4 w-4 text-rose-500" /> Say card due {sayCard.due <= Date.now() ? 'now' : `in ${formatInterval(sayCard.due - Date.now())}`}
+              </p>
+            )}
           </div>
         ) : (
           <p className="text-slate-500">
@@ -104,7 +117,7 @@ export function WordDetailScreen() {
       >
         {it.smd ? 'Read more in the Singaporean Mandarin Database ↗' : 'Browse the Singaporean Mandarin Database ↗'}
       </a>
-      {it.verify && <p className="mt-2 text-center text-xs text-slate-400">⚑ This entry is marked for a native-speaker double-check.</p>}
+      {it.verify && <p className="mt-2 text-center text-xs text-slate-400">This entry is marked for a native-speaker double-check.</p>}
     </div>
   )
 }

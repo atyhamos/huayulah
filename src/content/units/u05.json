@@ -4,7 +4,7 @@
   "titleZh": "家和组屋",
   "description": "Void decks, corridors, wet markets and the weather — heartland life.",
   "emoji": "🏢",
-  "color": "#0d9488",
+  "color": "#8d4ea3",
   "items": [
     {"id": "jia", "hanzi": "家", "pinyin": "jiā", "english": "home / family", "example": {"zh": "我 家 在 宏茂桥。", "en": "My home is in Ang Mo Kio."}},
     {"id": "zuwu", "hanzi": "组屋", "pinyin": "zǔ wū", "english": "HDB flat", "sg": true, "note": "Public housing built by the HDB — most Singaporeans live in one.", "example": {"zh": "我们 住 在 组屋。", "en": "We live in an HDB flat."}},

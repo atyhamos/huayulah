@@ -1,13 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { content, storyByUnit } from '../content'
-import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
+import { content, getItem, storyByUnit } from '../content'
 import type { Lesson, Unit } from '../content/schema'
+import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
+import { Icon, unitMeta } from '../components/icons'
+import { Otter, type OtterMood } from '../components/Otter'
+import { OtterSvg } from '../components/OtterSvg'
 import { DailyQuests } from '../components/Quests'
-import { Button } from '../components/ui'
+import { Button, KopiCup, StatChip } from '../components/ui'
+import { dayKey } from '../lib/dates'
+import { currentStreak } from '../lib/streak'
+import { levelInfo } from '../lib/xp'
 import { useApp } from '../store/app'
 
-const OFFSETS = [0, 44, 66, 44, 0, -44, -66, -44]
+function greeting(hour: number): { zh: string; en: string; mood: OtterMood } {
+  if (hour >= 23 || hour < 5) return { zh: '夜深了', en: "It's late!", mood: 'sleep' }
+  if (hour < 11) return { zh: '早安！', en: 'Good morning!', mood: 'wave' }
+  if (hour < 14) return { zh: '吃饱了吗？', en: 'Eaten yet?', mood: 'wave' }
+  if (hour < 18) return { zh: '下午好！', en: 'Good afternoon!', mood: 'wave' }
+  return { zh: '晚上好！', en: 'Good evening!', mood: 'wave' }
+}
 
 export function LearnScreen() {
   const s = useApp((st) => st.s)
@@ -15,175 +27,304 @@ export function LearnScreen() {
   const dueCount = due.review.length + due.fresh.length
   const next = nextLessonId(s, content)
   const [open, setOpen] = useState<string | null>(null)
-  const nextRef = useRef<HTMLDivElement>(null)
+  const nextRef = useRef<HTMLLIElement>(null)
+  const started = Object.keys(s.lessons).length > 0
 
   useEffect(() => {
-    nextRef.current?.scrollIntoView({ block: 'center' })
+    if (started) nextRef.current?.scrollIntoView({ block: 'center' })
+    // only on arrival
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div onClick={() => setOpen(null)}>
+      <TodayCard nextLessonId={next} />
+
       {dueCount > 0 && (
         <Link
           to="/review"
-          className="mb-6 flex items-center gap-3 rounded-2xl border-2 border-b-4 border-sky-200 bg-sky-50 p-4"
+          className="mt-4 flex items-center gap-3 rounded-3xl bg-sky-500 p-4 text-white shadow-[0_12px_24px_-14px_var(--color-sky-700)] transition active:scale-[0.99]"
           data-testid="review-cta"
         >
-          <span className="text-3xl">🃏</span>
-          <span className="flex-1">
-            <span className="block font-bold text-sky-700 dark:text-sky-300">{dueCount} flashcards to review</span>
-            <span className="text-sm text-sky-600">A few minutes keeps the words fresh</span>
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/15">
+            <Icon name="cards" className="h-7 w-7" />
           </span>
-          <span className="font-bold text-sky-600">Go →</span>
+          <span className="flex-1">
+            <span className="block font-display text-lg font-bold">{dueCount} flashcards due</span>
+            <span className="text-sm text-white/80">About {Math.max(1, Math.round(dueCount * 0.15))} min to keep them fresh</span>
+          </span>
+          <Icon name="next" className="h-6 w-6" />
         </Link>
       )}
 
-      {Object.keys(s.lessons).length > 0 && <DailyQuests />}
+      {started && <DailyQuests />}
 
-      {content.units.map((u, ui) => (
-        <UnitSection
-          key={u.id}
-          unit={u}
-          number={ui + 1}
-          next={next}
-          open={open}
-          setOpen={setOpen}
-          nextRef={nextRef}
-        />
+      <h2 className="mb-1 mt-8 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-slate-400">
+        <Icon name="map" className="h-5 w-5" /> Line map
+      </h2>
+      {content.units.map((u) => (
+        <Line key={u.id} unit={u} next={next} open={open} setOpen={setOpen} nextRef={nextRef} />
       ))}
-      <p className="py-8 text-center text-slate-400">That's the whole course for now — keep your flashcards fresh! 🇸🇬</p>
+      <div className="mt-10 flex flex-col items-center gap-2 text-center text-sm text-slate-400">
+        <OtterSvg mood="sleep" size={64} />
+        End of the line — for now. Keep your flashcards fresh!
+      </div>
     </div>
   )
 }
 
-function UnitSection({
+function TodayCard({ nextLessonId }: { nextLessonId: string | null }) {
+  const s = useApp((st) => st.s)
+  const today = dayKey()
+  const st = currentStreak(s.stats, today)
+  const todayXp = s.days[today]?.xp ?? 0
+  const goal = s.settings.dailyGoal
+  const lvl = levelInfo(s.stats.xp)
+  const g = greeting(new Date().getHours())
+  const goalDone = todayXp >= goal
+  const nextLesson = nextLessonId ? content.lessons.get(nextLessonId) : null
+  const meta = nextLesson ? unitMeta(nextLesson.unitId) : null
+
+  return (
+    <section className="relative overflow-hidden rounded-[2rem] bg-surface shadow-[0_18px_40px_-28px_rgb(20_50_35/0.6)] ring-1 ring-slate-200">
+      <div className="flex items-start gap-2 p-5 pb-3">
+        <div className="min-w-0 flex-1">
+          <p className="leading-none">
+            <span className="font-brush text-4xl text-brand-700">华语</span>{' '}
+            <span className="font-display text-2xl font-extrabold text-sg">Lah!</span>
+          </p>
+          <p className="mt-4 font-han text-2xl font-bold">{g.zh}</p>
+          <p className="text-slate-500">{goalDone ? 'Daily goal done — 好棒！' : g.en}</p>
+          {nextLesson && meta && (
+            <p className="mt-2 text-sm text-slate-500">
+              Next stop:{' '}
+              <span className="font-bold text-ink">
+                {meta.code}
+                {nextLesson.index + 1} · {nextLesson.title}
+              </span>
+            </p>
+          )}
+        </div>
+        <Otter mood={goalDone ? 'happy' : g.mood} size={104} bubbleSide="left" className="-mr-1 -mt-1" />
+      </div>
+
+      <div className="grid grid-cols-3 border-t border-slate-200">
+        <div className="flex flex-col items-center gap-0.5 py-3">
+          <StatChip
+            icon="lantern"
+            value={st.streak}
+            label={st.atRisk ? 'Do a lesson today to keep your streak!' : 'Day streak'}
+            tone={st.doneToday ? 'text-orange-500' : 'text-slate-400'}
+            glow={st.doneToday}
+            testId="streak"
+          />
+          <span className="text-[11px] font-semibold text-slate-500">
+            day streak
+            {s.stats.freezes > 0 && (
+              <span className="ml-1 inline-flex items-center text-sky-500" title="Streak freezes (ice kacang)">
+                <Icon name="freeze" className="h-3.5 w-3.5" />×{s.stats.freezes}
+              </span>
+            )}
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5 border-x border-slate-200 py-2" title="Daily goal">
+          <KopiCup value={todayXp / goal} size={40} className={goalDone ? 'text-brand-600' : 'text-slate-500'} />
+          <span className="text-[11px] font-semibold tabular-nums text-slate-500">
+            {Math.min(todayXp, goal)}/{goal} XP today
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5 py-3">
+          <StatChip icon="coin" value={s.stats.xp} label={`Level ${lvl.level}`} tone="text-amber-500" testId="xp" />
+          <span className="text-[11px] font-semibold text-slate-500">XP · level {lvl.level}</span>
+        </div>
+      </div>
+      <div className="peranakan h-3" />
+    </section>
+  )
+}
+
+function Line({
   unit,
-  number,
   next,
   open,
   setOpen,
   nextRef,
 }: {
   unit: Unit
-  number: number
   next: string | null
   open: string | null
   setOpen: (id: string | null) => void
-  nextRef: React.RefObject<HTMLDivElement | null>
+  nextRef: React.RefObject<HTMLLIElement | null>
 }) {
   const s = useApp((st) => st.s)
+  const meta = unitMeta(unit.id)
   const done = unit.lessons.filter((l) => s.lessons[l.id]).length
   return (
-    <section className="mb-10" data-testid={`unit-${unit.id}`}>
-      <div className="mb-8 rounded-2xl border-b-4 p-4 text-white" style={{ backgroundColor: unit.color, borderColor: '#0002' }}>
-        <p className="text-xs font-bold uppercase tracking-wider opacity-80">
-          Unit {number} · {done}/{unit.lessons.length}
-        </p>
-        <h2 className="text-xl font-extrabold">
-          {unit.emoji} {unit.title}
-        </h2>
-        <p className="font-han text-lg opacity-90">{unit.titleZh}</p>
-        <p className="mt-1 text-sm opacity-90">{unit.description}</p>
-      </div>
-      <div className="flex flex-col items-center gap-5">
+    <section className="mt-6" data-testid={`unit-${unit.id}`}>
+      <header className="flex items-center gap-3">
+        <span
+          className="grid h-11 min-w-11 place-items-center rounded-2xl px-2 font-display text-lg font-extrabold text-white"
+          style={{ backgroundColor: unit.color }}
+        >
+          {meta.code}
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-lg font-extrabold leading-tight">{unit.title}</h3>
+          <p className="font-brush text-lg leading-tight text-slate-500">{unit.titleZh}</p>
+        </div>
+        <span className="text-right text-xs font-bold tabular-nums text-slate-400">
+          <Icon name={meta.icon} className="ml-auto h-7 w-7" />
+          {done}/{unit.lessons.length}
+        </span>
+      </header>
+      <p className="mb-1 mt-2 text-sm text-slate-500">{unit.description}</p>
+      <ol>
         {unit.lessons.map((l, i) => (
-          <LessonNode
+          <Station
             key={l.id}
             lesson={l}
             unit={unit}
-            offset={OFFSETS[i % OFFSETS.length]}
+            code={`${meta.code}${i + 1}`}
+            first={i === 0}
             isNext={l.id === next}
-            open={open === l.id}
+            expanded={open === l.id}
             onToggle={() => setOpen(open === l.id ? null : l.id)}
-            nodeRef={l.id === next ? nextRef : undefined}
+            liRef={l.id === next ? nextRef : undefined}
           />
         ))}
-        <StoryNode unit={unit} open={open === `story-${unit.id}`} onToggle={() => setOpen(open === `story-${unit.id}` ? null : `story-${unit.id}`)} />
-      </div>
+        <StoryStop unit={unit} expanded={open === `story-${unit.id}`} onToggle={() => setOpen(open === `story-${unit.id}` ? null : `story-${unit.id}`)} />
+      </ol>
     </section>
   )
 }
 
-function LessonNode({
+function Rail({ color, faded, first, last }: { color: string; faded: boolean; first?: boolean; last?: boolean }) {
+  return (
+    <span
+      className={`absolute left-1/2 w-2 -translate-x-1/2 ${first ? 'top-6' : 'top-0'} ${last ? 'h-6' : 'bottom-0'}`}
+      style={{ backgroundColor: color, opacity: faded ? 0.25 : 1 }}
+    />
+  )
+}
+
+function Station({
   lesson,
   unit,
-  offset,
+  code,
+  first,
   isNext,
-  open,
+  expanded,
   onToggle,
-  nodeRef,
+  liRef,
 }: {
   lesson: Lesson
   unit: Unit
-  offset: number
+  code: string
+  first: boolean
   isNext: boolean
-  open: boolean
+  expanded: boolean
   onToggle: () => void
-  nodeRef?: React.RefObject<HTMLDivElement | null>
+  liRef?: React.RefObject<HTMLLIElement | null>
 }) {
   const s = useApp((st) => st.s)
   const nav = useNavigate()
   const progress = s.lessons[lesson.id]
   const unlocked = isLessonUnlocked(s, lesson.id, content)
   const status = progress ? 'done' : unlocked ? 'open' : 'locked'
+  const color = unit.color
+
   return (
-    <div className="relative" style={{ transform: `translateX(${offset}px)` }} ref={nodeRef}>
-      {isNext && !open && (
-        <div className="absolute -top-9 left-1/2 z-[1] -translate-x-1/2 animate-bounce whitespace-nowrap rounded-xl border-2 border-slate-200 bg-surface px-3 py-1 text-sm font-extrabold uppercase" style={{ color: unit.color }}>
-          Start
-        </div>
-      )}
-      <button
-        type="button"
-        data-testid={`lesson-${lesson.id}`}
-        data-status={status}
-        onClick={(e) => {
-          e.stopPropagation()
-          onToggle()
-        }}
-        className="grid h-[72px] w-[72px] place-items-center rounded-full border-b-[6px] text-3xl font-black text-white transition active:translate-y-1 active:border-b-2"
-        style={
-          status === 'locked'
-            ? { backgroundColor: 'var(--color-slate-200)', borderColor: 'var(--color-slate-300)' }
-            : { backgroundColor: unit.color, borderColor: '#0003' }
-        }
-        aria-label={lesson.title}
-      >
-        {status === 'done' ? (progress!.timesCompleted > 1 ? '👑' : '✓') : status === 'open' ? '⭐' : '🔒'}
-      </button>
-      {open && (
-        <div
-          className="absolute left-1/2 top-[84px] z-20 w-64"
-          style={{ transform: `translateX(calc(-50% - ${offset}px))` }}
-          onClick={(e) => e.stopPropagation()}
+    <li className="relative flex gap-3" ref={liRef}>
+      <div className="relative w-12 shrink-0">
+        <Rail color={color} faded={status === 'locked'} first={first} />
+        <span className="absolute left-1/2 top-6 -translate-x-1/2 -translate-y-1/2">
+          {isNext ? (
+            <span className="relative grid h-12 w-12 place-items-end overflow-hidden rounded-full bg-surface ring-[5px]" style={{ ['--tw-ring-color' as string]: color }}>
+              <span className="absolute inset-0 animate-ping-slow rounded-full" style={{ boxShadow: `0 0 0 4px ${color}` }} />
+              <OtterSvg size={48} className="-mb-3" />
+            </span>
+          ) : (
+            <span
+              className={`grid h-7 w-7 place-items-center rounded-full ring-[5px] ${status === 'done' ? '' : 'bg-surface'}`}
+              style={{
+                ['--tw-ring-color' as string]: status === 'locked' ? 'var(--color-slate-300)' : color,
+                backgroundColor: status === 'done' ? color : undefined,
+              }}
+            >
+              {status === 'done' && <Icon name="check" className="h-4 w-4 text-white" strokeWidth={3} />}
+            </span>
+          )}
+        </span>
+      </div>
+
+      <div className={`my-1.5 min-w-0 flex-1 rounded-2xl transition ${expanded ? 'bg-surface shadow-sm ring-1 ring-slate-200' : ''}`}>
+        <button
+          type="button"
+          data-testid={`lesson-${lesson.id}`}
+          data-status={status}
+          onClick={(e) => {
+            e.stopPropagation()
+            onToggle()
+          }}
+          className="flex w-full items-center gap-2 rounded-2xl px-3 py-2.5 text-left hover:bg-surface/70"
+          aria-expanded={expanded}
         >
-          <div className="animate-pop rounded-2xl p-4 text-white shadow-lg" style={{ backgroundColor: status === 'locked' ? '#94a3b8' : unit.color }}>
-            <p className="font-extrabold">{lesson.title}</p>
-            <p className="mb-3 text-sm opacity-90">
-              {status === 'done'
-                ? `Completed ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
-                : status === 'open'
-                  ? `Lesson ${lesson.index + 1} of ${unit.lessons.length} · ${lesson.items.length} new words`
-                  : 'Finish the previous lesson to unlock this one.'}
-            </p>
-            {status !== 'locked' && (
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2">
+              <span
+                className="rounded-md px-1.5 py-0.5 font-display text-[11px] font-extrabold tabular-nums"
+                style={{ color: status === 'locked' ? 'var(--color-slate-400)' : color, backgroundColor: 'var(--color-slate-100)' }}
+              >
+                {code}
+              </span>
+              <span className={`truncate font-display font-bold ${status === 'locked' ? 'text-slate-400' : ''}`}>{lesson.title}</span>
+              {progress && progress.timesCompleted > 1 && <Icon name="crown" className="h-4 w-4 shrink-0 text-amber-500" />}
+            </span>
+            <span className={`mt-0.5 block text-xs ${isNext ? 'font-bold text-brand-600' : 'text-slate-500'}`}>
+              {isNext
+                ? 'You are here · tap to board'
+                : status === 'done'
+                  ? `Done ${progress!.timesCompleted}× · best ${Math.round(progress!.bestAccuracy * 100)}%`
+                  : status === 'open'
+                    ? `${lesson.items.length} new words`
+                    : 'Finish the stop before this one'}
+            </span>
+          </span>
+          {status === 'locked' ? (
+            <Icon name="lock" className="h-5 w-5 shrink-0 text-slate-300" />
+          ) : (
+            <Icon name="next" className={`h-5 w-5 shrink-0 text-slate-400 transition ${expanded ? 'rotate-90' : ''}`} />
+          )}
+        </button>
+        {expanded && (
+          <div className="animate-pop px-3 pb-3" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-3 flex flex-wrap gap-1.5">
+              {lesson.items.map((id) => (
+                <span key={id} className="tile font-han px-2 py-1 text-lg leading-tight">
+                  {getItem(id).hanzi}
+                </span>
+              ))}
+            </div>
+            {status !== 'locked' ? (
               <Button
-                variant="secondary"
-                className="w-full !border-white/40 !text-slate-700"
+                className="w-full"
                 data-testid="start-lesson"
                 onClick={() => nav(`/lesson/${lesson.id}${status === 'done' ? '?mode=practice' : ''}`)}
               >
-                {status === 'done' ? 'Practice +5 XP' : 'Start +10 XP'}
+                <Icon name="train" className="h-5 w-5" />
+                {status === 'done' ? 'Ride again · +5 XP' : 'Board · +10 XP'}
               </Button>
+            ) : (
+              <p className="text-sm text-slate-500">Finish the stop before this one to unlock it.</p>
             )}
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </li>
   )
 }
 
-function StoryNode({ unit, open, onToggle }: { unit: Unit; open: boolean; onToggle: () => void }) {
+function StoryStop({ unit, expanded, onToggle }: { unit: Unit; expanded: boolean; onToggle: () => void }) {
   const s = useApp((st) => st.s)
   const nav = useNavigate()
   const story = storyByUnit.get(unit.id)
@@ -191,32 +332,46 @@ function StoryNode({ unit, open, onToggle }: { unit: Unit; open: boolean; onTogg
   const unlocked = isStoryUnlocked(s, unit.id, content)
   const done = !!s.lessons[story.id]
   return (
-    <div className="relative mt-2">
-      <button
-        type="button"
-        data-testid={`story-${unit.id}`}
-        data-status={done ? 'done' : unlocked ? 'open' : 'locked'}
-        onClick={(e) => {
-          e.stopPropagation()
-          if (unlocked) nav(`/story/${story.id}`)
-          else onToggle()
-        }}
-        className={`flex items-center gap-3 rounded-2xl border-2 border-b-4 px-4 py-3 text-left transition active:translate-y-0.5 ${
-          unlocked ? 'border-amber-300 bg-amber-50' : 'border-slate-200 bg-slate-50 opacity-70'
-        }`}
-      >
-        <span className="text-3xl">{unlocked ? story.emoji : '🔒'}</span>
-        <span>
-          <span className="block text-xs font-bold uppercase tracking-wider text-amber-600">Story {done && '✓'}</span>
-          <span className="block font-bold">{story.title}</span>
-          <span className="font-han text-sm text-slate-500">{story.titleZh}</span>
+    <li className="relative flex gap-3">
+      <div className="relative w-12 shrink-0">
+        <Rail color={unit.color} faded={!unlocked} last />
+        <span
+          className="absolute left-1/2 top-6 grid h-8 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-[3px] bg-surface"
+          style={{ borderColor: unlocked ? 'var(--color-ink)' : 'var(--color-slate-300)' }}
+          title="Interchange"
+        >
+          <Icon name="chat" className={`h-5 w-5 ${unlocked ? 'text-ink' : 'text-slate-300'}`} />
         </span>
-      </button>
-      {open && !unlocked && (
-        <p className="absolute left-1/2 top-full z-20 mt-2 w-56 -translate-x-1/2 animate-pop rounded-xl bg-black/80 p-3 text-center text-sm text-white">
-          Finish {STORY_UNLOCK_LESSONS} lessons in this unit to unlock the story.
-        </p>
-      )}
-    </div>
+      </div>
+      <div className="my-1.5 min-w-0 flex-1">
+        <button
+          type="button"
+          data-testid={`story-${unit.id}`}
+          data-status={done ? 'done' : unlocked ? 'open' : 'locked'}
+          onClick={(e) => {
+            e.stopPropagation()
+            if (unlocked) nav(`/story/${story.id}`)
+            else onToggle()
+          }}
+          className={`flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left ring-1 ${
+            unlocked ? 'bg-amber-50 ring-amber-200' : 'ring-slate-200'
+          }`}
+        >
+          <span className="min-w-0 flex-1">
+            <span className="block text-[11px] font-extrabold uppercase tracking-widest text-amber-600">
+              Interchange · story {done && '✓'}
+            </span>
+            <span className={`block font-display font-bold ${unlocked ? '' : 'text-slate-400'}`}>{story.title}</span>
+            <span className="font-han text-sm text-slate-500">{story.titleZh}</span>
+          </span>
+          {unlocked ? <Icon name="play" className="h-6 w-6 text-amber-600" /> : <Icon name="lock" className="h-5 w-5 text-slate-300" />}
+        </button>
+        {expanded && !unlocked && (
+          <p className="mt-1 animate-pop px-3 text-sm text-slate-500">
+            Finish {STORY_UNLOCK_LESSONS} stops on this line to unlock the story.
+          </p>
+        )}
+      </div>
+    </li>
   )
 }

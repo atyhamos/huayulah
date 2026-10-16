@@ -4,7 +4,7 @@
   "titleZh": "小贩中心与咖啡店",
   "description": "Order your kopi and makan like a local — in Mandarin.",
   "emoji": "🍜",
-  "color": "#f97316",
+  "color": "#e2932b",
   "items": [
     {"id": "kafeidian", "hanzi": "咖啡店", "pinyin": "kā fēi diàn", "english": "coffee shop (kopitiam)", "sg": true, "note": "\"Kopitiam\" is Hokkien for 咖啡店 — the neighbourhood coffee shop with drink stall and food stalls.", "example": {"zh": "我们 在 楼下 的 咖啡店 见。", "en": "Let's meet at the coffee shop downstairs."}},
     {"id": "kafei", "hanzi": "咖啡", "pinyin": "kā fēi", "english": "coffee (kopi)", "example": {"zh": "我 每天 早上 喝 咖啡。", "en": "I drink coffee every morning."}},

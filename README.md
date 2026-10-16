@@ -1,6 +1,6 @@
 # 华语 Lah! — Singaporean Mandarin practice
 
-A Duolingo-style PWA for Singaporeans who can *speak* a bit of Mandarin but struggle to *read* it.
+A gamified PWA for Singaporeans who can *speak* a bit of Mandarin but struggle to *read* it.
 It teaches the Mandarin people actually use here — 德士, 巴刹, 组屋, 咖啡乌, 霸位 — with bite-sized
 lessons, spaced-repetition flashcards, speaking practice, streaks and a friends leaderboard.
 
@@ -14,17 +14,25 @@ See [SPEC.md](SPEC.md) for the full product spec.
 
 | | |
 |---|---|
-| 🛤️ Learn path | Units → lessons → ~15 exercises each, unlock in order (every unit's first lesson is open) |
+| 🚇 Line map | Each unit is an MRT line (RB, NM, HK…), each lesson a stop and each story an interchange; stops unlock in order |
 | ✍️ Exercises | New-word cards, 汉字→English, English→汉字, listen→汉字, pick-the-tones, sentence builder, match pairs, "which would a Singaporean say?", read-aloud with speech recognition |
 | 💬 Stories | One Singapore-life dialogue per unit (kopitiam order, CNY relatives, MC day…) with audio and comprehension questions |
-| 🃏 Flashcards | FSRS spaced repetition (`ts-fsrs`). Every word gets a **📖 read** card and a **🗣️ say** card |
+| 🃏 Flashcards | FSRS spaced repetition (`ts-fsrs`). Every word gets a **read** card and a **say** card |
 | 🙈 Pinyin fade | Pinyin hides on words you know well, so you actually learn the characters (tap to peek) |
 | 📚 Course | 14 units, 84 lessons, 504 words and phrases — 200 of them Singapore-specific, with 175 checked against the Singaporean Mandarin Database |
 | 🇸🇬 SG flavour | Local terms flagged with mainland equivalents, origin notes and links to the [Singaporean Mandarin Database](https://www.languagecouncils.sg/mandarin/en/learning-resources/singaporean-mandarin-database) |
-| 🔥 Gamification | XP, levels, daily goal ring, streaks + streak freezes, achievements, confetti |
+| 🏮 Gamification | Old-coin XP, levels, a kopi cup that fills to your daily goal, a lantern streak with ice-kacang freezes, daily orders with an ang bao bonus, hanzi medals |
+| 🦦 Ah Tat | The otter mascot reacts to your answers, naps when you're caught up, and says something in Mandarin when tapped |
 | 👫 Friends | Friend codes / invite links and a weekly XP leaderboard |
 | 📚 Word bank | Search by 汉字 / pinyin / English, strength meters, stroke-order animations (`hanzi-writer`) |
 | 💪 Weak words | A practice lesson built from the words you're most likely to have forgotten |
+
+## Look and feel
+
+Local, not a clone: answer choices are ivory **mahjong tiles**, sentences are built on a jade table, lesson
+progress is a train running between stations, results come as a kopitiam **stamp card**, and the palette
+borrows from pandan, Peranakan tiles, kaya and chilli. Icons are hand-drawn SVGs in one style
+(`src/components/icons.tsx`); the otter is pure SVG + CSS animation (`OtterSvg.tsx`).
 
 ## Quick start (local)
 

@@ -4,7 +4,7 @@
   "titleZh": "读字入门",
   "description": "Put faces to the words you already say every day.",
   "emoji": "📖",
-  "color": "#16a34a",
+  "color": "#3e9a5d",
   "items": [
     { "id": "wo", "hanzi": "我", "pinyin": "wǒ", "english": "I / me", "example": { "zh": "我 是 新加坡人。", "en": "I am Singaporean." } },
     { "id": "ni", "hanzi": "你", "pinyin": "nǐ", "english": "you", "example": { "zh": "你 吃饭 了 吗？", "en": "Have you eaten?" }, "note": "\"吃饭了吗？\" is a very common Singaporean greeting — it just means \"how are you?\"" },

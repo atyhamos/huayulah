@@ -4,7 +4,9 @@ import { sameTokens } from '../../lib/answer'
 import { rubyFor } from '../../lib/pinyin'
 import { useApp } from '../../store/app'
 import { useSpeak } from '../AudioButton'
+import { Icon } from '../icons'
 import { CheckBar } from './CheckBar'
+import { Prompt } from './parts'
 import type { ExProps } from './types'
 
 export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
@@ -49,9 +51,9 @@ export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
             say(word)
           }
         }}
-        className="font-han flex flex-col items-center rounded-xl border-2 border-b-4 border-slate-200 bg-surface px-3 py-1.5 text-2xl transition active:translate-y-0.5"
+        className="tile font-han flex flex-col items-center px-3 py-1.5 text-2xl"
       >
-        {hint && <span className="font-sans text-xs text-slate-400">{py}</span>}
+        {hint && <span className="font-sans text-xs text-[#6f7d75]">{py}</span>}
         {word}
       </button>
     )
@@ -59,15 +61,25 @@ export function SentenceBuilder({ ex, locked, onSubmit }: ExProps<'build'>) {
 
   return (
     <div className="animate-pop">
-      <h2 className="mb-4 text-2xl font-bold">Write this in Chinese</h2>
-      <p className="mb-4 rounded-2xl border-2 border-slate-200 p-4 text-lg">{it.example?.en}</p>
-      <div className="mb-6 flex min-h-24 flex-wrap content-start gap-2 border-b-2 border-t-2 border-slate-200 py-3" data-testid="answer-area">
+      <Prompt>Build it in Chinese</Prompt>
+      <div className="mb-4 flex items-start gap-3">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-sky-100 text-sky-600">
+          <Icon name="chat" className="h-6 w-6" />
+        </span>
+        <p className="relative rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-lg ring-1 ring-slate-200">{it.example?.en}</p>
+      </div>
+      {/* the mahjong table: picked tiles are laid out on the jade felt */}
+      <div
+        className="mb-6 flex min-h-24 flex-wrap content-start gap-x-2 gap-y-3 rounded-3xl bg-brand-700 p-3 pb-4 shadow-[inset_0_2px_10px_rgb(0_0_0/0.25)]"
+        data-testid="answer-area"
+      >
+        {picked.length === 0 && <span className="m-auto text-sm font-semibold text-white/60">Tap tiles to place them here</span>}
         {picked.map((i) => tile(i, true))}
       </div>
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-x-2 gap-y-3">
         {ex.tiles.map((_, i) =>
           picked.includes(i) ? (
-            <span key={i} className="rounded-xl bg-slate-200 px-3 py-1.5 text-2xl text-transparent">
+            <span key={i} className="font-han rounded-xl bg-slate-200 px-3 py-1.5 text-2xl text-transparent">
               {ex.tiles[i]}
             </span>
           ) : (

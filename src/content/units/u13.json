@@ -4,7 +4,7 @@
   "titleZh": "本地俚语",
   "description": "Kaypoh, suaku, chope-level kiasu — the slang that makes your Mandarin sound homegrown.",
   "emoji": "🗣️",
-  "color": "#9333ea",
+  "color": "#9b6436",
   "items": [
     { "id": "toujia", "hanzi": "头家", "pinyin": "tóu jiā", "english": "boss (towkay)", "sg": true, "standard": { "hanzi": "老板", "pinyin": "lǎo bǎn" }, "note": "Hokkien \"towkay\" — the business owner.", "example": { "zh": "头家 今天 请 大家 吃饭。", "en": "The boss is treating everyone to a meal today." } },
     { "id": "abingge", "hanzi": "阿兵哥", "pinyin": "ā bīng gē", "english": "soldier (army boy)", "sg": true, "example": { "zh": "阿兵哥 星期五 回家。", "en": "The army boys go home on Friday." } },

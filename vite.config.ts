@@ -17,8 +17,8 @@ export default defineConfig(({ mode }) => ({
         name: '华语 Lah! — Singaporean Mandarin',
         short_name: '华语 Lah',
         description: 'Learn the Mandarin Singaporeans actually speak.',
-        theme_color: '#16a34a',
-        background_color: '#ffffff',
+        theme_color: '#42805d',
+        background_color: '#f5f6f1',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
@@ -33,6 +33,20 @@ export default defineConfig(({ mode }) => ({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallbackDenylist: [/^\/__/],
         runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'google-fonts-css' },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts',
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           {
             // stroke data copied into public/strokes at build time
             urlPattern: ({ url }) => url.pathname.startsWith('/strokes/'),

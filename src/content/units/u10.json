@@ -4,7 +4,7 @@
   "titleZh": "本地口语",
   "description": "Lah, lor, kiasu and shiok — the particles and phrases that make it sound Singaporean.",
   "emoji": "😎",
-  "color": "#ca8a04",
+  "color": "#e2932b",
   "items": [
     { "id": "la-particle", "hanzi": "啦", "pinyin": "la", "english": "lah (softens or emphasises)", "sg": true, "note": "Yes, \"lah\" has a character! Used at the end of a sentence to soften or emphasise.", "example": { "zh": "好 啦， 我 去 啦！", "en": "Okay lah, I'll go lah!" } },
     { "id": "lo-particle", "hanzi": "咯", "pinyin": "lo", "english": "lor (resigned \"that's how it is\")", "sg": true, "note": "Singapore \"lor\" — a shrug in word form.", "example": { "zh": "没 办法 咯。", "en": "No choice lor." } },

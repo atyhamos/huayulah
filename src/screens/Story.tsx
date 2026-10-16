@@ -5,13 +5,19 @@ import type { LessonSummary } from '../data/actions'
 import { useSpeak } from '../components/AudioButton'
 import { CheckBar } from '../components/exercises/CheckBar'
 import { Hanzi } from '../components/Hanzi'
-import { Button, Icon, ProgressBar } from '../components/ui'
+import { Icon, unitMeta } from '../components/icons'
+import { OtterSvg } from '../components/OtterSvg'
+import { Avatar, Button, ProgressBar } from '../components/ui'
+import { OptionRow } from '../components/exercises/parts'
 import { shuffle } from '../lib/random'
 import { sfx } from '../lib/sfx'
 import { useApp } from '../store/app'
 import { LessonComplete } from './LessonComplete'
 
 const PITCH = [1, 1.2, 0.85, 1.1]
+
+/** One character per stock character, for their avatar. */
+const NAME_ZH: Record<string, string> = { Auntie: '姨', Boss: '板', Uncle: '叔', Mum: '妈', Grandma: '嫲', Manager: '经', Wife: '妻', Husband: '夫', Colleague: '同' }
 
 export function StoryScreen() {
   const { storyId = '' } = useParams()
@@ -107,12 +113,21 @@ export function StoryScreen() {
   if (!started) {
     return (
       <div className="mx-auto flex min-h-full max-w-md flex-col items-center justify-center px-6 text-center">
-        <div className="mb-4 text-7xl">{story.emoji}</div>
-        <p className="mb-1 text-sm font-bold uppercase tracking-wider" style={{ color: unit.color }}>
-          Story · {unit.title}
-        </p>
-        <h1 className="text-3xl font-extrabold">{story.title}</h1>
-        <p className="mb-6 font-han text-2xl text-slate-500">{story.titleZh}</p>
+        <div className="relative mb-6 w-full overflow-hidden rounded-3xl p-6 text-white" style={{ background: unit.color }}>
+          <div className="peranakan absolute inset-x-0 bottom-0 h-2 opacity-70" />
+          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-widest">
+            <Icon name={unitMeta(unit.id).icon} className="h-4 w-4" /> {unitMeta(unit.id).code} interchange · story
+          </span>
+          <h1 className="font-display text-3xl font-extrabold">{story.title}</h1>
+          <p className="font-brush text-3xl text-white/85">{story.titleZh}</p>
+          <div className="mt-4 flex justify-center -space-x-2">
+            {speakerKeys.map((k, i) => (
+              <span key={k} className="rounded-full ring-4 ring-white/30">
+                <SpeakerAvatar name={story.speakers[k].name} seed={i} size={44} />
+              </span>
+            ))}
+          </div>
+        </div>
         <p className="mb-8 text-slate-500">Listen to the conversation and answer a few questions along the way.</p>
         <Button
           className="w-full"
@@ -134,22 +149,22 @@ export function StoryScreen() {
 
   return (
     <div className="mx-auto flex min-h-full max-w-xl flex-col px-4 pb-48 pt-4">
-      <div className="sticky top-0 z-10 -mx-4 mb-4 flex items-center gap-3 bg-surface px-4 py-2">
-        <button type="button" aria-label="Quit story" onClick={() => nav('/', { replace: true })} className="text-slate-400">
-          {Icon.close()}
+      <div className="sticky top-0 z-10 -mx-4 mb-4 flex items-center gap-3 bg-page/95 px-4 py-2 backdrop-blur">
+        <button type="button" aria-label="Quit story" onClick={() => nav('/', { replace: true })} className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-slate-400 hover:bg-slate-100">
+          <Icon name="close" className="h-6 w-6" />
         </button>
         <ProgressBar value={progress} color="bg-amber-400" />
         <button
           type="button"
           onClick={() => setPinyin((p) => !p)}
-          className={`whitespace-nowrap rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${pinyin ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-400'}`}
+          className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-bold ring-2 ring-inset ${pinyin ? 'bg-sky-50 text-sky-700 ring-sky-400 dark:text-sky-300' : 'text-slate-400 ring-slate-200'}`}
         >
           拼音
         </button>
         <button
           type="button"
           onClick={() => setEnglish((e) => !e)}
-          className={`rounded-lg border-2 px-2 py-0.5 text-xs font-bold ${english ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-400'}`}
+          className={`rounded-full px-2.5 py-1 text-xs font-bold ring-2 ring-inset ${english ? 'bg-sky-50 text-sky-700 ring-sky-400 dark:text-sky-300' : 'text-slate-400 ring-slate-200'}`}
         >
           EN
         </button>
@@ -163,14 +178,14 @@ export function StoryScreen() {
           return (
             <div key={i} className="flex flex-col gap-3">
               <div className={`flex animate-pop items-end gap-2 ${right ? 'flex-row-reverse' : ''}`} data-testid="story-line">
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl">{sp.emoji}</span>
-                  <span className="text-[10px] font-bold text-slate-400">{sp.name}</span>
+                <div className="flex w-12 shrink-0 flex-col items-center gap-0.5">
+                  <SpeakerAvatar name={sp.name} seed={speakerKeys.indexOf(line.speaker)} size={40} />
+                  <span className="max-w-full truncate text-[10px] font-bold text-slate-400">{sp.name}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => playLine(i)}
-                  className={`max-w-[80%] rounded-2xl border-2 px-3 py-2 text-left ${right ? 'rounded-br-sm border-sky-200 bg-sky-50' : 'rounded-bl-sm border-slate-200 bg-surface'}`}
+                  className={`max-w-[78%] rounded-3xl px-3.5 py-2 text-left ring-1 ${right ? 'rounded-br-md bg-sky-50 ring-sky-200' : 'rounded-bl-md bg-surface ring-slate-200'}`}
                 >
                   <Hanzi text={line.zh} showPinyin={pinyin} revealable className="text-xl leading-loose" />
                   {english && <span className="block text-sm text-slate-500">{line.en}</span>}
@@ -202,32 +217,30 @@ interface Q {
 
 function QuestionCard({ q, picked, onPick, locked = false }: { q: Q; picked: number | null; onPick?: (i: number) => void; locked?: boolean }) {
   return (
-    <div className="my-2 animate-pop rounded-2xl border-2 border-amber-300 bg-amber-50 p-4" data-testid="story-question">
-      <p className="mb-3 font-bold">❓ {q.prompt}</p>
-      <div className="grid gap-2">
-        {q.order.map((i) => {
-          const state = locked ? (i === q.answer ? 'right' : i === picked ? 'wrong' : 'idle') : i === picked ? 'picked' : 'idle'
-          const cls = {
-            idle: 'border-slate-200 bg-surface',
-            picked: 'border-sky-400 bg-sky-50',
-            right: 'border-brand-500 bg-brand-50',
-            wrong: 'border-rose-400 bg-rose-50',
-          }[state]
-          return (
-            <button
+    <div className="my-2 flex animate-pop gap-2" data-testid="story-question">
+      <OtterSvg mood="think" size={52} className="shrink-0 self-end" />
+      <div className="flex-1 rounded-3xl rounded-bl-md bg-amber-50 p-4 ring-1 ring-amber-200">
+        <p className="mb-3 font-display font-extrabold">{q.prompt}</p>
+        <div className="grid gap-2">
+          {q.order.map((i) => (
+            <OptionRow
               key={i}
-              type="button"
+              state={locked ? (i === q.answer ? 'right' : i === picked ? 'wrong' : 'idle') : i === picked ? 'picked' : 'idle'}
               disabled={locked}
               data-testid="option"
               data-correct={i === q.answer ? 'true' : undefined}
               onClick={() => onPick?.(i)}
-              className={`rounded-xl border-2 border-b-4 px-3 py-2 text-left font-semibold ${cls}`}
             >
               {q.options[i]}
-            </button>
-          )
-        })}
+            </OptionRow>
+          ))}
+        </div>
       </div>
     </div>
   )
+}
+
+function SpeakerAvatar({ name, seed, size }: { name: string; seed: number; size: number }) {
+  if (name === 'You') return <Avatar otter size={size} />
+  return <Avatar label={NAME_ZH[name] ?? name[0]} seed={seed} size={size} />
 }

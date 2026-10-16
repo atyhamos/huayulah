@@ -4,7 +4,7 @@
   "titleZh": "邻里生活",
   "description": "Block numbers, BTOs, polyclinics and P-plates — the words of everyday Singapore admin.",
   "emoji": "🏘️",
-  "color": "#0891b2",
+  "color": "#8d4ea3",
   "items": [
     { "id": "zuwuqu", "hanzi": "组屋区", "pinyin": "zǔ wū qū", "english": "HDB estate", "sg": true, "example": { "zh": "我 在 组屋区 长大。", "en": "I grew up in an HDB estate." } },
     { "id": "dapai", "hanzi": "大牌", "pinyin": "dà pái", "english": "block number", "sg": true, "note": "\"你住几号大牌？\" is how you ask which block someone lives in.", "example": { "zh": "你 住 几 号 大牌？", "en": "Which block do you live in?" } },

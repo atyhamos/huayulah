@@ -23,7 +23,7 @@ Decisions made: **PWA web app** (installs to the Android home screen, friends jo
 - **Content sourcing:** I write it by hand into JSON, using SMD categories and terms, the SCCC Culturepaedia, and HSK 1–3 frequency for unit 1. A validator checks pinyin with `pinyin-pro`, and anything I'm unsure of is flagged `verify: true` in the content. *Note: languagecouncils.sg is blocked by this cloud environment's network policy. To cross-check against it directly, add that domain under Network access → Allowed domains in the environment settings. Otherwise I'll rely on other reachable sources.*
 
 ## 2. Features
-**Learn path (Duolingo-style):** Units are laid out as a vertical path of lesson nodes. Each lesson brings 5–7 new items through about 12 exercises. Lessons unlock in order.
+**Learn path (redesigned as an MRT line map):** Each unit is a line with its own code and colour; lessons are stations and the unit story is an interchange. Each lesson brings 5–7 new items through about 12 exercises. Lessons unlock in order.
 
 **Exercise types**
 1. New-word card: large character, pinyin, English, audio, example sentence, SG note
@@ -65,6 +65,8 @@ Decisions made: **PWA web app** (installs to the Android home screen, friends jo
 - Firestore offline persistence keeps the app usable offline and syncs across devices.
 
 **Settings:** daily goal, pinyin mode, TTS voice and speed, new cards per day, sound, export/reset data, sign out.
+
+**Visual identity (redesign):** Ah Tat 阿獭 the otter mascot (7 moods, CSS animations, tap to hear a line); custom icon set; mahjong-tile answers; kopi-cup daily goal (Kopi po → Kopi di lo); lantern streak; ang bao quest bonus; hanzi medals for achievements; a floating dock instead of a tab bar; fonts Bricolage Grotesque, Figtree and Ma Shan Zheng (brush).
 
 ## 3. Tech stack
 Vite + React + TypeScript, Tailwind CSS, React Router, Zustand, `vite-plugin-pwa`, Firebase JS SDK (Auth, Firestore), `ts-fsrs`, `pinyin-pro`, `hanzi-writer`, `canvas-confetti`, `zod` (content schema), Vitest, and Playwright (using the preinstalled Chromium).

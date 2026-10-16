@@ -4,7 +4,9 @@ import { useApp } from '../../store/app'
 import { AudioButton, useSpeak } from '../AudioButton'
 import { Hanzi } from '../Hanzi'
 import { usePinyinVisible } from '../hooks'
+import { Tile } from '../ui'
 import { CheckBar } from './CheckBar'
+import { OptionRow, optionState, Prompt } from './parts'
 import type { ExProps } from './types'
 
 type Kind = 'zh2en' | 'en2zh' | 'listen'
@@ -38,61 +40,67 @@ export function MultipleChoice({ ex, locked, onSubmit }: ExProps<Kind>) {
     if (picked) onSubmit({ correct: picked === ex.itemId })
   }, [picked, ex.itemId, onSubmit])
 
-  const prompt =
-    ex.kind === 'zh2en' ? (
-      <>
-        <h2 className="mb-6 text-2xl font-bold">What does this mean?</h2>
+  if (ex.kind === 'zh2en') {
+    return (
+      <div className="animate-pop">
+        <Prompt>What does this mean?</Prompt>
         <div className="mb-8 flex justify-center">
-          <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin={showPinyin(it.id)} revealable className="text-6xl" />
+          <div className="tile px-6 pb-4 pt-3">
+            <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin={showPinyin(it.id)} revealable className="text-6xl" />
+          </div>
         </div>
-      </>
-    ) : ex.kind === 'en2zh' ? (
-      <h2 className="mb-8 text-2xl font-bold">
-        Which one is “<span className="text-brand-600">{it.english}</span>”?
-      </h2>
-    ) : (
-      <>
-        <h2 className="mb-6 text-2xl font-bold">What do you hear?</h2>
-        <div className="mb-8 flex justify-center">
-          <AudioButton text={it.hanzi} size="lg" />
+        <div className="flex flex-col gap-2.5">
+          {ex.options.map((id, i) => (
+            <OptionRow
+              key={id}
+              letter={'ABCD'[i]}
+              state={optionState(id, picked, ex.itemId, locked)}
+              disabled={locked}
+              data-testid="option"
+              data-correct={id === ex.itemId ? 'true' : undefined}
+              onClick={() => setPicked(id)}
+            >
+              {getItem(id).english}
+            </OptionRow>
+          ))}
         </div>
-      </>
+        {!locked && <CheckBar disabled={!picked} onCheck={check} />}
+      </div>
     )
+  }
 
   return (
     <div className="animate-pop">
-      {prompt}
-      <div className={`grid gap-3 ${ex.kind === 'zh2en' ? 'grid-cols-1' : 'grid-cols-2'}`}>
-        {ex.options.map((id, i) => {
+      {ex.kind === 'en2zh' ? (
+        <Prompt>
+          Which tile says “<span className="text-brand-600">{it.english}</span>”?
+        </Prompt>
+      ) : (
+        <>
+          <Prompt>What do you hear?</Prompt>
+          <div className="mb-8 flex justify-center">
+            <AudioButton text={it.hanzi} size="lg" />
+          </div>
+        </>
+      )}
+      <div className="grid grid-cols-2 gap-x-3 gap-y-4">
+        {ex.options.map((id) => {
           const o = getItem(id)
-          const isPicked = picked === id
-          const state = locked ? (id === ex.itemId ? 'right' : isPicked ? 'wrong' : 'idle') : isPicked ? 'picked' : 'idle'
-          const cls = {
-            idle: 'border-slate-200 bg-surface',
-            picked: 'border-sky-400 bg-sky-50',
-            right: 'border-brand-500 bg-brand-50',
-            wrong: 'border-rose-400 bg-rose-50 animate-shake',
-          }[state]
           return (
-            <button
+            <Tile
               key={id}
-              type="button"
+              state={optionState(id, picked, ex.itemId, locked)}
               disabled={locked}
               data-testid="option"
               data-correct={id === ex.itemId ? 'true' : undefined}
               onClick={() => {
                 setPicked(id)
-                if (ex.kind !== 'zh2en') say(o.hanzi)
+                say(o.hanzi)
               }}
-              className={`relative flex min-h-16 items-center justify-center rounded-2xl border-2 border-b-4 px-3 py-3 text-center transition ${cls}`}
+              className="flex min-h-24 items-center justify-center px-2 py-3"
             >
-              <span className="absolute left-2 top-1.5 hidden text-xs text-slate-300 sm:block">{i + 1}</span>
-              {ex.kind === 'zh2en' ? (
-                <span className="text-lg font-semibold">{o.english}</span>
-              ) : (
-                <Hanzi text={o.hanzi} pinyin={o.pinyin} showPinyin={always || locked} className="text-3xl" />
-              )}
-            </button>
+              <Hanzi text={o.hanzi} pinyin={o.pinyin} showPinyin={always || locked} className="text-3xl" />
+            </Tile>
           )
         })}
       </div>

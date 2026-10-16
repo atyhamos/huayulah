@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { OtterSvg } from './components/OtterSvg'
 import { Shell, Toasts } from './components/Shell'
 import { HOST_THEME } from './env'
 import { useApp } from './store/app'
@@ -52,9 +53,12 @@ export default function App() {
   if (status === 'loading') {
     return (
       <div className="grid h-full place-items-center">
-        <div className="animate-pulse text-center">
-          <div className="font-han text-5xl font-black text-brand-600">华语</div>
-          <div className="text-2xl font-black text-sg">Lah!</div>
+        <div className="flex flex-col items-center">
+          <OtterSvg mood="sleep" size={110} />
+          <div className="mt-1 flex animate-pulse items-baseline gap-1.5">
+            <span className="font-brush text-4xl text-brand-600">华语</span>
+            <span className="font-display text-2xl font-extrabold text-sg">Lah!</span>
+          </div>
         </div>
       </div>
     )

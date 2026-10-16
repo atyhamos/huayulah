@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { getItem } from '../../content'
 import { AudioButton, useSpeak } from '../AudioButton'
 import { CheckBar } from './CheckBar'
+import { OptionRow, optionState, Prompt } from './parts'
 import type { ExProps } from './types'
 
 /** Listening comprehension: hear a whole sentence, choose what it means. */
@@ -21,33 +22,24 @@ export function Hear({ ex, locked, onSubmit }: ExProps<'hear'>) {
 
   return (
     <div className="animate-pop">
-      <h2 className="mb-6 text-2xl font-bold">What did they say?</h2>
+      <Prompt sub="Overheard at the kopitiam">What did they say?</Prompt>
       <div className="mb-8 flex justify-center">
         <AudioButton text={sentence} size="lg" />
       </div>
-      <div className="grid gap-3">
-        {ex.options.map((id) => {
-          const state = locked ? (id === ex.itemId ? 'right' : id === picked ? 'wrong' : 'idle') : id === picked ? 'picked' : 'idle'
-          const cls = {
-            idle: 'border-slate-200',
-            picked: 'border-sky-400 bg-sky-50',
-            right: 'border-brand-500 bg-brand-50',
-            wrong: 'border-rose-400 bg-rose-50 animate-shake',
-          }[state]
-          return (
-            <button
-              key={id}
-              type="button"
-              disabled={locked}
-              data-testid="option"
-              data-correct={id === ex.itemId ? 'true' : undefined}
-              onClick={() => setPicked(id)}
-              className={`rounded-2xl border-2 border-b-4 px-4 py-3 text-left font-semibold transition ${cls}`}
-            >
-              {getItem(id).example!.en}
-            </button>
-          )
-        })}
+      <div className="flex flex-col gap-2.5">
+        {ex.options.map((id, i) => (
+          <OptionRow
+            key={id}
+            letter={'ABCD'[i]}
+            state={optionState(id, picked, ex.itemId, locked)}
+            disabled={locked}
+            data-testid="option"
+            data-correct={id === ex.itemId ? 'true' : undefined}
+            onClick={() => setPicked(id)}
+          >
+            {getItem(id).example!.en}
+          </OptionRow>
+        ))}
       </div>
       {!locked && <CheckBar disabled={!picked} onCheck={check} />}
     </div>

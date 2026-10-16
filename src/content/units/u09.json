@@ -4,7 +4,7 @@
   "titleZh": "节日与文化",
   "description": "Survive Chinese New Year visiting, getai season and everything in between.",
   "emoji": "🧧",
-  "color": "#dc2626",
+  "color": "#cf4b3a",
   "items": [
     {"id": "nonglixinnian", "hanzi": "农历新年", "pinyin": "nóng lì xīn nián", "english": "Lunar New Year (CNY)", "example": {"zh": "农历新年 我们 回 外婆 家。", "en": "We go to Grandma's for Chinese New Year."}},
     {"id": "hongbao", "hanzi": "红包", "pinyin": "hóng bāo", "english": "red packet (ang bao)", "note": "\"Ang pow\" is the Hokkien pronunciation.", "example": {"zh": "今年 收到 很 多 红包。", "en": "Got lots of red packets this year."}},

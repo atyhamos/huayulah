@@ -10,6 +10,7 @@ import { emptyState, type AppState, type Settings } from '../data/types'
 import type { Achievement } from '../lib/achievements'
 import { dayKey } from '../lib/dates'
 import { QUEST_BONUS_XP } from '../lib/quests'
+import type { IconName } from '../components/icons'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
 
@@ -22,7 +23,10 @@ export interface AuthUser {
 
 interface Toast {
   id: number
-  icon: string
+  icon?: IconName
+  /** Show an achievement medal with this character instead of an icon. */
+  medal?: string
+  medalColor?: number
   title: string
   body?: string
 }
@@ -69,13 +73,13 @@ export const useApp = create<AppStore>((set, get) => {
     if (bonus.claimed) {
       state = bonus.state
       dirty = { ...dirty, root: true }
-      setTimeout(() => get().toast({ icon: '🎁', title: 'Daily quests complete!', body: `+${QUEST_BONUS_XP} bonus XP` }), 1200)
+      setTimeout(() => get().toast({ icon: 'angbao', title: 'Daily quests complete!', body: `+${QUEST_BONUS_XP} bonus XP` }), 1200)
     }
     set({ s: state })
     const today = dayKey()
     const goal = state.settings.dailyGoal
     if ((before.days[today]?.xp ?? 0) < goal && (state.days[today]?.xp ?? 0) >= goal) {
-      setTimeout(() => get().toast({ icon: '🎯', title: 'Daily goal reached!', body: `${goal} XP today — 好棒！` }), 600)
+      setTimeout(() => get().toast({ icon: 'kopi', title: 'Daily goal reached!', body: `${goal} XP today — 好棒！` }), 600)
     }
     repo.save(state, dirty).then(
       () => get().syncError && set({ syncError: null }),
@@ -103,7 +107,7 @@ export const useApp = create<AppStore>((set, get) => {
   }
 
   function announce(list: Achievement[]) {
-    for (const a of list) get().toast({ icon: a.icon, title: `Achievement: ${a.title}`, body: a.description })
+    for (const a of list) get().toast({ medal: a.char, medalColor: a.color, title: `Achievement: ${a.title}`, body: a.description })
   }
 
   async function loadAccount(user: AuthUser) {
@@ -117,7 +121,7 @@ export const useApp = create<AppStore>((set, get) => {
       state = mergeStates(state, guest)
       await cloud.save(state, { root: true, cards: Object.keys(state.cards) })
       await guestRepo.clear()
-      get().toast({ icon: '☁️', title: 'Progress synced', body: 'Your guest progress was added to your account.' })
+      get().toast({ icon: 'cloud', title: 'Progress synced', body: 'Your guest progress was added to your account.' })
     } else if (guest.stats.onboarded && !state.stats.onboarded) {
       // finished onboarding as a guest but hadn't earned XP yet — don't onboard again
       state = { ...state, settings: guest.settings, stats: { ...state.stats, onboarded: true } }
@@ -199,7 +203,7 @@ export const useApp = create<AppStore>((set, get) => {
         if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment') {
           await signInWithRedirect(auth, provider)
         } else if (code !== 'auth/popup-closed-by-user' && code !== 'auth/cancelled-popup-request') {
-          get().toast({ icon: '⚠️', title: "Couldn't sign in", body: e instanceof Error ? e.message : String(e) })
+          get().toast({ icon: 'warning', title: "Couldn't sign in", body: e instanceof Error ? e.message : String(e) })
         }
       }
     },
@@ -246,7 +250,7 @@ export const useApp = create<AppStore>((set, get) => {
       commit(r.state, r.dirty)
       // achievements are shown on the lesson-complete screen
       if (r.info.streak.earnedFreeze)
-        get().toast({ icon: '🧊', title: 'Streak freeze earned', body: 'It will protect your streak if you miss a day.' })
+        get().toast({ icon: 'freeze', title: 'Streak freeze earned', body: 'It will protect your streak if you miss a day.' })
       return r.info
     },
 

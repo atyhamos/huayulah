@@ -4,7 +4,7 @@
   "titleZh": "本地美食",
   "description": "Teh-O, bak chor mee, kueh and cendol — order the whole hawker menu by name.",
   "emoji": "🍢",
-  "color": "#b45309",
+  "color": "#2d68b2",
   "items": [
     { "id": "chawu", "hanzi": "茶乌", "pinyin": "chá wū", "english": "teh-O (tea with sugar, no milk)", "sg": true, "note": "Same 乌 as in 咖啡乌: no milk. Teh-O kosong has no sugar either.", "example": { "zh": "老板， 一杯 茶乌 冰。", "en": "Boss, one iced teh-O." } },
     { "id": "lacha", "hanzi": "拉茶", "pinyin": "lā chá", "english": "teh tarik (pulled tea)", "sg": true, "note": "The tea is \"pulled\" between two cups until it's frothy.", "example": { "zh": "那 个 摊位 的 拉茶 最 好喝。", "en": "That stall's teh tarik is the best." } },

@@ -4,7 +4,7 @@
   "titleZh": "狮城走走",
   "description": "Read the MRT map and the calendar: towns, landmarks and national days in Chinese.",
   "emoji": "🦁",
-  "color": "#047857",
+  "color": "#cf4b3a",
   "items": [
     { "id": "hongmaoqiao", "hanzi": "宏茂桥", "pinyin": "hóng mào qiáo", "english": "Ang Mo Kio", "sg": true, "example": { "zh": "宏茂桥 有 很 多 小贩中心。", "en": "Ang Mo Kio has lots of hawker centres." } },
     { "id": "dabayao", "hanzi": "大巴窑", "pinyin": "dà bā yáo", "english": "Toa Payoh", "sg": true, "example": { "zh": "大巴窑 有 一个 大 巴士转换站。", "en": "Toa Payoh has a big bus interchange." } },

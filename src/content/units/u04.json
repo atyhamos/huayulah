@@ -4,7 +4,7 @@
   "titleZh": "出行",
   "description": "MRT, buses, taxis and asking the way — plus the place names you already know.",
   "emoji": "🚇",
-  "color": "#8b5cf6",
+  "color": "#2d68b2",
   "items": [
     {"id": "ditie", "hanzi": "地铁", "pinyin": "dì tiě", "english": "MRT / subway", "note": "The LRT is 轻轨 (qīng guǐ), \"light rail\".", "example": {"zh": "我 每天 坐 地铁 上班。", "en": "I take the MRT to work every day."}},
     {"id": "bashi", "hanzi": "巴士", "pinyin": "bā shì", "english": "bus", "sg": true, "standard": {"hanzi": "公交车", "pinyin": "gōng jiāo chē"}, "note": "A sound-loan from English \"bus\".", "example": {"zh": "这 辆 巴士 去 哪里？", "en": "Where does this bus go?"}},

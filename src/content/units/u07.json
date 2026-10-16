@@ -4,7 +4,7 @@
   "titleZh": "工作与生活",
   "description": "CPF, COE, MCs and meetings — the vocabulary of being a grown-up here.",
   "emoji": "💼",
-  "color": "#475569",
+  "color": "#718579",
   "items": [
     {"id": "gongzuo", "hanzi": "工作", "pinyin": "gōng zuò", "english": "work / job", "example": {"zh": "你 做 什么 工作？", "en": "What do you do for work?"}},
     {"id": "shangban", "hanzi": "上班", "pinyin": "shàng bān", "english": "to go to work", "example": {"zh": "我 九点 上班。", "en": "I start work at nine."}},

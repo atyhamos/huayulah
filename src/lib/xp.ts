@@ -26,8 +26,8 @@ export function levelInfo(xp: number) {
 }
 
 export const GOAL_OPTIONS = [
-  { xp: 10, label: 'Casual' },
-  { xp: 20, label: 'Regular' },
-  { xp: 30, label: 'Serious' },
-  { xp: 50, label: 'Intense' },
+  { xp: 10, label: 'Kopi po', hint: 'Light' },
+  { xp: 20, label: 'Kopi', hint: 'Regular' },
+  { xp: 30, label: 'Kopi gao', hint: 'Strong' },
+  { xp: 50, label: 'Kopi di lo', hint: 'Extra strong' },
 ]

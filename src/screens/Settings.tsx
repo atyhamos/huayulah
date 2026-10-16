@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { firebaseEnabled } from '../data/firebase'
 import { normalizeState, type AppState, type PinyinMode, type Theme } from '../data/types'
-import { Button, Card, Icon } from '../components/ui'
+import { Icon, type IconName } from '../components/icons'
+import { BackButton, Button, Card, KopiCup } from '../components/ui'
 import { chineseVoices, onVoicesChanged, speak } from '../lib/tts'
 import { recognitionSupported } from '../lib/speech'
 import { GOAL_OPTIONS } from '../lib/xp'
@@ -19,7 +19,6 @@ export function SettingsScreen() {
   const replace = useApp((st) => st.replaceState)
   const toast = useApp((st) => st.toast)
   const [confirmReset, setConfirmReset] = useState(false)
-  const nav = useNavigate()
   const [voices, setVoices] = useState(chineseVoices())
   const fileRef = useRef<HTMLInputElement>(null)
   const set = s.settings
@@ -45,26 +44,27 @@ export function SettingsScreen() {
       const parsed = JSON.parse(await f.text()) as Partial<AppState>
       if (!parsed || typeof parsed !== 'object' || !parsed.stats) throw new Error('This isn’t a 华语 Lah! backup file.')
       replace(normalizeState(parsed))
-      toast({ icon: '📥', title: 'Backup restored' })
+      toast({ icon: 'download', title: 'Backup restored' })
     } catch (e) {
-      toast({ icon: '⚠️', title: 'Import failed', body: e instanceof Error ? e.message : String(e) })
+      toast({ icon: 'warning', title: 'Import failed', body: e instanceof Error ? e.message : String(e) })
     }
   }
 
   return (
     <div className="space-y-5">
-      <button type="button" onClick={() => nav(-1)} className="flex items-center gap-1 font-bold text-slate-400">
-        {Icon.back('h-5 w-5')} Back
-      </button>
-      <h1 className="text-2xl font-extrabold">Settings</h1>
+      <div className="flex items-center gap-3">
+        <BackButton />
+        <h1 className="font-display text-2xl font-extrabold">Settings</h1>
+      </div>
 
       <Card>
-        <Label>Daily goal</Label>
+        <Label>Daily goal — how strong is your kopi?</Label>
         <div className="grid grid-cols-4 gap-2">
-          {GOAL_OPTIONS.map((g) => (
+          {GOAL_OPTIONS.map((g, i) => (
             <Choice key={g.xp} active={set.dailyGoal === g.xp} onClick={() => update({ dailyGoal: g.xp })}>
-              <span className="block">{g.label}</span>
-              <span className="text-xs opacity-70">{g.xp} XP</span>
+              <KopiCup value={(i + 1) / 4} size={34} className="mx-auto mb-1" />
+              <span className="block leading-tight">{g.label}</span>
+              <span className="text-xs font-semibold opacity-70">{g.xp} XP</span>
             </Choice>
           ))}
         </div>
@@ -95,12 +95,13 @@ export function SettingsScreen() {
         <div className="grid grid-cols-3 gap-2">
           {(
             [
-              ['system', 'System'],
-              ['light', '☀️ Light'],
-              ['dark', '🌙 Dark'],
-            ] as [Theme, string][]
-          ).map(([t, label]) => (
+              ['system', 'System', 'gear'],
+              ['light', 'Light', 'sun'],
+              ['dark', 'Dark', 'moon'],
+            ] as [Theme, string, IconName][]
+          ).map(([t, label, icon]) => (
             <Choice key={t} active={set.theme === t} onClick={() => update({ theme: t })}>
+              <Icon name={icon} className="mx-auto mb-0.5 h-5 w-5" />
               {label}
             </Choice>
           ))}
@@ -117,7 +118,7 @@ export function SettingsScreen() {
           <select
             value={set.voiceURI ?? ''}
             onChange={(e) => update({ voiceURI: e.target.value || null })}
-            className="mb-3 w-full rounded-xl border-2 border-slate-200 bg-surface px-3 py-2"
+            className="mb-3 w-full rounded-2xl bg-surface px-3 py-2.5 ring-2 ring-inset ring-slate-200"
           >
             <option value="">Auto ({voices[0]?.name})</option>
             {voices.map((v) => (
@@ -151,7 +152,7 @@ export function SettingsScreen() {
           <select
             value={set.newPerDay}
             onChange={(e) => update({ newPerDay: Number(e.target.value) })}
-            className="rounded-xl border-2 border-slate-200 bg-surface px-3 py-1"
+            className="rounded-2xl bg-surface px-3 py-1.5 ring-2 ring-inset ring-slate-200"
           >
             {[5, 10, 15, 20, 30, 50].map((n) => (
               <option key={n}>{n}</option>
@@ -175,7 +176,7 @@ export function SettingsScreen() {
         {firebaseEnabled ? (
           user ? (
             <Button variant="secondary" className="w-full" onClick={() => signOut()}>
-              Sign out ({user.email})
+              <Icon name="logout" className="h-5 w-5" /> Sign out ({user.email})
             </Button>
           ) : (
             <Button variant="blue" className="w-full" onClick={() => void signIn()}>
@@ -188,11 +189,11 @@ export function SettingsScreen() {
         <div className="grid grid-cols-2 gap-2">
           {!IS_ARTIFACT && (
             <Button variant="secondary" onClick={exportData}>
-              Export
+              <Icon name="upload" className="h-5 w-5" /> Export
             </Button>
           )}
           <Button variant="secondary" onClick={() => fileRef.current?.click()}>
-            Import
+            <Icon name="download" className="h-5 w-5" /> Import
           </Button>
           <input
             ref={fileRef}
@@ -213,7 +214,7 @@ export function SettingsScreen() {
                 variant="danger"
                 onClick={() => {
                   setConfirmReset(false)
-                  void reset().then(() => toast({ icon: '🧹', title: 'Progress reset' }))
+                  void reset().then(() => toast({ icon: 'broom', title: 'Progress reset' }))
                 }}
               >
                 Erase
@@ -232,7 +233,7 @@ export function SettingsScreen() {
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">{children}</p>
+  return <p className="mb-3 font-display text-sm font-extrabold text-slate-500">{children}</p>
 }
 
 function Choice({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
@@ -240,7 +241,7 @@ function Choice({ active, onClick, children }: { active: boolean; onClick: () =>
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-xl border-2 border-b-4 px-2 py-2 text-sm font-bold ${active ? 'border-sky-400 bg-sky-50 text-sky-700 dark:text-sky-300' : 'border-slate-200 text-slate-600'}`}
+      className={`rounded-2xl px-2 py-2.5 text-sm font-bold ring-2 ring-inset transition active:scale-95 ${active ? 'bg-sky-50 text-sky-700 ring-sky-400 dark:text-sky-300' : 'text-slate-600 ring-slate-200'}`}
     >
       {children}
     </button>
@@ -254,7 +255,8 @@ function Toggle({ label, hint, checked, onChange }: { label: string; hint?: stri
         <span className="block text-sm font-semibold">{label}</span>
         {hint && <span className="block text-xs text-slate-500">{hint}</span>}
       </span>
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-6 w-6 accent-brand-500" />
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="peer sr-only" />
+      <span className="relative h-7 w-12 shrink-0 rounded-full bg-slate-200 transition peer-checked:bg-brand-500 peer-focus-visible:ring-2 peer-focus-visible:ring-sky-400 after:absolute after:left-1 after:top-1 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition peer-checked:after:translate-x-5" />
     </label>
   )
 }

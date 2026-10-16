@@ -4,7 +4,7 @@
   "titleZh": "家人和朋友",
   "description": "Talk to (and about) your relatives at the next family dinner.",
   "emoji": "👨‍👩‍👧",
-  "color": "#db2777",
+  "color": "#9b6436",
   "items": [
     { "id": "baba", "hanzi": "爸爸", "pinyin": "bà ba", "english": "dad", "example": { "zh": "爸爸 在 看 报纸。", "en": "Dad is reading the newspaper." } },
     { "id": "mama", "hanzi": "妈妈", "pinyin": "mā ma", "english": "mum", "example": { "zh": "妈妈 煮 的 菜 最 好吃。", "en": "Mum's cooking is the best." } },

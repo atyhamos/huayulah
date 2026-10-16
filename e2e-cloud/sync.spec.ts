@@ -28,7 +28,7 @@ test('guest progress syncs to a Google account and to a second device', async ({
   await playLesson(page)
   await page.getByTestId('done').click()
   const xp = await page.getByTestId('xp').innerText()
-  expect(xp).not.toBe('⚡ 0')
+  expect(xp).not.toBe('0')
 
   await page.goto('/profile')
   await emulatorGoogleSignIn(page, { email, name: 'Ah Boy' })
@@ -71,9 +71,11 @@ test('guest progress syncs to a Google account and to a second device', async ({
   // Sign out: back to a guest, preferences kept, no onboarding
   await page.goto('/settings')
   await page.getByRole('button', { name: /Sign out/ }).click()
+  // the guest session (with preferences) is saved before the UI flips back
+  await expect(page.getByRole('button', { name: 'Sign in with Google' })).toBeVisible()
   await page.goto('/profile')
   await expect(page.getByRole('heading', { name: 'Guest learner' })).toBeVisible()
-  await expect(page.getByTestId('xp')).toHaveText('⚡ 0')
+  await expect(page.getByTestId('xp')).toHaveText('0')
 
   await Promise.all([ctx1.close(), ctx2.close(), ctx3.close()])
 })

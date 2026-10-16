@@ -6,6 +6,8 @@ import { useApp } from '../../store/app'
 import { useSpeak } from '../AudioButton'
 import { Hanzi } from '../Hanzi'
 import { usePinyinVisible } from '../hooks'
+import type { TileState } from '../ui'
+import { Prompt } from './parts'
 import type { ExProps } from './types'
 
 type Side = 'zh' | 'en'
@@ -48,40 +50,37 @@ export function MatchPairs({ ex, locked, onSubmit }: ExProps<'match'>) {
 
   const cell = (side: Side, id: string) => {
     const it = getItem(id)
-    const isSel = sel?.side === side && sel.id === id
     const isDone = done.has(id)
-    const isBad = bad === `${side}:${id}`
-    return (
+    const state: TileState = isDone ? 'done' : bad === `${side}:${id}` ? 'wrong' : sel?.side === side && sel.id === id ? 'picked' : 'idle'
+    const common = { type: 'button' as const, 'data-testid': `match-${side}`, 'data-id': id, 'data-state': state, onClick: () => tap(side, id), disabled: isDone }
+    return side === 'zh' ? (
+      <button key={side + id} {...common} className="tile flex min-h-16 items-center justify-center px-2 py-2">
+        <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin={showPinyin(id) && !isDone} className="text-2xl" />
+      </button>
+    ) : (
       <button
         key={side + id}
-        type="button"
-        data-testid={`match-${side}`}
-        data-id={id}
-        onClick={() => tap(side, id)}
-        disabled={isDone}
-        className={`min-h-16 rounded-2xl border-2 border-b-4 px-2 py-2 transition ${
-          isDone
-            ? 'border-slate-100 bg-slate-50 text-slate-300'
-            : isBad
-              ? 'animate-shake border-rose-400 bg-rose-50'
-              : isSel
-                ? 'border-sky-400 bg-sky-50'
-                : 'border-slate-200 bg-surface'
+        {...common}
+        className={`flex min-h-16 items-center rounded-2xl px-3 py-2 text-left text-sm font-semibold ring-2 ring-inset transition sm:text-base ${
+          state === 'done'
+            ? 'bg-surface text-slate-300 ring-slate-100'
+            : state === 'wrong'
+              ? 'animate-shake bg-rose-50 ring-rose-400'
+              : state === 'picked'
+                ? 'bg-sky-50 ring-sky-400'
+                : 'bg-surface ring-slate-200'
         }`}
       >
-        {side === 'zh' ? (
-          <Hanzi text={it.hanzi} pinyin={it.pinyin} showPinyin={showPinyin(id) && !isDone} className="text-2xl" />
-        ) : (
-          <span className="text-sm font-semibold sm:text-base">{it.english}</span>
-        )}
+        <span className={`mr-2 h-2 w-2 shrink-0 rounded-full ${isDone ? 'bg-brand-400' : 'bg-slate-300'}`} />
+        {it.english}
       </button>
     )
   }
 
   return (
     <div className="animate-pop">
-      <h2 className="mb-6 text-2xl font-bold">Tap the matching pairs</h2>
-      <div className="grid grid-cols-2 gap-3">
+      <Prompt sub="Tap a tile, then its meaning">Match the pairs</Prompt>
+      <div className="grid grid-cols-[2fr_3fr] gap-3">
         <div className="flex flex-col gap-3">{left.map((id) => cell('zh', id))}</div>
         <div className="flex flex-col gap-3">{right.map((id) => cell('en', id))}</div>
       </div>

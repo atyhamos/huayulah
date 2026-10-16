@@ -7,8 +7,8 @@ test('guest can finish a lesson and progress persists', async ({ page }) => {
   await expect(page.getByTestId('lesson-complete')).toContainText('Lesson complete')
   await page.getByTestId('done').click()
 
-  await expect(page.getByTestId('xp')).not.toHaveText('⚡ 0')
-  await expect(page.getByTestId('streak')).toHaveText('🔥 1')
+  await expect(page.getByTestId('xp')).not.toHaveText('0')
+  await expect(page.getByTestId('streak')).toHaveText('1')
   await expect(page.getByTestId('lesson-u01-l1')).toHaveAttribute('data-status', 'done')
   await expect(page.getByTestId('lesson-u01-l2')).toHaveAttribute('data-status', 'open')
   await expect(page.getByTestId('lesson-u01-l3')).toHaveAttribute('data-status', 'locked')
@@ -63,7 +63,7 @@ test('flashcards come due and can be reviewed', async ({ page }) => {
   await expect(page.getByTestId('lesson-complete')).toContainText('Practice complete')
   await page.getByTestId('done').click()
   // streak: day 1 + day 5 with no freezes → resets to 1
-  await expect(page.getByTestId('streak')).toHaveText('🔥 1')
+  await expect(page.getByTestId('streak')).toHaveText('1')
 })
 
 test('a story plays through with questions', async ({ page }) => {

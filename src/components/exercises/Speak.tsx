@@ -7,7 +7,9 @@ import { listen, recognitionSupported } from '../../lib/speech'
 import { AudioButton } from '../AudioButton'
 import { Hanzi } from '../Hanzi'
 import { usePinyinVisible } from '../hooks'
-import { Button, Icon } from '../ui'
+import { Icon } from '../icons'
+import { Button } from '../ui'
+import { Prompt } from './parts'
 import type { ExProps } from './types'
 
 export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
@@ -57,12 +59,14 @@ export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
 
   return (
     <div className="animate-pop">
-      <h2 className="mb-6 text-2xl font-bold">Read this out loud</h2>
-      <div className="mb-2 flex items-start gap-3">
-        <AudioButton text={ex.text} size="sm" />
-        <Hanzi text={ex.text} pinyin={ex.text === it.hanzi ? it.pinyin : undefined} showPinyin={showPinyin(it.id)} revealable className="text-3xl leading-loose" />
+      <Prompt sub="Ah Tat is listening">Read this out loud</Prompt>
+      <div className="mb-10 rounded-3xl bg-surface p-4 ring-1 ring-slate-200">
+        <div className="flex items-start gap-3">
+          <AudioButton text={ex.text} size="sm" />
+          <Hanzi text={ex.text} pinyin={ex.text === it.hanzi ? it.pinyin : undefined} showPinyin={showPinyin(it.id)} revealable className="text-3xl leading-loose" />
+        </div>
+        <p className="mt-1 text-slate-500">{ex.en}</p>
       </div>
-      <p className="mb-10 text-slate-500">{ex.en}</p>
 
       {!locked && !selfCheck && (
         <div className="flex flex-col items-center gap-4">
@@ -70,12 +74,13 @@ export function Speak({ ex, locked, onSubmit }: ExProps<'speak'>) {
             type="button"
             data-testid="mic"
             onClick={() => (listening ? stopRef.current() : start())}
-            className={`grid h-24 w-24 place-items-center rounded-full border-b-4 text-white transition active:translate-y-0.5 ${
-              listening ? 'animate-pulse border-rose-700 bg-rose-500' : 'border-sky-700 bg-sky-500'
+            className={`relative grid h-24 w-24 place-items-center rounded-full text-white shadow-[0_12px_24px_-12px_var(--color-sky-700)] transition active:scale-95 ${
+              listening ? 'bg-rose-500' : 'bg-sky-500'
             }`}
             aria-label={listening ? 'Stop' : 'Start speaking'}
           >
-            {Icon.mic('h-10 w-10')}
+            {listening && <span className="absolute inset-0 animate-ping-slow rounded-full bg-rose-400/50" />}
+            <Icon name="mic" className="relative h-10 w-10" />
           </button>
           <p className="h-6 text-slate-500">{listening ? interim || 'Listening…' : 'Tap and speak'}</p>
           {error && <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p>}

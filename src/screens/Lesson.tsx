@@ -5,7 +5,9 @@ import type { LessonSummary } from '../data/actions'
 import { ExerciseView, type ExerciseResult } from '../components/exercises'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
-import { Button, Icon, ProgressBar } from '../components/ui'
+import { Icon } from '../components/icons'
+import { OtterSvg } from '../components/OtterSvg'
+import { Button, TrainTrack } from '../components/ui'
 import { generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
 import { weakestItems } from '../data/actions'
 import { sfx } from '../lib/sfx'
@@ -14,7 +16,8 @@ import { LessonComplete } from './LessonComplete'
 
 export const WEAK_LESSON = 'weak'
 
-const PRAISE = ['好棒！', '太好了！', 'Steady!', '厉害！', 'Power lah!', '对了！', 'Shiok!']
+const PRAISE = ['好棒！', '太好了！', 'Steady lah!', '厉害！', 'Power!', '对了！', 'Shiok!']
+const OOPS = ['Aiyo, almost!', '差一点！', 'Not quite lah', 'Close!']
 
 interface Feedback extends ExerciseResult {
   ex: Exercise
@@ -163,26 +166,41 @@ export function LessonScreen() {
   return (
     <div className="mx-auto flex min-h-full max-w-xl flex-col px-4 pb-48 pt-4">
       <div className="mb-6 flex items-center gap-3">
-        <button type="button" aria-label="Quit lesson" onClick={() => setConfirmQuit(true)} className="text-slate-400 hover:text-slate-600">
-          {Icon.close()}
+        <button
+          type="button"
+          aria-label="Quit lesson"
+          onClick={() => setConfirmQuit(true)}
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-ink"
+        >
+          <Icon name="close" className="h-6 w-6" />
         </button>
-        <ProgressBar value={graded ? doneGraded / graded : 0} />
-        {stats.current.combo >= 3 && <span className="whitespace-nowrap text-sm font-bold text-amber-500">🔥 {stats.current.combo}</span>}
+        <TrainTrack value={graded ? doneGraded / graded : 0} />
+        {stats.current.combo >= 3 && (
+          <span className="flex items-center gap-0.5 whitespace-nowrap font-display font-extrabold text-orange-500" title="Combo">
+            <Icon name="lantern" className="h-5 w-5 animate-glow" />
+            {stats.current.combo}
+          </span>
+        )}
       </div>
 
-      {ex && <ExerciseView key={ex.id} ex={ex} locked={!!feedback} onSubmit={onSubmit} />}
+      {ex && (
+        <div data-kind={ex.kind}>
+          <ExerciseView key={ex.id} ex={ex} locked={!!feedback} onSubmit={onSubmit} />
+        </div>
+      )}
 
       {feedback && <FeedbackSheet fb={feedback} onContinue={advance} />}
 
       {confirmQuit && (
         <div className="fixed inset-0 z-20 grid place-items-end bg-black/40 sm:place-items-center" onClick={() => setConfirmQuit(false)}>
-          <div className="safe-bottom w-full max-w-md animate-slide-up rounded-t-3xl bg-surface p-6 sm:rounded-3xl" onClick={(e) => e.stopPropagation()}>
-            <p className="mb-2 text-xl font-bold">Quit this lesson?</p>
-            <p className="mb-6 text-slate-500">You'll lose your progress in this lesson.</p>
-            <div className="flex flex-col gap-3">
-              <Button onClick={() => setConfirmQuit(false)}>Keep learning</Button>
+          <div className="safe-bottom w-full max-w-md animate-slide-up rounded-t-[2rem] bg-surface p-6 text-center sm:rounded-[2rem]" onClick={(e) => e.stopPropagation()}>
+            <OtterSvg mood="sad" size={88} className="mx-auto" />
+            <p className="mb-1 mt-2 font-display text-xl font-extrabold">Alighting already?</p>
+            <p className="mb-6 text-slate-500">You'll lose your progress on this ride.</p>
+            <div className="flex flex-col gap-2">
+              <Button onClick={() => setConfirmQuit(false)}>Stay on the train</Button>
               <Button variant="ghost" className="text-rose-500" onClick={() => nav('/', { replace: true })}>
-                End lesson
+                Alight here
               </Button>
             </div>
           </div>
@@ -194,52 +212,71 @@ export function LessonScreen() {
 
 function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => void }) {
   const { ex, correct } = fb
-  const [praise] = useState(() => PRAISE[Math.floor(Math.random() * PRAISE.length)])
+  const [praise] = useState(() => (correct ? PRAISE : OOPS)[Math.floor(Math.random() * (correct ? PRAISE : OOPS).length)])
   const it = ex.kind === 'match' ? null : getItem(ex.itemId)
   const sentence = ex.kind === 'build' || ex.kind === 'hear' ? it?.example : null
+  const showAnswer = it && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear')
   return (
     <div
-      className={`safe-bottom fixed inset-x-0 bottom-0 z-10 animate-slide-up px-4 pt-4 ${correct ? 'bg-brand-100' : 'bg-rose-100'}`}
+      className="safe-bottom fixed inset-x-0 bottom-0 z-10 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6"
       data-testid="feedback"
       data-correct={correct}
     >
-      <div className="mx-auto max-w-xl">
-        <p className={`mb-2 text-2xl font-extrabold ${correct ? 'text-brand-700 dark:text-brand-400' : 'text-rose-600 dark:text-rose-400'}`}>
-          {correct ? praise : ex.kind === 'match' ? 'Keep practising!' : 'Correct answer:'}
-        </p>
-        {ex.kind === 'speak' && fb.heard !== undefined && (
-          <p className="mb-2 text-sm text-slate-600">
-            Heard: <span className="font-han text-base">{fb.heard || '—'}</span>
-            {fb.score !== undefined && <> · {Math.round(fb.score * 100)}% match</>}
-          </p>
-        )}
-        {it && ex.kind === 'sgpick' && it.note && <p className="mb-2 text-sm text-slate-700">💡 {it.note}</p>}
-        {it && (!correct || ex.kind === 'build' || ex.kind === 'speak' || ex.kind === 'hear') && (
-          <div className="mb-3 flex items-center gap-3">
-            {sentence ? (
-              <>
-                <AudioButton text={sentence.zh.replace(/ /g, '')} size="sm" slow={false} />
-                <div>
-                  <Hanzi text={sentence.zh.replace(/ /g, '')} showPinyin className="text-xl leading-loose" />
-                  <p className="text-slate-600">{sentence.en}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <AudioButton text={ex.kind === 'speak' ? ex.text : it.hanzi} size="sm" slow={false} />
-                <div>
-                  <Hanzi
-                    text={ex.kind === 'speak' ? ex.text : it.hanzi}
-                    pinyin={ex.kind === 'speak' && ex.text !== it.hanzi ? undefined : it.pinyin}
-                    showPinyin
-                    className="text-2xl"
-                  />
-                  <p className="text-slate-600">{ex.kind === 'speak' ? ex.en : it.english}</p>
-                </div>
-              </>
+      <div className="mx-auto max-w-xl animate-slide-up">
+        <div className="flex items-end gap-1">
+          <OtterSvg mood={correct ? 'happy' : 'sad'} size={84} className="-mb-1 shrink-0" />
+          <div
+            className={`relative mb-4 min-w-0 flex-1 rounded-3xl p-4 shadow-[0_16px_32px_-20px_rgb(20_40_30/0.5)] ring-1 ${
+              correct ? 'bg-brand-50 ring-brand-200' : 'bg-rose-50 ring-rose-200'
+            }`}
+          >
+            <span
+              className={`absolute -left-1.5 bottom-6 h-4 w-4 rotate-45 ring-1 ${correct ? 'bg-brand-50 ring-brand-200' : 'bg-rose-50 ring-rose-200'}`}
+              style={{ clipPath: 'polygon(0 0, 0 100%, 100% 100%)' }}
+            />
+            <p className={`font-display text-xl font-extrabold ${correct ? 'text-brand-700 dark:text-brand-400' : 'text-rose-600 dark:text-rose-400'}`}>
+              {correct ? praise : ex.kind === 'match' ? 'Keep practising!' : praise}
+            </p>
+            {ex.kind === 'speak' && fb.heard !== undefined && (
+              <p className="mt-1 text-sm text-slate-600">
+                Heard: <span className="font-han text-base">{fb.heard || '—'}</span>
+                {fb.score !== undefined && <> · {Math.round(fb.score * 100)}% match</>}
+              </p>
+            )}
+            {it && ex.kind === 'sgpick' && it.note && (
+              <p className="mt-1 flex gap-1.5 text-sm text-slate-700">
+                <Icon name="bulb" className="h-5 w-5 shrink-0 text-amber-500" /> {it.note}
+              </p>
+            )}
+            {showAnswer && (
+              <div className="mt-2 flex items-center gap-3">
+                {!correct && !sentence && <span className="sr-only">Correct answer:</span>}
+                {sentence ? (
+                  <>
+                    <AudioButton text={sentence.zh.replace(/ /g, '')} size="sm" slow={false} />
+                    <div className="min-w-0">
+                      <Hanzi text={sentence.zh.replace(/ /g, '')} showPinyin className="text-xl leading-loose" />
+                      <p className="text-sm text-slate-600">{sentence.en}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <AudioButton text={ex.kind === 'speak' ? ex.text : it.hanzi} size="sm" slow={false} />
+                    <div className="min-w-0">
+                      <Hanzi
+                        text={ex.kind === 'speak' ? ex.text : it.hanzi}
+                        pinyin={ex.kind === 'speak' && ex.text !== it.hanzi ? undefined : it.pinyin}
+                        showPinyin
+                        className="text-2xl"
+                      />
+                      <p className="text-sm text-slate-600">{ex.kind === 'speak' ? ex.en : it.english}</p>
+                    </div>
+                  </>
+                )}
+              </div>
             )}
           </div>
-        )}
+        </div>
         <Button variant={correct ? 'primary' : 'danger'} className="mb-1 w-full" onClick={onContinue} data-testid="continue">
           Continue
         </Button>

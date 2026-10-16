@@ -1,23 +1,87 @@
 @import "tailwindcss";
 
+/*
+ * 华语 Lah! — "kopitiam & shophouse" palette.
+ * Pandan green (softer primary), Peranakan blue (remaps Tailwind sky), kaya yellow (amber),
+ * chilli red (rose), lantern orange, nyonya pink, mahjong-tile ivory, porcelain page.
+ */
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-display: "Bricolage Grotesque", "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-brush: "Ma Shan Zheng", "STKaiti", "KaiTi", "Kaiti SC", serif;
   --font-han: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-400: #4ade80;
-  --color-brand-500: #22c55e;
-  --color-brand-600: #16a34a;
-  --color-brand-700: #15803d;
-  --color-sg: #ef3340;
+
+  --color-page: #f5f6f1;
   --color-surface: #ffffff;
-  --color-brand-200: #bbf7d0;
+  --color-ink: #23302a;
+
+  --color-brand-50: #eff6f1;
+  --color-brand-100: #dcece2;
+  --color-brand-200: #bddbc8;
+  --color-brand-300: #96c6a8;
+  --color-brand-400: #6fae88;
+  --color-brand-500: #52976f;
+  --color-brand-600: #42805d;
+  --color-brand-700: #36684c;
+  --color-brand-800: #2b523d;
+
+  --color-sky-50: #eef3fa;
+  --color-sky-100: #dbe5f4;
+  --color-sky-200: #bccde9;
+  --color-sky-300: #92aedb;
+  --color-sky-400: #6688c4;
+  --color-sky-500: #4669ad;
+  --color-sky-600: #3a5893;
+  --color-sky-700: #304877;
+  --color-sky-800: #263a5f;
+
+  --color-amber-50: #fdf8e8;
+  --color-amber-100: #faedc6;
+  --color-amber-200: #f6df9b;
+  --color-amber-300: #f1cf6c;
+  --color-amber-400: #e8bb42;
+  --color-amber-500: #d5a32b;
+  --color-amber-600: #b48420;
+  --color-amber-700: #8e661b;
+  --color-amber-800: #6d4f17;
+  --color-amber-900: #523c13;
+
+  --color-rose-50: #fcf0ee;
+  --color-rose-100: #f8dcd8;
+  --color-rose-200: #f1bab3;
+  --color-rose-300: #e8948a;
+  --color-rose-400: #df6f63;
+  --color-rose-500: #cf5145;
+  --color-rose-600: #b33f35;
+  --color-rose-700: #91332c;
+
+  --color-orange-50: #fdf2ea;
+  --color-orange-400: #f08a4b;
+  --color-orange-500: #e46f2e;
+  --color-orange-600: #c55a20;
+
+  --color-nyonya-50: #fdf1f4;
+  --color-nyonya-100: #fae0e8;
+  --color-nyonya-300: #eeaabe;
+  --color-nyonya-500: #d8708f;
+
+  --color-ivory-50: #fffdf6;
+  --color-ivory-100: #f6efdb;
+  --color-ivory-300: #e2d5b1;
+  --color-ivory-500: #b9a77c;
+
+  --color-sg: #cf4136;
+
   --animate-pop: pop 0.25s ease-out;
   --animate-shake: shake 0.35s ease-in-out;
-  --animate-slide-up: slide-up 0.2s ease-out;
+  --animate-slide-up: slide-up 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --animate-stamp: stamp 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  --animate-glow: glow 2.4s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-ping-slow: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 
   @keyframes pop {
-    0% { transform: scale(0.9); opacity: 0; }
+    0% { transform: scale(0.92); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
   @keyframes shake {
@@ -26,38 +90,59 @@
     75% { transform: translateX(6px); }
   }
   @keyframes slide-up {
-    0% { transform: translateY(100%); }
+    0% { transform: translateY(110%); }
     100% { transform: translateY(0); }
+  }
+  @keyframes stamp {
+    0% { transform: scale(2.2) rotate(var(--r, -8deg)); opacity: 0; }
+    60% { opacity: 1; }
+    100% { transform: scale(1) rotate(var(--r, -8deg)); opacity: 1; }
+  }
+  @keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 0 rgb(228 111 46 / 0)); }
+    50% { filter: drop-shadow(0 0 6px rgb(228 111 46 / 0.55)); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.9); opacity: 0; }
   }
 }
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
-/* Dark theme: remap the neutral scale and light tints so existing utilities just work. */
+/* Night-market dark theme: remap neutrals and light tints so existing utilities just work. */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-surface: #0f172a;
-  --color-slate-50: #131c31;
-  --color-slate-100: #1e293b;
-  --color-slate-200: #2c3a50;
-  --color-slate-300: #475569;
-  --color-slate-400: #7c8aa0;
-  --color-slate-500: #94a3b8;
-  --color-slate-600: #cbd5e1;
-  --color-slate-700: #e2e8f0;
-  --color-slate-800: #f1f5f9;
-  --color-slate-900: #f8fafc;
-  --color-sky-50: #0b2a40;
-  --color-sky-100: #0c3654;
-  --color-sky-200: #0b4a70;
-  --color-brand-50: #0c2a1a;
-  --color-brand-100: #123d25;
-  --color-brand-200: #166534;
-  --color-amber-50: #2b210b;
-  --color-amber-100: #3a2c0c;
-  --color-rose-50: #33101a;
-  --color-rose-100: #46121f;
-  --color-orange-50: #2e1a0b;
+  --color-page: #10171a;
+  --color-surface: #182227;
+  --color-ink: #e8efe9;
+  --color-slate-50: #1c272d;
+  --color-slate-100: #223038;
+  --color-slate-200: #2e3e47;
+  --color-slate-300: #475a63;
+  --color-slate-400: #7d8f96;
+  --color-slate-500: #9aabb1;
+  --color-slate-600: #c5d2d6;
+  --color-slate-700: #dde6e8;
+  --color-slate-800: #eef3f2;
+  --color-slate-900: #f8faf9;
+  --color-sky-50: #15263a;
+  --color-sky-100: #1a3049;
+  --color-sky-200: #23426a;
+  --color-brand-50: #152a20;
+  --color-brand-100: #1a3628;
+  --color-brand-200: #24503a;
+  --color-amber-50: #2a2210;
+  --color-amber-100: #3a2e12;
+  --color-rose-50: #33191a;
+  --color-rose-100: #47201f;
+  --color-orange-50: #2f1d12;
+  --color-nyonya-50: #301c24;
+  --color-nyonya-100: #43242f;
 }
 
 html, body, #root {
@@ -65,7 +150,8 @@ html, body, #root {
 }
 
 body {
-  @apply bg-surface text-slate-800 antialiased;
+  @apply bg-page text-ink antialiased;
+  font-family: var(--font-sans);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
 }
@@ -83,11 +169,194 @@ rt {
   font-family: var(--font-sans);
   font-size: 0.42em;
   line-height: 1.1;
-  color: rgb(100 116 139);
+  color: var(--color-slate-500);
   letter-spacing: 0;
   user-select: none;
 }
 
 .safe-bottom {
   padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sky-400);
+  outline-offset: 2px;
+}
+
+/* ---------- Mahjong tile: ivory face, jade back showing underneath ---------- */
+.tile {
+  --tile-edge: #3f7d5c;
+  position: relative;
+  color: #22302a;
+  background: linear-gradient(180deg, #fffdf6 0%, #f6efdb 100%);
+  border: 1.5px solid #e2d5b1;
+  border-radius: 0.8rem;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 4px 0 var(--tile-edge),
+    0 7px 12px -6px rgb(30 40 30 / 0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s;
+}
+.tile:not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 var(--tile-edge), 0 3px 6px -4px rgb(30 40 30 / 0.35);
+}
+.tile rt {
+  color: #6f7d75;
+}
+.tile[data-state='picked'] {
+  background: linear-gradient(180deg, #f5f8ff 0%, #e3ebfa 100%);
+  transform: translateY(-4px);
+  box-shadow: inset 0 1px 0 #fff, 0 7px 0 var(--tile-edge), 0 12px 16px -8px rgb(30 40 30 / 0.4), 0 0 0 3px #6688c4;
+}
+.tile[data-state='right'] {
+  background: linear-gradient(180deg, #ecf7ef, #d5ecdc);
+  border-color: #6fae88;
+}
+.tile[data-state='wrong'] {
+  background: linear-gradient(180deg, #fdf0ee, #f6d6d1);
+  border-color: #df6f63;
+  --tile-edge: #a3443b;
+}
+.tile[data-state='done'] {
+  opacity: 0.35;
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 var(--tile-edge);
+  transform: translateY(3px);
+}
+
+/* ---------- Peranakan tile pattern, used as a decorative band ---------- */
+.peranakan {
+  background-color: var(--color-sky-50);
+  background-image:
+    radial-gradient(circle at 50% 50%, var(--color-nyonya-300) 0 14%, transparent 15%),
+    radial-gradient(circle at 0 0, var(--color-sky-300) 0 22%, transparent 23%),
+    radial-gradient(circle at 100% 0, var(--color-sky-300) 0 22%, transparent 23%),
+    radial-gradient(circle at 0 100%, var(--color-sky-300) 0 22%, transparent 23%),
+    radial-gradient(circle at 100% 100%, var(--color-sky-300) 0 22%, transparent 23%),
+    linear-gradient(45deg, transparent 46%, var(--color-amber-300) 47% 53%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, var(--color-amber-300) 47% 53%, transparent 54%);
+  background-size: 22px 22px;
+}
+
+/* ---------- Ah Tat the otter ---------- */
+.otter .o-all,
+.otter .o-breathe,
+.otter .o-head,
+.otter .o-eyes,
+.otter .o-tail,
+.otter .o-wave,
+.otter .o-z,
+.otter .o-sparkle {
+  transform-box: fill-box;
+}
+.otter .o-breathe {
+  transform-origin: 50% 100%;
+  animation: o-breathe 3.4s ease-in-out infinite;
+}
+.otter .o-head {
+  transform-origin: 50% 90%;
+  animation: o-look 7s ease-in-out infinite;
+}
+.otter .o-eyes {
+  transform-origin: 50% 50%;
+  animation: o-blink 4.6s infinite;
+}
+.otter .o-tail {
+  transform-origin: 0% 90%;
+  animation: o-tail 2.8s ease-in-out infinite;
+}
+.otter .o-wave {
+  transform-origin: 30% 90%;
+}
+.otter[data-mood='wave'] .o-wave {
+  animation: o-wave 0.45s ease-in-out infinite alternate;
+}
+.otter[data-mood='happy'] .o-all {
+  transform-origin: 50% 100%;
+  animation: o-hop 0.6s ease-in-out 2;
+}
+.otter[data-mood='cheer'] .o-all {
+  transform-origin: 50% 100%;
+  animation: o-hop 0.75s ease-in-out infinite;
+}
+.otter[data-mood='sad'] .o-head {
+  animation: o-shake 0.45s ease-in-out 2;
+}
+.otter[data-mood='think'] .o-head {
+  animation: o-tilt 2.4s ease-in-out infinite;
+}
+.otter[data-mood='sleep'] .o-breathe {
+  animation-duration: 5s;
+}
+.otter .o-z {
+  animation: o-z 2.8s ease-in infinite;
+}
+.otter .o-z:nth-of-type(2) {
+  animation-delay: 0.9s;
+}
+.otter .o-z:nth-of-type(3) {
+  animation-delay: 1.8s;
+}
+.otter .o-sparkle {
+  transform-origin: 50% 50%;
+  animation: o-sparkle 1.2s ease-in-out infinite;
+}
+.otter .o-sparkle:nth-of-type(2) {
+  animation-delay: 0.4s;
+}
+.otter .o-sparkle:nth-of-type(3) {
+  animation-delay: 0.8s;
+}
+@keyframes o-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.03); }
+}
+@keyframes o-look {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -4deg; }
+  55% { rotate: 3deg; }
+}
+@keyframes o-blink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.08); }
+}
+@keyframes o-tail {
+  0%, 100% { rotate: -6deg; }
+  50% { rotate: 9deg; }
+}
+@keyframes o-wave {
+  from { rotate: -12deg; }
+  to { rotate: 28deg; }
+}
+@keyframes o-hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  35% { transform: translateY(-12%) scale(0.96, 1.05); }
+  70% { transform: translateY(0) scale(1.06, 0.94); }
+}
+@keyframes o-shake {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -8deg; }
+  75% { rotate: 8deg; }
+}
+@keyframes o-tilt {
+  0%, 100% { rotate: -6deg; }
+  50% { rotate: 4deg; }
+}
+@keyframes o-z {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(10px, -22px) scale(1.1); opacity: 0; }
+}
+@keyframes o-sparkle {
+  0%, 100% { transform: scale(0.4); opacity: 0.2; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otter *,
+  .otter,
+  .tile {
+    animation: none !important;
+    transition: none !important;
+  }
 }

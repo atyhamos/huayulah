@@ -20,7 +20,8 @@ const tags = [...html.matchAll(/<(script|link)\b[^>]*>(<\/script>)?/g)]
   .filter((t) => /assets\//.test(t))
 const page = [
   '<title>华语 Lah!</title>',
-  '<meta name="theme-color" content="#16a34a">',
+  '<meta name="theme-color" content="#42805d">',
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400..800&family=Ma+Shan+Zheng&display=swap">',
   ...tags,
   '<div id="root"></div>',
 ].join('\n')
