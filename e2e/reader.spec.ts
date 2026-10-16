@@ -23,7 +23,7 @@ test('paste text, save words to My words, practise them, see them in Review', as
   await addWord(page, '罗惹', 'rojak')
   await addWord(page, '板面', 'ban mian')
 
-  await page.goto('/words')
+  await page.getByRole('link', { name: 'Words' }).click()
   await page.getByRole('button', { name: 'My words · 3' }).click()
   await expect(page.getByTestId('word-row')).toHaveCount(3)
   await page.getByTestId('practise-mine').click()

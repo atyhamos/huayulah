@@ -75,7 +75,10 @@ export function TalkScreen() {
     if (sc) setTimeout(() => say(sc.opener.zh), 400)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }), [turns, busy])
+  // block body: newer Chrome returns a Promise from scrollIntoView, which React would take as a cleanup function
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+  }, [turns, busy])
 
   if (!sc) {
     return (
