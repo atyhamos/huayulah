@@ -66,6 +66,9 @@ jobs:
           set +e
           npx -y firebase-tools@latest deploy --only hosting --project huayu-lah --non-interactive 2>&1 | tee "$RUNNER_TEMP/deploy.log"
           status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ]; then
+            node -e 'try { const k = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")); console.log(`::error::Deploying as ${k.client_email} (key from project ${k.project_id})`) } catch (e) { console.log("::error::FIREBASE_SERVICE_ACCOUNT is not valid JSON: " + e.message) }' "$RUNNER_TEMP/sa.json"
+          fi
           rm -f "$RUNNER_TEMP/sa.json"
           if [ "$status" -ne 0 ]; then
             # surface the cause as annotations (readable without downloading logs)
