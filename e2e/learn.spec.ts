@@ -81,3 +81,16 @@ test('a story plays through with questions', async ({ page }) => {
   await page.getByTestId('done').click()
   await expect(page.getByTestId('story-u03')).toHaveAttribute('data-status', 'done')
 })
+
+test('explains when the browser has no Mandarin voice', async ({ page }) => {
+  // e.g. Firefox on Windows with only English voices installed
+  await page.addInitScript(() => {
+    const english = [{ name: 'David', lang: 'en-US', voiceURI: 'David', default: true, localService: true }]
+    Object.defineProperty(window.speechSynthesis, 'getVoices', { value: () => english })
+  })
+  await onboard(page) // the first new-word card tries to speak
+  await expect(page.getByText('No Mandarin voice in this browser')).toBeVisible()
+  await page.goto('/settings')
+  await expect(page.getByTestId('no-voice')).toBeVisible()
+  await expect(page.getByTestId('voice-count')).toHaveText('Mandarin voices found: 0')
+})

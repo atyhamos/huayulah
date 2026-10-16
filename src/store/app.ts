@@ -10,6 +10,7 @@ import { emptyState, type AppState, type Settings } from '../data/types'
 import type { Achievement } from '../lib/achievements'
 import { dayKey } from '../lib/dates'
 import { QUEST_BONUS_XP } from '../lib/quests'
+import { onMissingVoice } from '../lib/tts'
 import type { IconName } from '../components/icons'
 import type { Grade } from '../lib/srs'
 import { thisWeekXp, type PublicProfile } from '../data/profile'
@@ -325,4 +326,12 @@ export const useApp = create<AppStore>((set, get) => {
       set({ toasts: get().toasts.filter((t) => t.id !== id) })
     },
   }
+})
+
+// One hint per session when speech can't play because the browser has no Mandarin voice.
+let warnedNoVoice = false
+onMissingVoice(() => {
+  if (warnedNoVoice) return
+  warnedNoVoice = true
+  useApp.getState().toast({ icon: 'mute', title: 'No Mandarin voice in this browser', body: 'Settings → Voice shows how to add one.' })
 })

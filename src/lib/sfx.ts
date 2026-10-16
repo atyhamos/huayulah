@@ -8,6 +8,19 @@ function ac(): AudioContext | null {
   return ctx
 }
 
+/**
+ * Browsers only let a page make sound after a tap or key press. Call this from the first one so later
+ * sound effects (which may fire outside a gesture) aren't muted.
+ */
+export function unlockAudio() {
+  const a = ac()
+  if (!a) return
+  const b = a.createBufferSource()
+  b.buffer = a.createBuffer(1, 1, a.sampleRate)
+  b.connect(a.destination)
+  b.start()
+}
+
 function tone(freq: number, start: number, dur: number, type: OscillatorType = 'sine', gain = 0.15) {
   const a = ac()
   if (!a) return

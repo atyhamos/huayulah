@@ -3,7 +3,8 @@ import { firebaseEnabled } from '../data/firebase'
 import { normalizeState, type AppState, type PinyinMode, type Theme } from '../data/types'
 import { Icon, type IconName } from '../components/icons'
 import { BackButton, Button, Card, KopiCup } from '../components/ui'
-import { chineseVoices, onVoicesChanged, speak } from '../lib/tts'
+import { sfx } from '../lib/sfx'
+import { chineseVoices, onVoicesChanged, speak, voiceHelp, voiceStatus } from '../lib/tts'
 import { recognitionSupported } from '../lib/speech'
 import { GOAL_OPTIONS } from '../lib/xp'
 import { IS_ARTIFACT } from '../env'
@@ -20,6 +21,7 @@ export function SettingsScreen() {
   const toast = useApp((st) => st.toast)
   const [confirmReset, setConfirmReset] = useState(false)
   const [voices, setVoices] = useState(chineseVoices())
+  const status = voices.length ? 'ok' : voiceStatus()
   const fileRef = useRef<HTMLInputElement>(null)
   const set = s.settings
 
@@ -110,10 +112,20 @@ export function SettingsScreen() {
 
       <Card>
         <Label>Voice</Label>
-        {voices.length === 0 ? (
-          <p className="text-sm text-rose-600 dark:text-rose-400">
-            No Mandarin voice found on this device. On Android, install “Google Speech Services” and add Chinese (Mandarin) in text-to-speech settings.
-          </p>
+        {status === 'none' || status === 'unsupported' ? (
+          <div className="mb-3 rounded-2xl bg-rose-50 p-3 text-sm text-rose-700 dark:text-rose-300" data-testid="no-voice">
+            <p className="mb-1.5 flex items-center gap-2 font-display font-extrabold">
+              <Icon name="mute" className="h-5 w-5 shrink-0" />
+              {status === 'unsupported' ? 'This browser can’t speak' : 'No Mandarin voice in this browser'}
+            </p>
+            <ol className="list-decimal space-y-1 pl-5">
+              {voiceHelp().map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ol>
+          </div>
+        ) : status === 'loading' ? (
+          <p className="mb-3 text-sm text-slate-500">Looking for Mandarin voices…</p>
         ) : (
           <select
             value={set.voiceURI ?? ''}
@@ -139,10 +151,25 @@ export function SettingsScreen() {
             onChange={(e) => update({ ttsRate: Number(e.target.value) })}
             className="flex-1"
           />
-          <button type="button" className="text-sm font-bold text-sky-600" onClick={() => speak('你好，我们去吃鸡饭吧！', { rate: set.ttsRate, voiceURI: set.voiceURI })}>
-            Test
-          </button>
         </div>
+        <p className="mb-2 mt-4 font-display text-sm font-extrabold text-slate-500">Sound check</p>
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            variant="secondary"
+            className="!px-3 !py-2.5 text-sm"
+            data-testid="test-voice"
+            onClick={() => speak('你好，我们去吃鸡饭吧！', { rate: set.ttsRate, voiceURI: set.voiceURI })}
+          >
+            <Icon name="speaker" className="h-5 w-5" /> Test voice
+          </Button>
+          <Button variant="secondary" className="!px-3 !py-2.5 text-sm" data-testid="test-sfx" onClick={() => sfx.correct()}>
+            <Icon name="sparkle" className="h-5 w-5" /> Test sounds
+          </Button>
+        </div>
+        <p className="mt-2 text-xs text-slate-500" data-testid="voice-count">
+          Mandarin voices found: {voices.length}
+          {voices.length > 0 && ` — ${voices.slice(0, 3).map((v) => v.name).join(', ')}${voices.length > 3 ? '…' : ''}`}
+        </p>
       </Card>
 
       <Card>
