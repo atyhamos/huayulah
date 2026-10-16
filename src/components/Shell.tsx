@@ -56,6 +56,7 @@ export function Shell() {
           <Tab to="/" icon="map" label="Line map" />
           <Tab to="/review" icon="cards" label="Review" badge={due.review.length + due.fresh.length} />
           <Tab to="/words" icon="book" label="Words" />
+          <Tab to="/reader" icon="camera" label="Reader" />
           <Tab to="/profile" icon="otter" label="Me" />
         </div>
       </nav>

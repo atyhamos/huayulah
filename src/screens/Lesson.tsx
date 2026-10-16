@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { content, getItem } from '../content'
 import type { LessonSummary } from '../data/actions'
+import { cardId } from '../data/types'
 import { ExerciseView, type ExerciseResult } from '../components/exercises'
 import { partMnemonic } from '../content/chars'
 import { AudioButton } from '../components/AudioButton'
@@ -10,12 +11,13 @@ import { Icon } from '../components/icons'
 import { OtterSvg } from '../components/OtterSvg'
 import { Button, TrainTrack } from '../components/ui'
 import { generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
-import { weakestItems } from '../data/actions'
+import { myWordsLessonItems, weakestItems } from '../data/actions'
 import { sfx } from '../lib/sfx'
 import { useApp } from '../store/app'
 import { LessonComplete } from './LessonComplete'
 
 export const WEAK_LESSON = 'weak'
+export const MINE_LESSON = 'mine'
 
 const PRAISE = ['好棒！', '太好了！', 'Steady lah!', '厉害！', 'Power!', '对了！', 'Shiok!']
 const OOPS = ['Aiyo, almost!', '差一点！', 'Not quite lah', 'Close!']
@@ -31,15 +33,22 @@ export function LessonScreen() {
   const s = useApp((st) => st.s)
   const completeLesson = useApp((st) => st.completeLesson)
   const completePractice = useApp((st) => st.completePractice)
-  // "weak" is a virtual lesson built from the words you're most likely to have forgotten
+  const completeMyWords = useApp((st) => st.completeMyWords)
+  // virtual lessons: "weak" (words you're most likely to have forgotten) and "mine" (My words)
   const isWeak = lessonId === WEAK_LESSON
+  const isMine = lessonId === MINE_LESSON
   const [lesson] = useState(() =>
-    isWeak ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) } : content.lessons.get(lessonId),
+    isWeak
+      ? { id: WEAK_LESSON, items: weakestItems(s, 6, new Date(), content) }
+      : isMine
+        ? { id: MINE_LESSON, items: myWordsLessonItems(s, 6, new Date()) }
+        : content.lessons.get(lessonId),
   )
 
-  const [mode] = useState<'learn' | 'practice'>(() =>
-    isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn',
-  )
+  const [mode] = useState<'learn' | 'practice'>(() => {
+    if (isMine) return lesson?.items.some((id) => !s.cards[cardId(id, 'read')]) ? 'learn' : 'practice'
+    return isWeak || params.get('mode') === 'practice' || s.lessons[lessonId] ? 'practice' : 'learn'
+  })
   // Speaking works everywhere: browsers without recognition fall back to self-checking.
   const speaking = s.settings.speaking
 
@@ -72,10 +81,14 @@ export function LessonScreen() {
   const finish = useCallback(() => {
     const st = stats.current
     const result = { mistakesByItem: st.mistakes, maxCombo: st.maxCombo, answered: st.answered, correct: st.correct }
-    const r = isWeak ? completePractice(result) : completeLesson({ lessonId, mode, ...result })
+    const r = isMine
+      ? completeMyWords({ ...result, itemIds: lesson!.items })
+      : isWeak
+        ? completePractice(result)
+        : completeLesson({ lessonId, mode, ...result })
     if (s.settings.sound) sfx.complete()
     setSummary(r)
-  }, [completeLesson, completePractice, isWeak, lessonId, mode, s.settings.sound])
+  }, [completeLesson, completePractice, completeMyWords, isWeak, isMine, lesson, lessonId, mode, s.settings.sound])
 
   const advance = useCallback(() => {
     setFeedback(null)
@@ -146,7 +159,7 @@ export function LessonScreen() {
   if (!lesson || lesson.items.length < 3) {
     return (
       <div className="p-8 text-center">
-        <p className="mb-4">{isWeak ? 'Learn a few more words first!' : 'Lesson not found.'}</p>
+        <p className="mb-4">{isWeak ? 'Learn a few more words first!' : isMine ? 'Save at least 3 words in the Reader first!' : 'Lesson not found.'}</p>
         <Link to="/" className="text-sky-600 underline">
           Back home
         </Link>

@@ -6,7 +6,7 @@ import { newCard, Rating, retrievability, review, State, type Grade } from '../l
 import { allQuestsDone, dailyQuests, QUEST_BONUS_XP } from '../lib/quests'
 import { applyActivity, type StreakUpdate } from '../lib/streak'
 import { lessonXp } from '../lib/xp'
-import { cardId, parseCardId, type AppState, type DayLog, type StoredCard } from './types'
+import { cardId, parseCardId, type AppState, type CustomItem, type DayLog, type StoredCard } from './types'
 
 export interface Dirty {
   root?: boolean
@@ -89,26 +89,10 @@ export function completeLesson(s: AppState, input: LessonInput, content: Content
   next = touchDay(next, today, (d) => ({ ...d, lessons: d.lessons + 1 }))
 
   // First time through: the words join the flashcard deck.
-  const cards: Record<string, StoredCard> = { ...next.cards }
-  const dirtyCards: string[] = []
-  let newWords = 0
-  const tomorrow = new Date(now)
-  tomorrow.setHours(24, 0, 0, 0)
-  for (const itemId of lesson.items) {
-    const readId = cardId(itemId, 'read')
-    if (!cards[readId]) {
-      const grade: Grade = (input.mistakesByItem[itemId] ?? 0) > 0 ? Rating.Again : Rating.Good
-      cards[readId] = review(newCard(now), grade, now)
-      dirtyCards.push(readId)
-      newWords++
-    }
-    const sayId = cardId(itemId, 'say')
-    if (!cards[sayId]) {
-      cards[sayId] = { ...newCard(now), due: tomorrow.getTime() }
-      dirtyCards.push(sayId)
-    }
-  }
-  next = { ...next, cards }
+  const added = addItemCards(next.cards, lesson.items, input.mistakesByItem, now)
+  const dirtyCards = added.dirty
+  const newWords = added.newWords
+  next = { ...next, cards: added.cards }
 
   const achievements = newlyUnlocked(next, { units: content.units, lastLesson: { mistakes } })
   if (achievements.length) {
@@ -121,6 +105,68 @@ export function completeLesson(s: AppState, input: LessonInput, content: Content
     state: next,
     dirty: { root: true, cards: dirtyCards },
     info: { xp, accuracy, streak, achievements, newWords },
+  }
+}
+
+/**
+ * Words studied for the first time join the deck: a read card graded by how the lesson went, and a
+ * say card due tomorrow.
+ */
+export function addItemCards(
+  current: Record<string, StoredCard>,
+  itemIds: string[],
+  mistakesByItem: Record<string, number>,
+  now: Date,
+): { cards: Record<string, StoredCard>; dirty: string[]; newWords: number } {
+  const cards = { ...current }
+  const dirty: string[] = []
+  let newWords = 0
+  const tomorrow = new Date(now)
+  tomorrow.setHours(24, 0, 0, 0)
+  for (const itemId of itemIds) {
+    const readId = cardId(itemId, 'read')
+    if (!cards[readId]) {
+      const grade: Grade = (mistakesByItem[itemId] ?? 0) > 0 ? Rating.Again : Rating.Good
+      cards[readId] = review(newCard(now), grade, now)
+      dirty.push(readId)
+      newWords++
+    }
+    const sayId = cardId(itemId, 'say')
+    if (!cards[sayId]) {
+      cards[sayId] = { ...newCard(now), due: tomorrow.getTime() }
+      dirty.push(sayId)
+    }
+  }
+  return { cards, dirty, newWords }
+}
+
+/** Save a word the learner found (e.g. in the Reader) to My words. */
+export function addCustomItem(s: AppState, item: CustomItem): Result<null> {
+  return { state: { ...s, customItems: { ...s.customItems, [item.id]: item } }, dirty: { root: true }, info: null }
+}
+
+/** Remove one of My words, with its flashcards. */
+export function removeCustomItem(s: AppState, id: string): Result<null> {
+  const { [id]: _gone, ...customItems } = s.customItems
+  const cards = { ...s.cards }
+  const dirty = [cardId(id, 'read'), cardId(id, 'say')].filter((c) => c in cards)
+  for (const c of dirty) delete cards[c]
+  return { state: { ...s, customItems, cards }, dirty: { root: true, cards: dirty }, info: null }
+}
+
+/** A My-words session: practice XP, and flashcards for the words studied for the first time. */
+export function completeMyWords(
+  s: AppState,
+  input: Pick<LessonInput, 'mistakesByItem' | 'maxCombo' | 'answered' | 'correct'> & { itemIds: string[] },
+  content: Content,
+  now: Date,
+): Result<LessonSummary> {
+  const r = completePractice(s, input, content, now)
+  const added = addItemCards(r.state.cards, input.itemIds, input.mistakesByItem, now)
+  return {
+    state: { ...r.state, cards: added.cards },
+    dirty: { root: true, cards: added.dirty },
+    info: { ...r.info, newWords: added.newWords },
   }
 }
 
@@ -199,6 +245,17 @@ export function isStoryUnlocked(s: AppState, unitId: string, content: Content): 
   const unit = content.units.find((u) => u.id === unitId)
   if (!unit) return false
   return unit.lessons.filter((l) => s.lessons[l.id]).length >= Math.min(STORY_UNLOCK_LESSONS, unit.lessons.length)
+}
+
+/** A My-words session: words not practised yet first (oldest first), then the weakest learned ones. */
+export function myWordsLessonItems(s: AppState, n: number, now: Date): string[] {
+  const all = Object.values(s.customItems)
+  const fresh = all.filter((c) => !s.cards[cardId(c.id, 'read')]).sort((a, b) => a.addedAt - b.addedAt)
+  const learned = all
+    .filter((c) => s.cards[cardId(c.id, 'read')])
+    .map((c) => [c.id, retrievability(s.cards[cardId(c.id, 'read')], now)] as const)
+    .sort((a, b) => a[1] - b[1])
+  return [...fresh.map((c) => c.id), ...learned.map(([id]) => id)].slice(0, n)
 }
 
 /** Learned items you're most likely to have forgotten. */

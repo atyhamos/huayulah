@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { OtterSvg } from './components/OtterSvg'
 import { Shell, Toasts } from './components/Shell'
@@ -14,6 +14,9 @@ import { SettingsScreen } from './screens/Settings'
 import { StoryScreen } from './screens/Story'
 import { WordDetailScreen } from './screens/WordDetail'
 import { WordsScreen } from './screens/Words'
+
+// the Reader pulls in zod + the Claude client, so it loads on first visit
+const ReaderScreen = lazy(() => import('./screens/Reader').then((m) => ({ default: m.ReaderScreen })))
 
 export default function App() {
   const status = useApp((s) => s.status)
@@ -77,6 +80,14 @@ export default function App() {
           <Route path="/" element={<LearnScreen />} />
           <Route path="/review" element={<ReviewScreen />} />
           <Route path="/words" element={<WordsScreen />} />
+          <Route
+            path="/reader"
+            element={
+              <Suspense fallback={null}>
+                <ReaderScreen />
+              </Suspense>
+            }
+          />
           <Route path="/words/:itemId" element={<WordDetailScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/settings" element={<SettingsScreen />} />

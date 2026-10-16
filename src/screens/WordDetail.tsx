@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { content, SMD_BASE } from '../content'
 import { cardId } from '../data/types'
 import { AudioButton } from '../components/AudioButton'
@@ -8,7 +8,8 @@ import { StrokeChar } from '../components/StrokeChar'
 import { CharBreakdown } from '../components/CharParts'
 import { charInfo } from '../content/chars'
 import { Icon } from '../components/icons'
-import { BackButton, Card, SgBadge, StrengthBars } from '../components/ui'
+import { BackButton, Button, Card, SgBadge, StrengthBars } from '../components/ui'
+import { isCustomItem } from '../content/custom'
 import { hanChars } from '../lib/pinyin'
 import { formatInterval, retrievability, strength } from '../lib/srs'
 import { useApp } from '../store/app'
@@ -21,8 +22,9 @@ export function WordDetailScreen() {
   if (!it) return <p className="p-6">Word not found.</p>
   const read = cards[cardId(it.id, 'read')]
   const sayCard = cards[cardId(it.id, 'say')]
-  const unit = content.units.find((u) => u.id === it.unitId)!
-  const lesson = unit.lessons.find((l) => l.items.includes(it.id))!
+  const unit = content.units.find((u) => u.id === it.unitId)
+  const lesson = unit?.lessons.find((l) => l.items.includes(it.id))
+  const mine = isCustomItem(it)
 
   return (
     <div>
@@ -111,16 +113,26 @@ export function WordDetailScreen() {
               </p>
             )}
           </div>
+        ) : mine ? (
+          <p className="text-slate-500">
+            Not practised yet —{' '}
+            <Link to="/lesson/mine" className="font-bold text-sky-600">
+              practise My words
+            </Link>{' '}
+            to add it to your flashcards.
+          </p>
         ) : (
           <p className="text-slate-500">
             Not learned yet — it's in{' '}
             <Link to="/" className="font-bold text-sky-600">
-              {unit.title} › {lesson.title}
+              {unit?.title} › {lesson?.title}
             </Link>
             .
           </p>
         )}
       </Card>
+
+      {mine && <RemoveMine id={it.id} />}
 
       <a
         href={it.smd ? `${SMD_BASE}/terms/${it.smd}` : SMD_BASE}
@@ -132,5 +144,36 @@ export function WordDetailScreen() {
       </a>
       {it.verify && <p className="mt-2 text-center text-xs text-slate-400">This entry is marked for a native-speaker double-check.</p>}
     </div>
+  )
+}
+
+/** My words can be removed (with their flashcards); confirm inline first. */
+function RemoveMine({ id }: { id: string }) {
+  const remove = useApp((st) => st.removeCustomItem)
+  const nav = useNavigate()
+  const [confirm, setConfirm] = useState(false)
+  return confirm ? (
+    <div className="mb-4 rounded-3xl bg-rose-50 p-3 text-center">
+      <p className="mb-2 text-sm text-rose-700 dark:text-rose-300">Remove this word and its flashcards?</p>
+      <div className="grid grid-cols-2 gap-2">
+        <Button variant="secondary" onClick={() => setConfirm(false)}>
+          Keep
+        </Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            remove(id)
+            nav('/words', { replace: true })
+          }}
+          data-testid="remove-mine-confirm"
+        >
+          Remove
+        </Button>
+      </div>
+    </div>
+  ) : (
+    <Button variant="ghost" className="mb-4 w-full text-rose-500" onClick={() => setConfirm(true)} data-testid="remove-mine">
+      Remove from My words
+    </Button>
   )
 }

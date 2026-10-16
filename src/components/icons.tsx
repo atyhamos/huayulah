@@ -94,6 +94,21 @@ export const ICONS = {
     </>
   ),
   close: <path d="M6 6l12 12M18 6L6 18" strokeWidth={2.2} />,
+  /** Reader: photograph a sign or menu */
+  camera: (
+    <>
+      <path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.3l1.6-2.2h5.2L16.2 7h2.3A1.5 1.5 0 0 1 20 8.5v9A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z" style={DUO} />
+      <circle cx="12" cy="12.8" r="3.4" style={HOLE} />
+    </>
+  ),
+  /** Paste or type text */
+  paste: (
+    <>
+      <rect x="5" y="4.5" width="14" height="16" rx="2" style={DUO} />
+      <path d="M9 4.5V3.5h6v1M8.5 10h7M8.5 13.5h7M8.5 17h4" />
+    </>
+  ),
+  plus: <path d="M12 5v14M5 12h14" strokeWidth={2.2} />,
   back: <path d="M15 18l-6-6 6-6" strokeWidth={2.2} />,
   next: <path d="M9 6l6 6-6 6" strokeWidth={2.2} />,
   check: <path d="M5 12.5l4.5 4.5L19 7.5" strokeWidth={2.4} />,

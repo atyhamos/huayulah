@@ -4,22 +4,26 @@ import { content } from '../content'
 import { cardId } from '../data/types'
 import { Hanzi } from '../components/Hanzi'
 import { Icon, SgFlag, unitMeta } from '../components/icons'
-import { StrengthBars } from '../components/ui'
+import { Button, StrengthBars } from '../components/ui'
+import { isCustomItem } from '../content/custom'
 import { looseKey } from '../lib/pinyin'
 import { strength } from '../lib/srs'
 import { useApp } from '../store/app'
 import { CharactersView } from '../components/CharactersView'
 
-type Filter = 'learned' | 'all' | 'sg' | 'weak'
+type Filter = 'learned' | 'all' | 'sg' | 'weak' | 'mine'
 
 export function WordsScreen() {
   const cards = useApp((st) => st.s.cards)
+  const customItems = useApp((st) => st.s.customItems)
+  const mineCount = Object.keys(customItems).length
   const [q, setQ] = useState('')
   const [filter, setFilter] = useState<Filter>('learned')
   const [unit, setUnit] = useState('all')
   const [view, setView] = useState<'words' | 'chars'>('words')
 
-  const all = useMemo(() => [...content.items.values()], [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const all = useMemo(() => [...content.items.values()], [customItems])
   const learnedCount = all.filter((i) => cards[cardId(i.id, 'read')]).length
 
   const list = useMemo(() => {
@@ -31,6 +35,7 @@ export function WordsScreen() {
       if (filter === 'learned' && !card) return false
       if (filter === 'sg' && !it.sg) return false
       if (filter === 'weak' && (!card || strength(card) > 1)) return false
+      if (filter === 'mine' && !isCustomItem(it)) return false
       if (!needle) return true
       return it.hanzi.includes(needle) || it.english.toLowerCase().includes(needle) || (key && looseKey(it.pinyin).includes(key))
     })
@@ -92,7 +97,8 @@ export function WordsScreen() {
                 ['weak', 'Weak'],
                 ['sg', 'SG words'],
                 ['all', 'All'],
-              ] as const
+                ...(mineCount ? [['mine', `My words · ${mineCount}`] as const] : []),
+              ] as ReadonlyArray<readonly [Filter, string]>
             ).map(([f, label]) => (
               <button
                 key={f}
@@ -117,6 +123,13 @@ export function WordsScreen() {
               ))}
             </select>
           </div>
+          {filter === 'mine' && mineCount > 0 && (
+            <Link to="/lesson/mine" className="mb-3 block" data-testid="practise-mine">
+              <Button className="w-full">
+                <Icon name="cards" className="h-5 w-5" /> Practise my words
+              </Button>
+            </Link>
+          )}
           {list.length === 0 && (
             <p className="py-10 text-center text-slate-400">{filter === 'learned' && !q ? 'Finish a lesson to start your collection.' : 'Nothing matches.'}</p>
           )}
