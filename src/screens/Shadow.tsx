@@ -5,6 +5,7 @@ import { loadPinyinEngine } from '../content/pinyinLoader'
 import type { LessonSummary } from '../data/actions'
 import { useSpeak } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
+import { OtterArt } from '../components/OtterArt'
 import { Icon } from '../components/icons'
 import { Button, TrainTrack } from '../components/ui'
 import { bestSpeechScore, diffChars, SPEECH_PASS, type CharMark } from '../lib/answer'
@@ -61,6 +62,7 @@ export function ShadowScreen() {
   if (!story || !line) {
     return (
       <div className="p-8 text-center">
+        <OtterArt mood="sheepish" size={96} className="mx-auto mb-2" />
         <p className="mb-4">Story not found.</p>
         <Link to="/" className="text-sky-600 underline">
           Back home

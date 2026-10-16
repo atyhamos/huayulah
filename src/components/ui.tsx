@@ -1,7 +1,6 @@
 import { useId, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon, SgFlag, type IconName } from './icons'
-import { OtterSvg } from './OtterSvg'
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'blue'
 
@@ -171,14 +170,24 @@ export function Medal({ char, earned, colorIndex = 0, size = 64 }: { char: strin
   )
 }
 
+/** The app's name, set in the display face: "Huayu" in pandan green, "lah" in chilli red. */
+export function Wordmark({ className = '' }: { className?: string }) {
+  return (
+    <span className={`font-display font-extrabold tracking-tight ${className}`}>
+      <span className="text-brand-700">Huayu</span>
+      <span className="text-sg">lah</span>
+    </span>
+  )
+}
+
 const AVATAR_COLORS = ['bg-sky-500', 'bg-rose-500', 'bg-amber-500', 'bg-brand-600', 'bg-nyonya-500']
 
 /** Round avatar showing a character (e.g. 板 for the boss), or Ah Tat for "you". */
 export function Avatar({ label, otter = false, size = 40, seed = 0 }: { label?: string; otter?: boolean; size?: number; seed?: number }) {
   if (otter) {
     return (
-      <span className="grid shrink-0 place-items-end overflow-hidden rounded-full bg-brand-100" style={{ width: size, height: size }}>
-        <OtterSvg size={size * 1.05} className="-mb-[18%]" />
+      <span className="block shrink-0 overflow-hidden rounded-full bg-brand-100" style={{ width: size, height: size }}>
+        <img src={`${import.meta.env.BASE_URL}otter/avatar.webp`} alt="" className="h-full w-full" draggable={false} />
       </span>
     )
   }

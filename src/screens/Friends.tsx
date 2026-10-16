@@ -94,8 +94,8 @@ export function FriendsScreen() {
 
   const link = s.friendCode ? `${location.origin}/friends?add=${s.friendCode}` : ''
   const share = async () => {
-    const text = `Learn Singaporean Mandarin with me on 华语 Lah! My friend code is ${s.friendCode}`
-    if (navigator.share) await navigator.share({ title: '华语 Lah!', text, url: link }).catch(() => {})
+    const text = `Learn Singaporean Mandarin with me on Huayulah! My friend code is ${s.friendCode}`
+    if (navigator.share) await navigator.share({ title: 'Huayulah', text, url: link }).catch(() => {})
     else {
       await navigator.clipboard.writeText(`${text}\n${link}`)
       setMsg({ ok: true, text: 'Invite link copied!' })

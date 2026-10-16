@@ -66,7 +66,7 @@ export function ReviewScreen() {
                 </p>
               )}
             </div>
-            <Otter mood={learned === 0 ? 'think' : total > 0 ? 'wave' : 'sleep'} size={92} interactive />
+            <Otter mood={learned === 0 ? 'think' : total > 0 ? 'determined' : 'sleep'} size={92} interactive />
           </div>
         </div>
       </div>

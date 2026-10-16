@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp } from '../store/app'
 import { speak } from '../lib/tts'
-import { OtterSvg, type OtterMood } from './OtterSvg'
+import { OtterArt, type OtterMood } from './OtterArt'
 
 export type { OtterMood }
 
@@ -18,7 +18,7 @@ const TAP_LINES = [
 ]
 
 /**
- * The mascot, with tap-to-react: a hop, a line in Mandarin (spoken aloud) and its translation.
+ * The mascot, with tap-to-react: a hop, a happy clip, a line in Mandarin (spoken aloud) and its translation.
  * `say` shows a fixed speech bubble instead.
  */
 export function Otter({
@@ -38,6 +38,7 @@ export function Otter({
 }) {
   const settings = useApp((s) => s.s.settings)
   const [reaction, setReaction] = useState<{ zh: string; en: string } | null>(null)
+  const [pokes, setPokes] = useState(0)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
   useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -45,6 +46,7 @@ export function Otter({
     if (!interactive) return
     const line = TAP_LINES[Math.floor(Math.random() * TAP_LINES.length)]
     setReaction(line)
+    setPokes((n) => n + 1)
     if (settings.sound) speak(line.zh, { rate: settings.ttsRate, voiceURI: settings.voiceURI, pitch: 1.35 })
     clearTimeout(timer.current)
     timer.current = setTimeout(() => setReaction(null), 2200)
@@ -65,7 +67,7 @@ export function Otter({
         className="block disabled:cursor-default"
         data-testid="otter"
       >
-        <OtterSvg mood={reaction ? 'happy' : mood} size={size} key={reaction ? reaction.zh : mood} />
+        <OtterArt mood={mood} size={size} poke={pokes} />
       </button>
       {shown &&
         // portalled + fixed so a parent's overflow-hidden (cards) can't clip it

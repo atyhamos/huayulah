@@ -8,7 +8,7 @@ import { partMnemonic } from '../content/chars'
 import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
 import { Icon } from '../components/icons'
-import { OtterSvg } from '../components/OtterSvg'
+import { OtterArt } from '../components/OtterArt'
 import { Button, TrainTrack } from '../components/ui'
 import { generateExpress, generateLesson, itemsOf, retryOf, type Exercise } from '../lib/exercises'
 import { EXPRESS_PASS, myWordsLessonItems, weakestItems } from '../data/actions'
@@ -177,6 +177,7 @@ export function LessonScreen() {
   if (!lesson || lesson.items.length < 3) {
     return (
       <div className="p-8 text-center">
+        <OtterArt mood="sheepish" size={96} className="mx-auto mb-2" />
         <p className="mb-4">{isWeak ? 'Learn a few more words first!' : isMine ? 'Save at least 3 words in the Reader first!' : 'Lesson not found.'}</p>
         <Link to="/" className="text-sky-600 underline">
           Back home
@@ -192,6 +193,7 @@ export function LessonScreen() {
         seconds={Math.round((Date.now() - started.current) / 1000)}
         mode={mode}
         title={passed === null ? undefined : passed ? 'Express train: line cleared!' : 'Not this time'}
+        mood={passed === false ? 'reassuring' : passed ? 'cheer' : undefined}
         note={
           passed === null
             ? undefined
@@ -235,7 +237,7 @@ export function LessonScreen() {
       {confirmQuit && (
         <div className="fixed inset-0 z-20 grid place-items-end bg-black/40 sm:place-items-center" onClick={() => setConfirmQuit(false)}>
           <div className="safe-bottom w-full max-w-md animate-slide-up rounded-t-[2rem] bg-surface p-6 text-center sm:rounded-[2rem]" onClick={(e) => e.stopPropagation()}>
-            <OtterSvg mood="sad" size={88} className="mx-auto" />
+            <OtterArt mood="sad" size={88} className="mx-auto" />
             <p className="mb-1 mt-2 font-display text-xl font-extrabold">Alighting already?</p>
             <p className="mb-6 text-slate-500">You'll lose your progress on this ride.</p>
             <div className="flex flex-col gap-2">
@@ -265,7 +267,7 @@ function FeedbackSheet({ fb, onContinue }: { fb: Feedback; onContinue: () => voi
     >
       <div className="mx-auto max-w-xl animate-slide-up">
         <div className="flex items-end gap-1">
-          <OtterSvg mood={correct ? 'happy' : 'sad'} size={84} className="-mb-1 shrink-0" />
+          <OtterArt mood={correct ? 'happy' : 'sad'} size={84} className="-mb-1 shrink-0" />
           <div
             className={`relative mb-4 min-w-0 flex-1 rounded-3xl p-4 shadow-[0_16px_32px_-20px_rgb(20_40_30/0.5)] ring-1 ${
               correct ? 'bg-brand-50 ring-brand-200' : 'bg-rose-50 ring-rose-200'

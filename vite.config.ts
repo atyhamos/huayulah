@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'apple-touch-icon.png'],
       manifest: {
-        name: '华语 Lah! — Singaporean Mandarin',
-        short_name: '华语 Lah',
+        name: 'Huayulah — Singaporean Mandarin',
+        short_name: 'Huayulah',
         description: 'Learn the Mandarin Singaporeans actually speak.',
         theme_color: '#42805d',
         background_color: '#f5f6f1',
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,webp,woff2}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallbackDenylist: [/^\/__/],
         runtimeCaching: [
@@ -45,6 +45,15 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'google-fonts',
               expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Ah Tat's clips: fetched whole by the player, kept once played
+            urlPattern: ({ url }) => url.pathname.startsWith('/otter/') && /\.(webm|mp4)$/.test(url.pathname),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'otter-clips',
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
           {

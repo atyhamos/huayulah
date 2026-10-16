@@ -47,7 +47,7 @@ export function SettingsScreen() {
   const importData = async (f: File) => {
     try {
       const parsed = JSON.parse(await f.text()) as Partial<AppState>
-      if (!parsed || typeof parsed !== 'object' || !parsed.stats) throw new Error('This isn’t a 华语 Lah! backup file.')
+      if (!parsed || typeof parsed !== 'object' || !parsed.stats) throw new Error('This isn’t a Huayulah backup file.')
       replace(normalizeState(parsed))
       toast({ icon: 'download', title: 'Backup restored' })
     } catch (e) {
@@ -290,7 +290,7 @@ export function SettingsScreen() {
           </Button>
         )}
       </Card>
-      <p className="pb-4 text-center text-xs text-slate-400">华语 Lah! · made for practising Singaporean Mandarin</p>
+      <p className="pb-4 text-center text-xs text-slate-400">Huayulah · made for practising Singaporean Mandarin</p>
     </div>
   )
 }

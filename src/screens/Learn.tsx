@@ -6,16 +6,16 @@ import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLO
 import { Icon, unitMeta } from '../components/icons'
 import { scenarioFor } from '../content/roleplay'
 import { Otter, type OtterMood } from '../components/Otter'
-import { OtterSvg } from '../components/OtterSvg'
+import { OtterArt } from '../components/OtterArt'
 import { DailyQuests } from '../components/Quests'
-import { Button, KopiCup, StatChip } from '../components/ui'
+import { Button, KopiCup, StatChip, Wordmark } from '../components/ui'
 import { dayKey } from '../lib/dates'
 import { currentStreak } from '../lib/streak'
 import { levelInfo } from '../lib/xp'
 import { useApp } from '../store/app'
 
 function greeting(hour: number): { zh: string; en: string; mood: OtterMood } {
-  if (hour >= 23 || hour < 5) return { zh: '夜深了', en: "It's late!", mood: 'sleep' }
+  if (hour >= 23 || hour < 5) return { zh: '夜深了', en: "It's late!", mood: 'sleepy' }
   if (hour < 11) return { zh: '早安！', en: 'Good morning!', mood: 'wave' }
   if (hour < 14) return { zh: '吃饱了吗？', en: 'Eaten yet?', mood: 'wave' }
   if (hour < 18) return { zh: '下午好！', en: 'Good afternoon!', mood: 'wave' }
@@ -67,7 +67,7 @@ export function LearnScreen() {
         <Line key={u.id} unit={u} next={next} open={open} setOpen={setOpen} nextRef={nextRef} />
       ))}
       <div className="mt-10 flex flex-col items-center gap-2 text-center text-sm text-slate-400">
-        <OtterSvg mood="sleep" size={64} />
+        <OtterArt mood="sleep" size={64} />
         End of the line — for now. Keep your flashcards fresh!
       </div>
     </div>
@@ -91,8 +91,7 @@ function TodayCard({ nextLessonId }: { nextLessonId: string | null }) {
       <div className="flex items-start gap-2 p-5 pb-3">
         <div className="min-w-0 flex-1">
           <p className="leading-none">
-            <span className="font-brush text-4xl text-brand-700">华语</span>{' '}
-            <span className="font-display text-2xl font-extrabold text-sg">Lah!</span>
+            <Wordmark className="text-3xl" />
           </p>
           <p className="mt-4 font-han text-2xl font-bold">{g.zh}</p>
           <p className="text-slate-500">{goalDone ? 'Daily goal done — 好棒！' : g.en}</p>
@@ -251,7 +250,7 @@ function Station({
           {isNext ? (
             <span className="relative grid h-12 w-12 place-items-end overflow-hidden rounded-full bg-surface ring-[5px]" style={{ ['--tw-ring-color' as string]: color }}>
               <span className="absolute inset-0 animate-ping-slow rounded-full" style={{ boxShadow: `0 0 0 4px ${color}` }} />
-              <OtterSvg size={48} className="-mb-3" />
+              <OtterArt size={48} className="-mb-3" />
             </span>
           ) : (
             <span

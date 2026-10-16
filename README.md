@@ -1,4 +1,4 @@
-# 华语 Lah! — Singaporean Mandarin practice
+# Huayulah — Singaporean Mandarin practice
 
 A gamified PWA for Singaporeans who can *speak* a bit of Mandarin but struggle to *read* it.
 It teaches the Mandarin people actually use here — 德士, 巴刹, 组屋, 咖啡乌, 霸位 — with bite-sized
@@ -37,7 +37,7 @@ See [SPEC.md](SPEC.md) for the full product spec.
 Local, not a clone: answer choices are ivory **mahjong tiles**, sentences are built on a jade table, lesson
 progress is a train running between stations, results come as a kopitiam **stamp card**, and the palette
 borrows from pandan, Peranakan tiles, kaya and chilli. Icons are hand-drawn SVGs in one style
-(`src/components/icons.tsx`); the otter is pure SVG + CSS animation (`OtterSvg.tsx`).
+(`src/components/icons.tsx`); Ah Tat is AI-animated video clips played with alpha on a WebGL canvas (`OtterArt.tsx`, assets built from `art/otter/`).
 
 ## AI features (optional, bring your own key)
 

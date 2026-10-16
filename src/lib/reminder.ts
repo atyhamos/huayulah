@@ -13,7 +13,7 @@ function nextStart(time: string, now: Date): Date {
 
 const stamp = (d: Date) => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`
 
-const TITLE = '华语 Lah! — 10 minutes of Mandarin'
+const TITLE = 'Huayulah — 10 minutes of Mandarin'
 const BODY = 'Keep your lantern lit: one stop on the line map, or clear your flashcards.'
 
 /** iCalendar file text for a repeating daily event with an alert. */
@@ -23,7 +23,7 @@ export function reminderIcs(time: string, appUrl: string, now = new Date()): str
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Huayu Lah//Daily reminder//EN',
+    'PRODID:-//Huayulah//Daily reminder//EN',
     'CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
     `UID:daily-practice@${new URL(appUrl).host}`,

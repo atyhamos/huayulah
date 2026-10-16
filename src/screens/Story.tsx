@@ -6,7 +6,7 @@ import { useSpeak } from '../components/AudioButton'
 import { CheckBar } from '../components/exercises/CheckBar'
 import { Hanzi } from '../components/Hanzi'
 import { Icon, unitMeta } from '../components/icons'
-import { OtterSvg } from '../components/OtterSvg'
+import { OtterArt } from '../components/OtterArt'
 import { Avatar, Button, ProgressBar } from '../components/ui'
 import { OptionRow } from '../components/exercises/parts'
 import { shuffle } from '../lib/random'
@@ -64,6 +64,7 @@ export function StoryScreen() {
   if (!story) {
     return (
       <div className="p-8 text-center">
+        <OtterArt mood="sheepish" size={96} className="mx-auto mb-2" />
         <p className="mb-4">Story not found.</p>
         <Link to="/" className="text-sky-600 underline">
           Back home
@@ -218,7 +219,7 @@ interface Q {
 function QuestionCard({ q, picked, onPick, locked = false }: { q: Q; picked: number | null; onPick?: (i: number) => void; locked?: boolean }) {
   return (
     <div className="my-2 flex animate-pop gap-2" data-testid="story-question">
-      <OtterSvg mood="think" size={52} className="shrink-0 self-end" />
+      <OtterArt mood="think" size={52} className="shrink-0 self-end" />
       <div className="flex-1 rounded-3xl rounded-bl-md bg-amber-50 p-4 ring-1 ring-amber-200">
         <p className="mb-3 font-display font-extrabold">{q.prompt}</p>
         <div className="grid gap-2">

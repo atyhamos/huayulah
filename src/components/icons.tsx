@@ -1,5 +1,5 @@
 /*
- * 华语 Lah! icon set — 24×24, 1.8px rounded strokes in currentColor,
+ * Huayulah icon set — 24×24, 1.8px rounded strokes in currentColor,
  * with a soft tinted fill (".duo") on the main shape. Keep new icons in this style.
  */
 import type { ReactNode } from 'react'

@@ -8,7 +8,7 @@ import { AudioButton } from '../components/AudioButton'
 import { Hanzi } from '../components/Hanzi'
 import { useAiKey } from '../components/hooks'
 import { Icon } from '../components/icons'
-import { OtterSvg } from '../components/OtterSvg'
+import { OtterArt } from '../components/OtterArt'
 import { Button, Card, SgBadge } from '../components/ui'
 import { AiError, aiSupported } from '../lib/ai'
 import { explainText, readPhoto, readText, type ReaderResult, type ReaderWord } from '../lib/reader'
@@ -55,7 +55,7 @@ export function ReaderScreen() {
     return (
       <div className="flex flex-col items-center pt-16 text-center" data-testid="reader-busy">
         {photo && <img src={photo} alt="" className="mb-4 max-h-48 rounded-2xl object-cover shadow" />}
-        <OtterSvg mood="think" size={110} />
+        <OtterArt mood="think" size={110} />
         <p className="mt-3 font-display text-xl font-extrabold">{busy === 'photo' ? 'Reading your photo…' : 'Reading…'}</p>
         <p className="text-slate-500">{busy === 'photo' ? 'This takes a few seconds.' : ''}</p>
       </div>

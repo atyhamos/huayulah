@@ -19,7 +19,7 @@ const tags = [...html.matchAll(/<(script|link)\b[^>]*>(<\/script>)?/g)]
   .map((m) => m[0])
   .filter((t) => /assets\//.test(t))
 const page = [
-  '<title>华语 Lah!</title>',
+  '<title>Huayulah</title>',
   '<meta name="theme-color" content="#42805d">',
   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400..800&family=Ma+Shan+Zheng&display=swap">',
   ...tags,
@@ -35,6 +35,7 @@ for (const f of readdirSync(join(out, 'assets'))) {
   if (js.includes('\uFFFD')) writeFileSync(path, js.replaceAll('\uFFFD', '\\uFFFD'))
 }
 
-const assets = readdirSync(join(out, 'assets'))
-console.log(`artifact: page.html + strokes.json + ${assets.length} assets`)
-console.log(JSON.stringify(Object.fromEntries(assets.map((a) => [`assets/${a}`, `dist-artifact/assets/${a}`])), null, 1))
+const assets = readdirSync(join(out, 'assets')).map((a) => `assets/${a}`)
+const otter = readdirSync(join(out, 'otter')).map((a) => `otter/${a}`)
+console.log(`artifact: page.html + strokes.json + ${assets.length} assets + ${otter.length} otter files`)
+console.log(JSON.stringify(Object.fromEntries([...assets, ...otter].map((a) => [a, `dist-artifact/${a}`])), null, 1))

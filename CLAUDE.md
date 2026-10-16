@@ -1,4 +1,4 @@
-# 华语 Lah! — notes for working on this repo
+# Huayulah — notes for working on this repo
 
 Gamified PWA for learning Singaporean Mandarin. React + Vite + TS + Tailwind v4, Zustand, Firebase (optional), FSRS via ts-fsrs.
 
@@ -27,7 +27,8 @@ Gamified PWA for learning Singaporean Mandarin. React + Vite + TS + Tailwind v4,
 - Example sentences: words separated by spaces — they become sentence-builder tiles.
 - pinyin-pro is only loaded lazily in the app; static text uses the generated table. Add polyphone fixes in `PHRASE_FIXES` (src/lib/pinyinEngine.ts).
 - Dark mode works by remapping Tailwind colour variables in `src/index.css`; use `bg-surface` (not `bg-white`).
-- UI kit: `src/components/ui.tsx` (Button, Tile, KopiCup, TrainTrack, Medal, Stamp, Avatar, BackButton…), icons via `<Icon name=…>` from `components/icons.tsx` (24×24, 1.8 stroke — keep new icons in that style), mascot `<Otter>` / `<OtterSvg>`. No emoji in the UI.
+- UI kit: `src/components/ui.tsx` (Button, Tile, KopiCup, TrainTrack, Medal, Stamp, Avatar, BackButton…), icons via `<Icon name=…>` from `components/icons.tsx` (24×24, 1.8 stroke — keep new icons in that style), mascot `<Otter>` (tappable, speech bubble) / `<OtterArt>` (just the art). No emoji in the UI.
+- Ah Tat is video, not SVG: AI-generated clips (Higgsfield) cut from a green screen into "stacked alpha" videos (colour on top, matte below) that `lib/otterPlayer.ts` recombines on a WebGL canvas, with webp stills for small sizes, reduced motion and no WebGL. Sources and scripts live in `art/otter/` (`tools/build_assets.py` rebuilds `public/otter/`); every clip starts and ends on the master pose so they chain. Moods without a clip are breathing stills from `art/otter/sheet/expressions.png`. New clips cost real credits — ask first.
 - Exercise answer choices: Chinese → `Tile` (mahjong), English → `OptionRow` (`exercises/parts.tsx`).
 - No `alert`/`confirm` — use toasts or inline confirmation (the artifact host blocks dialogs).
 - e2e never calls the real Claude API: mock `https://api.anthropic.com/**` with `page.route` (answer the CORS preflight too). Fake speech recognition with an init script (see `e2e/speaking.spec.ts`).

@@ -239,117 +239,13 @@ rt {
 }
 
 /* ---------- Ah Tat the otter ---------- */
-.otter .o-all,
-.otter .o-breathe,
-.otter .o-head,
-.otter .o-eyes,
-.otter .o-tail,
-.otter .o-wave,
-.otter .o-z,
-.otter .o-sparkle {
-  transform-box: fill-box;
+/* video clips do the acting; still poses breathe (the tap hop is in OtterArt) */
+.otter-breathe {
+  transform-origin: 50% 92%;
+  animation: otter-breathe 3.6s ease-in-out infinite;
 }
-.otter .o-breathe {
-  transform-origin: 50% 100%;
-  animation: o-breathe 3.4s ease-in-out infinite;
-}
-.otter .o-head {
-  transform-origin: 50% 90%;
-  animation: o-look 7s ease-in-out infinite;
-}
-.otter .o-eyes {
-  transform-origin: 50% 50%;
-  animation: o-blink 4.6s infinite;
-}
-.otter .o-tail {
-  transform-origin: 0% 90%;
-  animation: o-tail 2.8s ease-in-out infinite;
-}
-.otter .o-wave {
-  transform-origin: 30% 90%;
-}
-.otter[data-mood='wave'] .o-wave {
-  animation: o-wave 0.45s ease-in-out infinite alternate;
-}
-.otter[data-mood='happy'] .o-all {
-  transform-origin: 50% 100%;
-  animation: o-hop 0.6s ease-in-out 2;
-}
-.otter[data-mood='cheer'] .o-all {
-  transform-origin: 50% 100%;
-  animation: o-hop 0.75s ease-in-out infinite;
-}
-.otter[data-mood='sad'] .o-head {
-  animation: o-shake 0.45s ease-in-out 2;
-}
-.otter[data-mood='think'] .o-head {
-  animation: o-tilt 2.4s ease-in-out infinite;
-}
-.otter[data-mood='sleep'] .o-breathe {
-  animation-duration: 5s;
-}
-.otter .o-z {
-  animation: o-z 2.8s ease-in infinite;
-}
-.otter .o-z:nth-of-type(2) {
-  animation-delay: 0.9s;
-}
-.otter .o-z:nth-of-type(3) {
-  animation-delay: 1.8s;
-}
-.otter .o-sparkle {
-  transform-origin: 50% 50%;
-  animation: o-sparkle 1.2s ease-in-out infinite;
-}
-.otter .o-sparkle:nth-of-type(2) {
-  animation-delay: 0.4s;
-}
-.otter .o-sparkle:nth-of-type(3) {
-  animation-delay: 0.8s;
-}
-@keyframes o-breathe {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(1.03); }
-}
-@keyframes o-look {
-  0%, 100% { rotate: 0deg; }
-  25% { rotate: -4deg; }
-  55% { rotate: 3deg; }
-}
-@keyframes o-blink {
-  0%, 91%, 100% { transform: scaleY(1); }
-  94% { transform: scaleY(0.08); }
-}
-@keyframes o-tail {
-  0%, 100% { rotate: -6deg; }
-  50% { rotate: 9deg; }
-}
-@keyframes o-wave {
-  from { rotate: -12deg; }
-  to { rotate: 28deg; }
-}
-@keyframes o-hop {
-  0%, 100% { transform: translateY(0) scale(1, 1); }
-  35% { transform: translateY(-12%) scale(0.96, 1.05); }
-  70% { transform: translateY(0) scale(1.06, 0.94); }
-}
-@keyframes o-shake {
-  0%, 100% { rotate: 0deg; }
-  25% { rotate: -8deg; }
-  75% { rotate: 8deg; }
-}
-@keyframes o-tilt {
-  0%, 100% { rotate: -6deg; }
-  50% { rotate: 4deg; }
-}
-@keyframes o-z {
-  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: translate(10px, -22px) scale(1.1); opacity: 0; }
-}
-@keyframes o-sparkle {
-  0%, 100% { transform: scale(0.4); opacity: 0.2; }
-  50% { transform: scale(1); opacity: 1; }
+@keyframes otter-breathe {
+  50% { transform: scale(1.012, 1.028); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { LessonSummary } from '../data/actions'
 import { Icon } from '../components/icons'
-import { OtterSvg } from '../components/OtterSvg'
+import { OtterArt, type OtterMood } from '../components/OtterArt'
 import { Button, Medal, Stamp } from '../components/ui'
 
 export function celebrate() {
@@ -16,6 +16,7 @@ export function LessonComplete({
   mode,
   title,
   note,
+  mood,
   onDone,
 }: {
   summary: LessonSummary
@@ -24,6 +25,8 @@ export function LessonComplete({
   title?: string
   /** Extra line under the title (e.g. the Express train result). */
   note?: string
+  /** Ah Tat's mood; by default he cheers a lesson and is proud of a practice session. */
+  mood?: OtterMood
   onDone: () => void
 }) {
   useEffect(() => {
@@ -33,7 +36,7 @@ export function LessonComplete({
   const time = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col items-center px-5 pb-32 pt-8 text-center" data-testid="lesson-complete">
-      <OtterSvg mood="cheer" size={132} className="animate-pop" />
+      <OtterArt mood={mood ?? (mode === 'learn' ? 'cheer' : 'proud')} size={132} className="animate-pop" />
       <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight">{title ?? (mode === 'learn' ? 'Lesson complete!' : 'Practice complete!')}</h1>
       <p className="mb-6 mt-1 font-brush text-2xl text-brand-600">{accuracy === 1 ? '满分！' : '做得好！'}</p>
       {note && (

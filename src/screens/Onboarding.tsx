@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../components/icons'
 import { Otter } from '../components/Otter'
-import { OtterSvg } from '../components/OtterSvg'
-import { Button, KopiCup } from '../components/ui'
+import { OtterArt } from '../components/OtterArt'
+import { Button, KopiCup, Wordmark } from '../components/ui'
 import { firebaseEnabled } from '../data/firebase'
 import { GOAL_OPTIONS } from '../lib/xp'
 import { useApp } from '../store/app'
@@ -26,10 +26,7 @@ export function Onboarding() {
       {step === 0 && (
         <div className="flex flex-1 animate-pop flex-col items-center justify-center text-center">
           <Otter mood="wave" size={150} interactive bubbleSide="top" say={{ zh: '我是阿獭！', en: "Hi, I'm Ah Tat!" }} />
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="font-brush text-6xl text-brand-600">华语</span>
-            <span className="font-display text-4xl font-extrabold text-sg">Lah!</span>
-          </div>
+          <Wordmark className="mt-2 text-5xl" />
           <div className="peranakan my-5 h-2 w-40 rounded-full" />
           <p className="mb-2 font-display text-xl font-extrabold">Learn the Mandarin Singaporeans actually speak.</p>
           <p className="mb-10 text-slate-500">
@@ -88,7 +85,7 @@ export function Onboarding() {
         <div className="flex flex-1 animate-pop flex-col items-center justify-center text-center">
           <div className="relative mb-4">
             <Icon name="cloud" className="absolute -right-8 -top-4 h-14 w-14 animate-float text-sky-400" />
-            <OtterSvg mood="think" size={120} />
+            <OtterArt mood="think" size={120} />
           </div>
           <h1 className="mb-2 font-display text-3xl font-extrabold">Save your progress?</h1>
           <p className="mb-8 text-slate-500">Sign in with Google to sync across your phone and computer, and to add friends.</p>

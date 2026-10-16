@@ -1,4 +1,4 @@
-# 华语 Lah! — Product Spec
+# Huayulah — Product Spec
 
 ## Context
 You're a Singaporean Chinese native English speaker. You can speak basic Mandarin, but your reading is weak (and your speaking is weaker than your peers'). You want something like Duolingo, made for you and shareable with friends. It should teach the Mandarin actually used in Singapore (德士, 巴刹, 组屋, 咖啡乌…), have flashcards/SRS, keep progress, and use Google login. There's no monetisation.
@@ -66,7 +66,7 @@ Decisions made: **PWA web app** (installs to the Android home screen, friends jo
 
 **Settings:** daily goal, pinyin mode, TTS voice and speed, new cards per day, sound, export/reset data, sign out.
 
-**Visual identity (redesign):** Ah Tat 阿獭 the otter mascot (7 moods, CSS animations, tap to hear a line); custom icon set; mahjong-tile answers; kopi-cup daily goal (Kopi po → Kopi di lo); lantern streak; ang bao quest bonus; hanzi medals for achievements; a floating dock instead of a tab bar; fonts Bricolage Grotesque, Figtree and Ma Shan Zheng (brush).
+**Visual identity (redesign):** Ah Tat 阿獭 the otter mascot (a red, emotive young otter: video clips for idle, wave, cheer, happy, sad, think and sleep, plus still expressions; tap him to hop and hear a line); custom icon set; mahjong-tile answers; kopi-cup daily goal (Kopi po → Kopi di lo); lantern streak; ang bao quest bonus; hanzi medals for achievements; a floating dock instead of a tab bar; fonts Bricolage Grotesque, Figtree and Ma Shan Zheng (brush).
 
 **Milestone 2 (Oct 2026):**
 - *Building blocks* — part breakdowns on word pages, part families (Words → Characters), `parts` and `write` lesson exercises.
