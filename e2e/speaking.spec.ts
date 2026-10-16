@@ -45,6 +45,9 @@ test('shadowing a story line by line shows which characters came through', async
 
 test('role-play with a mocked Claude reply, correction and finish', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('huayu-ai-key', 'sk-ant-test'))
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`))
+  page.on('console', (m) => m.type() === 'error' && errors.push(`console: ${m.text()}`))
   let calls = 0
   await page.route('https://api.anthropic.com/**', async (route) => {
     const cors = { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': 'POST, OPTIONS' }
@@ -71,7 +74,8 @@ test('role-play with a mocked Claude reply, correction and finish', async ({ pag
   await expect(page.getByTestId('talk-tat')).toHaveCount(1)
   await page.getByTestId('talk-input').fill('one kopi o please')
   await page.getByTestId('talk-send').click()
-  await expect(page.getByTestId('talk-tat')).toHaveCount(2)
+  // report any page errors along with the bubble count if this fails
+  await expect.poll(async () => ({ tat: await page.getByTestId('talk-tat').count(), errors })).toMatchObject({ tat: 2 })
   await expect(page.getByTestId('talk-correction')).toContainText('Try')
   await expect(page.getByTestId('talk-correction').locator('ruby')).toHaveCount(7)
   await page.getByTestId('talk-hint').click()
