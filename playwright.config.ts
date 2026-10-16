@@ -12,7 +12,8 @@ export default defineConfig({
     serviceWorkers: 'block',
   },
   webServer: {
-    command: 'npm run build && npx vite preview --port 4173 --strictPort',
+    // mode e2e: guest-only build (doesn't load .env.production, so tests never touch the real project)
+    command: 'npm run gen && npx vite build --mode e2e && npx vite preview --port 4173 --strictPort',
     port: 4173,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
