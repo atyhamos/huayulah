@@ -75,7 +75,9 @@ test('role-play with a mocked Claude reply, correction and finish', async ({ pag
   await page.getByTestId('talk-input').fill('one kopi o please')
   await page.getByTestId('talk-send').click()
   // report any page errors along with the bubble count if this fails
-  await expect.poll(async () => ({ tat: await page.getByTestId('talk-tat').count(), errors })).toMatchObject({ tat: 2 })
+  await expect
+    .poll(async () => `${await page.getByTestId('talk-tat').count()} | ${errors.join(' || ')} | ${(await page.locator('body').innerText()).slice(0, 300)}`)
+    .toMatch(/^2 \|/)
   await expect(page.getByTestId('talk-correction')).toContainText('Try')
   await expect(page.getByTestId('talk-correction').locator('ruby')).toHaveCount(7)
   await page.getByTestId('talk-hint').click()

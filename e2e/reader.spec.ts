@@ -96,6 +96,7 @@ test('reads a photo with Claude when a key is saved (mocked API)', async ({ page
   await page.getByTestId('reader-word').filter({ hasText: '卤面' }).click()
   await expect(page.getByTestId('word-sheet')).toContainText('Hokkien braised noodles')
   await page.getByTestId('add-word').click()
-  await page.goto('/words')
+  // navigate in the app (a full reload could race the save to storage)
+  await page.getByRole('link', { name: 'Words' }).click()
   await expect(page.getByRole('button', { name: 'My words · 1' })).toBeVisible()
 })
