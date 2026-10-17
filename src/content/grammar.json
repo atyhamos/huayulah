@@ -1,0 +1,2871 @@
+{
+ "sections": [
+  {
+   "title": "Sentence basics",
+   "titleZh": "句子基础",
+   "description": "How a Mandarin sentence fits together"
+  },
+  {
+   "title": "No and questions",
+   "titleZh": "否定和问句",
+   "description": "Saying no, asking, and where time and place go"
+  },
+  {
+   "title": "Time and aspect",
+   "titleZh": "时间",
+   "description": "No tenses: 了, 过, 在 and 着 do the work, plus want, will and can"
+  },
+  {
+   "title": "Building sentences",
+   "titleZh": "句子结构",
+   "description": "Comparing, complements, 把 and 被, and linking ideas"
+  },
+  {
+   "title": "Sounding Singaporean",
+   "titleZh": "新加坡味",
+   "description": "The particles and patterns you hear around you"
+  }
+ ],
+ "topics": [
+  {
+   "id": "g01",
+   "section": 1,
+   "title": "Word order",
+   "titleZh": "词序",
+   "summary": "Who, does what, to what: like English. Verbs never change, and little adverbs go before the verb.",
+   "lines": [
+    "u01"
+   ],
+   "rules": [
+    {
+     "title": "Subject, verb, object",
+     "body": "Mandarin runs like English: who, then the action, then what it is done to.",
+     "pattern": "[我] [喝] [咖啡]。",
+     "examples": [
+      {
+       "zh": "我 喝 咖啡。",
+       "en": "I drink coffee."
+      },
+      {
+       "zh": "妈妈 买 菜。",
+       "en": "Mum buys groceries."
+      },
+      {
+       "zh": "他 看 书。",
+       "en": "He reads."
+      }
+     ]
+    },
+    {
+     "title": "Verbs never change",
+     "body": "There are no verb endings: 吃 is eat, eats, ate and eating. Time words and markers like 了 do that job.",
+     "pattern": "他 昨天 [吃] 鸡饭。",
+     "examples": [
+      {
+       "zh": "我 吃。",
+       "en": "I eat."
+      },
+      {
+       "zh": "他们 吃。",
+       "en": "They eat."
+      },
+      {
+       "zh": "他 昨天 吃 鸡饭。",
+       "en": "He ate chicken rice yesterday."
+      }
+     ]
+    },
+    {
+     "title": "Little adverbs go before the verb",
+     "body": "Words like 也 (also), 都 (all), 常常 (often) and 不 (not) go right before the verb, never at the end.",
+     "pattern": "我 [也] 要。",
+     "examples": [
+      {
+       "zh": "我 也 要。",
+       "en": "I want one too."
+      },
+      {
+       "zh": "我们 都 是 新加坡人。",
+       "en": "We're all Singaporeans."
+      },
+      {
+       "zh": "他 常常 迟到。",
+       "en": "He's often late."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "order",
+     "zh": "我 喝 咖啡。",
+     "en": "I drink coffee.",
+     "why": "Who (我), the action (喝), then what (咖啡)."
+    },
+    {
+     "kind": "order",
+     "zh": "妈妈 买 菜。",
+     "en": "Mum buys groceries.",
+     "why": "Subject, verb, object, just like English."
+    },
+    {
+     "kind": "pick",
+     "en": "He ate chicken rice yesterday.",
+     "options": [
+      "他 昨天 吃 鸡饭。",
+      "他 吃 鸡饭 昨天。"
+     ],
+     "answer": 0,
+     "why": "Time words go before the verb, never at the end."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 要 一 杯。",
+     "en": "I want a cup too.",
+     "options": [
+      "也",
+      "都"
+     ],
+     "answer": "也",
+     "why": "也 = also, right before the verb."
+    },
+    {
+     "kind": "pick",
+     "en": "I want it too.",
+     "options": [
+      "我 也 要。",
+      "我 要 也。"
+     ],
+     "answer": 0,
+     "why": "也 goes before the verb, never at the end like English \"too\"."
+    },
+    {
+     "kind": "gap",
+     "zh": "我们 ___ 是 新加坡人。",
+     "en": "We're all Singaporeans.",
+     "options": [
+      "都",
+      "也"
+     ],
+     "answer": "都",
+     "why": "都 = all, before the verb."
+    },
+    {
+     "kind": "order",
+     "zh": "他 常常 迟到。",
+     "en": "He's often late.",
+     "why": "常常 goes before the verb."
+    },
+    {
+     "kind": "order",
+     "zh": "我 也 喜欢 榴莲。",
+     "en": "I like durian too.",
+     "why": "也 sits before the verb 喜欢."
+    },
+    {
+     "kind": "pick",
+     "en": "She reads a book.",
+     "options": [
+      "她 看 书。",
+      "她 书 看。"
+     ],
+     "answer": 0,
+     "why": "The verb comes before the object."
+    }
+   ]
+  },
+  {
+   "id": "g02",
+   "section": 1,
+   "title": "Is: 是 and 很",
+   "titleZh": "是 和 很",
+   "summary": "是 links two nouns. Describing words take 很 instead.",
+   "lines": [
+    "u06"
+   ],
+   "rules": [
+    {
+     "title": "是 links two nouns",
+     "body": "是 means am, is or are, but only between two nouns: 他 是 老师.",
+     "pattern": "他 [是] 老师。",
+     "examples": [
+      {
+       "zh": "我 是 新加坡人。",
+       "en": "I'm Singaporean."
+      },
+      {
+       "zh": "这 是 我 的 车。",
+       "en": "This is my car."
+      },
+      {
+       "zh": "她 是 护士。",
+       "en": "She's a nurse."
+      }
+     ]
+    },
+    {
+     "title": "Describing words: 很, not 是",
+     "body": "Before a describing word Mandarin does not use 是. It puts 很 there instead, which often just means \"is\", not \"very\".",
+     "pattern": "今天 [很] 热。",
+     "examples": [
+      {
+       "zh": "今天 很 热。",
+       "en": "It's hot today."
+      },
+      {
+       "zh": "这个 很 好吃。",
+       "en": "This is tasty."
+      },
+      {
+       "zh": "他 很 高。",
+       "en": "He's tall."
+      }
+     ],
+     "tip": "Without 很, a bare describing word sounds like a comparison: 这个 好吃 suggests this one is the tasty one."
+    },
+    {
+     "title": "Really, very, too",
+     "body": "非常 and 真 are stronger than 很. 太 … 了 is \"too\" or \"so\": 太 贵 了!",
+     "pattern": "[太] 贵 [了]！",
+     "examples": [
+      {
+       "zh": "太 贵 了！",
+       "en": "Too expensive!"
+      },
+      {
+       "zh": "真 好吃！",
+       "en": "Really tasty!"
+      },
+      {
+       "zh": "天气 非常 热。",
+       "en": "The weather is extremely hot."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "他 ___ 高。",
+     "en": "He's tall.",
+     "options": [
+      "很",
+      "是"
+     ],
+     "answer": "很",
+     "why": "高 is a describing word, so 很, not 是."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 学生。",
+     "en": "I'm a student.",
+     "options": [
+      "是",
+      "很"
+     ],
+     "answer": "是",
+     "why": "学生 is a noun, so 是."
+    },
+    {
+     "kind": "pick",
+     "en": "It's hot today.",
+     "options": [
+      "今天 很 热。",
+      "今天 是 热。"
+     ],
+     "answer": 0,
+     "why": "Describing words take 很, not 是."
+    },
+    {
+     "kind": "pick",
+     "en": "This is my phone.",
+     "options": [
+      "这 是 我 的 手机。",
+      "这 很 我 的 手机。"
+     ],
+     "answer": 0,
+     "why": "Two nouns (这, 手机) are linked by 是."
+    },
+    {
+     "kind": "gap",
+     "zh": "太 贵 ___！",
+     "en": "Too expensive!",
+     "options": [
+      "了",
+      "的"
+     ],
+     "answer": "了",
+     "why": "太 … 了 = too, so."
+    },
+    {
+     "kind": "order",
+     "zh": "这个 很 好吃。",
+     "en": "This is tasty.",
+     "why": "很 before the describing word."
+    },
+    {
+     "kind": "order",
+     "zh": "她 是 护士。",
+     "en": "She's a nurse.",
+     "why": "是 between two nouns."
+    },
+    {
+     "kind": "gap",
+     "zh": "这 杯 咖啡 ___ 甜。",
+     "en": "This coffee is extremely sweet.",
+     "options": [
+      "非常",
+      "是"
+     ],
+     "answer": "非常",
+     "why": "非常 = extremely, before the describing word."
+    }
+   ]
+  },
+  {
+   "id": "g03",
+   "section": 1,
+   "title": "People",
+   "titleZh": "人称",
+   "summary": "I, you, he and she; 们 for more than one; polite 您.",
+   "lines": [
+    "u06"
+   ],
+   "rules": [
+    {
+     "title": "I, you, he, she",
+     "body": "我 I, 你 you, 他 he, 她 she, 它 it. 他, 她 and 它 all sound the same: tā.",
+     "pattern": "[我] 认识 [她]。",
+     "examples": [
+      {
+       "zh": "我 认识 她。",
+       "en": "I know her."
+      },
+      {
+       "zh": "你 好！",
+       "en": "Hello!"
+      },
+      {
+       "zh": "他 是 我 哥哥。",
+       "en": "He's my older brother."
+      }
+     ],
+     "tip": "I and me are the same word: 我 爱 你, 你 爱 我. Word order shows who does what."
+    },
+    {
+     "title": "们 for more than one",
+     "body": "Add 们 for we, you all and they: 我们, 你们, 他们. It also goes on words for people: 朋友们, 同学们.",
+     "pattern": "[我们] 走 吧。",
+     "examples": [
+      {
+       "zh": "我们 走 吧。",
+       "en": "Let's go."
+      },
+      {
+       "zh": "你们 好！",
+       "en": "Hello, everyone!"
+      },
+      {
+       "zh": "他们 是 我 的 同事。",
+       "en": "They're my colleagues."
+      }
+     ]
+    },
+    {
+     "title": "Polite 您",
+     "body": "您 is a respectful \"you\" for elders and customers. Shop staff and service announcements use it a lot.",
+     "pattern": "[您] 要 什么？",
+     "examples": [
+      {
+       "zh": "您 要 什么？",
+       "en": "What would you like?"
+      },
+      {
+       "zh": "请 您 等 一下。",
+       "en": "Please wait a moment."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "___ 是 我 的 同事。",
+     "en": "They're my colleagues.",
+     "options": [
+      "他们",
+      "他"
+     ],
+     "answer": "他们",
+     "why": "More than one person: 们."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 认识 ___。",
+     "en": "I know her.",
+     "options": [
+      "她",
+      "她们"
+     ],
+     "answer": "她",
+     "why": "One woman: 她."
+    },
+    {
+     "kind": "pick",
+     "en": "He loves me.",
+     "options": [
+      "他 爱 我。",
+      "我 爱 他。"
+     ],
+     "answer": 0,
+     "why": "Word order decides who does what: 他 爱 我."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 好！",
+     "en": "Hello, everyone!",
+     "options": [
+      "你们",
+      "你"
+     ],
+     "answer": "你们",
+     "why": "Talking to a group: 你们."
+    },
+    {
+     "kind": "pick",
+     "en": "To an elderly customer: \"What would you like?\"",
+     "options": [
+      "您 要 什么？",
+      "你们 要 什么？"
+     ],
+     "answer": 0,
+     "why": "您 is the respectful \"you\" for one person."
+    },
+    {
+     "kind": "order",
+     "zh": "我们 是 好 朋友。",
+     "en": "We're good friends.",
+     "why": "Subject (我们), 是, then the noun."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 走 吧。",
+     "en": "Let's go.",
+     "options": [
+      "我们",
+      "你们"
+     ],
+     "answer": "我们",
+     "why": "\"Let's\" includes you: 我们."
+    },
+    {
+     "kind": "order",
+     "zh": "他 是 我 哥哥。",
+     "en": "He's my older brother.",
+     "why": "Family words usually drop 的: 我 哥哥."
+    }
+   ]
+  },
+  {
+   "id": "g04",
+   "section": 1,
+   "title": "Whose and which: 的",
+   "titleZh": "的",
+   "summary": "的 joins an owner or a description to the thing, and drops with family words.",
+   "lines": [
+    "u06"
+   ],
+   "rules": [
+    {
+     "title": "的 for whose",
+     "body": "Owner, then 的, then the thing: 我 的 书 (my book). The owner always comes first.",
+     "pattern": "我 [的] 书",
+     "examples": [
+      {
+       "zh": "这 是 我 的 书。",
+       "en": "This is my book."
+      },
+      {
+       "zh": "妈妈 的 车 很 新。",
+       "en": "Mum's car is new."
+      },
+      {
+       "zh": "谁 的 雨伞？",
+       "en": "Whose umbrella?"
+      }
+     ]
+    },
+    {
+     "title": "的 for describing",
+     "body": "A description goes before the noun with 的: 红色 的 车 (a red car), 我 昨天 买 的 衣服 (the clothes I bought yesterday).",
+     "pattern": "红色 [的] 车",
+     "examples": [
+      {
+       "zh": "我 要 红色 的。",
+       "en": "I want the red one."
+      },
+      {
+       "zh": "我 昨天 买 的 衣服。",
+       "en": "The clothes I bought yesterday."
+      },
+      {
+       "zh": "很 好吃 的 菜。",
+       "en": "Very tasty food."
+      }
+     ]
+    },
+    {
+     "title": "When 的 drops",
+     "body": "With family and close ties, and with one-character describing words, 的 is usually dropped: 我 妈妈, 我们 公司, 好 人.",
+     "pattern": "我 [妈妈]",
+     "examples": [
+      {
+       "zh": "我 妈妈 是 老师。",
+       "en": "My mum is a teacher."
+      },
+      {
+       "zh": "他 是 好 人。",
+       "en": "He's a good person."
+      },
+      {
+       "zh": "我们 公司 很 大。",
+       "en": "Our company is big."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "这 是 我 ___ 手机。",
+     "en": "This is my phone.",
+     "options": [
+      "的",
+      "是"
+     ],
+     "answer": "的",
+     "why": "Owner, 的, thing: 我 的 手机."
+    },
+    {
+     "kind": "pick",
+     "en": "Mum's car",
+     "options": [
+      "妈妈 的 车",
+      "车 的 妈妈"
+     ],
+     "answer": 0,
+     "why": "The owner comes first: 妈妈 的 车."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 要 红色 ___。",
+     "en": "I want the red one.",
+     "options": [
+      "的",
+      "了"
+     ],
+     "answer": "的",
+     "why": "红色 的 = the red one."
+    },
+    {
+     "kind": "order",
+     "zh": "这 是 谁 的 雨伞？",
+     "en": "Whose umbrella is this?",
+     "why": "谁 的 = whose, in the owner's place."
+    },
+    {
+     "kind": "pick",
+     "en": "the clothes I bought yesterday",
+     "options": [
+      "我 昨天 买 的 衣服",
+      "衣服 的 我 昨天 买"
+     ],
+     "answer": 0,
+     "why": "The whole description comes before the noun, joined by 的."
+    },
+    {
+     "kind": "order",
+     "zh": "我 妈妈 是 老师。",
+     "en": "My mum is a teacher.",
+     "why": "Family words drop 的: 我 妈妈."
+    },
+    {
+     "kind": "pick",
+     "en": "a good person",
+     "options": [
+      "好 人",
+      "人 好 的"
+     ],
+     "answer": 0,
+     "why": "One-character describing words go straight before the noun."
+    },
+    {
+     "kind": "gap",
+     "zh": "这 是 很 好吃 ___ 菜。",
+     "en": "This is very tasty food.",
+     "options": [
+      "的",
+      "了"
+     ],
+     "answer": "的",
+     "why": "A longer description joins the noun with 的."
+    }
+   ]
+  },
+  {
+   "id": "g05",
+   "section": 1,
+   "title": "Measure words",
+   "titleZh": "量词",
+   "summary": "Number, measure word, thing: 两 杯 咖啡. 个 is the all-rounder.",
+   "lines": [
+    "u02",
+    "u03"
+   ],
+   "rules": [
+    {
+     "title": "Number, measure word, thing",
+     "body": "Between a number and a noun you need a measure word: 一 个 人, 两 杯 咖啡. 个 is the all-purpose one.",
+     "pattern": "两 [杯] 咖啡",
+     "examples": [
+      {
+       "zh": "一 个 人",
+       "en": "one person"
+      },
+      {
+       "zh": "两 杯 咖啡",
+       "en": "two cups of coffee"
+      },
+      {
+       "zh": "三 张 票",
+       "en": "three tickets"
+      }
+     ],
+     "tip": "2 before a measure word is 两, not 二: 两 个, 两 杯."
+    },
+    {
+     "title": "The common ones",
+     "body": "个 for people and most things, 杯 for cups, 张 for flat things (tickets, paper, tables), 只 for many animals, 本 for books, 位 for people politely, 块 for pieces and dollars.",
+     "pattern": "一 [本] 书",
+     "examples": [
+      {
+       "zh": "一 本 书",
+       "en": "a book"
+      },
+      {
+       "zh": "三 只 猫",
+       "en": "three cats"
+      },
+      {
+       "zh": "两 位 客人",
+       "en": "two guests"
+      },
+      {
+       "zh": "五 块 钱",
+       "en": "five dollars"
+      }
+     ]
+    },
+    {
+     "title": "This, that, how many",
+     "body": "这 (this), 那 (that), 哪 (which) and 几 (how many) take a measure word too: 这 个, 那 杯, 几 个.",
+     "pattern": "[这] 个 多少 钱？",
+     "examples": [
+      {
+       "zh": "这 个 多少 钱？",
+       "en": "How much is this one?"
+      },
+      {
+       "zh": "那 杯 是 我 的。",
+       "en": "That cup is mine."
+      },
+      {
+       "zh": "你 要 几 个？",
+       "en": "How many do you want?"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 要 两 ___ 咖啡。",
+     "en": "I want two cups of coffee.",
+     "options": [
+      "杯",
+      "本"
+     ],
+     "answer": "杯",
+     "why": "杯 for cups."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 有 三 ___ 猫。",
+     "en": "He has three cats.",
+     "options": [
+      "只",
+      "张"
+     ],
+     "answer": "只",
+     "why": "只 for animals like cats and birds."
+    },
+    {
+     "kind": "gap",
+     "zh": "给 我 一 ___ 票。",
+     "en": "Give me a ticket.",
+     "options": [
+      "张",
+      "只"
+     ],
+     "answer": "张",
+     "why": "张 for flat things like tickets."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 买 了 一 ___ 书。",
+     "en": "I bought a book.",
+     "options": [
+      "本",
+      "杯"
+     ],
+     "answer": "本",
+     "why": "本 for books."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 要 ___ 个。",
+     "en": "I want two.",
+     "options": [
+      "两",
+      "二"
+     ],
+     "answer": "两",
+     "why": "Before a measure word, 2 is 两."
+    },
+    {
+     "kind": "pick",
+     "en": "How much is this one?",
+     "options": [
+      "这 个 多少 钱？",
+      "这 多少 钱 个？"
+     ],
+     "answer": 0,
+     "why": "这 个 stays together: this one."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 要 ___ 个？",
+     "en": "How many do you want?",
+     "options": [
+      "几",
+      "什么"
+     ],
+     "answer": "几",
+     "why": "几 + measure word = how many."
+    },
+    {
+     "kind": "order",
+     "zh": "那 杯 是 我 的。",
+     "en": "That cup is mine.",
+     "why": "那 + measure word + (thing)."
+    },
+    {
+     "kind": "pick",
+     "en": "two guests (politely)",
+     "options": [
+      "两 位 客人",
+      "两 只 客人"
+     ],
+     "answer": 0,
+     "why": "只 is for animals! 位 is the polite one for people."
+    }
+   ]
+  },
+  {
+   "id": "g06",
+   "section": 2,
+   "title": "Not and didn't",
+   "titleZh": "不 和 没",
+   "summary": "不 for not and won't, 没 for didn't and haven't, 没有 for don't have.",
+   "lines": [
+    "u10"
+   ],
+   "rules": [
+    {
+     "title": "不: not, don't, won't",
+     "body": "不 negates habits, wishes, describing words and the future.",
+     "pattern": "我 [不] 吃 辣。",
+     "examples": [
+      {
+       "zh": "我 不 吃 辣。",
+       "en": "I don't eat spicy food."
+      },
+      {
+       "zh": "今天 不 热。",
+       "en": "It's not hot today."
+      },
+      {
+       "zh": "明天 我 不 去。",
+       "en": "I'm not going tomorrow."
+      }
+     ]
+    },
+    {
+     "title": "没: didn't, haven't",
+     "body": "没 negates things that did not happen: 我 没 去 (I didn't go). Drop the 了.",
+     "pattern": "我 昨天 [没] 去。",
+     "examples": [
+      {
+       "zh": "我 昨天 没 去。",
+       "en": "I didn't go yesterday."
+      },
+      {
+       "zh": "他 还 没 来。",
+       "en": "He hasn't come yet."
+      },
+      {
+       "zh": "我 没 看 过。",
+       "en": "I've never seen it."
+      }
+     ],
+     "tip": "Not 我 没 去 了: 没 and 了 don't go together."
+    },
+    {
+     "title": "没有: don't have",
+     "body": "The negative of 有 (have, there is) is always 没有, never 不有.",
+     "pattern": "我 [没有] 钱。",
+     "examples": [
+      {
+       "zh": "我 没有 钱。",
+       "en": "I don't have money."
+      },
+      {
+       "zh": "这里 没有 位子。",
+       "en": "There are no seats here."
+      },
+      {
+       "zh": "没有 问题！",
+       "en": "No problem!"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 昨天 ___ 去 学校。",
+     "en": "I didn't go to school yesterday.",
+     "options": [
+      "没",
+      "不"
+     ],
+     "answer": "没",
+     "why": "It didn't happen (yesterday): 没."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 喝 咖啡。",
+     "en": "I don't drink coffee.",
+     "options": [
+      "不",
+      "没"
+     ],
+     "answer": "不",
+     "why": "A habit: 不."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 还 ___ 来。",
+     "en": "He hasn't come yet.",
+     "options": [
+      "没",
+      "不"
+     ],
+     "answer": "没",
+     "why": "Hasn't happened yet: 还 没."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 钱。",
+     "en": "I don't have money.",
+     "options": [
+      "没有",
+      "不有"
+     ],
+     "answer": "没有",
+     "why": "有 always takes 没: 没有."
+    },
+    {
+     "kind": "gap",
+     "zh": "今天 ___ 热。",
+     "en": "It's not hot today.",
+     "options": [
+      "不",
+      "没"
+     ],
+     "answer": "不",
+     "why": "A describing word: 不."
+    },
+    {
+     "kind": "pick",
+     "en": "He hasn't left yet.",
+     "options": [
+      "他 还 没 走。",
+      "他 还 没 走 了。"
+     ],
+     "answer": 0,
+     "why": "没 and 了 don't go together."
+    },
+    {
+     "kind": "order",
+     "zh": "我 不 吃 辣。",
+     "en": "I don't eat spicy food.",
+     "why": "不 right before the verb."
+    },
+    {
+     "kind": "order",
+     "zh": "这里 没有 位子。",
+     "en": "There are no seats here.",
+     "why": "没有 = there isn't."
+    },
+    {
+     "kind": "pick",
+     "en": "I'm not going tomorrow.",
+     "options": [
+      "明天 我 不 去。",
+      "明天 我 没 去。"
+     ],
+     "answer": 0,
+     "why": "The future takes 不; 没 is for what didn't happen."
+    }
+   ]
+  },
+  {
+   "id": "g07",
+   "section": 2,
+   "title": "Yes-or-no questions",
+   "titleZh": "是非问句",
+   "summary": "吗 at the end, or A不A. 还是 for \"or\" in questions.",
+   "lines": [
+    "u10"
+   ],
+   "rules": [
+    {
+     "title": "吗 at the end",
+     "body": "Add 吗 to a statement and it becomes a yes-or-no question. The word order stays the same.",
+     "pattern": "你 是 新加坡人 [吗]？",
+     "examples": [
+      {
+       "zh": "你 是 新加坡人 吗？",
+       "en": "Are you Singaporean?"
+      },
+      {
+       "zh": "你 吃饭 了 吗？",
+       "en": "Have you eaten?"
+      },
+      {
+       "zh": "好 吗？",
+       "en": "Is that OK?"
+      }
+     ]
+    },
+    {
+     "title": "A不A: yes or no?",
+     "body": "Say the verb or describing word, then 不, then the word again: 要 不 要 (want or not?). Don't add 吗 as well.",
+     "pattern": "你 [要 不 要] 糖？",
+     "examples": [
+      {
+       "zh": "你 要 不 要 糖？",
+       "en": "Do you want sugar?"
+      },
+      {
+       "zh": "好 不 好？",
+       "en": "OK or not?"
+      },
+      {
+       "zh": "你 去 不 去？",
+       "en": "Are you going?"
+      }
+     ],
+     "tip": "It's the Mandarin \"can or not?\": 可不可以？"
+    },
+    {
+     "title": "还是 or 或者",
+     "body": "In a question, \"or\" is 还是: 咖啡 还是 茶？ In a statement, it is 或者: 今天 或者 明天 都 可以.",
+     "pattern": "咖啡 [还是] 茶？",
+     "examples": [
+      {
+       "zh": "你 要 咖啡 还是 茶？",
+       "en": "Coffee or tea?"
+      },
+      {
+       "zh": "今天 或者 明天 都 可以。",
+       "en": "Today or tomorrow, either's fine."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "你 是 新加坡人 ___？",
+     "en": "Are you Singaporean?",
+     "options": [
+      "吗",
+      "呢"
+     ],
+     "answer": "吗",
+     "why": "吗 turns a statement into a yes-or-no question."
+    },
+    {
+     "kind": "pick",
+     "en": "Do you want sugar?",
+     "options": [
+      "你 要 不 要 糖？",
+      "你 要 不 要 糖 吗？"
+     ],
+     "answer": 0,
+     "why": "A不A is already a question, so no 吗."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 要 咖啡 ___ 茶？",
+     "en": "Coffee or tea?",
+     "options": [
+      "还是",
+      "或者"
+     ],
+     "answer": "还是",
+     "why": "In a question, \"or\" is 还是."
+    },
+    {
+     "kind": "gap",
+     "zh": "今天 ___ 明天 都 可以。",
+     "en": "Today or tomorrow, either's fine.",
+     "options": [
+      "或者",
+      "还是"
+     ],
+     "answer": "或者",
+     "why": "In a statement, \"or\" is 或者."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 吃饭 了 ___？",
+     "en": "Have you eaten?",
+     "options": [
+      "吗",
+      "吧"
+     ],
+     "answer": "吗",
+     "why": "A plain yes-or-no question: 吗."
+    },
+    {
+     "kind": "order",
+     "zh": "你 去 不 去？",
+     "en": "Are you going?",
+     "why": "Verb, 不, verb."
+    },
+    {
+     "kind": "pick",
+     "en": "Is this OK?",
+     "options": [
+      "这样 好 吗？",
+      "这样 吗 好？"
+     ],
+     "answer": 0,
+     "why": "吗 goes at the very end."
+    },
+    {
+     "kind": "order",
+     "zh": "你 是 老师 吗？",
+     "en": "Are you a teacher?",
+     "why": "The statement, then 吗."
+    }
+   ]
+  },
+  {
+   "id": "g08",
+   "section": 2,
+   "title": "Question words",
+   "titleZh": "疑问词",
+   "summary": "Question words stay where the answer would go.",
+   "lines": [
+    "u04"
+   ],
+   "rules": [
+    {
+     "title": "They stay put",
+     "body": "Put the question word where the answer would go. It does not move to the front as in English.",
+     "pattern": "你 叫 [什么] 名字？",
+     "examples": [
+      {
+       "zh": "你 叫 什么 名字？",
+       "en": "What's your name?"
+      },
+      {
+       "zh": "你 去 哪里？",
+       "en": "Where are you going?"
+      },
+      {
+       "zh": "这 是 谁 的？",
+       "en": "Whose is this?"
+      }
+     ]
+    },
+    {
+     "title": "The question words",
+     "body": "什么 what, 谁 who, 哪里 where, 什么 时候 when, 几 or 多少 how many, 为什么 why, 怎么 how.",
+     "pattern": "[多少] 钱？",
+     "examples": [
+      {
+       "zh": "多少 钱？",
+       "en": "How much?"
+      },
+      {
+       "zh": "你 什么 时候 来？",
+       "en": "When are you coming?"
+      },
+      {
+       "zh": "为什么 迟到？",
+       "en": "Why were you late?"
+      },
+      {
+       "zh": "怎么 去 机场？",
+       "en": "How do I get to the airport?"
+      }
+     ],
+     "tip": "几 is for small numbers you expect (几 点？ what time?); 多少 is for any amount."
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "你 叫 ___ 名字？",
+     "en": "What's your name?",
+     "options": [
+      "什么",
+      "谁"
+     ],
+     "answer": "什么",
+     "why": "什么 = what."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 去 ___？",
+     "en": "Where are you going?",
+     "options": [
+      "哪里",
+      "什么"
+     ],
+     "answer": "哪里",
+     "why": "哪里 = where."
+    },
+    {
+     "kind": "gap",
+     "zh": "这 是 ___ 的 书？",
+     "en": "Whose book is this?",
+     "options": [
+      "谁",
+      "哪里"
+     ],
+     "answer": "谁",
+     "why": "谁 的 = whose."
+    },
+    {
+     "kind": "gap",
+     "zh": "这个 ___ 钱？",
+     "en": "How much is this?",
+     "options": [
+      "多少",
+      "怎么"
+     ],
+     "answer": "多少",
+     "why": "多少 钱 = how much money."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 去 机场？",
+     "en": "How do I get to the airport?",
+     "options": [
+      "怎么",
+      "为什么"
+     ],
+     "answer": "怎么",
+     "why": "怎么 = how."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 ___ 迟到？",
+     "en": "Why are you late?",
+     "options": [
+      "为什么",
+      "什么"
+     ],
+     "answer": "为什么",
+     "why": "为什么 = why."
+    },
+    {
+     "kind": "pick",
+     "en": "Where do you live?",
+     "options": [
+      "你 住 在 哪里？",
+      "哪里 你 住 在？"
+     ],
+     "answer": 0,
+     "why": "The question word stays where the answer goes: 我 住 在 后港 → 你 住 在 哪里？"
+    },
+    {
+     "kind": "order",
+     "zh": "你 叫 什么 名字？",
+     "en": "What's your name?",
+     "why": "什么 sits where your name would go."
+    },
+    {
+     "kind": "pick",
+     "en": "What time is it?",
+     "options": [
+      "现在 几 点？",
+      "现在 什么 点？"
+     ],
+     "answer": 0,
+     "why": "几 点 = what time."
+    }
+   ]
+  },
+  {
+   "id": "g09",
+   "section": 2,
+   "title": "When, where, then the verb",
+   "titleZh": "时间和地点",
+   "summary": "Time first, then place, then the action: 我 明天 在 家 吃饭.",
+   "lines": [
+    "u04",
+    "u05"
+   ],
+   "rules": [
+    {
+     "title": "When goes early",
+     "body": "Time words come before the verb: right after the subject, or at the very front. Never at the end.",
+     "pattern": "我 [明天] 去。",
+     "examples": [
+      {
+       "zh": "我 明天 去。",
+       "en": "I'm going tomorrow."
+      },
+      {
+       "zh": "明天 我 去。",
+       "en": "Tomorrow I'll go."
+      },
+      {
+       "zh": "他 每天 七 点 起床。",
+       "en": "He gets up at seven every day."
+      }
+     ]
+    },
+    {
+     "title": "Then where: 在 + place",
+     "body": "Where it happens (在 + place) also goes before the verb, after the time: 我 明天 在 家 吃饭.",
+     "pattern": "我 明天 [在 家] 吃饭。",
+     "examples": [
+      {
+       "zh": "我 在 公司 吃 午饭。",
+       "en": "I eat lunch at the office."
+      },
+      {
+       "zh": "我们 明天 在 地铁站 见面。",
+       "en": "We'll meet at the MRT station tomorrow."
+      },
+      {
+       "zh": "他 在 新加坡 工作。",
+       "en": "He works in Singapore."
+      }
+     ]
+    },
+    {
+     "title": "Going places: 去, 从, 到, 坐",
+     "body": "去 + place = go to. 从 A 到 B = from A to B. 坐 + transport = ride.",
+     "pattern": "[从] 家 [到] 公司",
+     "examples": [
+      {
+       "zh": "我 坐 地铁 去 学校。",
+       "en": "I take the MRT to school."
+      },
+      {
+       "zh": "从 家 到 公司 要 半 个 小时。",
+       "en": "From home to the office takes half an hour."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "pick",
+     "en": "I eat lunch at the office.",
+     "options": [
+      "我 在 公司 吃 午饭。",
+      "我 吃 午饭 在 公司。"
+     ],
+     "answer": 0,
+     "why": "The place goes before the verb."
+    },
+    {
+     "kind": "pick",
+     "en": "I'm going tomorrow.",
+     "options": [
+      "我 明天 去。",
+      "我 去 明天。"
+     ],
+     "answer": 0,
+     "why": "Time goes before the verb, never at the end."
+    },
+    {
+     "kind": "pick",
+     "en": "We'll meet at the MRT station tomorrow.",
+     "options": [
+      "我们 明天 在 地铁站 见面。",
+      "我们 在 地铁站 见面 明天。"
+     ],
+     "answer": 0,
+     "why": "Subject, time, place, then the verb."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 ___ 新加坡 工作。",
+     "en": "He works in Singapore.",
+     "options": [
+      "在",
+      "去"
+     ],
+     "answer": "在",
+     "why": "在 + place = where it happens."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 坐 地铁 ___ 学校。",
+     "en": "I take the MRT to school.",
+     "options": [
+      "去",
+      "在"
+     ],
+     "answer": "去",
+     "why": "去 + place = go to."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 家 到 公司 要 半 个 小时。",
+     "en": "From home to the office takes half an hour.",
+     "options": [
+      "从",
+      "在"
+     ],
+     "answer": "从",
+     "why": "从 A 到 B = from A to B."
+    },
+    {
+     "kind": "order",
+     "zh": "他 在 新加坡 工作。",
+     "en": "He works in Singapore.",
+     "why": "在 + place before the verb."
+    },
+    {
+     "kind": "order",
+     "zh": "我 坐 地铁 去 学校。",
+     "en": "I take the MRT to school.",
+     "why": "How (坐 地铁), then where to (去 学校)."
+    }
+   ]
+  },
+  {
+   "id": "g10",
+   "section": 3,
+   "title": "了: done and changed",
+   "titleZh": "了",
+   "summary": "了 after a verb says it's done; 了 at the end says something has changed.",
+   "lines": [
+    "u07"
+   ],
+   "rules": [
+    {
+     "title": "了 after the verb: done",
+     "body": "Verb + 了 says an action is finished: 我 吃 了 (I ate, I've eaten).",
+     "pattern": "我 买 [了] 两 本 书。",
+     "examples": [
+      {
+       "zh": "我 买 了 两 本 书。",
+       "en": "I bought two books."
+      },
+      {
+       "zh": "他 走 了。",
+       "en": "He's left."
+      },
+      {
+       "zh": "你 吃 了 吗？",
+       "en": "Have you eaten?"
+      }
+     ]
+    },
+    {
+     "title": "了 at the end: something changed",
+     "body": "了 at the end of a sentence marks a new situation: 下雨 了 (it's started raining), 我 饿 了 (I'm hungry now).",
+     "pattern": "下雨 [了]！",
+     "examples": [
+      {
+       "zh": "下雨 了！",
+       "en": "It's raining!"
+      },
+      {
+       "zh": "我 饿 了。",
+       "en": "I'm hungry now."
+      },
+      {
+       "zh": "他 二十 岁 了。",
+       "en": "He's twenty now."
+      }
+     ]
+    },
+    {
+     "title": "Not with 没",
+     "body": "For didn't, use 没 and drop 了: 我 没 吃, not 我 没 吃 了.",
+     "pattern": "我 [没] 吃。",
+     "examples": [
+      {
+       "zh": "我 没 吃。",
+       "en": "I didn't eat."
+      },
+      {
+       "zh": "他 还 没 走。",
+       "en": "He hasn't left yet."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 买 ___ 两 本 书。",
+     "en": "I bought two books.",
+     "options": [
+      "了",
+      "着"
+     ],
+     "answer": "了",
+     "why": "Done: verb + 了."
+    },
+    {
+     "kind": "gap",
+     "zh": "下雨 ___！",
+     "en": "It's started raining!",
+     "options": [
+      "了",
+      "的"
+     ],
+     "answer": "了",
+     "why": "A new situation: 了 at the end."
+    },
+    {
+     "kind": "pick",
+     "en": "He hasn't left yet.",
+     "options": [
+      "他 还 没 走。",
+      "他 还 没 走 了。"
+     ],
+     "answer": 0,
+     "why": "没 and 了 don't go together."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 饿 ___。",
+     "en": "I'm hungry now.",
+     "options": [
+      "了",
+      "过"
+     ],
+     "answer": "了",
+     "why": "Something has changed: 了 at the end."
+    },
+    {
+     "kind": "order",
+     "zh": "他 已经 走 了。",
+     "en": "He's already left.",
+     "why": "已经 before the verb, 了 at the end."
+    },
+    {
+     "kind": "order",
+     "zh": "我 买 了 两 本 书。",
+     "en": "I bought two books.",
+     "why": "Verb + 了, then what."
+    },
+    {
+     "kind": "pick",
+     "en": "He's twenty now.",
+     "options": [
+      "他 二十 岁 了。",
+      "他 了 二十 岁。"
+     ],
+     "answer": 0,
+     "why": "了 goes at the end for a change."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 吃饭 ___ 吗？",
+     "en": "Have you eaten?",
+     "options": [
+      "了",
+      "着"
+     ],
+     "answer": "了",
+     "why": "Asking whether it's done: 了 吗."
+    }
+   ]
+  },
+  {
+   "id": "g11",
+   "section": 3,
+   "title": "过: ever",
+   "titleZh": "过",
+   "summary": "Verb + 过 = have ever. 没 … 过 = never.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "过: have ever",
+     "body": "Verb + 过 says something has happened at some point in your life: 我 去 过 日本 (I've been to Japan).",
+     "pattern": "我 去 [过] 日本。",
+     "examples": [
+      {
+       "zh": "我 去 过 日本。",
+       "en": "I've been to Japan."
+      },
+      {
+       "zh": "你 吃 过 榴莲 吗？",
+       "en": "Have you ever had durian?"
+      },
+      {
+       "zh": "我 见 过 他。",
+       "en": "I've met him before."
+      }
+     ]
+    },
+    {
+     "title": "没 … 过: never",
+     "body": "For never, 没 + verb + 过. Keep the 过.",
+     "pattern": "我 [没] 坐 [过] 飞机。",
+     "examples": [
+      {
+       "zh": "我 没 坐 过 飞机。",
+       "en": "I've never been on a plane."
+      },
+      {
+       "zh": "他 从来 没 来 过。",
+       "en": "He's never come."
+      }
+     ]
+    },
+    {
+     "title": "了 or 过?",
+     "body": "了: it happened (that's the news). 过: it has happened before, as experience. 我 吃 了 = I ate (just now). 我 吃 过 = I've had it before.",
+     "pattern": "我 吃 [过] 辣椒螃蟹。",
+     "examples": [
+      {
+       "zh": "我 吃 过 辣椒螃蟹。",
+       "en": "I've had chilli crab before."
+      },
+      {
+       "zh": "我 吃 了 辣椒螃蟹。",
+       "en": "I ate chilli crab."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "你 吃 ___ 榴莲 吗？",
+     "en": "Have you ever had durian?",
+     "options": [
+      "过",
+      "了"
+     ],
+     "answer": "过",
+     "why": "Ever: 过."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 没 坐 ___ 飞机。",
+     "en": "I've never been on a plane.",
+     "options": [
+      "过",
+      "了"
+     ],
+     "answer": "过",
+     "why": "Never = 没 … 过."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 去 ___ 日本 两 次。",
+     "en": "I've been to Japan twice.",
+     "options": [
+      "过",
+      "在"
+     ],
+     "answer": "过",
+     "why": "Experience: 过."
+    },
+    {
+     "kind": "pick",
+     "en": "I've met him before.",
+     "options": [
+      "我 见 过 他。",
+      "我 过 见 他。"
+     ],
+     "answer": 0,
+     "why": "过 goes right after the verb."
+    },
+    {
+     "kind": "pick",
+     "en": "I've never been to Bali.",
+     "options": [
+      "我 没 去 过 巴厘岛。",
+      "我 不 去 过 巴厘岛。"
+     ],
+     "answer": 0,
+     "why": "Never = 没 … 过, not 不."
+    },
+    {
+     "kind": "order",
+     "zh": "我 去 过 日本。",
+     "en": "I've been to Japan.",
+     "why": "Verb + 过, then the place."
+    },
+    {
+     "kind": "order",
+     "zh": "他 从来 没 来 过。",
+     "en": "He's never come.",
+     "why": "从来 没 … 过 = never ever."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 刚才 吃 ___ 饭。",
+     "en": "I just ate.",
+     "options": [
+      "了",
+      "过"
+     ],
+     "answer": "了",
+     "why": "Just now, it happened: 了. 过 would mean \"at some point in my life\"."
+    }
+   ]
+  },
+  {
+   "id": "g12",
+   "section": 3,
+   "title": "In the middle of: 在 and 着",
+   "titleZh": "在 和 着",
+   "summary": "在 + verb = doing right now; verb + 着 = a state that continues.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "在: right now",
+     "body": "在 (or 正在) before a verb says it's happening now. 呢 at the end often comes along.",
+     "pattern": "我 [在] 吃饭 呢。",
+     "examples": [
+      {
+       "zh": "我 在 吃饭 呢。",
+       "en": "I'm eating."
+      },
+      {
+       "zh": "他 正在 开会。",
+       "en": "He's in a meeting."
+      },
+      {
+       "zh": "妈妈 在 煮饭。",
+       "en": "Mum's cooking."
+      }
+     ]
+    },
+    {
+     "title": "在 + place, 在 + verb",
+     "body": "The same character does two jobs: 在 家 (at home) and 在 吃 (eating). 在 家 吃饭 = eat at home.",
+     "pattern": "我 [在] 家 看 电视。",
+     "examples": [
+      {
+       "zh": "我 在 家 看 电视。",
+       "en": "I'm watching TV at home."
+      },
+      {
+       "zh": "他 在 睡觉。",
+       "en": "He's sleeping."
+      }
+     ]
+    },
+    {
+     "title": "着: a state that continues",
+     "body": "Verb + 着 describes how something is, or how someone does something: 门 开 着 (the door is open), 坐 着 (sitting).",
+     "pattern": "门 开 [着]。",
+     "examples": [
+      {
+       "zh": "门 开 着。",
+       "en": "The door is open."
+      },
+      {
+       "zh": "他 坐 着 看 书。",
+       "en": "He's reading, sitting down."
+      },
+      {
+       "zh": "外面 下 着 雨。",
+       "en": "It's raining outside."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 ___ 吃饭 呢。",
+     "en": "I'm eating.",
+     "options": [
+      "在",
+      "过"
+     ],
+     "answer": "在",
+     "why": "Right now: 在 + verb."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 ___ 开会， 等 一下。",
+     "en": "He's in a meeting, wait a moment.",
+     "options": [
+      "正在",
+      "已经"
+     ],
+     "answer": "正在",
+     "why": "In the middle of it: 正在."
+    },
+    {
+     "kind": "gap",
+     "zh": "门 开 ___。",
+     "en": "The door is open.",
+     "options": [
+      "着",
+      "过"
+     ],
+     "answer": "着",
+     "why": "A state that continues: 着."
+    },
+    {
+     "kind": "pick",
+     "en": "Mum is cooking.",
+     "options": [
+      "妈妈 在 煮饭。",
+      "妈妈 煮饭 在。"
+     ],
+     "answer": 0,
+     "why": "在 goes before the verb."
+    },
+    {
+     "kind": "order",
+     "zh": "我 在 家 看 电视。",
+     "en": "I'm watching TV at home.",
+     "why": "在 家 (where), then the verb."
+    },
+    {
+     "kind": "pick",
+     "en": "He's sleeping, don't disturb him.",
+     "options": [
+      "他 在 睡觉， 别 吵 他。",
+      "他 睡觉 过， 别 吵 他。"
+     ],
+     "answer": 0,
+     "why": "Happening now: 在 + verb."
+    },
+    {
+     "kind": "order",
+     "zh": "他 坐 着 看 书。",
+     "en": "He's reading, sitting down.",
+     "why": "坐 着 says how he reads."
+    },
+    {
+     "kind": "gap",
+     "zh": "外面 下 ___ 雨。",
+     "en": "It's raining outside.",
+     "options": [
+      "着",
+      "过"
+     ],
+     "answer": "着",
+     "why": "Ongoing: 下 着 雨."
+    }
+   ]
+  },
+  {
+   "id": "g13",
+   "section": 3,
+   "title": "Want, will and can",
+   "titleZh": "要、想、会、能、可以",
+   "summary": "要 and 想 for wanting; 会, 能 and 可以 for three kinds of \"can\".",
+   "lines": [
+    "u07",
+    "u08"
+   ],
+   "rules": [
+    {
+     "title": "要 and 想: want",
+     "body": "要 is a firm want, or \"going to\": 我 要 咖啡. 想 is \"would like\" or \"thinking of\": 我 想 去 日本.",
+     "pattern": "我 [想] 去 日本。",
+     "examples": [
+      {
+       "zh": "我 要 一 杯 咖啡。",
+       "en": "I want a cup of coffee."
+      },
+      {
+       "zh": "我 想 去 日本。",
+       "en": "I'd like to go to Japan."
+      },
+      {
+       "zh": "明天 要 下雨。",
+       "en": "It's going to rain tomorrow."
+      }
+     ]
+    },
+    {
+     "title": "Three kinds of can",
+     "body": "会: can because you learned it (会 说 华语). 能: able to, in this situation (明天 能 来 吗？). 可以: may, it is allowed (可以 坐 这里 吗？).",
+     "pattern": "我 [会] 说 华语。",
+     "examples": [
+      {
+       "zh": "我 会 说 华语。",
+       "en": "I can speak Mandarin."
+      },
+      {
+       "zh": "明天 你 能 来 吗？",
+       "en": "Can you come tomorrow?"
+      },
+      {
+       "zh": "我 可以 坐 这里 吗？",
+       "en": "May I sit here?"
+      }
+     ],
+     "tip": "In everyday Singapore speech 可以 often covers all three, but 会 for skills is worth getting right."
+    },
+    {
+     "title": "会: will (probably)",
+     "body": "会 also predicts: 他 会 来 的 (he'll come, I'm sure).",
+     "pattern": "他 [会] 来 的。",
+     "examples": [
+      {
+       "zh": "他 会 来 的。",
+       "en": "He'll come."
+      },
+      {
+       "zh": "明天 会 下雨 吗？",
+       "en": "Will it rain tomorrow?"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 ___ 说 华语。",
+     "en": "I can speak Mandarin.",
+     "options": [
+      "会",
+      "可以"
+     ],
+     "answer": "会",
+     "why": "A learned skill: 会."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 坐 这里 吗？",
+     "en": "May I sit here?",
+     "options": [
+      "可以",
+      "会"
+     ],
+     "answer": "可以",
+     "why": "Asking permission: 可以."
+    },
+    {
+     "kind": "gap",
+     "zh": "明天 你 ___ 来 吗？",
+     "en": "Can you come tomorrow?",
+     "options": [
+      "能",
+      "会"
+     ],
+     "answer": "能",
+     "why": "Able to, in this situation: 能."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 去 日本 玩。",
+     "en": "I'd like to go to Japan for a holiday.",
+     "options": [
+      "想",
+      "会"
+     ],
+     "answer": "想",
+     "why": "Would like: 想."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 ___ 来 的， 别 担心。",
+     "en": "He'll come, don't worry.",
+     "options": [
+      "会",
+      "可以"
+     ],
+     "answer": "会",
+     "why": "A prediction: 会."
+    },
+    {
+     "kind": "pick",
+     "en": "I want a cup of coffee.",
+     "options": [
+      "我 要 一 杯 咖啡。",
+      "我 会 一 杯 咖啡。"
+     ],
+     "answer": 0,
+     "why": "Wanting a thing: 要."
+    },
+    {
+     "kind": "order",
+     "zh": "我 可以 坐 这里 吗？",
+     "en": "May I sit here?",
+     "why": "可以 before the verb, 吗 at the end."
+    },
+    {
+     "kind": "order",
+     "zh": "我 想 去 日本。",
+     "en": "I'd like to go to Japan.",
+     "why": "想 before the verb."
+    }
+   ]
+  },
+  {
+   "id": "g14",
+   "section": 4,
+   "title": "Comparing",
+   "titleZh": "比较",
+   "summary": "A 比 B 贵; 没有 … 那么; 跟 … 一样; 最.",
+   "lines": [
+    "u14"
+   ],
+   "rules": [
+    {
+     "title": "A 比 B + describing word",
+     "body": "A 比 B 贵 = A is more expensive than B. Don't add 很; use 多 了 or 一点 for \"much\" or \"a bit\".",
+     "pattern": "出租车 [比] 地铁 贵。",
+     "examples": [
+      {
+       "zh": "出租车 比 地铁 贵。",
+       "en": "Taxis cost more than the MRT."
+      },
+      {
+       "zh": "今天 比 昨天 热 多 了。",
+       "en": "Today is much hotter than yesterday."
+      },
+      {
+       "zh": "他 比 我 高 一点。",
+       "en": "He's a bit taller than me."
+      }
+     ]
+    },
+    {
+     "title": "Not as: 没有 … 那么",
+     "body": "A 没有 B 那么 贵 = A is not as expensive as B.",
+     "pattern": "地铁 [没有] 出租车 [那么] 贵。",
+     "examples": [
+      {
+       "zh": "地铁 没有 出租车 那么 贵。",
+       "en": "The MRT isn't as expensive as a taxi."
+      }
+     ]
+    },
+    {
+     "title": "The same, and the most",
+     "body": "A 跟 B 一样 = A is the same as B; 一样 高 = as tall. 最 = most.",
+     "pattern": "我 [跟] 他 [一样] 高。",
+     "examples": [
+      {
+       "zh": "我 跟 他 一样 高。",
+       "en": "I'm as tall as him."
+      },
+      {
+       "zh": "这 家 最 好吃。",
+       "en": "This stall is the best."
+      },
+      {
+       "zh": "你 最 喜欢 什么？",
+       "en": "What do you like most?"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "出租车 ___ 地铁 贵。",
+     "en": "Taxis cost more than the MRT.",
+     "options": [
+      "比",
+      "跟"
+     ],
+     "answer": "比",
+     "why": "A 比 B = A is more … than B."
+    },
+    {
+     "kind": "pick",
+     "en": "He's taller than me.",
+     "options": [
+      "他 比 我 高。",
+      "他 比 我 很 高。"
+     ],
+     "answer": 0,
+     "why": "No 很 in a 比 sentence."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 跟 他 ___ 高。",
+     "en": "I'm as tall as him.",
+     "options": [
+      "一样",
+      "比"
+     ],
+     "answer": "一样",
+     "why": "跟 … 一样 = as … as."
+    },
+    {
+     "kind": "gap",
+     "zh": "这 家 ___ 好吃。",
+     "en": "This stall is the tastiest.",
+     "options": [
+      "最",
+      "比"
+     ],
+     "answer": "最",
+     "why": "最 = most."
+    },
+    {
+     "kind": "gap",
+     "zh": "地铁 ___ 出租车 那么 贵。",
+     "en": "The MRT isn't as expensive as a taxi.",
+     "options": [
+      "没有",
+      "不"
+     ],
+     "answer": "没有",
+     "why": "Not as … as: 没有 … 那么."
+    },
+    {
+     "kind": "order",
+     "zh": "他 比 我 高 一点。",
+     "en": "He's a bit taller than me.",
+     "why": "A 比 B, describing word, then 一点."
+    },
+    {
+     "kind": "pick",
+     "en": "Today is much hotter than yesterday.",
+     "options": [
+      "今天 比 昨天 热 多 了。",
+      "今天 比 昨天 很 热。"
+     ],
+     "answer": 0,
+     "why": "\"Much more\" is 多 了 after the word, never 很."
+    },
+    {
+     "kind": "order",
+     "zh": "你 最 喜欢 什么？",
+     "en": "What do you like most?",
+     "why": "最 before the verb 喜欢."
+    }
+   ]
+  },
+  {
+   "id": "g15",
+   "section": 4,
+   "title": "How it went: complements",
+   "titleZh": "补语",
+   "summary": "说 得 很 快; 听 懂; 听 不 懂.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "得: how well, how fast",
+     "body": "Verb + 得 + description says how it is done: 他 说 得 很 快 (he speaks fast).",
+     "pattern": "他 说 [得] 很 快。",
+     "examples": [
+      {
+       "zh": "他 说 得 很 快。",
+       "en": "He speaks fast."
+      },
+      {
+       "zh": "你 唱 得 真 好！",
+       "en": "You sing really well!"
+      },
+      {
+       "zh": "我 今天 起 得 很 早。",
+       "en": "I got up early today."
+      }
+     ],
+     "tip": "This 得 (de) sounds the same as 的 and 地, but each has its own job."
+    },
+    {
+     "title": "Results: 懂, 完, 到",
+     "body": "A second word after the verb says how it ended: 听 懂 (understood), 做 完 (finished), 找 到 (found).",
+     "pattern": "我 听 [懂] 了。",
+     "examples": [
+      {
+       "zh": "我 听 懂 了。",
+       "en": "I understood."
+      },
+      {
+       "zh": "功课 做 完 了 吗？",
+       "en": "Is the homework done?"
+      },
+      {
+       "zh": "我 找 到 钥匙 了。",
+       "en": "I found the keys."
+      }
+     ]
+    },
+    {
+     "title": "Can or can't: 得 or 不 in the middle",
+     "body": "Put 得 or 不 between the two parts: 听 得 懂 (can understand), 听 不 懂 (can't understand), 吃 不 完 (can't finish).",
+     "pattern": "我 听 [不] 懂。",
+     "examples": [
+      {
+       "zh": "我 听 不 懂。",
+       "en": "I can't understand."
+      },
+      {
+       "zh": "太 多 了， 吃 不 完。",
+       "en": "Too much, I can't finish it."
+      },
+      {
+       "zh": "你 看 得 见 吗？",
+       "en": "Can you see it?"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "他 说 ___ 很 快。",
+     "en": "He speaks fast.",
+     "options": [
+      "得",
+      "的"
+     ],
+     "answer": "得",
+     "why": "How it's done: verb + 得."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 听 ___ 懂。",
+     "en": "I can't understand.",
+     "options": [
+      "不",
+      "没"
+     ],
+     "answer": "不",
+     "why": "Can't: 不 in the middle."
+    },
+    {
+     "kind": "gap",
+     "zh": "功课 做 ___ 了 吗？",
+     "en": "Is the homework done?",
+     "options": [
+      "完",
+      "得"
+     ],
+     "answer": "完",
+     "why": "做 完 = finish doing."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 找 ___ 钥匙 了。",
+     "en": "I found the keys.",
+     "options": [
+      "到",
+      "完"
+     ],
+     "answer": "到",
+     "why": "找 到 = look and find."
+    },
+    {
+     "kind": "pick",
+     "en": "You sing really well!",
+     "options": [
+      "你 唱 得 真 好！",
+      "你 唱 真 好 得！"
+     ],
+     "answer": 0,
+     "why": "Verb, 得, then the description."
+    },
+    {
+     "kind": "gap",
+     "zh": "太 多 了， 吃 不 ___。",
+     "en": "Too much, I can't finish it.",
+     "options": [
+      "完",
+      "到"
+     ],
+     "answer": "完",
+     "why": "吃 不 完 = can't finish eating."
+    },
+    {
+     "kind": "order",
+     "zh": "我 听 懂 了。",
+     "en": "I understood.",
+     "why": "Verb + result, then 了."
+    },
+    {
+     "kind": "order",
+     "zh": "他 跑 得 很 快。",
+     "en": "He runs fast.",
+     "why": "Verb, 得, then how."
+    }
+   ]
+  },
+  {
+   "id": "g16",
+   "section": 4,
+   "title": "把: doing something to it",
+   "titleZh": "把字句",
+   "summary": "把 brings the thing before the verb: 把 门 关上.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "把: what you do to something",
+     "body": "把 moves the object before the verb, to say what happens to it: 把 门 关上 (shut the door). The verb needs something after it (上, 好, 了 …).",
+     "pattern": "请 [把] 门 关上。",
+     "examples": [
+      {
+       "zh": "请 把 门 关上。",
+       "en": "Please shut the door."
+      },
+      {
+       "zh": "我 把 钱包 忘 在 家 了。",
+       "en": "I left my wallet at home."
+      },
+      {
+       "zh": "把 垃圾 拿 出去。",
+       "en": "Take the rubbish out."
+      }
+     ]
+    },
+    {
+     "title": "When to use 把",
+     "body": "Use 把 for a specific thing you move, change or finish. Not with feelings or knowing: 我 喜欢 你, never 我 把 你 喜欢.",
+     "pattern": "我 [把] 功课 做 完 了。",
+     "examples": [
+      {
+       "zh": "我 把 功课 做 完 了。",
+       "en": "I've finished the homework."
+      },
+      {
+       "zh": "你 把 手机 放 在 哪里？",
+       "en": "Where did you put your phone?"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "请 ___ 门 关上。",
+     "en": "Please shut the door.",
+     "options": [
+      "把",
+      "被"
+     ],
+     "answer": "把",
+     "why": "Doing something to the door: 把."
+    },
+    {
+     "kind": "pick",
+     "en": "I left my wallet at home.",
+     "options": [
+      "我 把 钱包 忘 在 家 了。",
+      "我 把 钱包 忘。"
+     ],
+     "answer": 0,
+     "why": "With 把, the verb needs something after it."
+    },
+    {
+     "kind": "order",
+     "zh": "把 垃圾 拿 出去。",
+     "en": "Take the rubbish out.",
+     "why": "把, the thing, then what to do with it."
+    },
+    {
+     "kind": "pick",
+     "en": "I like you.",
+     "options": [
+      "我 喜欢 你。",
+      "我 把 你 喜欢。"
+     ],
+     "answer": 0,
+     "why": "Feelings don't take 把."
+    },
+    {
+     "kind": "gap",
+     "zh": "你 把 手机 放 ___ 哪里？",
+     "en": "Where did you put your phone?",
+     "options": [
+      "在",
+      "把"
+     ],
+     "answer": "在",
+     "why": "放 在 = put at."
+    },
+    {
+     "kind": "order",
+     "zh": "我 把 功课 做 完 了。",
+     "en": "I've finished the homework.",
+     "why": "把 + thing + verb + result."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 空调 关 了 吧。",
+     "en": "Let's switch off the aircon.",
+     "options": [
+      "把",
+      "被"
+     ],
+     "answer": "把",
+     "why": "Doing something to the aircon: 把."
+    }
+   ]
+  },
+  {
+   "id": "g17",
+   "section": 4,
+   "title": "被: it was done to it",
+   "titleZh": "被字句",
+   "summary": "被 puts the thing first: 钱包 被 偷 了.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "被: something was done to it",
+     "body": "被 puts the thing first and the doer after 被: 钱包 被 偷 了 (the wallet was stolen). It often describes something unwelcome.",
+     "pattern": "我 的 钱包 [被] 偷 了。",
+     "examples": [
+      {
+       "zh": "我 的 钱包 被 偷 了。",
+       "en": "My wallet was stolen."
+      },
+      {
+       "zh": "他 被 老师 骂 了。",
+       "en": "He was scolded by the teacher."
+      },
+      {
+       "zh": "蛋糕 被 弟弟 吃 完 了。",
+       "en": "The cake was finished by my little brother."
+      }
+     ]
+    },
+    {
+     "title": "Casual 给",
+     "body": "In casual Singapore speech, 给 often stands in for 被: 他 给 老师 骂. In writing, use 被.",
+     "pattern": "他 [给] 老师 骂 了。",
+     "examples": [
+      {
+       "zh": "他 给 老师 骂 了。",
+       "en": "He got scolded by the teacher. (casual)"
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我 的 钱包 ___ 偷 了。",
+     "en": "My wallet was stolen.",
+     "options": [
+      "被",
+      "把"
+     ],
+     "answer": "被",
+     "why": "Something was done to the wallet: 被."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 ___ 老师 骂 了。",
+     "en": "He was scolded by the teacher.",
+     "options": [
+      "被",
+      "把"
+     ],
+     "answer": "被",
+     "why": "He was on the receiving end: 被."
+    },
+    {
+     "kind": "pick",
+     "en": "The cake was eaten by my little brother.",
+     "options": [
+      "蛋糕 被 弟弟 吃 了。",
+      "弟弟 被 蛋糕 吃 了。"
+     ],
+     "answer": 0,
+     "why": "The thing first, then 被 and the doer. (The other one says the cake ate him!)"
+    },
+    {
+     "kind": "pick",
+     "en": "My little brother ate the cake.",
+     "options": [
+      "弟弟 把 蛋糕 吃 了。",
+      "弟弟 被 蛋糕 吃 了。"
+     ],
+     "answer": 0,
+     "why": "With 把, the doer comes first."
+    },
+    {
+     "kind": "order",
+     "zh": "我 的 手机 被 偷 了。",
+     "en": "My phone was stolen.",
+     "why": "Thing, 被, verb, 了."
+    },
+    {
+     "kind": "pick",
+     "en": "He got scolded by the teacher. (in writing)",
+     "options": [
+      "他 被 老师 骂 了。",
+      "他 给 老师 骂 了。"
+     ],
+     "answer": 0,
+     "why": "In writing use 被; 给 is casual speech."
+    },
+    {
+     "kind": "order",
+     "zh": "他 被 老师 骂 了。",
+     "en": "He was scolded by the teacher.",
+     "why": "He, 被, the doer, the verb."
+    }
+   ],
+   "verify": true
+  },
+  {
+   "id": "g18",
+   "section": 4,
+   "title": "Joining ideas",
+   "titleZh": "关联词",
+   "summary": "Pairs: 因为 … 所以, 虽然 … 但是, 如果 … 就, 先 … 再.",
+   "lines": [],
+   "rules": [
+    {
+     "title": "Pairs that hold a sentence together",
+     "body": "Mandarin likes linking words in pairs: 因为 … 所以 (because … so), 虽然 … 但是 (although … but).",
+     "pattern": "[因为] 下雨， [所以] 我 没 去。",
+     "examples": [
+      {
+       "zh": "因为 下雨， 所以 我 没 去。",
+       "en": "Because it rained, I didn't go."
+      },
+      {
+       "zh": "虽然 很 贵， 但是 很 好吃。",
+       "en": "It's expensive, but it's tasty."
+      }
+     ],
+     "tip": "Unlike English, both halves are normal: 虽然 … 但是 together is right."
+    },
+    {
+     "title": "If, then: 如果 … 就",
+     "body": "如果 (if) starts the condition; 就 goes before the verb of the result.",
+     "pattern": "[如果] 下雨， 我们 [就] 不 去。",
+     "examples": [
+      {
+       "zh": "如果 下雨， 我们 就 不 去。",
+       "en": "If it rains, we won't go."
+      },
+      {
+       "zh": "如果 你 累， 就 休息 吧。",
+       "en": "If you're tired, rest."
+      }
+     ]
+    },
+    {
+     "title": "First, then: 先 … 再",
+     "body": "先 = first, 再 = then, afterwards.",
+     "pattern": "我 [先] 吃饭， [再] 做 功课。",
+     "examples": [
+      {
+       "zh": "我 先 吃饭， 再 做 功课。",
+       "en": "I'll eat first, then do homework."
+      },
+      {
+       "zh": "先 洗 手 再 吃。",
+       "en": "Wash your hands first, then eat."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "因为 下雨， ___ 我 没 去。",
+     "en": "Because it rained, I didn't go.",
+     "options": [
+      "所以",
+      "但是"
+     ],
+     "answer": "所以",
+     "why": "因为 … 所以 = because … so."
+    },
+    {
+     "kind": "gap",
+     "zh": "虽然 很 贵， ___ 很 好吃。",
+     "en": "It's expensive, but tasty.",
+     "options": [
+      "但是",
+      "所以"
+     ],
+     "answer": "但是",
+     "why": "虽然 … 但是 = although … but."
+    },
+    {
+     "kind": "gap",
+     "zh": "如果 下雨， 我们 ___ 不 去。",
+     "en": "If it rains, we won't go.",
+     "options": [
+      "就",
+      "才"
+     ],
+     "answer": "就",
+     "why": "如果 … 就 = if … then."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 先 吃饭， ___ 做 功课。",
+     "en": "I'll eat first, then do homework.",
+     "options": [
+      "再",
+      "才"
+     ],
+     "answer": "再",
+     "why": "先 … 再 = first … then."
+    },
+    {
+     "kind": "gap",
+     "zh": "___ 你 累， 就 休息 吧。",
+     "en": "If you're tired, rest.",
+     "options": [
+      "如果",
+      "因为"
+     ],
+     "answer": "如果",
+     "why": "如果 = if."
+    },
+    {
+     "kind": "pick",
+     "en": "Wash your hands first, then eat.",
+     "options": [
+      "先 洗 手 再 吃。",
+      "再 洗 手 先 吃。"
+     ],
+     "answer": 0,
+     "why": "先 for the first thing, 再 for the next."
+    },
+    {
+     "kind": "order",
+     "zh": "如果 你 累， 就 休息 吧。",
+     "en": "If you're tired, rest.",
+     "why": "如果 + condition, then 就 + result."
+    },
+    {
+     "kind": "order",
+     "zh": "虽然 很 贵， 但是 很 好吃。",
+     "en": "It's expensive, but tasty.",
+     "why": "虽然 opens, 但是 turns it round."
+    }
+   ]
+  },
+  {
+   "id": "g19",
+   "section": 5,
+   "title": "Little words",
+   "titleZh": "语气词",
+   "summary": "吧, 呢, 啊, and the 啦, 咯, 嘛 that gave Singlish lah, lor and mah.",
+   "lines": [
+    "u10",
+    "u13"
+   ],
+   "rules": [
+    {
+     "title": "吧: suggest or check",
+     "body": "吧 makes a suggestion (走 吧, let's go) or a guess you want confirmed (你 是 新加坡人 吧？).",
+     "pattern": "我们 走 [吧]。",
+     "examples": [
+      {
+       "zh": "我们 走 吧。",
+       "en": "Let's go."
+      },
+      {
+       "zh": "你 是 新加坡人 吧？",
+       "en": "You're Singaporean, right?"
+      },
+      {
+       "zh": "好 吧。",
+       "en": "Alright then."
+      }
+     ]
+    },
+    {
+     "title": "啦, 咯, 嘛: the Singapore feel",
+     "body": "啦 softens or presses (好 啦, OK lah). 咯 marks something settled or obvious (那 就 这样 咯, then that's that lor). 嘛 says \"it's obvious\" (他 是 老板 嘛, he's the boss mah).",
+     "pattern": "好 [啦]， 好 [啦]。",
+     "examples": [
+      {
+       "zh": "好 啦， 好 啦。",
+       "en": "OK lah, OK lah."
+      },
+      {
+       "zh": "那 就 这样 咯。",
+       "en": "Then that's that lor."
+      },
+      {
+       "zh": "他 是 老板 嘛。",
+       "en": "He's the boss mah."
+      }
+     ],
+     "tip": "These are where Singlish lah, lor and mah come from."
+    },
+    {
+     "title": "啊 and 呢",
+     "body": "啊 adds feeling or warmth (好 啊! sure!). 呢 asks \"and what about …?\" (你 呢？).",
+     "pattern": "你 [呢]？",
+     "examples": [
+      {
+       "zh": "我 很 好， 你 呢？",
+       "en": "I'm fine, and you?"
+      },
+      {
+       "zh": "好 啊！",
+       "en": "Sure!"
+      },
+      {
+       "zh": "他 在 睡觉 呢。",
+       "en": "He's sleeping."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "gap",
+     "zh": "我们 走 ___。",
+     "en": "Let's go.",
+     "options": [
+      "吧",
+      "呢"
+     ],
+     "answer": "吧",
+     "why": "A suggestion: 吧."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 很 好， 你 ___？",
+     "en": "I'm fine, and you?",
+     "options": [
+      "呢",
+      "吧"
+     ],
+     "answer": "呢",
+     "why": "呢 = and you?"
+    },
+    {
+     "kind": "gap",
+     "zh": "你 是 新加坡人 ___？",
+     "en": "You're Singaporean, right?",
+     "options": [
+      "吧",
+      "呢"
+     ],
+     "answer": "吧",
+     "why": "A guess you want confirmed: 吧."
+    },
+    {
+     "kind": "gap",
+     "zh": "好 ___！",
+     "en": "Sure!",
+     "options": [
+      "啊",
+      "呢"
+     ],
+     "answer": "啊",
+     "why": "好 啊 = sure, warmly."
+    },
+    {
+     "kind": "gap",
+     "zh": "那 就 这样 ___。",
+     "en": "Then that's that lor.",
+     "options": [
+      "咯",
+      "吗"
+     ],
+     "answer": "咯",
+     "why": "咯 marks it settled. 吗 would make it a question."
+    },
+    {
+     "kind": "pick",
+     "en": "OK lah, OK lah.",
+     "options": [
+      "好 啦， 好 啦。",
+      "好 呢， 好 呢。"
+     ],
+     "answer": 0,
+     "why": "啦 is the \"lah\"."
+    },
+    {
+     "kind": "gap",
+     "zh": "他 是 老板 ___， 当然 他 决定。",
+     "en": "He's the boss mah, of course he decides.",
+     "options": [
+      "嘛",
+      "吗"
+     ],
+     "answer": "嘛",
+     "why": "嘛 = it's obvious. 吗 asks a question."
+    }
+   ],
+   "verify": true
+  },
+  {
+   "id": "g20",
+   "section": 5,
+   "title": "Singapore patterns",
+   "titleZh": "本地说法",
+   "summary": "Things you'll hear here that textbooks say differently: 有 去, 走 先, 而已, 酱.",
+   "lines": [
+    "u10",
+    "u13"
+   ],
+   "rules": [
+    {
+     "title": "有 + verb: did (really)",
+     "body": "In Singapore Mandarin, 有 before a verb stresses that something did happen: 我 有 去 (I did go). Textbook Mandarin says 我 去 了.",
+     "pattern": "我 [有] 去， 你 没 看到。",
+     "examples": [
+      {
+       "zh": "我 有 去， 你 没 看到。",
+       "en": "I did go, you didn't see me."
+      },
+      {
+       "zh": "你 有 吃 吗？",
+       "en": "Did you eat?"
+      },
+      {
+       "zh": "我 有 带 伞。",
+       "en": "I did bring an umbrella."
+      }
+     ],
+     "tip": "Common in Singapore, Malaysia and Taiwan; textbooks prefer 了."
+    },
+    {
+     "title": "先 at the end",
+     "body": "Singaporeans often put 先 last, like Singlish \"first\": 你 走 先 (you go first). Textbook Mandarin: 你 先 走.",
+     "pattern": "你 走 [先]。",
+     "examples": [
+      {
+       "zh": "你 走 先， 我 等 一下。",
+       "en": "You go first, I'll wait a bit."
+      },
+      {
+       "zh": "我 吃 先。",
+       "en": "I'll eat first."
+      }
+     ]
+    },
+    {
+     "title": "而已 and 酱",
+     "body": "而已 = only, that's all (五 块 而已, only five dollars). 酱 (jiàng) is a casual blend of 这样, \"like this\": 不 要 酱 啦 (don't be like that lah).",
+     "pattern": "五 块 [而已]。",
+     "examples": [
+      {
+       "zh": "五 块 而已。",
+       "en": "Only five dollars."
+      },
+      {
+       "zh": "酱 也 可以。",
+       "en": "That's fine too."
+      },
+      {
+       "zh": "不 要 酱 啦。",
+       "en": "Don't be like that lah."
+      }
+     ]
+    }
+   ],
+   "drills": [
+    {
+     "kind": "pick",
+     "en": "Textbook Mandarin for 你 走 先 (\"you go first\")",
+     "options": [
+      "你 先 走。",
+      "你 走 先 了。"
+     ],
+     "answer": 0,
+     "why": "Textbooks put 先 before the verb; 你 走 先 is the Singapore way."
+    },
+    {
+     "kind": "gap",
+     "zh": "五 块 ___， 很 便宜。",
+     "en": "Only five dollars, very cheap.",
+     "options": [
+      "而已",
+      "了"
+     ],
+     "answer": "而已",
+     "why": "而已 = only, that's all."
+    },
+    {
+     "kind": "gap",
+     "zh": "我 ___ 去， 你 没 看到。",
+     "en": "I did go, you didn't see me. (Singapore style)",
+     "options": [
+      "有",
+      "是"
+     ],
+     "answer": "有",
+     "why": "有 + verb = did, with stress."
+    },
+    {
+     "kind": "pick",
+     "en": "\"I did bring an umbrella\" in textbook Mandarin",
+     "options": [
+      "我 带 了 伞。",
+      "我 有 带 伞。"
+     ],
+     "answer": 0,
+     "why": "Textbooks use 了; 有 + verb is local."
+    },
+    {
+     "kind": "gap",
+     "zh": "不 要 ___ 啦。",
+     "en": "Don't be like that lah.",
+     "options": [
+      "酱",
+      "先"
+     ],
+     "answer": "酱",
+     "why": "酱 = like this, from 这样."
+    },
+    {
+     "kind": "order",
+     "zh": "你 走 先， 我 等 一下。",
+     "en": "You go first, I'll wait a bit. (Singapore style)",
+     "why": "先 at the end, the local way."
+    },
+    {
+     "kind": "order",
+     "zh": "五 块 而已。",
+     "en": "Only five dollars.",
+     "why": "而已 closes the sentence."
+    }
+   ],
+   "verify": true
+  }
+ ]
+}

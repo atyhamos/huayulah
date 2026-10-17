@@ -76,6 +76,61 @@ export const StorySchema = z
     })
   })
 
+/** A grammar drill: fill the gap, put a sentence in order, or pick the right sentence. Each says why. Chinese is tokenized. */
+export const DrillSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('gap'),
+    /** The sentence with one "___" token where the answer goes. */
+    zh: tokenized,
+    en: z.string().min(1),
+    options: z.array(z.string().min(1)).min(2).max(4),
+    answer: z.string().min(1),
+    why: z.string().min(1),
+  }),
+  z.object({ kind: z.literal('order'), zh: tokenized, en: z.string().min(1), why: z.string().min(1) }),
+  z.object({
+    kind: z.literal('pick'),
+    en: z.string().min(1),
+    options: z.array(tokenized).min(2).max(4),
+    answer: z.number().int().min(0),
+    why: z.string().min(1),
+  }),
+])
+
+export const GrammarTopicSchema = z.object({
+  id: z.string().regex(/^g\d{2}$/),
+  /** 1-based section number. */
+  section: z.number().int().min(1),
+  title: z.string().min(1),
+  titleZh: z.string().min(1),
+  summary: z.string().min(1),
+  /** Lines (unit ids) that lean on this topic; they link to it. */
+  lines: z.array(z.string().regex(/^u\d{2}$/)).default([]),
+  rules: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        body: z.string().min(1),
+        /** A tokenized model sentence; [brackets] mark the part the rule is about. */
+        pattern: z.string().min(1),
+        examples: z.array(ExampleSchema).min(1),
+        tip: z.string().optional(),
+      }),
+    )
+    .min(1)
+    .max(4),
+  drills: z.array(DrillSchema).min(6),
+  verify: z.boolean().optional(),
+})
+
+export const GrammarSchema = z.object({
+  sections: z.array(z.object({ title: z.string().min(1), titleZh: z.string().min(1), description: z.string().min(1) })).min(1),
+  topics: z.array(GrammarTopicSchema).min(1),
+})
+
+export type Drill = z.infer<typeof DrillSchema>
+export type GrammarTopic = z.infer<typeof GrammarTopicSchema>
+export type GrammarSection = z.infer<typeof GrammarSchema>['sections'][number]
 export type Story = z.infer<typeof StorySchema>
 export type Example = z.infer<typeof ExampleSchema>
 export type Item = z.infer<typeof ItemSchema> & { unitId: string }

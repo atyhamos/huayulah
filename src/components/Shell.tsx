@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { content } from '../content'
 import { dueCardIds } from '../data/actions'
 import { useApp } from '../store/app'
@@ -6,6 +6,9 @@ import { Icon, type IconName } from './icons'
 import { Medal } from './ui'
 
 function Tab({ to, icon, label, badge }: { to: string; icon: IconName; label: string; badge?: number }) {
+  // the grammar track lives under Learn too
+  const path = useLocation().pathname
+  const also = to === '/' && path.startsWith('/grammar')
   return (
     <NavLink
       to={to}
@@ -13,7 +16,7 @@ function Tab({ to, icon, label, badge }: { to: string; icon: IconName; label: st
       aria-label={label}
       className={({ isActive }) =>
         `relative flex items-center justify-center gap-1.5 rounded-full py-2.5 font-display text-sm font-bold transition-all duration-300 ${
-          isActive ? 'flex-[1.6] bg-brand-600 px-4 text-white' : 'flex-1 text-slate-500 hover:text-ink'
+          isActive || also ? 'flex-[1.6] bg-brand-600 px-4 text-white' : 'flex-1 text-slate-500 hover:text-ink'
         }`
       }
     >
@@ -30,7 +33,7 @@ function Tab({ to, icon, label, badge }: { to: string; icon: IconName; label: st
               </span>
             )}
           </span>
-          {isActive && <span className="truncate">{label}</span>}
+          {(isActive || also) && <span className="truncate">{label}</span>}
         </>
       )}
     </NavLink>

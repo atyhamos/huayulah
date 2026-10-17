@@ -1,5 +1,6 @@
 import type { Unit } from '../content/schema'
 import type { AppState } from '../data/types'
+import { grammarSections, grammarTopics, sectionTopics } from '../content/grammar'
 
 export interface Achievement {
   id: string
@@ -54,6 +55,22 @@ const STATIC: Achievement[] = [
   { id: 'reviews-1000', title: 'Memory Palace', description: 'Do 1,000 flashcard reviews', char: '记', color: 1, check: (s) => totalReviews(s) >= 1000 },
   { id: 'story-1', title: 'Story Time', description: 'Finish your first story', char: '书', color: 2, check: (s) => storiesDone(s) >= 1 },
   { id: 'stories-all', title: 'Bookworm', description: 'Finish every story', char: '读', color: 2, check: (s, c) => storiesDone(s) >= c.units.length },
+  ...grammarSections.map((sec, i): Achievement => ({
+    id: `grammar-s${i + 1}`,
+    title: `${sec.title} Sorted`,
+    description: `Finish the grammar section “${sec.title}”`,
+    char: '句问时构新'[i] ?? sec.titleZh[0],
+    color: 4,
+    check: (s) => sectionTopics(i + 1).every((t) => s.lessons[t.id]),
+  })),
+  {
+    id: 'grammar-all',
+    title: 'Grammar Master',
+    description: 'Finish every grammar topic',
+    char: '语',
+    color: 3,
+    check: (s) => grammarTopics.every((t) => s.lessons[t.id]),
+  },
   { id: 'xp-1000', title: 'Grinder', description: 'Earn 1,000 XP', char: '千', color: 3, check: (s) => s.stats.xp >= 1000 },
 ]
 

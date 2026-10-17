@@ -5,7 +5,8 @@ import { pinyin } from 'pinyin-pro'
 import { isDeepStrictEqual } from 'node:util'
 import { buildContent } from '../src/content/build'
 import { pinyinTable } from '../src/content/pinyinTable'
-import { StorySchema, UnitSchema } from '../src/content/schema'
+import { GrammarSchema, StorySchema, UnitSchema } from '../src/content/schema'
+import { tokenize } from '../src/lib/exercises'
 import { hanChars, looseKey, syllables } from '../src/lib/pinyin'
 import { installPinyinEngine } from '../src/lib/pinyinEngine'
 
@@ -71,15 +72,49 @@ installPinyinEngine([...content.items.values()])
   if (missing.size) warnings.push(`no building-blocks data for: ${[...missing].join('')} (scripts/gen-chars.ts)`)
 }
 
+const grammarRes = GrammarSchema.safeParse(JSON.parse(readFileSync(join(import.meta.dirname, '../src/content/grammar.json'), 'utf8')))
+const topics = grammarRes.success ? grammarRes.data.topics : []
+if (!grammarRes.success) errors.push(`grammar.json: ${grammarRes.error.issues.map((x) => `${x.path.join('.')}: ${x.message}`).join('; ')}`)
+else {
+  const { sections } = grammarRes.data
+  topics.forEach((t, i) => {
+    const want = `g${String(i + 1).padStart(2, '0')}`
+    if (t.id !== want) errors.push(`grammar ${t.id}: expected id ${want} (topics are numbered in order)`)
+    if (t.section > sections.length) errors.push(`${t.id}: no section ${t.section}`)
+    if (i && t.section < topics[i - 1].section) errors.push(`${t.id}: sections must not go backwards`)
+    for (const u of t.lines) if (!content.units.some((x) => x.id === u)) errors.push(`${t.id}: unknown line ${u}`)
+    for (const r of t.rules) {
+      if (!/\[[^\]]+\]/.test(r.pattern)) errors.push(`${t.id} "${r.title}": pattern has no [highlighted] part`)
+      if (/\[[^\]]*\[|\][^[]*\]/.test(r.pattern)) errors.push(`${t.id} "${r.title}": unbalanced brackets in pattern`)
+    }
+    t.drills.forEach((d, k) => {
+      const where = `${t.id} drill ${k + 1}`
+      if (d.kind === 'gap') {
+        if (d.zh.split(' ').filter((w) => w.replace(/[，。？！]/g, '') === '___').length !== 1) errors.push(`${where}: a gap needs exactly one ___ word`)
+        if (!d.options.includes(d.answer)) errors.push(`${where}: answer "${d.answer}" is not an option`)
+        if (new Set(d.options).size !== d.options.length) errors.push(`${where}: duplicate options`)
+      } else if (d.kind === 'pick') {
+        if (d.answer >= d.options.length) errors.push(`${where}: answer out of range`)
+        if (new Set(d.options).size !== d.options.length) errors.push(`${where}: duplicate options`)
+      } else if (tokenize(d.zh).length < 3) warnings.push(`${where}: very short sentence to put in order`)
+    })
+  })
+  sections.forEach((_, i) => {
+    if (!topics.some((t) => t.section === i + 1)) errors.push(`grammar section ${i + 1} has no topics`)
+  })
+}
+
 const genPath = join(import.meta.dirname, '../src/content/pinyin.generated.json')
-if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content, stories)))
+if (!isDeepStrictEqual(JSON.parse(readFileSync(genPath, 'utf8')), pinyinTable(content, stories, topics)))
   errors.push('src/content/pinyin.generated.json is stale — run `npm run gen:pinyin`')
 
 const verify = [...content.items.values()].filter((i) => i.verify)
 console.log(
   `Units: ${content.units.length}  Lessons: ${content.lessonOrder.length}  Items: ${content.items.size}  SG-specific: ${
     [...content.items.values()].filter((i) => i.sg).length
-  }  Stories: ${stories.length}  Flagged for review: ${verify.length}`,
+  }  Stories: ${stories.length}  Grammar topics: ${topics.length}  Flagged for review: ${verify.length} words, ${
+    topics.filter((t) => t.verify).length
+  } grammar`,
 )
 for (const w of warnings) console.log('  ⚠', w)
 for (const e of errors) console.log('  ✗', e)

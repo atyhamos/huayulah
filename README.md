@@ -17,6 +17,7 @@ See [SPEC.md](SPEC.md) for the full product spec.
 | 🚇 Line map | Each unit is an MRT line (RB, NM, HK…), each lesson a stop and each story an interchange; stops unlock in order |
 | ✍️ Exercises | New-word cards, 汉字→English, English→汉字, listen→汉字, pick-the-tones, sentence builder, match pairs, "which would a Singaporean say?", read-aloud with speech recognition |
 | 💬 Stories | One Singapore-life dialogue per unit (kopitiam order, CNY relatives, MC day…) with audio and comprehension questions |
+| Grammar | A second track under Learn: 20 topics in 5 sections (sentence basics, negation and questions, 了/过/在, 比/把/被/complements, Singapore particles and patterns), each a few rule cards with pinyin and ~8 drills (fill the gap, put it in order, pick the right sentence) that explain why. Topics open in order; test out of a section you know. Lines link to the grammar they lean on |
 | 🃏 Flashcards | FSRS spaced repetition (`ts-fsrs`). Every word gets a **read** card and a **say** card |
 | 🙈 Pinyin fade | Pinyin hides on words you know well, so you actually learn the characters (tap to peek) |
 | 📚 Course | 14 units, 84 lessons, 504 words and phrases — 200 of them Singapore-specific, with 175 checked against the Singaporean Mandarin Database |

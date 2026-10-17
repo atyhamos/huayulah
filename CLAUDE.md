@@ -11,7 +11,8 @@ Gamified PWA for learning Singaporean Mandarin. React + Vite + TS + Tailwind v4,
 - `npm run build:artifact` — guest-only demo in `dist-artifact/` (published at https://claude.ai/artifact/53HBboawNkMKj6gbiMWyFk)
 
 ## Layout
-- `src/content/units/uNN.json`, `src/content/stories.json` — course content. After edits: `npm run gen:pinyin`, then validate.
+- `src/content/units/uNN.json`, `src/content/stories.json`, `src/content/grammar.json` — course content. After edits: `npm run gen:pinyin`, then validate.
+- `src/content/grammar.json` (+ `grammar.ts`) — the Grammar track: sections of topics `gNN`, each with rule cards (`pattern` marks the key part in [brackets]) and drills (`gap` with one `___` word, `order`, `pick`), every drill with a `why`. All Chinese is tokenized like examples (space after "，" too); `pinyinTable` covers it. Topics open in order; a section test (`/grammar/test/N`) clears a section. Progress lives in `s.lessons[gNN]`. A topic's `lines` puts a link on those lines in Learn. Screens: `Grammar`, `GrammarTopic`, `GrammarLesson`; generator in `lib/grammar.ts`.
 - `src/data/actions.ts` — pure state transitions (lesson/review/story/practice, quests). The store only applies + persists.
 - `src/data/{localRepo,firestoreRepo}.ts` — persistence; Firestore: `users/{uid}` + `users/{uid}/cards/*`.
 - `src/lib/` — srs, exercises (lesson generator), answer (speech scoring), pinyin (+ lazy `pinyinEngine`), streak, xp, quests, achievements.

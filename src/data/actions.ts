@@ -1,5 +1,6 @@
 /* Pure state transitions. The store applies these and persists whatever they mark dirty. */
 import type { Content } from '../content/build'
+import { grammarTopics, sectionTopics } from '../content/grammar'
 import { newlyUnlocked, type Achievement } from '../lib/achievements'
 import { dayKey, weekId } from '../lib/dates'
 import { newCard, Rating, retrievability, review, State, type Grade } from '../lib/srs'
@@ -286,6 +287,81 @@ export function completeStory(
     }
   }
   return { state: next, dirty: { root: true }, info: { xp, accuracy, streak, achievements, newWords: 0 } }
+}
+
+/** A grammar topic, played through: XP, streak and the daily count, like a story. */
+export function completeGrammar(
+  s: AppState,
+  topicId: string,
+  result: { correct: number; total: number; maxCombo: number },
+  content: Content,
+  now: Date,
+): Result<LessonSummary> {
+  const prev = s.lessons[topicId]
+  const mistakes = result.total - result.correct
+  const xp = lessonXp({ mode: prev?.timesCompleted ? 'practice' : 'learn', mistakes, maxCombo: result.maxCombo })
+  const accuracy = result.total ? result.correct / result.total : 1
+  const { state: afterXp, streak } = addXp(s, xp.total, now)
+  let next: AppState = {
+    ...afterXp,
+    lessons: {
+      ...afterXp.lessons,
+      [topicId]: {
+        completedAt: now.getTime(),
+        timesCompleted: (prev?.timesCompleted ?? 0) + 1,
+        bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, accuracy),
+      },
+    },
+  }
+  next = touchDay(next, dayKey(now), (d) => ({ ...d, lessons: d.lessons + 1 }))
+  const achievements = newlyUnlocked(next, { units: content.units, lastLesson: { mistakes } })
+  next = withAchievements(next, achievements, now)
+  return { state: next, dirty: { root: true }, info: { xp, accuracy, streak, achievements, newWords: 0 } }
+}
+
+/** A grammar section test. Passing marks every unfinished topic in the section as done (tested). */
+export function completeGrammarTest(
+  s: AppState,
+  section: number,
+  result: { correct: number; total: number },
+  content: Content,
+  now: Date,
+): Result<LessonSummary & { passed: boolean }> {
+  const topics = sectionTopics(section)
+  if (!topics.length) throw new Error(`Unknown grammar section ${section}`)
+  const accuracy = result.total ? result.correct / result.total : 0
+  const passed = accuracy >= EXPRESS_PASS
+  const amount = passed ? EXPRESS_XP.pass : EXPRESS_XP.fail
+  const { state: afterXp, streak } = addXp(s, amount, now)
+  let next = touchDay(afterXp, dayKey(now), (d) => ({ ...d, lessons: d.lessons + 1 }))
+  if (passed) {
+    const lessons = { ...next.lessons }
+    for (const t of topics) if (!lessons[t.id]) lessons[t.id] = { completedAt: now.getTime(), timesCompleted: 0, bestAccuracy: accuracy, tested: true }
+    next = { ...next, lessons }
+  }
+  const achievements = newlyUnlocked(next, { units: content.units })
+  next = withAchievements(next, achievements, now)
+  return {
+    state: next,
+    dirty: { root: true },
+    info: { xp: { total: amount, base: amount, perfect: 0, combo: 0 }, accuracy, streak, achievements, newWords: 0, passed },
+  }
+}
+
+/** Topics open in order: the first is always open, the rest once the one before is done. */
+export function isGrammarUnlocked(s: AppState, topicId: string): boolean {
+  const i = grammarTopics.findIndex((t) => t.id === topicId)
+  if (i < 0) return false
+  return i === 0 || !!s.lessons[topicId] || !!s.lessons[grammarTopics[i - 1].id]
+}
+
+/** The first topic not done yet (null when the track is finished). */
+export function nextGrammarTopic(s: AppState): string | null {
+  return grammarTopics.find((t) => !s.lessons[t.id])?.id ?? null
+}
+
+function withAchievements(s: AppState, got: Achievement[], now: Date): AppState {
+  return got.length ? { ...s, achievements: { ...s.achievements, ...Object.fromEntries(got.map((a) => [a.id, now.getTime()])) } } : s
 }
 
 /** A unit's story opens once you've done half of the unit. */

@@ -6,6 +6,9 @@ import { Shell, Toasts } from './components/Shell'
 import { HOST_THEME } from './env'
 import { useApp } from './store/app'
 import { FriendsScreen } from './screens/Friends'
+import { GrammarScreen } from './screens/Grammar'
+import { GrammarLessonScreen } from './screens/GrammarLesson'
+import { GrammarTopicScreen } from './screens/GrammarTopic'
 import { LearnScreen } from './screens/Learn'
 import { LessonScreen } from './screens/Lesson'
 import { Onboarding } from './screens/Onboarding'
@@ -76,6 +79,8 @@ export default function App() {
       <Routes>
         <Route path="/lesson/:lessonId" element={<LessonScreen />} />
         <Route path="/story/:storyId" element={<StoryScreen />} />
+        <Route path="/grammar/:topicId/play" element={<GrammarLessonScreen />} />
+        <Route path="/grammar/test/:section" element={<GrammarLessonScreen />} />
         <Route path="/shadow/:storyId" element={<ShadowScreen />} />
         <Route
           path="/talk/:unitId"
@@ -87,6 +92,8 @@ export default function App() {
         />
         <Route element={<Shell />}>
           <Route path="/" element={<LearnScreen />} />
+          <Route path="/grammar" element={<GrammarScreen />} />
+          <Route path="/grammar/:topicId" element={<GrammarTopicScreen />} />
           <Route path="/review" element={<ReviewScreen />} />
           <Route path="/words" element={<WordsScreen />} />
           <Route

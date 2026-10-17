@@ -85,6 +85,7 @@ describe('content', () => {
     ])
     installPinyinEngine(pool)
     const { stories } = await import('../src/content')
-    expect(pinyinTable(content, stories)).toEqual(gen.default)
+    const { grammarTopics } = await import('../src/content/grammar')
+    expect(pinyinTable(content, stories, grammarTopics)).toEqual(gen.default)
   })
 })

@@ -9,6 +9,9 @@ import { scenarioFor } from '../content/roleplay'
 import { Otter, type OtterMood } from '../components/Otter'
 import { OtterArt } from '../components/OtterArt'
 import { DailyQuests } from '../components/Quests'
+import { TrackSwitch } from '../components/TrackSwitch'
+import { topicCode, topicsForLine } from '../content/grammar'
+import { GRAMMAR_COLOR } from '../components/GrammarRule'
 import { Button, KopiCup, StatChip, Wordmark } from '../components/ui'
 import { dayKey } from '../lib/dates'
 import { currentStreak } from '../lib/streak'
@@ -63,9 +66,7 @@ export function LearnScreen() {
 
       {started && <DailyQuests />}
 
-      <h2 className="mb-1 mt-8 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-slate-400">
-        <Icon name="map" className="h-5 w-5" /> Line map
-      </h2>
+      <TrackSwitch className="mt-8" />
       {content.units.map((u) => (
         <Line key={u.id} unit={u} next={next} open={open} setOpen={setOpen} nextRef={nextRef} />
       ))}
@@ -181,6 +182,23 @@ function Line({
         </span>
       </header>
       <p className="mb-1 mt-2 text-sm text-slate-500">{unit.description}</p>
+      {topicsForLine(unit.id).length > 0 && (
+        <p className="mt-1 flex flex-wrap gap-1.5">
+          {topicsForLine(unit.id).map((t) => (
+            <Link
+              key={t.id}
+              to={`/grammar/${t.id}`}
+              className="inline-flex items-center gap-1 rounded-full bg-surface px-2.5 py-0.5 text-xs font-bold text-slate-600 ring-1 ring-slate-200"
+              data-testid={`line-grammar-${t.id}`}
+            >
+              <span className="rounded px-1 text-[10px] font-extrabold text-white" style={{ backgroundColor: GRAMMAR_COLOR }}>
+                {topicCode(t)}
+              </span>
+              Grammar: {t.title}
+            </Link>
+          ))}
+        </p>
+      )}
       <LineScene unitId={unit.id} reached={isLineReached(s, unit.id, content)} className="mb-2 mt-3" />
       {done < unit.lessons.length && (
         <Link

@@ -55,6 +55,8 @@ interface AppStore {
   completeStory(storyId: string, result: { correct: number; total: number }): LessonSummary
   completeMyWords(input: Omit<LessonInput, 'lessonId' | 'mode'> & { itemIds: string[] }): LessonSummary
   completeExpress(unitId: string, result: { correct: number; total: number }): LessonSummary & { passed: boolean }
+  completeGrammar(topicId: string, result: { correct: number; total: number; maxCombo: number }): LessonSummary
+  completeGrammarTest(section: number, result: { correct: number; total: number }): LessonSummary & { passed: boolean }
   /** Save a word to My words; returns its id (existing id if already saved). */
   addCustomItem(word: { hanzi: string; pinyin: string; english: string; note?: string }): string
   removeCustomItem(id: string): void
@@ -293,6 +295,18 @@ export const useApp = create<AppStore>((set, get) => {
     removeCustomItem(id) {
       const r = actions.removeCustomItem(get().s, id)
       commit(r.state, r.dirty)
+    },
+
+    completeGrammar(topicId, result) {
+      const r = actions.completeGrammar(get().s, topicId, result, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
+    },
+
+    completeGrammarTest(section, result) {
+      const r = actions.completeGrammarTest(get().s, section, result, content, new Date())
+      commit(r.state, r.dirty)
+      return r.info
     },
 
     completeStory(storyId, result) {
