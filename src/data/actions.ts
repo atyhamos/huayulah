@@ -369,6 +369,14 @@ export function isLessonUnlocked(s: AppState, lessonId: string, content: Content
   return !!s.lessons[unit.lessons[l.index - 1].id]
 }
 
+/** A line is "boarded" once any of its stops is done, or when the next stop in path order is on it. */
+export function isLineReached(s: AppState, unitId: string, content: Content): boolean {
+  const unit = content.units.find((u) => u.id === unitId)
+  if (!unit) return false
+  const next = nextLessonId(s, content)
+  return unit.lessons.some((l) => !!s.lessons[l.id] || l.id === next)
+}
+
 /** The next lesson to do: first unfinished lesson in path order. */
 export function nextLessonId(s: AppState, content: Content): string | null {
   return content.lessonOrder.find((l) => !s.lessons[l.id])?.id ?? null

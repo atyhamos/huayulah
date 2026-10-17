@@ -25,7 +25,7 @@ export function ProfileScreen() {
     <div className="space-y-5">
       {/* EZ-Link style member card */}
       <div className="relative overflow-hidden rounded-3xl bg-brand-600 p-5 text-white shadow-[0_16px_30px_-18px_var(--color-brand-800)]">
-        <div className="peranakan absolute inset-x-0 bottom-0 h-2.5 opacity-70" />
+        <div className="peranakan-band absolute inset-x-0 bottom-0 opacity-80" />
         <Link
           to="/settings"
           aria-label="Settings"

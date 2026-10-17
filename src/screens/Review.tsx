@@ -53,7 +53,7 @@ export function ReviewScreen() {
         <div className="absolute inset-x-6 -bottom-3 h-full rotate-2 rounded-3xl bg-sky-100" />
         <div className="absolute inset-x-3 -bottom-1.5 h-full -rotate-1 rounded-3xl bg-sky-200/70" />
         <div className="relative overflow-hidden rounded-3xl bg-sky-500 p-5 text-white shadow-[0_16px_30px_-18px_var(--color-sky-700)]">
-          <div className="peranakan absolute inset-x-0 top-0 h-2 opacity-60" />
+          <div className="peranakan-band absolute inset-x-0 top-0 opacity-80" />
           <div className="flex items-end justify-between gap-3">
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-white/70">Flashcards due</p>

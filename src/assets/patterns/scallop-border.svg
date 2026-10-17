@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="64" viewBox="0 0 128 64" fill="none">
+  <title>Scallop Border</title>
+  <desc>Original Peranakan-inspired vector pattern for Huayu Lah. Repeat horizontally. Editable paths; no embedded images or external dependencies.</desc>
+  
+  
+  <path d="M0 4H128 M0 60H128" fill="none" stroke="#B9CBB6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 20Q32 60 64 20Q96 60 128 20" fill="none" stroke="#B9CBB6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(32 49) rotate(-38)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><g transform="translate(32 49) rotate(0)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><g transform="translate(32 49) rotate(38)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><circle cx="32" cy="49" r="5" fill="#E6B841"/><g transform="translate(96 49) rotate(-38)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><g transform="translate(96 49) rotate(0)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><g transform="translate(96 49) rotate(38)"><path d="M0 -7C-8 -13 -10 -23 -8 -28C-6 -36 6 -36 8 -28C10 -23 8 -13 0 -7Z" fill="#458362"/></g><circle cx="96" cy="49" r="5" fill="#E6B841"/>
+</svg>

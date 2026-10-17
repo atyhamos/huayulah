@@ -115,7 +115,19 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* Night-market dark theme: remap neutrals and light tints so existing utilities just work. */
+/* Peranakan tiles (designer SVGs, built by art/patterns/build.py); small enough for Vite to inline */
+:root {
+  --pattern-page: url('./assets/patterns/quiet-sage.svg');
+  --pattern-floral: url('./assets/patterns/floral-border.svg');
+  --pattern-scallop: url('./assets/patterns/scallop-border.svg');
+  --pattern-geometry: url('./assets/patterns/soft-geometry.svg');
+}
+
 :root[data-theme='dark'] {
+  --pattern-page: url('./assets/patterns/quiet-sage-dark.svg');
+  --pattern-floral: url('./assets/patterns/floral-border-dark.svg');
+  --pattern-scallop: url('./assets/patterns/scallop-border-dark.svg');
+  --pattern-geometry: url('./assets/patterns/soft-geometry-dark.svg');
   color-scheme: dark;
   --color-page: #10171a;
   --color-surface: #182227;
@@ -151,6 +163,8 @@ html, body, #root {
 
 body {
   @apply bg-page text-ink antialiased;
+  background-image: var(--pattern-page);
+  background-size: 160px 160px;
   font-family: var(--font-sans);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
@@ -224,18 +238,130 @@ rt {
   transform: translateY(3px);
 }
 
-/* ---------- Peranakan tile pattern, used as a decorative band ---------- */
-.peranakan {
-  background-color: var(--color-sky-50);
-  background-image:
-    radial-gradient(circle at 50% 50%, var(--color-nyonya-300) 0 14%, transparent 15%),
-    radial-gradient(circle at 0 0, var(--color-sky-300) 0 22%, transparent 23%),
-    radial-gradient(circle at 100% 0, var(--color-sky-300) 0 22%, transparent 23%),
-    radial-gradient(circle at 0 100%, var(--color-sky-300) 0 22%, transparent 23%),
-    radial-gradient(circle at 100% 100%, var(--color-sky-300) 0 22%, transparent 23%),
-    linear-gradient(45deg, transparent 46%, var(--color-amber-300) 47% 53%, transparent 54%),
-    linear-gradient(-45deg, transparent 46%, var(--color-amber-300) 47% 53%, transparent 54%);
-  background-size: 22px 22px;
+/* ---------- Peranakan tile trims (designer's border strips) ---------- */
+.peranakan-floral {
+  height: 30px;
+  background: var(--pattern-floral) repeat-x 0 0 / 80px 30px;
+}
+.peranakan-scallop {
+  height: 18px;
+  background: var(--pattern-scallop) repeat-x 0 0 / 36px 18px;
+}
+/* on coloured cards: the strip keeps its ivory tile ground in both themes */
+.peranakan-band {
+  height: 18px;
+  background: #f6f6ef url('./assets/patterns/scallop-border-solid.svg') repeat-x 0 0 / 36px 18px;
+}
+
+/* ---------- Line scenes (LineScene.tsx) ---------- */
+.scene-platform::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 26px;
+  background: var(--pattern-geometry) repeat-x 0 0 / 52px 52px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.scene-grey {
+  filter: grayscale(1);
+  opacity: 0.42;
+}
+.scene-sweep {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: scene-sweep 1.3s cubic-bezier(0.5, 0.1, 0.2, 1) forwards;
+}
+@keyframes scene-sweep {
+  to { clip-path: inset(0 0 0 0); }
+}
+.scene-hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgb(230 184 65 / 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+.scene-fresh .scene-hint {
+  animation: scene-hint 2.4s ease-in-out infinite;
+}
+@keyframes scene-hint {
+  0%, 100% { transform: scale(0.6); opacity: 0; }
+  40% { transform: scale(1); opacity: 0.95; }
+  70% { opacity: 0.2; }
+}
+.scene-steam,
+.scene-shimmer,
+.scene-glow {
+  position: absolute;
+  pointer-events: none;
+}
+.scene-steam i {
+  position: absolute;
+  left: -5px;
+  bottom: 0;
+  width: 10px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.75);
+  filter: blur(3px);
+  opacity: 0;
+  animation: scene-steam 2.8s ease-out infinite;
+}
+.scene-steam i:nth-child(2) { left: 2px; animation-delay: 0.9s; }
+.scene-steam i:nth-child(3) { left: -9px; animation-delay: 1.8s; }
+@keyframes scene-steam {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  25% { opacity: 0.8; }
+  100% { transform: translateY(-38px) scale(1.4, 1.1); opacity: 0; }
+}
+.scene-glow {
+  width: 70px;
+  height: 70px;
+  margin: -35px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 214 120 / 0.55), transparent 65%);
+  animation: scene-glow 3s ease-in-out infinite;
+}
+@keyframes scene-glow {
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+.scene-shimmer i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  opacity: 0;
+  animation: scene-twinkle 2.2s ease-in-out infinite;
+}
+.scene-shimmer i:nth-child(2) { left: 22px; top: 10px; animation-delay: 0.7s; }
+.scene-shimmer i:nth-child(3) { left: -18px; top: 16px; animation-delay: 1.4s; }
+@keyframes scene-twinkle {
+  50% { opacity: 0.95; transform: scale(1.2); }
+}
+/* wide screens: the current line's scene fills the right-hand gutter beside the 576 px column */
+.margin-scene {
+  position: fixed;
+  top: 50%;
+  right: max(24px, calc((100vw - 576px) / 4 - 230px));
+  width: min(460px, calc((100vw - 576px) / 2 - 56px));
+  transform: translateY(-50%);
+  z-index: 5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-sweep { animation: none; clip-path: none; }
+  .scene-fresh .scene-hint,
+  .scene-steam i,
+  .scene-shimmer i,
+  .scene-glow { animation: none; }
 }
 
 /* ---------- Ah Tat the otter ---------- */

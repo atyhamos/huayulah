@@ -27,7 +27,7 @@ export function Onboarding() {
         <div className="flex flex-1 animate-pop flex-col items-center justify-center text-center">
           <Otter mood="wave" size={150} interactive bubbleSide="top" say={{ zh: '我是阿獭！', en: "Hi, I'm Ah Tat!" }} />
           <Wordmark className="mt-2 text-5xl" />
-          <div className="peranakan my-5 h-2 w-40 rounded-full" />
+          <div className="peranakan-scallop my-5 w-44" />
           <p className="mb-2 font-display text-xl font-extrabold">Learn the Mandarin Singaporeans actually speak.</p>
           <p className="mb-10 text-slate-500">
             Can talk a bit but can't read? Same. Bite-sized lessons, local words like 德士 and 巴刹, and flashcards that remember what you forget.

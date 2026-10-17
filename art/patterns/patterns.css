@@ -1,0 +1,19 @@
+/* Copy these SVGs beside this stylesheet; URLs are relative to this file. */
+.peranakan-page {
+  background: #F6F6EF url('./02-quiet-sage.svg') repeat 0 0 / 160px 160px;
+}
+.peranakan-bloom {
+  background: #F6F6EF url('./01-bloom.svg') repeat 0 0 / 128px 128px;
+}
+.peranakan-geometry {
+  background: #F6F6EF url('./04-soft-geometry.svg') repeat 0 0 / 128px 128px;
+}
+.peranakan-floral-border {
+  height: 36px;
+  background: #F6F6EF url('./03a-floral-border.svg') repeat-x 0 0 / 96px 36px;
+}
+.peranakan-scallop-border {
+  height: 24px;
+  background: #F6F6EF url('./03b-scallop-border.svg') repeat-x 0 0 / 48px 24px;
+}
+/* Use overflow:hidden on a rounded card to clip its decorative bottom strip. */

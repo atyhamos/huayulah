@@ -44,7 +44,7 @@ export function Intro({ ex, locked, onSubmit }: ExProps<'intro'>) {
         )}
         {it.example && example && (
           <div className="w-full max-w-md overflow-hidden rounded-3xl bg-surface text-left ring-1 ring-slate-200">
-            <div className="peranakan h-2" />
+            <div className="peranakan-scallop" />
             <div className="p-4">
               <div className="flex items-start justify-between gap-2">
                 <Hanzi text={example} showPinyin className="text-2xl leading-loose" />

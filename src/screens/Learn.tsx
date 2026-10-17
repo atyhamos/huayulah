@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { content, getItem, storyByUnit } from '../content'
 import type { Lesson, Unit } from '../content/schema'
-import { dueCardIds, isLessonUnlocked, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
+import { dueCardIds, isLessonUnlocked, isLineReached, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
 import { Icon, unitMeta } from '../components/icons'
+import { LineScene, MarginScene } from '../components/LineScene'
 import { scenarioFor } from '../content/roleplay'
 import { Otter, type OtterMood } from '../components/Otter'
 import { OtterArt } from '../components/OtterArt'
@@ -39,6 +40,7 @@ export function LearnScreen() {
 
   return (
     <div onClick={() => setOpen(null)}>
+      <MarginScene />
       <TodayCard nextLessonId={next} />
 
       {dueCount > 0 && (
@@ -138,7 +140,7 @@ function TodayCard({ nextLessonId }: { nextLessonId: string | null }) {
           <span className="text-[11px] font-semibold text-slate-500">XP · level {lvl.level}</span>
         </div>
       </div>
-      <div className="peranakan h-3" />
+      <div className="peranakan-floral" />
     </section>
   )
 }
@@ -160,7 +162,7 @@ function Line({
   const meta = unitMeta(unit.id)
   const done = unit.lessons.filter((l) => s.lessons[l.id]).length
   return (
-    <section className="mt-6" data-testid={`unit-${unit.id}`}>
+    <section className="mt-8" data-testid={`unit-${unit.id}`} data-line={unit.id}>
       <header className="flex items-center gap-3">
         <span
           className="grid h-11 min-w-11 place-items-center rounded-2xl px-2 font-display text-lg font-extrabold text-white"
@@ -178,6 +180,7 @@ function Line({
         </span>
       </header>
       <p className="mb-1 mt-2 text-sm text-slate-500">{unit.description}</p>
+      <LineScene unitId={unit.id} reached={isLineReached(s, unit.id, content)} className="mb-2 mt-3" />
       {done < unit.lessons.length && (
         <Link
           to={`/lesson/express-${unit.id}`}

@@ -115,7 +115,7 @@ export function StoryScreen() {
     return (
       <div className="mx-auto flex min-h-full max-w-md flex-col items-center justify-center px-6 text-center">
         <div className="relative mb-6 w-full overflow-hidden rounded-3xl p-6 text-white" style={{ background: unit.color }}>
-          <div className="peranakan absolute inset-x-0 bottom-0 h-2 opacity-70" />
+          <div className="peranakan-band absolute inset-x-0 bottom-0 opacity-80" />
           <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-widest">
             <Icon name={unitMeta(unit.id).icon} className="h-4 w-4" /> {unitMeta(unit.id).code} interchange · story
           </span>
