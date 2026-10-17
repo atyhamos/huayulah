@@ -66,6 +66,10 @@ export class OtterPlayer {
   private raf = 0
   private active = true
   private drawn = false
+  /** Whether each slot's texture holds a frame of its current clip (kept while the video seeks or stalls). */
+  private hasFrame = [false, false]
+  /** The new clip is loaded; the cross-fade starts once its first frame is on the GPU. */
+  private pendingFade = false
   private token = 0
   current = ''
   onReady: (() => void) | null = null
@@ -127,6 +131,7 @@ export class OtterPlayer {
         const v = this.videos[next]
         v.loop = loop
         v.onended = loop ? null : () => token === this.token && onEnd?.()
+        this.hasFrame[next] = false
         v.src = url
         v.addEventListener(
           'loadeddata',
@@ -136,7 +141,8 @@ export class OtterPlayer {
             if (next !== this.front) {
               this.fadeFrom = this.front
               this.front = next
-              this.fadeStart = performance.now()
+              this.fadeStart = 0
+              this.pendingFade = true
             }
           },
           { once: true },
@@ -159,14 +165,21 @@ export class OtterPlayer {
     }
   }
 
+  /**
+   * Copy the video's current frame to its texture. While it has no frame to give (seeking back to the
+   * start of a loop, or stalled), keep the last one: on phones that gap is a frame or two, and drawing
+   * nothing then made every loop flicker.
+   */
   private upload(i: number) {
     const v = this.videos[i]
-    if (v.readyState < 2) return false
-    const gl = this.gl
-    gl.activeTexture(gl.TEXTURE0 + i)
-    gl.bindTexture(gl.TEXTURE_2D, this.tex[i])
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, v)
-    return true
+    if (v.readyState >= 2 && !v.seeking) {
+      const gl = this.gl
+      gl.activeTexture(gl.TEXTURE0 + i)
+      gl.bindTexture(gl.TEXTURE_2D, this.tex[i])
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, v)
+      this.hasFrame[i] = true
+    }
+    return this.hasFrame[i]
   }
 
   private tick = () => {
@@ -175,9 +188,15 @@ export class OtterPlayer {
     const w = Math.round(this.canvas.clientWidth * Math.min(2, window.devicePixelRatio || 1))
     if (w && this.canvas.width !== w) this.canvas.width = this.canvas.height = w
     gl.viewport(0, 0, this.canvas.width, this.canvas.height)
-    const shown = this.upload(this.front)
-    const t = this.fadeStart ? Math.min(1, (performance.now() - this.fadeStart) / FADE_MS) : 1
+    const frontReady = this.upload(this.front)
+    if (this.pendingFade && frontReady) {
+      this.pendingFade = false
+      this.fadeStart = performance.now()
+    }
+    // until the new clip has a frame, keep showing the old one
+    const t = this.pendingFade ? 0 : this.fadeStart ? Math.min(1, (performance.now() - this.fadeStart) / FADE_MS) : 1
     if (t < 1) this.upload(this.fadeFrom)
+    const shown = frontReady || (t < 1 && this.hasFrame[this.fadeFrom])
     gl.activeTexture(gl.TEXTURE0)
     gl.bindTexture(gl.TEXTURE_2D, this.tex[t < 1 ? this.fadeFrom : this.front])
     gl.activeTexture(gl.TEXTURE1)
@@ -192,7 +211,7 @@ export class OtterPlayer {
         this.onReady?.()
       }
     }
-    if (t >= 1 && this.fadeStart) {
+    if (t >= 1 && this.fadeStart && !this.pendingFade) {
       this.fadeStart = 0
       this.videos[1 - this.front].pause()
     }
