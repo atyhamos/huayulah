@@ -36,6 +36,6 @@ for (const f of readdirSync(join(out, 'assets'))) {
 }
 
 const assets = readdirSync(join(out, 'assets')).map((a) => `assets/${a}`)
-const otter = readdirSync(join(out, 'otter')).map((a) => `otter/${a}`)
-console.log(`artifact: page.html + strokes.json + ${assets.length} assets + ${otter.length} otter files`)
-console.log(JSON.stringify(Object.fromEntries([...assets, ...otter].map((a) => [a, `dist-artifact/${a}`])), null, 1))
+const art = ['otter', 'scenes'].flatMap((dir) => readdirSync(join(out, dir)).map((a) => `${dir}/${a}`))
+console.log(`artifact: page.html + strokes.json + ${assets.length} assets + ${art.length} otter and scene files`)
+console.log(JSON.stringify(Object.fromEntries([...assets, ...art].map((a) => [a, `dist-artifact/${a}`])), null, 1))
