@@ -192,12 +192,8 @@ export function LineScene({ unitId, reached, className = '' }: { unitId: string;
   )
 }
 
-/**
- * On wide screens, the scene of the line nearest the middle of the screen sits large in the right-hand
- * margin beside the line map, and swaps as you scroll.
- */
-export function MarginScene() {
-  const s = useApp((st) => st.s)
+/** On wide screens, the line nearest the middle of the screen (for the margin scene and the line picker). */
+function useCurrentLine() {
   const [unitId, setUnitId] = useState<string | null>(null)
   useEffect(() => {
     const wide = matchMedia('(min-width: 1100px)')
@@ -229,6 +225,13 @@ export function MarginScene() {
       wide.removeEventListener('change', pick)
     }
   }, [])
+  return unitId
+}
+
+/** On wide screens, the current line's scene sits large in the right-hand margin and swaps as you scroll. */
+export function MarginScene() {
+  const s = useApp((st) => st.s)
+  const unitId = useCurrentLine()
   const unit = unitId ? content.units.find((u) => u.id === unitId) : null
   return (
     <aside className="margin-scene hidden min-[1100px]:block" data-testid="margin-scene">
@@ -242,5 +245,47 @@ export function MarginScene() {
         </div>
       )}
     </aside>
+  )
+}
+
+/** On wide screens, every line in the left-hand margin: click one to jump to it on the map. */
+export function LineNav() {
+  const s = useApp((st) => st.s)
+  const current = useCurrentLine()
+  const go = (unitId: string) =>
+    document.querySelector(`[data-line="${unitId}"]`)?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' })
+  return (
+    <nav className="line-nav hidden min-[1100px]:block" aria-label="Lines" data-testid="line-nav">
+      <p className="mb-2 px-2 text-xs font-bold uppercase tracking-widest text-slate-500">Lines</p>
+      <ul className="flex flex-col gap-0.5">
+        {content.units.map((u) => {
+          const done = u.lessons.filter((l) => s.lessons[l.id]).length
+          const here = u.id === current
+          const boarded = isLineReached(s, u.id, content)
+          return (
+            <li key={u.id}>
+              <button
+                type="button"
+                onClick={() => go(u.id)}
+                aria-current={here ? 'location' : undefined}
+                data-testid={`line-nav-${u.id}`}
+                className={`flex w-full items-center gap-2.5 rounded-2xl px-2 py-1.5 text-left transition hover:bg-slate-100 ${here ? 'bg-slate-100 ring-1 ring-slate-200' : ''} ${boarded ? '' : 'opacity-60'}`}
+              >
+                <span
+                  className="grid h-7 min-w-9 shrink-0 place-items-center rounded-lg px-1 font-display text-xs font-extrabold text-white"
+                  style={{ backgroundColor: u.color }}
+                >
+                  {unitMeta(u.id).code}
+                </span>
+                <span className={`min-w-0 flex-1 truncate text-sm ${here ? 'font-bold' : 'font-semibold'}`}>{u.title}</span>
+                <span className="shrink-0 text-xs tabular-nums text-slate-400">
+                  {done}/{u.lessons.length}
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
   )
 }

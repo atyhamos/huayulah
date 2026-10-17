@@ -356,6 +356,21 @@ rt {
   transform: translateY(-50%);
   z-index: 5;
 }
+/* wide screens: every line in the left-hand gutter, to jump to */
+.line-nav {
+  position: fixed;
+  top: 50%;
+  left: max(24px, calc((100vw - 576px) / 4 - 130px));
+  width: min(260px, calc((100vw - 576px) / 2 - 56px));
+  max-height: 84vh;
+  overflow-y: auto;
+  transform: translateY(-50%);
+  z-index: 5;
+  padding: 12px 8px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  box-shadow: 0 0 0 1px var(--color-slate-200);
+}
 @media (prefers-reduced-motion: reduce) {
   .scene-sweep { animation: none; clip-path: none; }
   .scene-fresh .scene-hint,

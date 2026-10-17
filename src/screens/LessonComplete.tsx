@@ -93,9 +93,11 @@ export function LessonComplete({
         </div>
       ))}
       <div className="safe-bottom fixed inset-x-0 bottom-0 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6">
-        <Button className="mx-auto flex w-full max-w-md" onClick={onDone} data-testid="done">
-          Continue
-        </Button>
+        <div className="mx-auto max-w-md">
+          <Button className="w-full" onClick={onDone} data-testid="done">
+            Continue
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -188,9 +188,11 @@ export function ShadowScreen() {
       </div>
 
       <div className="safe-bottom fixed inset-x-0 bottom-0 bg-gradient-to-t from-page via-page to-transparent px-4 pt-6">
-        <Button className="mx-auto flex w-full max-w-xl" onClick={next} disabled={!selfCheck && !attempt} data-testid="shadow-next">
-          {idx + 1 < story.lines.length ? 'Next line' : 'Finish'}
-        </Button>
+        <div className="mx-auto max-w-xl">
+          <Button className="w-full" onClick={next} disabled={!selfCheck && !attempt} data-testid="shadow-next">
+            {idx + 1 < story.lines.length ? 'Next line' : 'Finish'}
+          </Button>
+        </div>
       </div>
     </div>
   )

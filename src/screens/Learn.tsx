@@ -4,7 +4,7 @@ import { content, getItem, storyByUnit } from '../content'
 import type { Lesson, Unit } from '../content/schema'
 import { dueCardIds, isLessonUnlocked, isLineReached, isStoryUnlocked, nextLessonId, STORY_UNLOCK_LESSONS } from '../data/actions'
 import { Icon, unitMeta } from '../components/icons'
-import { LineScene, MarginScene } from '../components/LineScene'
+import { LineNav, LineScene, MarginScene } from '../components/LineScene'
 import { scenarioFor } from '../content/roleplay'
 import { Otter, type OtterMood } from '../components/Otter'
 import { OtterArt } from '../components/OtterArt'
@@ -41,6 +41,7 @@ export function LearnScreen() {
   return (
     <div onClick={() => setOpen(null)}>
       <MarginScene />
+      <LineNav />
       <TodayCard nextLessonId={next} />
 
       {dueCount > 0 && (

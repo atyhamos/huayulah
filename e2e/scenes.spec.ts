@@ -58,3 +58,17 @@ test('wide screens show the current line in the margin; phones do not', async ({
   await page.setViewportSize({ width: 390, height: 844 })
   await expect(margin).toBeHidden()
 })
+
+test('wide screens list every line on the left; clicking one jumps to it', async ({ page }) => {
+  await onboard(page)
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.goto('/')
+  const nav = page.getByTestId('line-nav')
+  await expect(nav).toBeVisible()
+  await nav.getByTestId('line-nav-u14').click()
+  await expect(page.getByTestId('unit-u14')).toBeInViewport()
+  await expect(page.getByTestId('margin-scene').getByTestId('scene-u14')).toBeVisible()
+  await expect(nav.getByTestId('line-nav-u14')).toHaveAttribute('aria-current', 'location')
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(nav).toBeHidden()
+})
